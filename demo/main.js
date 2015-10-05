@@ -13,6 +13,7 @@ injectTapEventPlugin();
 // import the material-components
 import { Appbar, Button } from '../lib';
 
+// component to render code examples
 function Example({ code }) {
   return (
     <pre className="prettyprint lang-js linenums" style={{
@@ -27,7 +28,21 @@ function Example({ code }) {
   )
 }
 
-// define the app
+// icon components
+function FaIcon({ name }) {
+  return (
+    <i className={`fa fa-${name}`}/>
+  );
+}
+function Icon({name}) {
+  return (
+    <i className="material-icons md-36" style={{
+      lineHeight: 'inherit'
+    }}>{name}</i>
+  );
+}
+
+// the demo app
 class Application extends Component {
 
   static displayName = 'Application';
@@ -47,10 +62,6 @@ class Application extends Component {
     };
   }
 
-  componentDidMount() {
-    window.prettyPrint();
-  }
-
   render() {
     const paperStyle = {
       display: 'inline-block',
@@ -62,15 +73,27 @@ class Application extends Component {
     return (
       <div>
         <Appbar>
-          <Appbar.Heading>Material Components</Appbar.Heading>
+          <Appbar.Button style={{ float: 'left' }}><Icon name="menu"/></Appbar.Button>
+          <Appbar.Title>Material Components</Appbar.Title>
+          <div style={{ float: 'right' }}>
+            <Appbar.Button
+              onTouchTap={() => location.href='https://github.com/garth/material-components'}>
+              <FaIcon name="github"/>
+            </Appbar.Button>
+            <Appbar.Button><Icon name="more_vert"/></Appbar.Button>
+          </div>
         </Appbar>
         <div style={{ padding: '24px' }}>
           <p>
-            For source and documentation please see the <a href="https://github.com/garth/material-components">GitHub Repository</a>.
+            For source code, installation and configuration info please see
+            the <a href="https://github.com/garth/material-components">GitHub Repository</a>.
           </p>
 
           <h3>Paper Classes</h3>
-          <p>Add a paper class to an element to lift from the page. The optional <code>padded</code> class gives the paper a default padding.</p>
+          <p>
+            Add a paper class to an element to lift from the page. The optional <code>padded</code> class
+            gives the paper a default padding.
+          </p>
           <Example code={`
 <div className="paper1 padded">Paper 1</div>
 <div className="paper2 padded">Paper 2</div>
@@ -88,13 +111,25 @@ class Application extends Component {
           <Example code={`
 import { Appbar, Button } from 'material-components';
           `}/>
-          <h3>Appbar and Appbar.Title</h3>
+          <h3>Appbar, Appbar.Title and Appbar.Button</h3>
           <Example code={`
 <Appbar>
+  <Appbar.Button style={{ float: 'left' }}><Icon name="bars"/></Appbar.Button>
   <Appbar.Title>Material Components</Appbar.Title>
+  <div style={{ float: 'right' }}>
+    <Appbar.Button
+      onTouchTap={() => location.href='https://github.com/garth/material-components'}>
+      <Icon name="github"/>
+    </Appbar.Button>
+    <Appbar.Button><Icon name="ellipsis-v"/></Appbar.Button>
+  </div>
 </Appbar>
           `}/>
           <p>See the appbar above.</p>
+          <p>
+            When using a darker primary color, try
+            using <code>{'<Appbar.Button lightWaves={true}>X</Appbar.Button>'}</code>
+          </p>
 
           <h3>Buttons</h3>
           <Example code={`

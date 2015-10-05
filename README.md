@@ -3,10 +3,10 @@ Material Components
 
 Stateless UI components for react that follow material design.
 
-Demo
+Demo & Code Examples
 ----
 
-Take a look at the [demo page](http://garth.github.io/material-components/demo).
+Take a look at the [demo page](http://garth.github.io/material-components/demo) for code examples.
 
 Installation
 ------------
@@ -67,3 +67,8 @@ class Application extends Component {
 
 export default Application;
 ```
+
+License
+-------
+
+MIT

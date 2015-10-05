@@ -78,11 +78,10 @@
 	
 	var _lib = __webpack_require__(350);
 	
-	__webpack_require__(357);
-	__webpack_require__(361);
-	(0, _reactTapEventPlugin2['default'])();
-	
-	function Example(_ref) {
+	// component to render code examples
+	__webpack_require__(358);
+	__webpack_require__(362);
+	(0, _reactTapEventPlugin2['default'])();function Example(_ref) {
 	  var code = _ref.code;
 	
 	  return _react2['default'].createElement(
@@ -98,7 +97,25 @@
 	  );
 	}
 	
-	// define the app
+	// icon components
+	function FaIcon(_ref2) {
+	  var name = _ref2.name;
+	
+	  return _react2['default'].createElement('i', { className: 'fa fa-' + name });
+	}
+	function Icon(_ref3) {
+	  var name = _ref3.name;
+	
+	  return _react2['default'].createElement(
+	    'i',
+	    { className: 'material-icons md-36', style: {
+	        lineHeight: 'inherit'
+	      } },
+	    name
+	  );
+	}
+	
+	// the demo app
 	
 	var Application = (function (_Component) {
 	  _inherits(Application, _Component);
@@ -124,11 +141,6 @@
 	      };
 	    }
 	  }, {
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      window.prettyPrint();
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var paperStyle = {
@@ -145,9 +157,31 @@
 	          _lib.Appbar,
 	          null,
 	          _react2['default'].createElement(
-	            _lib.Appbar.Heading,
+	            _lib.Appbar.Button,
+	            { style: { float: 'left' } },
+	            _react2['default'].createElement(Icon, { name: 'menu' })
+	          ),
+	          _react2['default'].createElement(
+	            _lib.Appbar.Title,
 	            null,
 	            'Material Components'
+	          ),
+	          _react2['default'].createElement(
+	            'div',
+	            { style: { float: 'right' } },
+	            _react2['default'].createElement(
+	              _lib.Appbar.Button,
+	              {
+	                onTouchTap: function () {
+	                  return location.href = 'https://github.com/garth/material-components';
+	                } },
+	              _react2['default'].createElement(FaIcon, { name: 'github' })
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Appbar.Button,
+	              null,
+	              _react2['default'].createElement(Icon, { name: 'more_vert' })
+	            )
 	          )
 	        ),
 	        _react2['default'].createElement(
@@ -156,7 +190,7 @@
 	          _react2['default'].createElement(
 	            'p',
 	            null,
-	            'For source and documentation please see the ',
+	            'For source code, installation and configuration info please see the ',
 	            _react2['default'].createElement(
 	              'a',
 	              { href: 'https://github.com/garth/material-components' },
@@ -215,13 +249,23 @@
 	          _react2['default'].createElement(
 	            'h3',
 	            null,
-	            'Appbar and Appbar.Title'
+	            'Appbar, Appbar.Title and Appbar.Button'
 	          ),
-	          _react2['default'].createElement(Example, { code: '\n<Appbar>\n  <Appbar.Title>Material Components</Appbar.Title>\n</Appbar>\n          ' }),
+	          _react2['default'].createElement(Example, { code: '\n<Appbar>\n  <Appbar.Button style={{ float: \'left\' }}><Icon name="bars"/></Appbar.Button>\n  <Appbar.Title>Material Components</Appbar.Title>\n  <div style={{ float: \'right\' }}>\n    <Appbar.Button\n      onTouchTap={() => location.href=\'https://github.com/garth/material-components\'}>\n      <Icon name="github"/>\n    </Appbar.Button>\n    <Appbar.Button><Icon name="ellipsis-v"/></Appbar.Button>\n  </div>\n</Appbar>\n          ' }),
 	          _react2['default'].createElement(
 	            'p',
 	            null,
 	            'See the appbar above.'
+	          ),
+	          _react2['default'].createElement(
+	            'p',
+	            null,
+	            'When using a darker primary color, try using ',
+	            _react2['default'].createElement(
+	              'code',
+	              null,
+	              '<Appbar.Button lightWaves={true}>X</Appbar.Button>'
+	            )
 	          ),
 	          _react2['default'].createElement(
 	            'h3',
@@ -24936,7 +24980,7 @@
 	
 	module.exports = {
 	  Appbar: __webpack_require__(351),
-	  Button: __webpack_require__(353)
+	  Button: __webpack_require__(356)
 	};
 
 /***/ },
@@ -24999,9 +25043,13 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _heading = __webpack_require__(352);
+	var _button = __webpack_require__(352);
 	
-	var _heading2 = _interopRequireDefault(_heading);
+	var _button2 = _interopRequireDefault(_button);
+	
+	var _title = __webpack_require__(364);
+	
+	var _title2 = _interopRequireDefault(_title);
 	
 	var Appbar = (function (_Component) {
 	  _inherits(Appbar, _Component);
@@ -25053,52 +25101,14 @@
 	  return Appbar;
 	})(_react.Component);
 	
-	Appbar.Heading = _heading2['default'];
+	Appbar.Button = _button2['default'];
+	Appbar.Title = _title2['default'];
 	
 	exports['default'] = Appbar;
 	module.exports = exports['default'];
 
 /***/ },
 /* 352 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	exports['default'] = AppbarHeading;
-	
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { 'default': obj };
-	}
-	
-	var _react = __webpack_require__(190);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function AppbarHeading(_ref) {
-	  var _ref$style = _ref.style;
-	  var style = _ref$style === undefined ? {} : _ref$style;
-	  var _ref$children = _ref.children;
-	  var children = _ref$children === undefined ? null : _ref$children;
-	
-	  return _react2['default'].createElement('div', { style: Object.assign({
-	      fontSize: '31.5px',
-	      fontWeight: 'normal',
-	      height: '32px',
-	      lineHeight: '32px',
-	      whiteSpace: 'nowrap',
-	      paddingLeft: '8px',
-	      display: 'inline-block',
-	      float: 'left'
-	    }, style) }, children);
-	}
-	
-	module.exports = exports['default'];
-
-/***/ },
-/* 353 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25161,11 +25171,11 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _classnames = __webpack_require__(354);
+	var _classnames = __webpack_require__(357);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _helpersWaves = __webpack_require__(355);
+	var _helpersWaves = __webpack_require__(353);
 	
 	var _helpersWaves2 = _interopRequireDefault(_helpersWaves);
 	
@@ -25181,82 +25191,55 @@
 	  _createClass(Button, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      _helpersWaves2['default'].attach(_reactDom2['default'].findDOMNode(this));
+	      _helpersWaves2['default'].attach(_reactDom2['default'].findDOMNode(this.refs.button));
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _context$componentStyle = this.context.componentStyle;
-	      var secondaryColor = _context$componentStyle.secondaryColor;
-	      var secondaryFontColor = _context$componentStyle.secondaryFontColor;
 	      var _props = this.props;
 	      var children = _props.children;
-	      var flat = _props.flat;
-	      var _onTouchTap = _props.onTouchTap;
-	      var primary = _props.primary;
-	      var styleOverrides = _props.style;
-	      var type = _props.type;
+	      var lightWaves = _props.lightWaves;
+	      var onTouchTap = _props.onTouchTap;
+	      var style = _props.style;
 	
-	      var style = {
-	        zIndex: 'inherit',
-	        fontSize: '16px',
-	        lineHeight: '36px',
-	        padding: '0 24px',
-	        margin: '8px',
-	        textAlign: 'center',
-	        minWidth: '64px',
-	        textTransform: 'uppercase',
-	        cursor: 'pointer'
-	      };
-	
-	      if (primary) {
-	        if (flat) {
-	          style.color = secondaryColor;
-	        } else {
-	          style.color = secondaryFontColor;
-	          style.backgroundColor = secondaryColor;
-	        }
-	      }
-	
-	      return _react2['default'].createElement('button', {
-	        type: type,
-	        onTouchTap: function onTouchTap(e) {
-	          return _onTouchTap && _onTouchTap(e);
+	      return _react2['default'].createElement('div', { style: Object.assign({
+	          height: '48px',
+	          width: '48px',
+	          display: 'inline-block',
+	          margin: '-8px 0',
+	          backgroundColor: 'transparent'
+	        }, style) }, _react2['default'].createElement('a', {
+	        ref: 'button',
+	        onTouchTap: onTouchTap,
+	        style: {
+	          fontSize: '24px',
+	          height: '48px',
+	          width: '48px',
+	          lineHeight: '48px',
+	          display: 'inline-block',
+	          margin: '0',
+	          cursor: 'pointer'
 	        },
-	        style: Object.assign(style, styleOverrides),
-	        className: (0, _classnames2['default'])('waves-button', {
-	          'waves-float': !flat,
-	          'waves-light': primary && !flat
-	        }) }, children);
+	        className: (0, _classnames2['default'])('waves-circle', { 'waves-light': lightWaves }) }, children));
 	    }
 	  }], [{
 	    key: 'displayName',
-	    value: 'Button',
-	    enumerable: true
-	  }, {
-	    key: 'contextTypes',
-	    value: {
-	      componentStyle: _react2['default'].PropTypes.object
-	    },
+	    value: 'AppbarButton',
 	    enumerable: true
 	  }, {
 	    key: 'propTypes',
 	    value: {
 	      children: _react.PropTypes.node,
-	      flat: _react.PropTypes.bool,
+	      lightWaves: _react.PropTypes.bool,
 	      onTouchTap: _react.PropTypes.func,
-	      primary: _react.PropTypes.bool,
-	      style: _react.PropTypes.object,
-	      type: _react.PropTypes.string
+	      style: _react.PropTypes.object
 	    },
 	    enumerable: true
 	  }, {
 	    key: 'defaultProps',
 	    value: {
-	      flat: false,
-	      primary: false,
-	      style: {},
-	      type: 'button'
+	      lightWaves: false,
+	      style: {}
 	    },
 	    enumerable: true
 	  }]);
@@ -25268,61 +25251,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 354 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	  Copyright (c) 2015 Jed Watson.
-	  Licensed under the MIT License (MIT), see
-	  http://jedwatson.github.io/classnames
-	*/
-	/* global define */
-	
-	(function () {
-		'use strict';
-	
-		var hasOwn = {}.hasOwnProperty;
-	
-		function classNames () {
-			var classes = '';
-	
-			for (var i = 0; i < arguments.length; i++) {
-				var arg = arguments[i];
-				if (!arg) continue;
-	
-				var argType = typeof arg;
-	
-				if (argType === 'string' || argType === 'number') {
-					classes += ' ' + arg;
-				} else if (Array.isArray(arg)) {
-					classes += ' ' + classNames.apply(null, arg);
-				} else if (argType === 'object') {
-					for (var key in arg) {
-						if (hasOwn.call(arg, key) && arg[key]) {
-							classes += ' ' + key;
-						}
-					}
-				}
-			}
-	
-			return classes.substr(1);
-		}
-	
-		if (typeof module !== 'undefined' && module.exports) {
-			module.exports = classNames;
-		} else if (true) {
-			// register as 'classnames', consistent with npm package name
-			!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
-				return classNames;
-			}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-		} else {
-			window.classNames = classNames;
-		}
-	}());
-
-
-/***/ },
-/* 355 */
+/* 353 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25335,7 +25264,7 @@
 	  return obj && obj.__esModule ? obj : { 'default': obj };
 	}
 	
-	var _nodeWaves = __webpack_require__(356);
+	var _nodeWaves = __webpack_require__(354);
 	
 	var _nodeWaves2 = _interopRequireDefault(_nodeWaves);
 	
@@ -25354,7 +25283,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 356 */
+/* 354 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(global) {/*!
@@ -25922,16 +25851,239 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
+/* 355 */,
+/* 356 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	var _createClass = (function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ('value' in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	  };
+	})();
+	
+	var _get = function get(_x, _x2, _x3) {
+	  var _again = true;_function: while (_again) {
+	    var object = _x,
+	        property = _x2,
+	        receiver = _x3;desc = parent = getter = undefined;_again = false;if (object === null) object = Function.prototype;var desc = Object.getOwnPropertyDescriptor(object, property);if (desc === undefined) {
+	      var parent = Object.getPrototypeOf(object);if (parent === null) {
+	        return undefined;
+	      } else {
+	        _x = parent;_x2 = property;_x3 = receiver;_again = true;continue _function;
+	      }
+	    } else if ('value' in desc) {
+	      return desc.value;
+	    } else {
+	      var getter = desc.get;if (getter === undefined) {
+	        return undefined;
+	      }return getter.call(receiver);
+	    }
+	  }
+	};
+	
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { 'default': obj };
+	}
+	
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError('Cannot call a class as a function');
+	  }
+	}
+	
+	function _inherits(subClass, superClass) {
+	  if (typeof superClass !== 'function' && superClass !== null) {
+	    throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass);
+	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	}
+	
+	var _react = __webpack_require__(190);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(345);
+	
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+	
+	var _classnames = __webpack_require__(357);
+	
+	var _classnames2 = _interopRequireDefault(_classnames);
+	
+	var _helpersWaves = __webpack_require__(353);
+	
+	var _helpersWaves2 = _interopRequireDefault(_helpersWaves);
+	
+	var Button = (function (_Component) {
+	  _inherits(Button, _Component);
+	
+	  function Button() {
+	    _classCallCheck(this, Button);
+	
+	    _get(Object.getPrototypeOf(Button.prototype), 'constructor', this).apply(this, arguments);
+	  }
+	
+	  _createClass(Button, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      _helpersWaves2['default'].attach(_reactDom2['default'].findDOMNode(this));
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _context$componentStyle = this.context.componentStyle;
+	      var secondaryColor = _context$componentStyle.secondaryColor;
+	      var secondaryFontColor = _context$componentStyle.secondaryFontColor;
+	      var _props = this.props;
+	      var children = _props.children;
+	      var flat = _props.flat;
+	      var onTouchTap = _props.onTouchTap;
+	      var primary = _props.primary;
+	      var styleOverrides = _props.style;
+	      var type = _props.type;
+	
+	      var style = {
+	        zIndex: 'inherit',
+	        fontSize: '16px',
+	        lineHeight: '36px',
+	        padding: '0 24px',
+	        margin: '8px',
+	        textAlign: 'center',
+	        minWidth: '64px',
+	        textTransform: 'uppercase',
+	        cursor: 'pointer'
+	      };
+	
+	      if (primary) {
+	        if (flat) {
+	          style.color = secondaryColor;
+	        } else {
+	          style.color = secondaryFontColor;
+	          style.backgroundColor = secondaryColor;
+	        }
+	      }
+	
+	      return _react2['default'].createElement('button', {
+	        type: type,
+	        onTouchTap: onTouchTap,
+	        style: Object.assign(style, styleOverrides),
+	        className: (0, _classnames2['default'])('waves-button', {
+	          'waves-float': !flat,
+	          'waves-light': primary && !flat
+	        }) }, children);
+	    }
+	  }], [{
+	    key: 'displayName',
+	    value: 'Button',
+	    enumerable: true
+	  }, {
+	    key: 'contextTypes',
+	    value: {
+	      componentStyle: _react2['default'].PropTypes.object
+	    },
+	    enumerable: true
+	  }, {
+	    key: 'propTypes',
+	    value: {
+	      children: _react.PropTypes.node,
+	      flat: _react.PropTypes.bool,
+	      onTouchTap: _react.PropTypes.func,
+	      primary: _react.PropTypes.bool,
+	      style: _react.PropTypes.object,
+	      type: _react.PropTypes.string
+	    },
+	    enumerable: true
+	  }, {
+	    key: 'defaultProps',
+	    value: {
+	      flat: false,
+	      primary: false,
+	      style: {},
+	      type: 'button'
+	    },
+	    enumerable: true
+	  }]);
+	
+	  return Button;
+	})(_react.Component);
+	
+	exports['default'] = Button;
+	module.exports = exports['default'];
+
+/***/ },
 /* 357 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	  Copyright (c) 2015 Jed Watson.
+	  Licensed under the MIT License (MIT), see
+	  http://jedwatson.github.io/classnames
+	*/
+	/* global define */
+	
+	(function () {
+		'use strict';
+	
+		var hasOwn = {}.hasOwnProperty;
+	
+		function classNames () {
+			var classes = '';
+	
+			for (var i = 0; i < arguments.length; i++) {
+				var arg = arguments[i];
+				if (!arg) continue;
+	
+				var argType = typeof arg;
+	
+				if (argType === 'string' || argType === 'number') {
+					classes += ' ' + arg;
+				} else if (Array.isArray(arg)) {
+					classes += ' ' + classNames.apply(null, arg);
+				} else if (argType === 'object') {
+					for (var key in arg) {
+						if (hasOwn.call(arg, key) && arg[key]) {
+							classes += ' ' + key;
+						}
+					}
+				}
+			}
+	
+			return classes.substr(1);
+		}
+	
+		if (typeof module !== 'undefined' && module.exports) {
+			module.exports = classNames;
+		} else if (true) {
+			// register as 'classnames', consistent with npm package name
+			!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
+				return classNames;
+			}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else {
+			window.classNames = classNames;
+		}
+	}());
+
+
+/***/ },
+/* 358 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(358);
+	var content = __webpack_require__(359);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(360)(content, {});
+	var update = __webpack_require__(361)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -25948,10 +26100,10 @@
 	}
 
 /***/ },
-/* 358 */
+/* 359 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(359)();
+	exports = module.exports = __webpack_require__(360)();
 	// imports
 	
 	
@@ -25962,7 +26114,7 @@
 
 
 /***/ },
-/* 359 */
+/* 360 */
 /***/ function(module, exports) {
 
 	/*
@@ -26018,7 +26170,7 @@
 
 
 /***/ },
-/* 360 */
+/* 361 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -26243,16 +26395,16 @@
 
 
 /***/ },
-/* 361 */
+/* 362 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(362);
+	var content = __webpack_require__(363);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(360)(content, {});
+	var update = __webpack_require__(361)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -26269,10 +26421,10 @@
 	}
 
 /***/ },
-/* 362 */
+/* 363 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(359)();
+	exports = module.exports = __webpack_require__(360)();
 	// imports
 	
 	
@@ -26281,6 +26433,45 @@
 	
 	// exports
 
+
+/***/ },
+/* 364 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	exports['default'] = AppbarTitle;
+	
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { 'default': obj };
+	}
+	
+	var _react = __webpack_require__(190);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function AppbarTitle(_ref) {
+	  var _ref$style = _ref.style;
+	  var style = _ref$style === undefined ? {} : _ref$style;
+	  var _ref$children = _ref.children;
+	  var children = _ref$children === undefined ? null : _ref$children;
+	
+	  return _react2['default'].createElement('div', { style: Object.assign({
+	      fontSize: '31.5px',
+	      fontWeight: 'normal',
+	      height: '32px',
+	      lineHeight: '32px',
+	      whiteSpace: 'nowrap',
+	      paddingLeft: '8px',
+	      display: 'inline-block',
+	      float: 'left'
+	    }, style) }, children);
+	}
+	
+	module.exports = exports['default'];
 
 /***/ }
 /******/ ]);

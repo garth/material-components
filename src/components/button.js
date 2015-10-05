@@ -69,7 +69,7 @@ export default class Button extends Component {
     return (
       <button
         type={type}
-        onTouchTap={e => onTouchTap && onTouchTap(e)}
+        onTouchTap={onTouchTap}
         style={Object.assign(style, styleOverrides)}
         className={classNames(
           'waves-button', {

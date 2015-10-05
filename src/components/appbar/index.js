@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import Heading from './heading';
+import Button from './button';
+import Title from './title';
 
 class Appbar extends Component {
 
@@ -39,6 +40,7 @@ class Appbar extends Component {
   }
 }
 
-Appbar.Heading = Heading;
+Appbar.Button = Button;
+Appbar.Title = Title;
 
 export default Appbar;
