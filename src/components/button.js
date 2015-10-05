@@ -3,7 +3,30 @@ import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import Waves from './helpers/waves';
 
-class Button extends Component {
+export default class Button extends Component {
+
+  static displayName = 'Button';
+
+  static contextTypes = {
+    componentStyle: React.PropTypes.object
+  };
+
+  static propTypes = {
+    children: PropTypes.node,
+    flat: PropTypes.bool,
+    onTouchTap: PropTypes.func,
+    primary: PropTypes.bool,
+    style: PropTypes.object,
+    type: PropTypes.string
+  };
+
+  static defaultProps = {
+    flat: false,
+    primary: false,
+    style: {},
+    type: 'button'
+  };
+
   componentDidMount() {
     Waves.attach(ReactDOM.findDOMNode(this));
   }
@@ -59,24 +82,3 @@ class Button extends Component {
     );
   }
 }
-
-Button.displayName = 'Button';
-Button.contextTypes = {
-  componentStyle: React.PropTypes.object
-};
-Button.propTypes = {
-  children: PropTypes.node,
-  flat: PropTypes.bool,
-  onTouchTap: PropTypes.func,
-  primary: PropTypes.bool,
-  style: PropTypes.object,
-  type: PropTypes.string
-};
-Button.defaultProps = {
-  flat: false,
-  primary: false,
-  style: {},
-  type: 'button'
-};
-
-export default Button;
