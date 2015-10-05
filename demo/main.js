@@ -115,14 +115,14 @@ import { Appbar, Button } from 'material-components';
           <h3>Appbar, Appbar.Title and Appbar.Button</h3>
           <Example code={`
 <Appbar>
-  <Appbar.Button style={{ float: 'left' }}><Icon name="bars"/></Appbar.Button>
+  <Appbar.Button style={{ float: 'left' }}><Icon name="menu"/></Appbar.Button>
   <Appbar.Title>Material Components</Appbar.Title>
   <div style={{ float: 'right' }}>
     <Appbar.Button
       onTouchTap={() => location.href='https://github.com/garth/material-components'}>
-      <Icon name="github"/>
+      <FaIcon name="github"/>
     </Appbar.Button>
-    <Appbar.Button><Icon name="ellipsis-v"/></Appbar.Button>
+    <Appbar.Button><Icon name="more_vert"/></Appbar.Button>
   </div>
 </Appbar>
           `}/>

@@ -251,7 +251,7 @@
 	            null,
 	            'Appbar, Appbar.Title and Appbar.Button'
 	          ),
-	          _react2['default'].createElement(Example, { code: '\n<Appbar>\n  <Appbar.Button style={{ float: \'left\' }}><Icon name="bars"/></Appbar.Button>\n  <Appbar.Title>Material Components</Appbar.Title>\n  <div style={{ float: \'right\' }}>\n    <Appbar.Button\n      onTouchTap={() => location.href=\'https://github.com/garth/material-components\'}>\n      <Icon name="github"/>\n    </Appbar.Button>\n    <Appbar.Button><Icon name="ellipsis-v"/></Appbar.Button>\n  </div>\n</Appbar>\n          ' }),
+	          _react2['default'].createElement(Example, { code: '\n<Appbar>\n  <Appbar.Button style={{ float: \'left\' }}><Icon name="menu"/></Appbar.Button>\n  <Appbar.Title>Material Components</Appbar.Title>\n  <div style={{ float: \'right\' }}>\n    <Appbar.Button\n      onTouchTap={() => location.href=\'https://github.com/garth/material-components\'}>\n      <FaIcon name="github"/>\n    </Appbar.Button>\n    <Appbar.Button><Icon name="more_vert"/></Appbar.Button>\n  </div>\n</Appbar>\n          ' }),
 	          _react2['default'].createElement(
 	            'p',
 	            null,
