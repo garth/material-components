@@ -39,9 +39,9 @@ class Application extends Component {
   getChildContext() {
     return {
       componentStyle: {
-        primaryColor: '#E91E63',
-        primaryFontColor: '#FFF',
-        secondaryColor: '#303F9F',
+        primaryColor: '#FFC107',
+        primaryFontColor: '#000',
+        secondaryColor: '#FF5722',
         secondaryFontColor: '#FFF'
       }
     };
