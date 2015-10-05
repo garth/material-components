@@ -1,0 +1,8 @@
+// same as .gitignore
+*.log
+node_modules
+
+// .npmignore only
+demo/main.bundle.js
+src
+test
