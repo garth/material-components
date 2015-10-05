@@ -216,13 +216,13 @@
 	            _react2['default'].createElement(
 	              'a',
 	              { href: 'http://christianalfoni.com/cerebral/' },
-	              'cerebral'
+	              'Cerebral'
 	            ),
 	            ' or ',
 	            _react2['default'].createElement(
 	              'a',
 	              { href: 'http://rackt.github.io/redux/' },
-	              'redux'
+	              'Redux'
 	            ),
 	            '. But they can also be used with other flux based frameworks or even without a framework at all.'
 	          ),

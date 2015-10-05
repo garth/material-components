@@ -92,7 +92,7 @@ class Application extends Component {
           <p>
             Unlike some other React based component libraries,
             material-components are completely stateless making them an ideal companion to libraries such
-            as <a href="http://christianalfoni.com/cerebral/">cerebral</a> or <a href="http://rackt.github.io/redux/">redux</a>.
+            as <a href="http://christianalfoni.com/cerebral/">Cerebral</a> or <a href="http://rackt.github.io/redux/">Redux</a>.
             But they can also be used with other flux based frameworks or even without a framework at all.
           </p>
           <p>
