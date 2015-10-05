@@ -1,3 +1,3 @@
 module.exports = {
-  button: require('./components/button')
+  Button: require('./components/button')
 };

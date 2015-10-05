@@ -9,14 +9,18 @@ class Button extends Component {
   }
 
   render() {
-    const componentStyle = this.context.componentStyle;
-
-    let classes = classNames(
-      'waves-button', {
-        'waves-float': !this.props.flat,
-        'waves-light': this.props.primary && !this.props.flat
-      }
-    );
+    const {
+      secondaryColor,
+      secondaryFontColor
+    } = this.context.componentStyle;
+    const {
+      children,
+      flat,
+      onTouchTap,
+      primary,
+      style: styleOverrides,
+      type
+    } = this.props;
 
     let style = {
       zIndex: 'inherit',
@@ -30,24 +34,27 @@ class Button extends Component {
       cursor: 'pointer'
     };
 
-    if (this.props.primary) {
-      if (this.props.flat) {
-        style.color = componentStyle.secondaryColor;
+    if (primary) {
+      if (flat) {
+        style.color = secondaryColor;
       } else {
-        style.color = componentStyle.secondaryFontColor;
-        style.backgroundColor = componentStyle.secondaryColor;
+        style.color = secondaryFontColor;
+        style.backgroundColor = secondaryColor;
       }
     }
 
-    style = Object.assign(style, this.props.style);
-
     return (
       <button
-        type={this.props.type}
-        onTouchTap={e => this.props.onTouchTap && this.props.onTouchTap(e)}
-        style={style}
-        className={classes}>
-        {this.props.children}
+        type={type}
+        onTouchTap={e => onTouchTap && onTouchTap(e)}
+        style={Object.assign(style, styleOverrides)}
+        className={classNames(
+          'waves-button', {
+            'waves-float': !flat,
+            'waves-light': primary && !flat
+          }
+        )}>
+        {children}
       </button>
     );
   }
@@ -60,16 +67,16 @@ Button.contextTypes = {
 Button.propTypes = {
   children: PropTypes.node,
   flat: PropTypes.bool,
-  primary: PropTypes.bool,
-  type: PropTypes.string,
   onTouchTap: PropTypes.func,
-  style: PropTypes.object
+  primary: PropTypes.bool,
+  style: PropTypes.object,
+  type: PropTypes.string
 };
 Button.defaultProps = {
-  type: 'button',
   flat: false,
   primary: false,
-  style: {}
+  style: {},
+  type: 'button'
 };
 
 export default Button;
