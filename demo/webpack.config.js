@@ -5,7 +5,7 @@ console.log(__dirname);
 
 module.exports = {
   context: __dirname,
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
   entry: './main.js',
   output: {
     path: __dirname,

@@ -10,7 +10,8 @@ require('../lib/index.css');
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
-import { Button } from '../lib';
+// import the material-components
+import { Appbar, Button } from '../lib';
 
 // define the app
 class Application extends Component {
@@ -35,18 +36,24 @@ class Application extends Component {
   render() {
     return (
       <div>
-        <h1>Material Components</h1>
-        <h2>Demo</h2>
-        <p>
-          For source and documentation please see the <a href="https://github.com/garth/material-components">GitHub Repository</a>.
-        </p>
-        <h3>Buttons</h3>
-        <p>
-          <Button>Normal</Button>
-          <Button primary={true}>Primary</Button>
-          <Button flat={true}>Flat</Button>
-          <Button primary={true} flat={true}>Primary Flat</Button>
-        </p>
+        <Appbar>
+          <Appbar.Heading>Material Components</Appbar.Heading>
+        </Appbar>
+        <div style={{ padding: '24px' }}>
+          <h2>Demo</h2>
+          <p>
+            For source and documentation please see the <a href="https://github.com/garth/material-components">GitHub Repository</a>.
+          </p>
+          <h3>Appbar and Appbar.Title</h3>
+          <p>See the appbar above.</p>
+          <h3>Buttons</h3>
+          <p>
+            <Button>Normal</Button>
+            <Button primary={true}>Primary</Button>
+            <Button flat={true}>Flat</Button>
+            <Button primary={true} flat={true}>Primary Flat</Button>
+          </p>
+        </div>
       </div>
     );
   }
