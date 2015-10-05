@@ -1,3 +1,4 @@
+import 'babel/polyfill';
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 
@@ -17,7 +18,7 @@ class Application extends Component {
   static displayName = 'Application';
 
   static childContextTypes = {
-    componentStyle: React.PropTypes.object
+    componentStyle: PropTypes.object
   };
 
   getChildContext() {
@@ -34,11 +35,12 @@ class Application extends Component {
   render() {
     return (
       <div>
-        <h1>Material Components - Demo</h1>
+        <h1>Material Components</h1>
+        <h2>Demo</h2>
         <p>
-          For source and documentation please see the <a href="https://github.com/garth/material-components">Github Repository</a>.
+          For source and documentation please see the <a href="https://github.com/garth/material-components">GitHub Repository</a>.
         </p>
-        <h2>Buttons</h2>
+        <h3>Buttons</h3>
         <p>
           <Button>Normal</Button>
           <Button primary={true}>Primary</Button>

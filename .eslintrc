@@ -1,6 +1,10 @@
 {
   "parser": "babel-eslint",
 
+  "plugins": [
+    "react"
+  ],
+
   "env": {
     "browser": true,
     "node": true,
@@ -37,6 +41,17 @@
 
   // http://eslint.org/docs/rules/
   "rules": {
+    "react/display-name": 1,
+    "react/jsx-uses-react": 1,
+    "react/jsx-uses-vars": 1,
+    "react/no-did-mount-set-state": 1,
+    "react/no-did-update-set-state": 1,
+    "react/no-multi-comp": 1,
+    "react/prop-types": 1,
+    "react/react-in-jsx-scope": 0,
+    "react/self-closing-comp": 1,
+    "react/wrap-multilines": 1,
+
     "brace-style": [1, "1tbs", { "allowSingleLine": true }],
     "comma-dangle": [1, "never"],
     "consistent-return": 1,
@@ -97,7 +112,7 @@
     "no-unreachable": 1,
     "no-unused-expressions": 1,
     "no-unused-vars": [1, { "vars": "all", "args": "none" }],
-    "no-warning-comments": 1,
+    "no-warning-comments": 0,
     "no-with": 1,
     "quotes": [1, "single", "avoid-escape"],
     "space-before-blocks": [1, "always"],
