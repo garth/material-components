@@ -13,6 +13,20 @@ injectTapEventPlugin();
 // import the material-components
 import { Appbar, Button } from '../lib';
 
+function Example({ code }) {
+  return (
+    <pre className="prettyprint lang-js linenums" style={{
+      fontFamily: 'Ubuntu Mono',
+      padding: '8px 0',
+      margin: '0',
+      width: '800px',
+      borderRadius: '0'
+    }}>
+      {code.trim()}
+    </pre>
+  )
+}
+
 // define the app
 class Application extends Component {
 
@@ -33,6 +47,10 @@ class Application extends Component {
     };
   }
 
+  componentDidMount() {
+    window.prettyPrint();
+  }
+
   render() {
     return (
       <div>
@@ -44,9 +62,24 @@ class Application extends Component {
           <p>
             For source and documentation please see the <a href="https://github.com/garth/material-components">GitHub Repository</a>.
           </p>
+          <h3>Import Some Components</h3>
+          <Example code={`
+import { Appbar, Button } from 'material-components';
+          `}/>
           <h3>Appbar and Appbar.Title</h3>
+          <Example code={`
+<Appbar>
+  <Appbar.Title>Material Components</Appbar.Title>
+</Appbar>
+          `}/>
           <p>See the appbar above.</p>
           <h3>Buttons</h3>
+          <Example code={`
+<Button onTouchTap={onClick}>Normal</Button>
+<Button onTouchTap={onClick} primary={true}>Primary</Button>
+<Button onTouchTap={onClick} flat={true}>Flat</Button>
+<Button onTouchTap={onClick} primary={true} flat={true}>Primary Flat</Button>
+          `}/>
           <p>
             <Button>Normal</Button>
             <Button primary={true}>Primary</Button>
