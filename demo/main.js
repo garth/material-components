@@ -84,19 +84,30 @@ class Application extends Component {
           </div>
         </Appbar>
         <div style={{ padding: '24px' }}>
+          <h2>Introduction</h2>
+          <p>
+            material-components is a library of <a href="https://facebook.github.io/react/">React</a> user
+            interface components based on <a href="https://www.google.com/design/spec/">material design</a>.
+          </p>
+          <p>
+            Unlike some other React based component libraries,
+            material-components are completely stateless making them an ideal companion to libraries such
+            as <a href="http://christianalfoni.com/cerebral/">cerebral</a> or <a href="http://rackt.github.io/redux/">redux</a>.
+            But they can also be used with other flux based frameworks or even without a framework at all.
+          </p>
           <p>
             For source code, installation and configuration info please see
             the <a href="https://github.com/garth/material-components">GitHub Repository</a>.
           </p>
 
-          <h3>Import Some Components</h3>
+          <h2>Import Components</h2>
           <Example code={`
 import { Appbar, Button } from 'material-components';
           `}/>
 
-          <h3>Paper</h3>
+          <h2>Paper</h2>
           <p>
-            Add a paper class to an element to lift from the page. The optional <code>padded</code> class
+            Add a paper class to an element to lift it from the page. The optional <code>padded</code> class
             gives the paper a default padding.
           </p>
           <Example code={`
@@ -112,7 +123,7 @@ import { Appbar, Button } from 'material-components';
           <div className="paper4 padded" style={paperStyle}>Paper 4</div>
           <div className="paper5 padded" style={paperStyle}>Paper 5</div>
 
-          <h3>Appbar, Appbar.Title and Appbar.Button</h3>
+          <h2>Appbar, Appbar.Title and Appbar.Button</h2>
           <Example code={`
 <Appbar>
   <Appbar.Button style={{ float: 'left' }}><Icon name="menu"/></Appbar.Button>
@@ -132,7 +143,7 @@ import { Appbar, Button } from 'material-components';
             using <code>{'<Appbar.Button lightWaves={true}>X</Appbar.Button>'}</code>
           </p>
 
-          <h3>Buttons</h3>
+          <h2>Buttons</h2>
           <Example code={`
 <Button onTouchTap={onClick}>Normal</Button>
 <Button onTouchTap={onClick} primary={true}>Primary</Button>

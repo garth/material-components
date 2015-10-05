@@ -3,8 +3,15 @@ Material Components
 
 Stateless UI components for react that follow material design.
 
+Introduction
+------------
+
+material-components is a library of [React](https://facebook.github.io/react/) user interface components based on [material design](https://www.google.com/design/spec/).
+
+Unlike some other React based component libraries, material-components are completely stateless making them an ideal companion to libraries such as [cerebral](http://christianalfoni.com/cerebral/) or [redux](http://rackt.github.io/redux/). But they can also be used with other flux based frameworks or even without a framework at all.
+
 Demo & Code Examples
-----
+--------------------
 
 Take a look at the [demo page](http://garth.github.io/material-components/demo) for code examples.
 

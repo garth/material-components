@@ -188,6 +188,45 @@
 	          'div',
 	          { style: { padding: '24px' } },
 	          _react2['default'].createElement(
+	            'h2',
+	            null,
+	            'Introduction'
+	          ),
+	          _react2['default'].createElement(
+	            'p',
+	            null,
+	            'material-components is a library of ',
+	            _react2['default'].createElement(
+	              'a',
+	              { href: 'https://facebook.github.io/react/' },
+	              'React'
+	            ),
+	            ' user interface components based on ',
+	            _react2['default'].createElement(
+	              'a',
+	              { href: 'https://www.google.com/design/spec/' },
+	              'material design'
+	            ),
+	            '.'
+	          ),
+	          _react2['default'].createElement(
+	            'p',
+	            null,
+	            'Unlike some other React based component libraries, material-components are completely stateless making them an ideal companion to libraries such as ',
+	            _react2['default'].createElement(
+	              'a',
+	              { href: 'http://christianalfoni.com/cerebral/' },
+	              'cerebral'
+	            ),
+	            ' or ',
+	            _react2['default'].createElement(
+	              'a',
+	              { href: 'http://rackt.github.io/redux/' },
+	              'redux'
+	            ),
+	            '. But they can also be used with other flux based frameworks or even without a framework at all.'
+	          ),
+	          _react2['default'].createElement(
 	            'p',
 	            null,
 	            'For source code, installation and configuration info please see the ',
@@ -199,20 +238,20 @@
 	            '.'
 	          ),
 	          _react2['default'].createElement(
-	            'h3',
+	            'h2',
 	            null,
-	            'Import Some Components'
+	            'Import Components'
 	          ),
 	          _react2['default'].createElement(Example, { code: '\nimport { Appbar, Button } from \'material-components\';\n          ' }),
 	          _react2['default'].createElement(
-	            'h3',
+	            'h2',
 	            null,
 	            'Paper'
 	          ),
 	          _react2['default'].createElement(
 	            'p',
 	            null,
-	            'Add a paper class to an element to lift from the page. The optional ',
+	            'Add a paper class to an element to lift it from the page. The optional ',
 	            _react2['default'].createElement(
 	              'code',
 	              null,
@@ -247,7 +286,7 @@
 	            'Paper 5'
 	          ),
 	          _react2['default'].createElement(
-	            'h3',
+	            'h2',
 	            null,
 	            'Appbar, Appbar.Title and Appbar.Button'
 	          ),
@@ -268,7 +307,7 @@
 	            )
 	          ),
 	          _react2['default'].createElement(
-	            'h3',
+	            'h2',
 	            null,
 	            'Buttons'
 	          ),
