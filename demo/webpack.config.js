@@ -1,7 +1,4 @@
-var Webpack = require('webpack');
 var path = require('path');
-
-console.log(__dirname);
 
 module.exports = {
   context: __dirname,

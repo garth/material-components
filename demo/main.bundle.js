@@ -78,10 +78,28 @@
 	
 	var _lib = __webpack_require__(350);
 	
-	// define the app
 	__webpack_require__(357);
 	__webpack_require__(361);
 	(0, _reactTapEventPlugin2['default'])();
+	
+	function Example(_ref) {
+	  var code = _ref.code;
+	
+	  return _react2['default'].createElement(
+	    'pre',
+	    { className: 'prettyprint lang-js linenums', style: {
+	        fontFamily: 'Ubuntu Mono',
+	        padding: '8px 0',
+	        margin: '0',
+	        width: '800px',
+	        borderRadius: '0'
+	      } },
+	    code.trim()
+	  );
+	}
+	
+	// define the app
+	
 	var Application = (function (_Component) {
 	  _inherits(Application, _Component);
 	
@@ -104,6 +122,11 @@
 	          secondaryFontColor: '#FFF'
 	        }
 	      };
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      window.prettyPrint();
 	    }
 	  }, {
 	    key: 'render',
@@ -142,8 +165,15 @@
 	          _react2['default'].createElement(
 	            'h3',
 	            null,
+	            'Import Some Components'
+	          ),
+	          _react2['default'].createElement(Example, { code: '\nimport { Appbar, Button } from \'material-components\';\n          ' }),
+	          _react2['default'].createElement(
+	            'h3',
+	            null,
 	            'Appbar and Appbar.Title'
 	          ),
+	          _react2['default'].createElement(Example, { code: '\n<Appbar>\n  <Appbar.Title>Material Components</Appbar.Title>\n</Appbar>\n          ' }),
 	          _react2['default'].createElement(
 	            'p',
 	            null,
@@ -154,6 +184,7 @@
 	            null,
 	            'Buttons'
 	          ),
+	          _react2['default'].createElement(Example, { code: '\n<Button onTouchTap={onClick}>Normal</Button>\n<Button onTouchTap={onClick} primary={true}>Primary</Button>\n<Button onTouchTap={onClick} flat={true}>Flat</Button>\n<Button onTouchTap={onClick} primary={true} flat={true}>Primary Flat</Button>\n          ' }),
 	          _react2['default'].createElement(
 	            'p',
 	            null,
