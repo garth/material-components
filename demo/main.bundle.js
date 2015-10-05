@@ -131,6 +131,13 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var paperStyle = {
+	        display: 'inline-block',
+	        width: '140px',
+	        height: '100px',
+	        margin: '24px 24px 24px 0'
+	      };
+	
 	      return _react2['default'].createElement(
 	        'div',
 	        null,
@@ -147,11 +154,6 @@
 	          'div',
 	          { style: { padding: '24px' } },
 	          _react2['default'].createElement(
-	            'h2',
-	            null,
-	            'Demo'
-	          ),
-	          _react2['default'].createElement(
 	            'p',
 	            null,
 	            'For source and documentation please see the ',
@@ -161,6 +163,48 @@
 	              'GitHub Repository'
 	            ),
 	            '.'
+	          ),
+	          _react2['default'].createElement(
+	            'h3',
+	            null,
+	            'Paper Classes'
+	          ),
+	          _react2['default'].createElement(
+	            'p',
+	            null,
+	            'Add a paper class to an element to lift from the page. The optional ',
+	            _react2['default'].createElement(
+	              'code',
+	              null,
+	              'padded'
+	            ),
+	            ' class gives the paper a default padding.'
+	          ),
+	          _react2['default'].createElement(Example, { code: '\n<div className="paper1 padded">Paper 1</div>\n<div className="paper2 padded">Paper 2</div>\n<div className="paper3 padded">Paper 3</div>\n<div className="paper4 padded">Paper 4</div>\n<div className="paper5 padded">Paper 5</div>\n          ' }),
+	          _react2['default'].createElement(
+	            'div',
+	            { className: 'paper1 padded', style: paperStyle },
+	            'Paper 1'
+	          ),
+	          _react2['default'].createElement(
+	            'div',
+	            { className: 'paper2 padded', style: paperStyle },
+	            'Paper 2'
+	          ),
+	          _react2['default'].createElement(
+	            'div',
+	            { className: 'paper3 padded', style: paperStyle },
+	            'Paper 3'
+	          ),
+	          _react2['default'].createElement(
+	            'div',
+	            { className: 'paper4 padded', style: paperStyle },
+	            'Paper 4'
+	          ),
+	          _react2['default'].createElement(
+	            'div',
+	            { className: 'paper5 padded', style: paperStyle },
+	            'Paper 5'
 	          ),
 	          _react2['default'].createElement(
 	            'h3',
