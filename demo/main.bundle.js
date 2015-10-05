@@ -201,7 +201,13 @@
 	          _react2['default'].createElement(
 	            'h3',
 	            null,
-	            'Paper Classes'
+	            'Import Some Components'
+	          ),
+	          _react2['default'].createElement(Example, { code: '\nimport { Appbar, Button } from \'material-components\';\n          ' }),
+	          _react2['default'].createElement(
+	            'h3',
+	            null,
+	            'Paper'
 	          ),
 	          _react2['default'].createElement(
 	            'p',
@@ -240,12 +246,6 @@
 	            { className: 'paper5 padded', style: paperStyle },
 	            'Paper 5'
 	          ),
-	          _react2['default'].createElement(
-	            'h3',
-	            null,
-	            'Import Some Components'
-	          ),
-	          _react2['default'].createElement(Example, { code: '\nimport { Appbar, Button } from \'material-components\';\n          ' }),
 	          _react2['default'].createElement(
 	            'h3',
 	            null,
@@ -24980,7 +24980,7 @@
 	
 	module.exports = {
 	  Appbar: __webpack_require__(351),
-	  Button: __webpack_require__(356)
+	  Button: __webpack_require__(357)
 	};
 
 /***/ },
@@ -25047,7 +25047,7 @@
 	
 	var _button2 = _interopRequireDefault(_button);
 	
-	var _title = __webpack_require__(364);
+	var _title = __webpack_require__(356);
 	
 	var _title2 = _interopRequireDefault(_title);
 	
@@ -25171,11 +25171,11 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _classnames = __webpack_require__(357);
+	var _classnames = __webpack_require__(353);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _helpersWaves = __webpack_require__(353);
+	var _helpersWaves = __webpack_require__(354);
 	
 	var _helpersWaves2 = _interopRequireDefault(_helpersWaves);
 	
@@ -25254,6 +25254,60 @@
 /* 353 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	  Copyright (c) 2015 Jed Watson.
+	  Licensed under the MIT License (MIT), see
+	  http://jedwatson.github.io/classnames
+	*/
+	/* global define */
+	
+	(function () {
+		'use strict';
+	
+		var hasOwn = {}.hasOwnProperty;
+	
+		function classNames () {
+			var classes = '';
+	
+			for (var i = 0; i < arguments.length; i++) {
+				var arg = arguments[i];
+				if (!arg) continue;
+	
+				var argType = typeof arg;
+	
+				if (argType === 'string' || argType === 'number') {
+					classes += ' ' + arg;
+				} else if (Array.isArray(arg)) {
+					classes += ' ' + classNames.apply(null, arg);
+				} else if (argType === 'object') {
+					for (var key in arg) {
+						if (hasOwn.call(arg, key) && arg[key]) {
+							classes += ' ' + key;
+						}
+					}
+				}
+			}
+	
+			return classes.substr(1);
+		}
+	
+		if (typeof module !== 'undefined' && module.exports) {
+			module.exports = classNames;
+		} else if (true) {
+			// register as 'classnames', consistent with npm package name
+			!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
+				return classNames;
+			}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else {
+			window.classNames = classNames;
+		}
+	}());
+
+
+/***/ },
+/* 354 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 	
 	Object.defineProperty(exports, '__esModule', {
@@ -25264,7 +25318,7 @@
 	  return obj && obj.__esModule ? obj : { 'default': obj };
 	}
 	
-	var _nodeWaves = __webpack_require__(354);
+	var _nodeWaves = __webpack_require__(355);
 	
 	var _nodeWaves2 = _interopRequireDefault(_nodeWaves);
 	
@@ -25283,7 +25337,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 354 */
+/* 355 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(global) {/*!
@@ -25851,8 +25905,46 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 355 */,
 /* 356 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	exports['default'] = AppbarTitle;
+	
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { 'default': obj };
+	}
+	
+	var _react = __webpack_require__(190);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function AppbarTitle(_ref) {
+	  var _ref$style = _ref.style;
+	  var style = _ref$style === undefined ? {} : _ref$style;
+	  var _ref$children = _ref.children;
+	  var children = _ref$children === undefined ? null : _ref$children;
+	
+	  return _react2['default'].createElement('div', { style: Object.assign({
+	      fontSize: '31.5px',
+	      fontWeight: 'normal',
+	      height: '32px',
+	      lineHeight: '32px',
+	      whiteSpace: 'nowrap',
+	      paddingLeft: '8px',
+	      display: 'inline-block',
+	      float: 'left'
+	    }, style) }, children);
+	}
+	
+	module.exports = exports['default'];
+
+/***/ },
+/* 357 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25915,11 +26007,11 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _classnames = __webpack_require__(357);
+	var _classnames = __webpack_require__(353);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _helpersWaves = __webpack_require__(353);
+	var _helpersWaves = __webpack_require__(354);
 	
 	var _helpersWaves2 = _interopRequireDefault(_helpersWaves);
 	
@@ -26018,60 +26110,6 @@
 	
 	exports['default'] = Button;
 	module.exports = exports['default'];
-
-/***/ },
-/* 357 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	  Copyright (c) 2015 Jed Watson.
-	  Licensed under the MIT License (MIT), see
-	  http://jedwatson.github.io/classnames
-	*/
-	/* global define */
-	
-	(function () {
-		'use strict';
-	
-		var hasOwn = {}.hasOwnProperty;
-	
-		function classNames () {
-			var classes = '';
-	
-			for (var i = 0; i < arguments.length; i++) {
-				var arg = arguments[i];
-				if (!arg) continue;
-	
-				var argType = typeof arg;
-	
-				if (argType === 'string' || argType === 'number') {
-					classes += ' ' + arg;
-				} else if (Array.isArray(arg)) {
-					classes += ' ' + classNames.apply(null, arg);
-				} else if (argType === 'object') {
-					for (var key in arg) {
-						if (hasOwn.call(arg, key) && arg[key]) {
-							classes += ' ' + key;
-						}
-					}
-				}
-			}
-	
-			return classes.substr(1);
-		}
-	
-		if (typeof module !== 'undefined' && module.exports) {
-			module.exports = classNames;
-		} else if (true) {
-			// register as 'classnames', consistent with npm package name
-			!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
-				return classNames;
-			}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-		} else {
-			window.classNames = classNames;
-		}
-	}());
-
 
 /***/ },
 /* 358 */
@@ -26433,45 +26471,6 @@
 	
 	// exports
 
-
-/***/ },
-/* 364 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	exports['default'] = AppbarTitle;
-	
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { 'default': obj };
-	}
-	
-	var _react = __webpack_require__(190);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function AppbarTitle(_ref) {
-	  var _ref$style = _ref.style;
-	  var style = _ref$style === undefined ? {} : _ref$style;
-	  var _ref$children = _ref.children;
-	  var children = _ref$children === undefined ? null : _ref$children;
-	
-	  return _react2['default'].createElement('div', { style: Object.assign({
-	      fontSize: '31.5px',
-	      fontWeight: 'normal',
-	      height: '32px',
-	      lineHeight: '32px',
-	      whiteSpace: 'nowrap',
-	      paddingLeft: '8px',
-	      display: 'inline-block',
-	      float: 'left'
-	    }, style) }, children);
-	}
-	
-	module.exports = exports['default'];
 
 /***/ }
 /******/ ]);

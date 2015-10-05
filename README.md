@@ -68,6 +68,17 @@ class Application extends Component {
 export default Application;
 ```
 
+Contribute
+----------
+
+Fork the repository
+
+* `npm install`
+* `npm run dev` runs dev mode which watches for changes and auto lints, tests and builds
+* `npm test` runs the tests
+* `npm run lint` lints the code
+* `npm run build` compiles to es5
+
 License
 -------
 

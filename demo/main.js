@@ -89,7 +89,12 @@ class Application extends Component {
             the <a href="https://github.com/garth/material-components">GitHub Repository</a>.
           </p>
 
-          <h3>Paper Classes</h3>
+          <h3>Import Some Components</h3>
+          <Example code={`
+import { Appbar, Button } from 'material-components';
+          `}/>
+
+          <h3>Paper</h3>
           <p>
             Add a paper class to an element to lift from the page. The optional <code>padded</code> class
             gives the paper a default padding.
@@ -107,10 +112,6 @@ class Application extends Component {
           <div className="paper4 padded" style={paperStyle}>Paper 4</div>
           <div className="paper5 padded" style={paperStyle}>Paper 5</div>
 
-          <h3>Import Some Components</h3>
-          <Example code={`
-import { Appbar, Button } from 'material-components';
-          `}/>
           <h3>Appbar, Appbar.Title and Appbar.Button</h3>
           <Example code={`
 <Appbar>
