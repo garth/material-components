@@ -11,7 +11,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 // import the material-components
-import { Appbar, Button, Input } from '../lib';
+import { Appbar, Button, Col, Input, Row } from '../lib';
 
 // component to render code examples
 function Example({ code }) {
@@ -20,7 +20,6 @@ function Example({ code }) {
       fontFamily: 'Ubuntu Mono',
       padding: '8px 0',
       margin: '0',
-      width: '800px',
       borderRadius: '0'
     }}>
       {code.trim()}
@@ -90,7 +89,7 @@ class Application extends Component {
             <Appbar.Button><Icon name="more_vert"/></Appbar.Button>
           </div>
         </Appbar>
-        <div style={{ padding: '24px' }}>
+        <div style={{ padding: '24px', width: '800px' }}>
           <h2>Introduction</h2>
           <p>
             material-components is a library of <a href="https://facebook.github.io/react/">React</a> user
@@ -109,7 +108,13 @@ class Application extends Component {
 
           <h2>Import Components</h2>
           <Example code={`
-import { Appbar, Button, Input } from 'material-components';
+import {
+  Appbar,
+  Button,
+  Col,
+  Input,
+  Row
+} from 'material-components';
           `}/>
 
           <h2>Paper</h2>
@@ -171,27 +176,58 @@ import { Appbar, Button, Input } from 'material-components';
 <Input label="Success" value={email} isSuccess={true} onChange={onEmailChange}/>
 <Input label="Error" value={email} isError={true} message="fix me" onChange={onEmailChange}/>
           `}/>
-          <div style={{ width: '800px', margin: '16px 0' }}>
-            <Input
-              label="Email"
-              value={this.state.email}
-              onChange={(e) => this.setState({ email: e.target.value })}/>
-            <Input
-              label="Password"
-              type="password"
-              value={this.state.password}
-              onChange={(e) => this.setState({ password: e.target.value })}/>
-            <Input
-              label="Success"
-              value={this.state.email}
-              isSuccess={true}
-              onChange={(e) => this.setState({ email: e.target.value })}/>
-            <Input
-              label="Error"
-              value={this.state.email}
-              isError={true}
-              message="fix me"
-              onChange={(e) => this.setState({ email: e.target.value })}/>
+          <div style={{ margin: '16px 0' }}>
+            <Row>
+              <Col type="md-6">
+                <Input
+                  label="Email"
+                  value={this.state.email}
+                  onChange={(e) => this.setState({ email: e.target.value })}/>
+              </Col>
+              <Col type="md-6">
+                <Input
+                  label="Password"
+                  type="password"
+                  value={this.state.password}
+                  onChange={(e) => this.setState({ password: e.target.value })}/>
+              </Col>
+            </Row>
+            <Row>
+              <Col type="md-6">
+                <Input
+                  label="Success"
+                  value={this.state.email}
+                  isSuccess={true}
+                  onChange={(e) => this.setState({ email: e.target.value })}/>
+              </Col>
+              <Col type="md-6">
+                <Input
+                  label="Error"
+                  value={this.state.email}
+                  isError={true}
+                  message="fix me"
+                  onChange={(e) => this.setState({ email: e.target.value })}/>
+              </Col>
+            </Row>
+          </div>
+
+          <h2>Grid System</h2>
+          <p>
+            material-components borrows the reponsive <a href="http://getbootstrap.com/css/#grid">grid
+            system from bootstrap</a>. Simply omit the <code>col-</code> class name prefix and pass all
+            parameters via the <code>type</code> attribute.
+          </p>
+          <Example code={`
+<Row>
+  <Col type="md-5 md-offset-1"></Col>
+  <Col type="md-5"></Col>
+</Row>
+          `}/>
+          <div style={{ padding: '16px 0' }}>
+            <Row>
+              <Col type="md-5 md-offset-1"><div className="paper1 padded">md-5 md-offset-1</div></Col>
+              <Col type="md-5"><div className="paper1 padded">md-5</div></Col>
+            </Row>
           </div>
         </div>
       </div>
