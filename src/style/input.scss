@@ -1,0 +1,52 @@
+.input-group {
+  position: relative;
+  margin: 0;
+  padding: 15px 0 26px 0;
+
+  input {
+    font-size: 18px;
+    padding: 10px 0;
+    display: block;
+    width: 100%;
+    border: none;
+  }
+  input:focus {
+    outline: none;
+  }
+
+  label {
+    color: #aaa;
+    font-size: 18px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 1px;
+    top: 25px;
+    transition: 0.2s ease all;
+  }
+  input.used ~ label,
+  input:focus ~ label,
+  input:valid ~ label {
+    top: 1px;
+    font-size: 13px;
+  }
+
+  .bar {
+    position: relative;
+    display: block;
+    width: 0;
+    left: 50%;
+    height: 2px;
+    transition: 0.2s ease all;
+  }
+  input:focus ~ .bar,
+  .bar.open {
+    left: 0;
+    width: 100%;
+  }
+
+  .info {
+    font-size: 13px;
+    margin: 4px 0 -20px 0;
+  }
+}

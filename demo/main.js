@@ -11,7 +11,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 // import the material-components
-import { Appbar, Button } from '../lib';
+import { Appbar, Button, Input } from '../lib';
 
 // component to render code examples
 function Example({ code }) {
@@ -51,13 +51,20 @@ class Application extends Component {
     componentStyle: PropTypes.object
   };
 
+  state = {
+    email: '',
+    password: ''
+  }
+
   getChildContext() {
     return {
       componentStyle: {
         primaryColor: '#FFC107',
         primaryFontColor: '#000',
         secondaryColor: '#FF5722',
-        secondaryFontColor: '#FFF'
+        secondaryFontColor: '#FFF',
+        errorColor: '#C00',
+        successColor: '#090'
       }
     };
   }
@@ -69,6 +76,8 @@ class Application extends Component {
       height: '100px',
       margin: '24px 24px 24px 0'
     };
+
+    console.log(this.state);
 
     return (
       <div>
@@ -102,7 +111,7 @@ class Application extends Component {
 
           <h2>Import Components</h2>
           <Example code={`
-import { Appbar, Button } from 'material-components';
+import { Appbar, Button, Input } from 'material-components';
           `}/>
 
           <h2>Paper</h2>
@@ -156,6 +165,36 @@ import { Appbar, Button } from 'material-components';
             <Button flat={true}>Flat</Button>
             <Button primary={true} flat={true}>Primary Flat</Button>
           </p>
+
+          <h2>Inputs</h2>
+          <Example code={`
+<Input label="Email" value={email} onChange={onEmailChange}/>
+<Input label="Password" type="password" value={password} onChange={onPasswordChange}/>
+<Input label="Success" value={email} isSuccess={true} onChange={onEmailChange}/>
+<Input label="Error" value={email} isError={true} message="fix me" onChange={onEmailChange}/>
+          `}/>
+          <div style={{ width: '800px', margin: '16px 0' }}>
+            <Input
+              label="Email"
+              value={this.state.email}
+              onChange={(e) => this.setState({ email: e.target.value })}/>
+            <Input
+              label="Password"
+              type="password"
+              value={this.state.password}
+              onChange={(e) => this.setState({ password: e.target.value })}/>
+            <Input
+              label="Success"
+              value={this.state.email}
+              isSuccess={true}
+              onChange={(e) => this.setState({ email: e.target.value })}/>
+            <Input
+              label="Error"
+              value={this.state.email}
+              isError={true}
+              message="fix me"
+              onChange={(e) => this.setState({ email: e.target.value })}/>
+          </div>
         </div>
       </div>
     );

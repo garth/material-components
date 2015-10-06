@@ -58,7 +58,9 @@ class Application extends Component {
         primaryColor: '#FFC107',
         primaryFontColor: '#000',
         secondaryColor: '#FF5722',
-        secondaryFontColor: '#FFF'
+        secondaryFontColor: '#FFF',
+        errorColor: '#F00',
+        successColor: '#0F0'
       }
     };
   }

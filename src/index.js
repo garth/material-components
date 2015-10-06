@@ -1,4 +1,5 @@
 module.exports = {
   Appbar: require('./components/appbar'),
-  Button: require('./components/button')
+  Button: require('./components/button'),
+  Input: require('./components/input')
 };
