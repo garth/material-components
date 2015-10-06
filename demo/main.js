@@ -20,7 +20,8 @@ function Example({ code }) {
       fontFamily: 'Ubuntu Mono',
       padding: '8px 0',
       margin: '0',
-      borderRadius: '0'
+      borderRadius: '0',
+      width: '100%'
     }}>
       {code.trim()}
     </pre>
@@ -69,13 +70,6 @@ class Application extends Component {
   }
 
   render() {
-    const paperStyle = {
-      display: 'inline-block',
-      width: '140px',
-      height: '100px',
-      margin: '24px 24px 24px 0'
-    };
-
     return (
       <div>
         <Appbar>
@@ -89,7 +83,7 @@ class Application extends Component {
             <Appbar.Button><Icon name="more_vert"/></Appbar.Button>
           </div>
         </Appbar>
-        <div style={{ padding: '24px', width: '800px' }}>
+        <div style={{ padding: '24px', width: '950px' }}>
           <h2>Introduction</h2>
           <p>
             material-components is a library of <a href="https://facebook.github.io/react/">React</a> user
@@ -129,11 +123,25 @@ import {
 <div className="paper4 padded">Paper 4</div>
 <div className="paper5 padded">Paper 5</div>
           `}/>
-          <div className="paper1 padded" style={paperStyle}>Paper 1</div>
-          <div className="paper2 padded" style={paperStyle}>Paper 2</div>
-          <div className="paper3 padded" style={paperStyle}>Paper 3</div>
-          <div className="paper4 padded" style={paperStyle}>Paper 4</div>
-          <div className="paper5 padded" style={paperStyle}>Paper 5</div>
+          <div style={{ margin: '16px 0' }}>
+            <Row>
+              <Col type="sm-offset-1 sm-2">
+                <div className="paper1 padded">Paper 1</div>
+              </Col>
+              <Col type="sm-2">
+                <div className="paper2 padded">Paper 2</div>
+              </Col>
+              <Col type="sm-2">
+                <div className="paper3 padded">Paper 3</div>
+              </Col>
+              <Col type="sm-2">
+                <div className="paper4 padded">Paper 4</div>
+              </Col>
+              <Col type="sm-2">
+                <div className="paper5 padded">Paper 5</div>
+              </Col>
+            </Row>
+          </div>
 
           <h2>Appbar, Appbar.Title and Appbar.Button</h2>
           <Example code={`

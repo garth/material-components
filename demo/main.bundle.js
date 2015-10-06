@@ -90,7 +90,8 @@
 	        fontFamily: 'Ubuntu Mono',
 	        padding: '8px 0',
 	        margin: '0',
-	        borderRadius: '0'
+	        borderRadius: '0',
+	        width: '100%'
 	      } },
 	    code.trim()
 	  );
@@ -151,13 +152,6 @@
 	    value: function render() {
 	      var _this = this;
 	
-	      var paperStyle = {
-	        display: 'inline-block',
-	        width: '140px',
-	        height: '100px',
-	        margin: '24px 24px 24px 0'
-	      };
-	
 	      return _react2['default'].createElement(
 	        'div',
 	        null,
@@ -194,7 +188,7 @@
 	        ),
 	        _react2['default'].createElement(
 	          'div',
-	          { style: { padding: '24px', width: '800px' } },
+	          { style: { padding: '24px', width: '950px' } },
 	          _react2['default'].createElement(
 	            'h2',
 	            null,
@@ -270,28 +264,56 @@
 	          _react2['default'].createElement(Example, { code: '\n<div className="paper1 padded">Paper 1</div>\n<div className="paper2 padded">Paper 2</div>\n<div className="paper3 padded">Paper 3</div>\n<div className="paper4 padded">Paper 4</div>\n<div className="paper5 padded">Paper 5</div>\n          ' }),
 	          _react2['default'].createElement(
 	            'div',
-	            { className: 'paper1 padded', style: paperStyle },
-	            'Paper 1'
-	          ),
-	          _react2['default'].createElement(
-	            'div',
-	            { className: 'paper2 padded', style: paperStyle },
-	            'Paper 2'
-	          ),
-	          _react2['default'].createElement(
-	            'div',
-	            { className: 'paper3 padded', style: paperStyle },
-	            'Paper 3'
-	          ),
-	          _react2['default'].createElement(
-	            'div',
-	            { className: 'paper4 padded', style: paperStyle },
-	            'Paper 4'
-	          ),
-	          _react2['default'].createElement(
-	            'div',
-	            { className: 'paper5 padded', style: paperStyle },
-	            'Paper 5'
+	            { style: { margin: '16px 0' } },
+	            _react2['default'].createElement(
+	              _lib.Row,
+	              null,
+	              _react2['default'].createElement(
+	                _lib.Col,
+	                { type: 'sm-offset-1 sm-2' },
+	                _react2['default'].createElement(
+	                  'div',
+	                  { className: 'paper1 padded' },
+	                  'Paper 1'
+	                )
+	              ),
+	              _react2['default'].createElement(
+	                _lib.Col,
+	                { type: 'sm-2' },
+	                _react2['default'].createElement(
+	                  'div',
+	                  { className: 'paper2 padded' },
+	                  'Paper 2'
+	                )
+	              ),
+	              _react2['default'].createElement(
+	                _lib.Col,
+	                { type: 'sm-2' },
+	                _react2['default'].createElement(
+	                  'div',
+	                  { className: 'paper3 padded' },
+	                  'Paper 3'
+	                )
+	              ),
+	              _react2['default'].createElement(
+	                _lib.Col,
+	                { type: 'sm-2' },
+	                _react2['default'].createElement(
+	                  'div',
+	                  { className: 'paper4 padded' },
+	                  'Paper 4'
+	                )
+	              ),
+	              _react2['default'].createElement(
+	                _lib.Col,
+	                { type: 'sm-2' },
+	                _react2['default'].createElement(
+	                  'div',
+	                  { className: 'paper5 padded' },
+	                  'Paper 5'
+	                )
+	              )
+	            )
 	          ),
 	          _react2['default'].createElement(
 	            'h2',
