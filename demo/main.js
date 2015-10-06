@@ -77,8 +77,6 @@ class Application extends Component {
       margin: '24px 24px 24px 0'
     };
 
-    console.log(this.state);
-
     return (
       <div>
         <Appbar>
