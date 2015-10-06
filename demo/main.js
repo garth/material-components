@@ -11,7 +11,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 // import the material-components
-import { Appbar, Button, Col, Input, Row } from '../lib';
+import { Appbar, Button, Checkbox, Col, Input, Row } from '../lib';
 
 // component to render code examples
 function Example({ code }) {
@@ -53,7 +53,8 @@ class Application extends Component {
 
   state = {
     email: '',
-    password: ''
+    password: '',
+    checked: false
   }
 
   getChildContext() {
@@ -105,6 +106,7 @@ class Application extends Component {
 import {
   Appbar,
   Button,
+  Checkbox
   Col,
   Input,
   Row
@@ -217,6 +219,17 @@ import {
                   onChange={(e) => this.setState({ email: e.target.value })}/>
               </Col>
             </Row>
+          </div>
+
+          <h2>Checkbox</h2>
+          <Example code={`
+<Checkbox label="Checkbox" value={checked} onChange={setChecked}/>
+          `}/>
+          <div>
+            <Checkbox label="Checkbox" value={this.state.checked} onChange={(e) => this.setState({ checked: e.target.value })}/>
+          </div>
+          <div>
+            <Checkbox label="Opposite" value={!this.state.checked} onChange={(e) => this.setState({ checked: !e.target.value })}/>
           </div>
 
           <h2>Grid System</h2>
