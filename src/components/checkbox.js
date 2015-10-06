@@ -12,7 +12,7 @@ class Checkbox extends Component {
 
   static propTypes = {
     label: PropTypes.string,
-    onChange: PropTypes.func.required,
+    onChange: PropTypes.func,
     readOnly: PropTypes.bool,
     style: PropTypes.object,
     value: PropTypes.bool

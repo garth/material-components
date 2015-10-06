@@ -1,0 +1,17 @@
+.dialog-enter {
+  opacity: 0;
+}
+
+.dialog-enter.dialog-enter-active {
+  opacity: 1;
+  transition: opacity .3s ease;
+}
+
+.dialog-leave {
+  opacity: 1;
+}
+
+.dialog-leave.dialog-leave-active {
+  opacity: 0;
+  transition: opacity .3s ease;
+}

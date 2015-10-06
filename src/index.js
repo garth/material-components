@@ -3,6 +3,9 @@ module.exports = {
   Button: require('./components/button'),
   Checkbox: require('./components/checkbox'),
   Col: require('./components/col'),
+  Dialog: require('./components/dialog'),
+  Divider: require('./components/divider'),
   Input: require('./components/input'),
+  Mask: require('./components/mask'),
   Row: require('./components/row')
 };

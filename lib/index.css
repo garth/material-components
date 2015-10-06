@@ -734,5 +734,24 @@ a.waves-effect .waves-ripple {
     font-size: 13px;
     margin: 4px 0 -20px 0; }
 
+.mask {
+  opacity: 0; }
+  .mask.dark {
+    opacity: 1; }
+
+.dialog-enter {
+  opacity: 0; }
+
+.dialog-enter.dialog-enter-active {
+  opacity: 1;
+  transition: opacity 0.3s ease; }
+
+.dialog-leave {
+  opacity: 1; }
+
+.dialog-leave.dialog-leave-active {
+  opacity: 0;
+  transition: opacity 0.3s ease; }
+
 * {
   box-sizing: border-box; }

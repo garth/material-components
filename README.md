@@ -56,11 +56,11 @@ class Application extends Component {
     return {
       componentStyle: {
         primaryColor: '#FFC107',
-        primaryFontColor: '#000',
-        secondaryColor: '#FF5722',
-        secondaryFontColor: '#FFF',
-        errorColor: '#F00',
-        successColor: '#0F0'
+        primaryFontColor: 'rgba(0, 0, 0, 0.7)',
+        secondaryColor: '#E91E63',
+        secondaryFontColor: 'rgba(255, 255, 255, 0.9)',
+        errorColor: '#C00',
+        successColor: '#090'
       }
     };
   }

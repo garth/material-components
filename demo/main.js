@@ -11,7 +11,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 // import the material-components
-import { Appbar, Button, Checkbox, Col, Input, Row } from '../lib';
+import { Appbar, Button, Checkbox, Col, Dialog, Divider, Input, Row } from '../lib';
 
 // component to render code examples
 function Example({ code }) {
@@ -54,16 +54,17 @@ class Application extends Component {
   state = {
     email: '',
     password: '',
-    checked: false
+    checked: false,
+    showDialog: false
   }
 
   getChildContext() {
     return {
       componentStyle: {
         primaryColor: '#FFC107',
-        primaryFontColor: '#000',
-        secondaryColor: '#FF5722',
-        secondaryFontColor: '#FFF',
+        primaryFontColor: 'rgba(0, 0, 0, 0.7)',
+        secondaryColor: '#E91E63',
+        secondaryFontColor: 'rgba(255, 255, 255, 0.9)',
         errorColor: '#C00',
         successColor: '#090'
       }
@@ -108,15 +109,17 @@ import {
   Button,
   Checkbox
   Col,
+  Dialog,
+  Divider,
   Input,
   Row
 } from 'material-components';
           `}/>
 
-          <h2>Paper</h2>
+          <h2>Paper and Divider</h2>
           <p>
             Add a paper class to an element to lift it from the page. The optional <code>padded</code> class
-            gives the paper a default padding.
+            gives the paper a default padding. A divider component provides seperation.
           </p>
           <Example code={`
 <div className="paper1 padded">Paper 1</div>
@@ -124,6 +127,7 @@ import {
 <div className="paper3 padded">Paper 3</div>
 <div className="paper4 padded">Paper 4</div>
 <div className="paper5 padded">Paper 5</div>
+<Divider>
           `}/>
           <div style={{ margin: '16px 0' }}>
             <Row>
@@ -143,6 +147,12 @@ import {
                 <div className="paper5 padded">Paper 5</div>
               </Col>
             </Row>
+
+            <div style={{ margin: '24px 0 16px 0' }} className="paper1 padded">
+              Before divider
+              <Divider/>
+              After divider
+            </div>
           </div>
 
           <h2>Appbar, Appbar.Title and Appbar.Button</h2>
@@ -250,6 +260,25 @@ import {
               <Col type="md-5"><div className="paper1 padded">md-5</div></Col>
             </Row>
           </div>
+
+          <h2>Dialog</h2>
+          <Example code={`
+<Dialog isOpen={showDialog} width={400} height={172} title="Question?"
+  okLabel="OK" onOk={onOk} cancelLabel="Cancel" onCancel={onCancel}>
+</Dialog>
+          `}/>
+          <Button style={{ margin: '24px 0' }} primary={true} onTouchTap={() => this.setState({ showDialog: true })}>Show Dialog</Button>
+          <Dialog
+            isOpen={this.state.showDialog}
+            width={400}
+            height={172}
+            title="Do you confirm or deny?"
+            okLabel="Confirm"
+            onOk={() => this.setState({ showDialog: false })}
+            cancelLabel="Deny"
+            onCancel={() => this.setState({ showDialog: false })}>
+            the details of allogation
+          </Dialog>
         </div>
       </div>
     );
