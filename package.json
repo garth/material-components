@@ -1,6 +1,6 @@
 {
   "name": "material-components",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Stateless UI components for react that follow material design",
   "main": "lib/index.js",
   "scripts": {
@@ -50,9 +50,9 @@
   },
   "peerDependencies": {
     "classnames": "^2.1.5",
-    "react": "0.14.0-rc1",
-    "react-addons-css-transition-group": "0.14.0-rc1",
-    "react-dom": "0.14.0-rc1",
+    "react": "0.14.0",
+    "react-addons-css-transition-group": "0.14.0",
+    "react-dom": "0.14.0",
     "react-tap-event-plugin": "0.2.0"
   }
 }

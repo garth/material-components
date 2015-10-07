@@ -88,7 +88,7 @@ class Application extends Component {
         <div style={{ padding: '24px', width: '950px' }}>
           <h2>Introduction</h2>
           <p>
-            material-components is a library of <a href="https://facebook.github.io/react/">React</a> user
+            material-components is a library of <a href="https://facebook.github.io/react/">React</a> (0.14.0+) user
             interface components based on <a href="https://www.google.com/design/spec/">material design</a>.
           </p>
           <p>
