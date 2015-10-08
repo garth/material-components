@@ -79,8 +79,8 @@
 	var _lib = __webpack_require__(350);
 	
 	// component to render code examples
-	__webpack_require__(372);
-	__webpack_require__(376);
+	__webpack_require__(373);
+	__webpack_require__(377);
 	(0, _reactTapEventPlugin2['default'])();function Example(_ref) {
 	  var code = _ref.code;
 	
@@ -142,10 +142,11 @@
 	        componentStyle: {
 	          primaryColor: '#FFC107',
 	          primaryFontColor: 'rgba(0, 0, 0, 0.7)',
-	          secondaryColor: '#E91E63',
+	          secondaryColor: '#009688',
 	          secondaryFontColor: 'rgba(255, 255, 255, 0.9)',
 	          errorColor: '#C00',
-	          successColor: '#090'
+	          successColor: '#090',
+	          typographyColor: '#212121'
 	        }
 	      };
 	    }
@@ -192,8 +193,8 @@
 	          'div',
 	          { style: { padding: '24px', width: '950px' } },
 	          _react2['default'].createElement(
-	            'h2',
-	            null,
+	            _lib.Typ,
+	            { secondary: true, display1: true },
 	            'Introduction'
 	          ),
 	          _react2['default'].createElement(
@@ -242,14 +243,14 @@
 	            '.'
 	          ),
 	          _react2['default'].createElement(
-	            'h2',
-	            null,
+	            _lib.Typ,
+	            { secondary: true, display1: true },
 	            'Import Components'
 	          ),
-	          _react2['default'].createElement(Example, { code: '\nimport {\n  Appbar,\n  Button,\n  Checkbox\n  Col,\n  Dialog,\n  Divider,\n  Input,\n  Row\n} from \'material-components\';\n          ' }),
+	          _react2['default'].createElement(Example, { code: '\nimport {\n  Appbar,\n  Button,\n  Checkbox\n  Col,\n  Dialog,\n  Divider,\n  Input,\n  Row,\n  Typ\n} from \'material-components\';\n          ' }),
 	          _react2['default'].createElement(
-	            'h2',
-	            null,
+	            _lib.Typ,
+	            { secondary: true, display1: true },
 	            'Paper and Divider'
 	          ),
 	          _react2['default'].createElement(
@@ -325,8 +326,180 @@
 	            )
 	          ),
 	          _react2['default'].createElement(
-	            'h2',
+	            _lib.Typ,
+	            { secondary: true, display1: true },
+	            'Typography'
+	          ),
+	          _react2['default'].createElement(
+	            _lib.Row,
 	            null,
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'sm-5' },
+	              _react2['default'].createElement(Example, { code: '\n<Typ display3>Display 3</Typ>\n              ' })
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'sm-7' },
+	              _react2['default'].createElement(
+	                _lib.Typ,
+	                { display3: true },
+	                'Display 3'
+	              )
+	            )
+	          ),
+	          _react2['default'].createElement(
+	            _lib.Row,
+	            null,
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'sm-5' },
+	              _react2['default'].createElement(Example, { code: '\n<Typ display3>Display 2</Typ>\n              ' })
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'sm-7' },
+	              _react2['default'].createElement(
+	                _lib.Typ,
+	                { display2: true },
+	                'Display 2'
+	              )
+	            )
+	          ),
+	          _react2['default'].createElement(
+	            _lib.Row,
+	            null,
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'sm-5' },
+	              _react2['default'].createElement(Example, { code: '\n<Typ display1>Display 1</Typ>\n              ' })
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'sm-7' },
+	              _react2['default'].createElement(
+	                _lib.Typ,
+	                { display1: true },
+	                'Display 1'
+	              )
+	            )
+	          ),
+	          _react2['default'].createElement(
+	            _lib.Row,
+	            null,
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'sm-5' },
+	              _react2['default'].createElement(Example, { code: '\n<Typ headline>Headline</Typ>\n              ' })
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'sm-7' },
+	              _react2['default'].createElement(
+	                _lib.Typ,
+	                { headline: true },
+	                'Headline'
+	              )
+	            )
+	          ),
+	          _react2['default'].createElement(
+	            _lib.Row,
+	            null,
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'sm-5' },
+	              _react2['default'].createElement(Example, { code: '\n<Typ title>Title</Typ>\n              ' })
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'sm-7' },
+	              _react2['default'].createElement(
+	                _lib.Typ,
+	                { title: true },
+	                'Title'
+	              )
+	            )
+	          ),
+	          _react2['default'].createElement(
+	            _lib.Row,
+	            null,
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'sm-5' },
+	              _react2['default'].createElement(Example, { code: '\n<Typ subheading>Subheading</Typ>\n              ' })
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'sm-7' },
+	              _react2['default'].createElement(
+	                _lib.Typ,
+	                { subheading: true },
+	                'Subheading'
+	              )
+	            )
+	          ),
+	          _react2['default'].createElement(
+	            'p',
+	            null,
+	            'By adding an optional ',
+	            _react2['default'].createElement(
+	              'code',
+	              null,
+	              'primary'
+	            ),
+	            ' or ',
+	            _react2['default'].createElement(
+	              'code',
+	              null,
+	              'secondary'
+	            ),
+	            ' flag to any ',
+	            _react2['default'].createElement(
+	              'code',
+	              null,
+	              '<Typ>'
+	            ),
+	            ' the color is set to the primary or secondary colors.'
+	          ),
+	          _react2['default'].createElement(
+	            _lib.Row,
+	            null,
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'sm-5' },
+	              _react2['default'].createElement(Example, { code: '\n<Typ primary display2>Primary</Typ>\n              ' })
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'sm-7' },
+	              _react2['default'].createElement(
+	                _lib.Typ,
+	                { primary: true, display2: true },
+	                'Primay'
+	              )
+	            )
+	          ),
+	          _react2['default'].createElement(
+	            _lib.Row,
+	            null,
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'sm-5' },
+	              _react2['default'].createElement(Example, { code: '\n<Typ secondary display2>Secondary</Typ>\n              ' })
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'sm-7' },
+	              _react2['default'].createElement(
+	                _lib.Typ,
+	                { secondary: true, display2: true },
+	                'Secondary'
+	              )
+	            )
+	          ),
+	          _react2['default'].createElement(
+	            _lib.Typ,
+	            { secondary: true, display1: true },
 	            'Appbar, Appbar.Title and Appbar.Button'
 	          ),
 	          _react2['default'].createElement(Example, { code: '\n<Appbar>\n  <Appbar.Button style={{ float: \'left\' }}><Icon name="menu"/></Appbar.Button>\n  <Appbar.Title>Material Components</Appbar.Title>\n  <div style={{ float: \'right\' }}>\n    <Appbar.Button\n      onTouchTap={() => location.href=\'https://github.com/garth/material-components\'}>\n      <FaIcon name="github"/>\n    </Appbar.Button>\n    <Appbar.Button><Icon name="more_vert"/></Appbar.Button>\n  </div>\n</Appbar>\n          ' }),
@@ -346,8 +519,8 @@
 	            )
 	          ),
 	          _react2['default'].createElement(
-	            'h2',
-	            null,
+	            _lib.Typ,
+	            { secondary: true, display1: true },
 	            'Buttons'
 	          ),
 	          _react2['default'].createElement(Example, { code: '\n<Button onTouchTap={onClick}>Normal</Button>\n<Button onTouchTap={onClick} primary={true}>Primary</Button>\n<Button onTouchTap={onClick} flat={true}>Flat</Button>\n<Button onTouchTap={onClick} primary={true} flat={true}>Primary Flat</Button>\n          ' }),
@@ -376,8 +549,8 @@
 	            )
 	          ),
 	          _react2['default'].createElement(
-	            'h2',
-	            null,
+	            _lib.Typ,
+	            { secondary: true, display1: true },
 	            'Inputs'
 	          ),
 	          _react2['default'].createElement(Example, { code: '\n<Input label="Email" value={email} onChange={onEmailChange}/>\n<Input label="Password" type="password" value={password} onChange={onPasswordChange}/>\n<Input label="Success" value={email} isSuccess={true} onChange={onEmailChange}/>\n<Input label="Error" value={email} isError={true} message="fix me" onChange={onEmailChange}/>\n          ' }),
@@ -438,8 +611,8 @@
 	            )
 	          ),
 	          _react2['default'].createElement(
-	            'h2',
-	            null,
+	            _lib.Typ,
+	            { secondary: true, display1: true },
 	            'Checkbox'
 	          ),
 	          _react2['default'].createElement(Example, { code: '\n<Checkbox label="Checkbox" value={checked} onChange={setChecked}/>\n          ' }),
@@ -458,8 +631,8 @@
 	              } })
 	          ),
 	          _react2['default'].createElement(
-	            'h2',
-	            null,
+	            _lib.Typ,
+	            { secondary: true, display1: true },
 	            'Grid System'
 	          ),
 	          _react2['default'].createElement(
@@ -513,8 +686,8 @@
 	            )
 	          ),
 	          _react2['default'].createElement(
-	            'h2',
-	            null,
+	            _lib.Typ,
+	            { secondary: true, display1: true },
 	            'Dialog'
 	          ),
 	          _react2['default'].createElement(Example, { code: '\n<Dialog isOpen={showDialog} width={400} height={172} title="Question?"\n  okLabel="OK" onOk={onOk} cancelLabel="Cancel" onCancel={onCancel}>\n</Dialog>\n          ' }),
@@ -25409,7 +25582,8 @@
 	  Divider: __webpack_require__(369),
 	  Input: __webpack_require__(370),
 	  Mask: __webpack_require__(368),
-	  Row: __webpack_require__(371)
+	  Row: __webpack_require__(371),
+	  Typ: __webpack_require__(372)
 	};
 
 /***/ },
@@ -28004,13 +28178,152 @@
 /* 372 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	var _createClass = (function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ('value' in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	  };
+	})();
+	
+	var _get = function get(_x, _x2, _x3) {
+	  var _again = true;_function: while (_again) {
+	    var object = _x,
+	        property = _x2,
+	        receiver = _x3;desc = parent = getter = undefined;_again = false;if (object === null) object = Function.prototype;var desc = Object.getOwnPropertyDescriptor(object, property);if (desc === undefined) {
+	      var parent = Object.getPrototypeOf(object);if (parent === null) {
+	        return undefined;
+	      } else {
+	        _x = parent;_x2 = property;_x3 = receiver;_again = true;continue _function;
+	      }
+	    } else if ('value' in desc) {
+	      return desc.value;
+	    } else {
+	      var getter = desc.get;if (getter === undefined) {
+	        return undefined;
+	      }return getter.call(receiver);
+	    }
+	  }
+	};
+	
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { 'default': obj };
+	}
+	
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError('Cannot call a class as a function');
+	  }
+	}
+	
+	function _inherits(subClass, superClass) {
+	  if (typeof superClass !== 'function' && superClass !== null) {
+	    throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass);
+	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	}
+	
+	var _react = __webpack_require__(190);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _classnames = __webpack_require__(353);
+	
+	var _classnames2 = _interopRequireDefault(_classnames);
+	
+	var Typ = (function (_Component) {
+	  _inherits(Typ, _Component);
+	
+	  function Typ() {
+	    _classCallCheck(this, Typ);
+	
+	    _get(Object.getPrototypeOf(Typ.prototype), 'constructor', this).apply(this, arguments);
+	  }
+	
+	  _createClass(Typ, [{
+	    key: 'render',
+	    value: function render() {
+	      var _context$componentStyle = this.context.componentStyle;
+	      var primaryColor = _context$componentStyle.primaryColor;
+	      var secondaryColor = _context$componentStyle.secondaryColor;
+	      var typographyColor = _context$componentStyle.typographyColor;
+	      var _props = this.props;
+	      var children = _props.children;
+	      var display3 = _props.display3;
+	      var display2 = _props.display2;
+	      var display1 = _props.display1;
+	      var headline = _props.headline;
+	      var title = _props.title;
+	      var subheading = _props.subheading;
+	      var caption = _props.caption;
+	      var primary = _props.primary;
+	      var secondary = _props.secondary;
+	      var style = _props.style;
+	
+	      return _react2['default'].createElement('div', { className: (0, _classnames2['default'])({
+	          'text-display-3': display3,
+	          'text-display-2': display2,
+	          'text-display-1': display1,
+	          'text-headline': headline,
+	          'text-title': title,
+	          'text-subheading': subheading,
+	          'text-caption': caption
+	        }), style: Object.assign({
+	          color: primary ? primaryColor : secondary ? secondaryColor : typographyColor
+	        }, style) }, children);
+	    }
+	  }], [{
+	    key: 'displayName',
+	    value: 'Typography',
+	    enumerable: true
+	  }, {
+	    key: 'contextTypes',
+	    value: {
+	      componentStyle: _react2['default'].PropTypes.object
+	    },
+	    enumerable: true
+	  }, {
+	    key: 'propTypes',
+	    value: {
+	      children: _react.PropTypes.node,
+	      display3: _react.PropTypes.bool,
+	      display2: _react.PropTypes.bool,
+	      display1: _react.PropTypes.bool,
+	      headline: _react.PropTypes.bool,
+	      title: _react.PropTypes.bool,
+	      subheading: _react.PropTypes.bool,
+	      caption: _react.PropTypes.bool,
+	      primary: _react.PropTypes.bool,
+	      secondary: _react.PropTypes.bool,
+	      style: _react.PropTypes.object
+	    },
+	    enumerable: true
+	  }]);
+	
+	  return Typ;
+	})(_react.Component);
+	
+	exports['default'] = Typ;
+	module.exports = exports['default'];
+
+/***/ },
+/* 373 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(373);
+	var content = __webpack_require__(374);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(375)(content, {});
+	var update = __webpack_require__(376)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -28027,10 +28340,10 @@
 	}
 
 /***/ },
-/* 373 */
+/* 374 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(374)();
+	exports = module.exports = __webpack_require__(375)();
 	// imports
 	
 	
@@ -28041,7 +28354,7 @@
 
 
 /***/ },
-/* 374 */
+/* 375 */
 /***/ function(module, exports) {
 
 	/*
@@ -28097,7 +28410,7 @@
 
 
 /***/ },
-/* 375 */
+/* 376 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -28322,16 +28635,16 @@
 
 
 /***/ },
-/* 376 */
+/* 377 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(377);
+	var content = __webpack_require__(378);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(375)(content, {});
+	var update = __webpack_require__(376)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -28348,10 +28661,10 @@
 	}
 
 /***/ },
-/* 377 */
+/* 378 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(374)();
+	exports = module.exports = __webpack_require__(375)();
 	// imports
 	
 	

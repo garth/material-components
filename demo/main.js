@@ -11,7 +11,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 // import the material-components
-import { Appbar, Button, Checkbox, Col, Dialog, Divider, Input, Row } from '../lib';
+import { Appbar, Button, Checkbox, Col, Dialog, Divider, Input, Row, Typ } from '../lib';
 
 // component to render code examples
 function Example({ code }) {
@@ -63,10 +63,11 @@ class Application extends Component {
       componentStyle: {
         primaryColor: '#FFC107',
         primaryFontColor: 'rgba(0, 0, 0, 0.7)',
-        secondaryColor: '#E91E63',
+        secondaryColor: '#009688',
         secondaryFontColor: 'rgba(255, 255, 255, 0.9)',
         errorColor: '#C00',
-        successColor: '#090'
+        successColor: '#090',
+        typographyColor: '#212121'
       }
     };
   }
@@ -86,7 +87,7 @@ class Application extends Component {
           </div>
         </Appbar>
         <div style={{ padding: '24px', width: '950px' }}>
-          <h2>Introduction</h2>
+          <Typ secondary display1>Introduction</Typ>
           <p>
             material-components is a library of <a href="https://facebook.github.io/react/">React</a> (0.14.0+) user
             interface components based on <a href="https://www.google.com/design/spec/">material design</a>.
@@ -102,7 +103,7 @@ class Application extends Component {
             the <a href="https://github.com/garth/material-components">GitHub Repository</a>.
           </p>
 
-          <h2>Import Components</h2>
+          <Typ secondary display1>Import Components</Typ>
           <Example code={`
 import {
   Appbar,
@@ -112,11 +113,12 @@ import {
   Dialog,
   Divider,
   Input,
-  Row
+  Row,
+  Typ
 } from 'material-components';
           `}/>
 
-          <h2>Paper and Divider</h2>
+          <Typ secondary display1>Paper and Divider</Typ>
           <p>
             Add a paper class to an element to lift it from the page. The optional <code>padded</code> class
             gives the paper a default padding. A divider component provides seperation.
@@ -155,7 +157,77 @@ import {
             </div>
           </div>
 
-          <h2>Appbar, Appbar.Title and Appbar.Button</h2>
+          <Typ secondary display1>Typography</Typ>
+          <Row>
+            <Col type="sm-5">
+              <Example code={`
+<Typ display3>Display 3</Typ>
+              `}/>
+            </Col>
+            <Col type="sm-7"><Typ display3>Display 3</Typ></Col>
+          </Row>
+          <Row>
+            <Col type="sm-5">
+              <Example code={`
+<Typ display3>Display 2</Typ>
+              `}/>
+            </Col>
+            <Col type="sm-7"><Typ display2>Display 2</Typ></Col>
+          </Row>
+          <Row>
+            <Col type="sm-5">
+              <Example code={`
+<Typ display1>Display 1</Typ>
+              `}/>
+            </Col>
+            <Col type="sm-7"><Typ display1>Display 1</Typ></Col>
+          </Row>
+          <Row>
+            <Col type="sm-5">
+              <Example code={`
+<Typ headline>Headline</Typ>
+              `}/>
+            </Col>
+            <Col type="sm-7"><Typ headline>Headline</Typ></Col>
+          </Row>
+          <Row>
+            <Col type="sm-5">
+              <Example code={`
+<Typ title>Title</Typ>
+              `}/>
+            </Col>
+            <Col type="sm-7"><Typ title>Title</Typ></Col>
+          </Row>
+          <Row>
+            <Col type="sm-5">
+              <Example code={`
+<Typ subheading>Subheading</Typ>
+              `}/>
+            </Col>
+            <Col type="sm-7"><Typ subheading>Subheading</Typ></Col>
+          </Row>
+          <p>
+            By adding an optional <code>primary</code> or <code>secondary</code> flag to
+            any <code>&lt;Typ&gt;</code> the color is set to the primary or secondary colors.
+          </p>
+          <Row>
+            <Col type="sm-5">
+              <Example code={`
+<Typ primary display2>Primary</Typ>
+              `}/>
+            </Col>
+            <Col type="sm-7"><Typ primary display2>Primay</Typ></Col>
+          </Row>
+          <Row>
+            <Col type="sm-5">
+              <Example code={`
+<Typ secondary display2>Secondary</Typ>
+              `}/>
+            </Col>
+            <Col type="sm-7"><Typ secondary display2>Secondary</Typ></Col>
+          </Row>
+
+          <Typ secondary display1>Appbar, Appbar.Title and Appbar.Button</Typ>
           <Example code={`
 <Appbar>
   <Appbar.Button style={{ float: 'left' }}><Icon name="menu"/></Appbar.Button>
@@ -175,7 +247,7 @@ import {
             using <code>{'<Appbar.Button lightWaves={true}>X</Appbar.Button>'}</code>
           </p>
 
-          <h2>Buttons</h2>
+          <Typ secondary display1>Buttons</Typ>
           <Example code={`
 <Button onTouchTap={onClick}>Normal</Button>
 <Button onTouchTap={onClick} primary={true}>Primary</Button>
@@ -189,7 +261,7 @@ import {
             <Button primary={true} flat={true}>Primary Flat</Button>
           </p>
 
-          <h2>Inputs</h2>
+          <Typ secondary display1>Inputs</Typ>
           <Example code={`
 <Input label="Email" value={email} onChange={onEmailChange}/>
 <Input label="Password" type="password" value={password} onChange={onPasswordChange}/>
@@ -231,7 +303,7 @@ import {
             </Row>
           </div>
 
-          <h2>Checkbox</h2>
+          <Typ secondary display1>Checkbox</Typ>
           <Example code={`
 <Checkbox label="Checkbox" value={checked} onChange={setChecked}/>
           `}/>
@@ -242,7 +314,7 @@ import {
             <Checkbox label="Opposite" value={!this.state.checked} onChange={(e) => this.setState({ checked: !e.target.value })}/>
           </div>
 
-          <h2>Grid System</h2>
+          <Typ secondary display1>Grid System</Typ>
           <p>
             material-components borrows the reponsive <a href="http://getbootstrap.com/css/#grid">grid
             system from bootstrap</a>. Simply omit the <code>col-</code> class name prefix and pass all
@@ -261,7 +333,7 @@ import {
             </Row>
           </div>
 
-          <h2>Dialog</h2>
+          <Typ secondary display1>Dialog</Typ>
           <Example code={`
 <Dialog isOpen={showDialog} width={400} height={172} title="Question?"
   okLabel="OK" onOk={onOk} cancelLabel="Cancel" onCancel={onCancel}>
