@@ -85,15 +85,19 @@
 	  var code = _ref.code;
 	
 	  return _react2['default'].createElement(
-	    'pre',
-	    { className: 'prettyprint lang-js linenums', style: {
-	        fontFamily: 'Ubuntu Mono',
-	        padding: '8px 0',
-	        margin: '0',
-	        borderRadius: '0',
-	        width: '100%'
-	      } },
-	    code.trim()
+	    'div',
+	    { style: { padding: '8px 0' } },
+	    _react2['default'].createElement(
+	      'pre',
+	      { className: 'prettyprint lang-js linenums', style: {
+	          fontFamily: 'Ubuntu Mono',
+	          padding: '8px 0',
+	          margin: '0',
+	          borderRadius: '0',
+	          width: '100%'
+	        } },
+	      code.trim()
+	    )
 	  );
 	}
 	
@@ -193,527 +197,567 @@
 	          'div',
 	          { style: { padding: '24px', width: '950px' } },
 	          _react2['default'].createElement(
-	            _lib.Typ,
-	            { secondary: true, display1: true },
-	            'Introduction'
-	          ),
-	          _react2['default'].createElement(
-	            'p',
+	            'section',
 	            null,
-	            'material-components is a library of ',
 	            _react2['default'].createElement(
-	              'a',
-	              { href: 'https://facebook.github.io/react/' },
-	              'React'
+	              _lib.Typ,
+	              { secondary: true, display1: true },
+	              'Introduction'
 	            ),
-	            ' (0.14.0+) user interface components based on ',
 	            _react2['default'].createElement(
-	              'a',
-	              { href: 'https://www.google.com/design/spec/' },
-	              'material design'
-	            ),
-	            '.'
-	          ),
-	          _react2['default'].createElement(
-	            'p',
-	            null,
-	            'Unlike some other React based component libraries, material-components are completely stateless making them an ideal companion to libraries such as ',
-	            _react2['default'].createElement(
-	              'a',
-	              { href: 'http://christianalfoni.com/cerebral/' },
-	              'Cerebral'
-	            ),
-	            ' or ',
-	            _react2['default'].createElement(
-	              'a',
-	              { href: 'http://rackt.github.io/redux/' },
-	              'Redux'
-	            ),
-	            '. But they can also be used with other flux based frameworks or even without a framework at all.'
-	          ),
-	          _react2['default'].createElement(
-	            'p',
-	            null,
-	            'For source code, installation and configuration info please see the ',
-	            _react2['default'].createElement(
-	              'a',
-	              { href: 'https://github.com/garth/material-components' },
-	              'GitHub Repository'
-	            ),
-	            '.'
-	          ),
-	          _react2['default'].createElement(
-	            _lib.Typ,
-	            { secondary: true, display1: true },
-	            'Import Components'
-	          ),
-	          _react2['default'].createElement(Example, { code: '\nimport {\n  Appbar,\n  Button,\n  Checkbox\n  Col,\n  Dialog,\n  Divider,\n  Input,\n  Row,\n  Typ\n} from \'material-components\';\n          ' }),
-	          _react2['default'].createElement(
-	            _lib.Typ,
-	            { secondary: true, display1: true },
-	            'Paper and Divider'
-	          ),
-	          _react2['default'].createElement(
-	            'p',
-	            null,
-	            'Add a paper class to an element to lift it from the page. The optional ',
-	            _react2['default'].createElement(
-	              'code',
+	              'p',
 	              null,
-	              'padded'
+	              'material-components is a library of ',
+	              _react2['default'].createElement(
+	                'a',
+	                { href: 'https://facebook.github.io/react/' },
+	                'React'
+	              ),
+	              ' (0.14.0+) user interface components based on ',
+	              _react2['default'].createElement(
+	                'a',
+	                { href: 'https://www.google.com/design/spec/' },
+	                'material design'
+	              ),
+	              '.'
 	            ),
-	            ' class gives the paper a default padding. A divider component provides seperation.'
+	            _react2['default'].createElement(
+	              'p',
+	              null,
+	              'Unlike some other React based component libraries, material-components are completely stateless making them an ideal companion to libraries such as ',
+	              _react2['default'].createElement(
+	                'a',
+	                { href: 'http://christianalfoni.com/cerebral/' },
+	                'Cerebral'
+	              ),
+	              ' or ',
+	              _react2['default'].createElement(
+	                'a',
+	                { href: 'http://rackt.github.io/redux/' },
+	                'Redux'
+	              ),
+	              '. But they can also be used with other flux based frameworks or even without a framework at all.'
+	            ),
+	            _react2['default'].createElement(
+	              'p',
+	              null,
+	              'For source code, installation and configuration info please see the ',
+	              _react2['default'].createElement(
+	                'a',
+	                { href: 'https://github.com/garth/material-components' },
+	                'GitHub Repository'
+	              ),
+	              '.'
+	            )
 	          ),
-	          _react2['default'].createElement(Example, { code: '\n<div className="paper1 padded">Paper 1</div>\n<div className="paper2 padded">Paper 2</div>\n<div className="paper3 padded">Paper 3</div>\n<div className="paper4 padded">Paper 4</div>\n<div className="paper5 padded">Paper 5</div>\n<Divider>\n          ' }),
 	          _react2['default'].createElement(
-	            'div',
-	            { style: { margin: '16px 0' } },
+	            'section',
+	            null,
+	            _react2['default'].createElement(
+	              _lib.Typ,
+	              { secondary: true, display1: true },
+	              'Import Components'
+	            ),
+	            _react2['default'].createElement(Example, { code: '\nimport {\n  Appbar,\n  Button,\n  Checkbox\n  Col,\n  Dialog,\n  Divider,\n  Input,\n  Row,\n  Typ\n} from \'material-components\';\n            ' })
+	          ),
+	          _react2['default'].createElement(
+	            'section',
+	            null,
+	            _react2['default'].createElement(
+	              _lib.Typ,
+	              { secondary: true, display1: true },
+	              'Paper and Divider'
+	            ),
+	            _react2['default'].createElement(
+	              'p',
+	              null,
+	              'Add a paper class to an element to lift it from the page. The optional ',
+	              _react2['default'].createElement(
+	                'code',
+	                null,
+	                'padded'
+	              ),
+	              ' class gives the paper a default padding. A divider component provides seperation.'
+	            ),
+	            _react2['default'].createElement(Example, { code: '\n<div className="paper1 padded">Paper 1</div>\n<div className="paper2 padded">Paper 2</div>\n<div className="paper3 padded">Paper 3</div>\n<div className="paper4 padded">Paper 4</div>\n<div className="paper5 padded">Paper 5</div>\n<Divider>\n            ' }),
+	            _react2['default'].createElement(
+	              'div',
+	              { style: { margin: '16px 0' } },
+	              _react2['default'].createElement(
+	                _lib.Row,
+	                null,
+	                _react2['default'].createElement(
+	                  _lib.Col,
+	                  { type: 'sm-offset-1 sm-2' },
+	                  _react2['default'].createElement(
+	                    'div',
+	                    { className: 'paper1 padded' },
+	                    'Paper 1'
+	                  )
+	                ),
+	                _react2['default'].createElement(
+	                  _lib.Col,
+	                  { type: 'sm-2' },
+	                  _react2['default'].createElement(
+	                    'div',
+	                    { className: 'paper2 padded' },
+	                    'Paper 2'
+	                  )
+	                ),
+	                _react2['default'].createElement(
+	                  _lib.Col,
+	                  { type: 'sm-2' },
+	                  _react2['default'].createElement(
+	                    'div',
+	                    { className: 'paper3 padded' },
+	                    'Paper 3'
+	                  )
+	                ),
+	                _react2['default'].createElement(
+	                  _lib.Col,
+	                  { type: 'sm-2' },
+	                  _react2['default'].createElement(
+	                    'div',
+	                    { className: 'paper4 padded' },
+	                    'Paper 4'
+	                  )
+	                ),
+	                _react2['default'].createElement(
+	                  _lib.Col,
+	                  { type: 'sm-2' },
+	                  _react2['default'].createElement(
+	                    'div',
+	                    { className: 'paper5 padded' },
+	                    'Paper 5'
+	                  )
+	                )
+	              ),
+	              _react2['default'].createElement(
+	                'div',
+	                { style: { margin: '24px 0 16px 0' }, className: 'paper1 padded' },
+	                'Before divider',
+	                _react2['default'].createElement(_lib.Divider, null),
+	                'After divider'
+	              )
+	            )
+	          ),
+	          _react2['default'].createElement(
+	            'section',
+	            null,
+	            _react2['default'].createElement(
+	              _lib.Typ,
+	              { secondary: true, display1: true },
+	              'Typography'
+	            ),
 	            _react2['default'].createElement(
 	              _lib.Row,
 	              null,
 	              _react2['default'].createElement(
 	                _lib.Col,
-	                { type: 'sm-offset-1 sm-2' },
-	                _react2['default'].createElement(
-	                  'div',
-	                  { className: 'paper1 padded' },
-	                  'Paper 1'
-	                )
+	                { type: 'sm-5' },
+	                _react2['default'].createElement(Example, { code: '\n<Typ display3>Display 3</Typ>\n                ' })
 	              ),
 	              _react2['default'].createElement(
 	                _lib.Col,
-	                { type: 'sm-2' },
+	                { type: 'sm-7' },
 	                _react2['default'].createElement(
-	                  'div',
-	                  { className: 'paper2 padded' },
-	                  'Paper 2'
-	                )
-	              ),
-	              _react2['default'].createElement(
-	                _lib.Col,
-	                { type: 'sm-2' },
-	                _react2['default'].createElement(
-	                  'div',
-	                  { className: 'paper3 padded' },
-	                  'Paper 3'
-	                )
-	              ),
-	              _react2['default'].createElement(
-	                _lib.Col,
-	                { type: 'sm-2' },
-	                _react2['default'].createElement(
-	                  'div',
-	                  { className: 'paper4 padded' },
-	                  'Paper 4'
-	                )
-	              ),
-	              _react2['default'].createElement(
-	                _lib.Col,
-	                { type: 'sm-2' },
-	                _react2['default'].createElement(
-	                  'div',
-	                  { className: 'paper5 padded' },
-	                  'Paper 5'
+	                  _lib.Typ,
+	                  { display3: true },
+	                  'Display 3'
 	                )
 	              )
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Row,
+	              null,
+	              _react2['default'].createElement(
+	                _lib.Col,
+	                { type: 'sm-5' },
+	                _react2['default'].createElement(Example, { code: '\n<Typ display3>Display 2</Typ>\n                ' })
+	              ),
+	              _react2['default'].createElement(
+	                _lib.Col,
+	                { type: 'sm-7' },
+	                _react2['default'].createElement(
+	                  _lib.Typ,
+	                  { display2: true },
+	                  'Display 2'
+	                )
+	              )
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Row,
+	              null,
+	              _react2['default'].createElement(
+	                _lib.Col,
+	                { type: 'sm-5' },
+	                _react2['default'].createElement(Example, { code: '\n<Typ display1>Display 1</Typ>\n                ' })
+	              ),
+	              _react2['default'].createElement(
+	                _lib.Col,
+	                { type: 'sm-7' },
+	                _react2['default'].createElement(
+	                  _lib.Typ,
+	                  { display1: true },
+	                  'Display 1'
+	                )
+	              )
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Row,
+	              null,
+	              _react2['default'].createElement(
+	                _lib.Col,
+	                { type: 'sm-5' },
+	                _react2['default'].createElement(Example, { code: '\n<Typ headline>Headline</Typ>\n                ' })
+	              ),
+	              _react2['default'].createElement(
+	                _lib.Col,
+	                { type: 'sm-7' },
+	                _react2['default'].createElement(
+	                  _lib.Typ,
+	                  { headline: true },
+	                  'Headline'
+	                )
+	              )
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Row,
+	              null,
+	              _react2['default'].createElement(
+	                _lib.Col,
+	                { type: 'sm-5' },
+	                _react2['default'].createElement(Example, { code: '\n<Typ title>Title</Typ>\n                ' })
+	              ),
+	              _react2['default'].createElement(
+	                _lib.Col,
+	                { type: 'sm-7' },
+	                _react2['default'].createElement(
+	                  _lib.Typ,
+	                  { title: true },
+	                  'Title'
+	                )
+	              )
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Row,
+	              null,
+	              _react2['default'].createElement(
+	                _lib.Col,
+	                { type: 'sm-5' },
+	                _react2['default'].createElement(Example, { code: '\n<Typ subheading>Subheading</Typ>\n                ' })
+	              ),
+	              _react2['default'].createElement(
+	                _lib.Col,
+	                { type: 'sm-7' },
+	                _react2['default'].createElement(
+	                  _lib.Typ,
+	                  { subheading: true },
+	                  'Subheading'
+	                )
+	              )
+	            ),
+	            _react2['default'].createElement(
+	              'p',
+	              null,
+	              'By adding an optional ',
+	              _react2['default'].createElement(
+	                'code',
+	                null,
+	                'primary'
+	              ),
+	              ' or ',
+	              _react2['default'].createElement(
+	                'code',
+	                null,
+	                'secondary'
+	              ),
+	              ' flag to any ',
+	              _react2['default'].createElement(
+	                'code',
+	                null,
+	                '<Typ>'
+	              ),
+	              ' the color is set to the primary or secondary colors.'
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Row,
+	              null,
+	              _react2['default'].createElement(
+	                _lib.Col,
+	                { type: 'sm-5' },
+	                _react2['default'].createElement(Example, { code: '\n<Typ primary display2>Primary</Typ>\n                ' })
+	              ),
+	              _react2['default'].createElement(
+	                _lib.Col,
+	                { type: 'sm-7' },
+	                _react2['default'].createElement(
+	                  _lib.Typ,
+	                  { primary: true, display2: true },
+	                  'Primay'
+	                )
+	              )
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Row,
+	              null,
+	              _react2['default'].createElement(
+	                _lib.Col,
+	                { type: 'sm-5' },
+	                _react2['default'].createElement(Example, { code: '\n<Typ secondary display2>Secondary</Typ>\n                ' })
+	              ),
+	              _react2['default'].createElement(
+	                _lib.Col,
+	                { type: 'sm-7' },
+	                _react2['default'].createElement(
+	                  _lib.Typ,
+	                  { secondary: true, display2: true },
+	                  'Secondary'
+	                )
+	              )
+	            )
+	          ),
+	          _react2['default'].createElement(
+	            'section',
+	            null,
+	            _react2['default'].createElement(
+	              _lib.Typ,
+	              { secondary: true, display1: true },
+	              'Appbar, Appbar.Title and Appbar.Button'
+	            ),
+	            _react2['default'].createElement(Example, { code: '\n<Appbar>\n  <Appbar.Button style={{ float: \'left\' }}><Icon name="menu"/></Appbar.Button>\n  <Appbar.Title>Material Components</Appbar.Title>\n  <div style={{ float: \'right\' }}>\n    <Appbar.Button\n      onTouchTap={() => location.href=\'https://github.com/garth/material-components\'}>\n      <FaIcon name="github"/>\n    </Appbar.Button>\n    <Appbar.Button><Icon name="more_vert"/></Appbar.Button>\n  </div>\n</Appbar>\n            ' }),
+	            _react2['default'].createElement(
+	              'p',
+	              null,
+	              'See the appbar above.'
+	            ),
+	            _react2['default'].createElement(
+	              'p',
+	              null,
+	              'When using a darker primary color, try using ',
+	              _react2['default'].createElement(
+	                'code',
+	                null,
+	                '<Appbar.Button lightWaves={true}>X</Appbar.Button>'
+	              )
+	            )
+	          ),
+	          _react2['default'].createElement(
+	            'section',
+	            null,
+	            _react2['default'].createElement(
+	              _lib.Typ,
+	              { secondary: true, display1: true },
+	              'Buttons'
+	            ),
+	            _react2['default'].createElement(Example, { code: '\n<Button onTouchTap={onClick}>Normal</Button>\n<Button onTouchTap={onClick} primary={true}>Primary</Button>\n<Button onTouchTap={onClick} flat={true}>Flat</Button>\n<Button onTouchTap={onClick} primary={true} flat={true}>Primary Flat</Button>\n            ' }),
+	            _react2['default'].createElement(
+	              'p',
+	              null,
+	              _react2['default'].createElement(
+	                _lib.Button,
+	                null,
+	                'Normal'
+	              ),
+	              _react2['default'].createElement(
+	                _lib.Button,
+	                { primary: true },
+	                'Primary'
+	              ),
+	              _react2['default'].createElement(
+	                _lib.Button,
+	                { flat: true },
+	                'Flat'
+	              ),
+	              _react2['default'].createElement(
+	                _lib.Button,
+	                { primary: true, flat: true },
+	                'Primary Flat'
+	              )
+	            )
+	          ),
+	          _react2['default'].createElement(
+	            'section',
+	            null,
+	            _react2['default'].createElement(
+	              _lib.Typ,
+	              { secondary: true, display1: true },
+	              'Inputs'
+	            ),
+	            _react2['default'].createElement(Example, { code: '\n<Input label="Email" value={email} onChange={onEmailChange}/>\n<Input label="Password" type="password" value={password} onChange={onPasswordChange}/>\n<Input label="Success" value={email} isSuccess={true} onChange={onEmailChange}/>\n<Input label="Error" value={email} isError={true} message="fix me" onChange={onEmailChange}/>\n            ' }),
+	            _react2['default'].createElement(
+	              'div',
+	              { style: { margin: '16px 0' } },
+	              _react2['default'].createElement(
+	                _lib.Row,
+	                null,
+	                _react2['default'].createElement(
+	                  _lib.Col,
+	                  { type: 'md-6' },
+	                  _react2['default'].createElement(_lib.Input, {
+	                    label: 'Email',
+	                    value: this.state.email,
+	                    onChange: function (e) {
+	                      return _this.setState({ email: e.target.value });
+	                    } })
+	                ),
+	                _react2['default'].createElement(
+	                  _lib.Col,
+	                  { type: 'md-6' },
+	                  _react2['default'].createElement(_lib.Input, {
+	                    label: 'Password',
+	                    type: 'password',
+	                    value: this.state.password,
+	                    onChange: function (e) {
+	                      return _this.setState({ password: e.target.value });
+	                    } })
+	                )
+	              ),
+	              _react2['default'].createElement(
+	                _lib.Row,
+	                null,
+	                _react2['default'].createElement(
+	                  _lib.Col,
+	                  { type: 'md-6' },
+	                  _react2['default'].createElement(_lib.Input, {
+	                    label: 'Success',
+	                    value: this.state.email,
+	                    isSuccess: true,
+	                    onChange: function (e) {
+	                      return _this.setState({ email: e.target.value });
+	                    } })
+	                ),
+	                _react2['default'].createElement(
+	                  _lib.Col,
+	                  { type: 'md-6' },
+	                  _react2['default'].createElement(_lib.Input, {
+	                    label: 'Error',
+	                    value: this.state.email,
+	                    isError: true,
+	                    message: 'fix me',
+	                    onChange: function (e) {
+	                      return _this.setState({ email: e.target.value });
+	                    } })
+	                )
+	              )
+	            )
+	          ),
+	          _react2['default'].createElement(
+	            'section',
+	            null,
+	            _react2['default'].createElement(
+	              _lib.Typ,
+	              { secondary: true, display1: true },
+	              'Checkbox'
+	            ),
+	            _react2['default'].createElement(Example, { code: '\n<Checkbox label="Checkbox" value={checked} onChange={setChecked}/>\n            ' }),
+	            _react2['default'].createElement(
+	              'div',
+	              null,
+	              _react2['default'].createElement(_lib.Checkbox, { label: 'Checkbox', value: this.state.checked, onChange: function (e) {
+	                  return _this.setState({ checked: e.target.value });
+	                } })
 	            ),
 	            _react2['default'].createElement(
 	              'div',
-	              { style: { margin: '24px 0 16px 0' }, className: 'paper1 padded' },
-	              'Before divider',
-	              _react2['default'].createElement(_lib.Divider, null),
-	              'After divider'
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            _lib.Typ,
-	            { secondary: true, display1: true },
-	            'Typography'
-	          ),
-	          _react2['default'].createElement(
-	            _lib.Row,
-	            null,
-	            _react2['default'].createElement(
-	              _lib.Col,
-	              { type: 'sm-5' },
-	              _react2['default'].createElement(Example, { code: '\n<Typ display3>Display 3</Typ>\n              ' })
-	            ),
-	            _react2['default'].createElement(
-	              _lib.Col,
-	              { type: 'sm-7' },
-	              _react2['default'].createElement(
-	                _lib.Typ,
-	                { display3: true },
-	                'Display 3'
-	              )
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            _lib.Row,
-	            null,
-	            _react2['default'].createElement(
-	              _lib.Col,
-	              { type: 'sm-5' },
-	              _react2['default'].createElement(Example, { code: '\n<Typ display3>Display 2</Typ>\n              ' })
-	            ),
-	            _react2['default'].createElement(
-	              _lib.Col,
-	              { type: 'sm-7' },
-	              _react2['default'].createElement(
-	                _lib.Typ,
-	                { display2: true },
-	                'Display 2'
-	              )
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            _lib.Row,
-	            null,
-	            _react2['default'].createElement(
-	              _lib.Col,
-	              { type: 'sm-5' },
-	              _react2['default'].createElement(Example, { code: '\n<Typ display1>Display 1</Typ>\n              ' })
-	            ),
-	            _react2['default'].createElement(
-	              _lib.Col,
-	              { type: 'sm-7' },
-	              _react2['default'].createElement(
-	                _lib.Typ,
-	                { display1: true },
-	                'Display 1'
-	              )
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            _lib.Row,
-	            null,
-	            _react2['default'].createElement(
-	              _lib.Col,
-	              { type: 'sm-5' },
-	              _react2['default'].createElement(Example, { code: '\n<Typ headline>Headline</Typ>\n              ' })
-	            ),
-	            _react2['default'].createElement(
-	              _lib.Col,
-	              { type: 'sm-7' },
-	              _react2['default'].createElement(
-	                _lib.Typ,
-	                { headline: true },
-	                'Headline'
-	              )
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            _lib.Row,
-	            null,
-	            _react2['default'].createElement(
-	              _lib.Col,
-	              { type: 'sm-5' },
-	              _react2['default'].createElement(Example, { code: '\n<Typ title>Title</Typ>\n              ' })
-	            ),
-	            _react2['default'].createElement(
-	              _lib.Col,
-	              { type: 'sm-7' },
-	              _react2['default'].createElement(
-	                _lib.Typ,
-	                { title: true },
-	                'Title'
-	              )
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            _lib.Row,
-	            null,
-	            _react2['default'].createElement(
-	              _lib.Col,
-	              { type: 'sm-5' },
-	              _react2['default'].createElement(Example, { code: '\n<Typ subheading>Subheading</Typ>\n              ' })
-	            ),
-	            _react2['default'].createElement(
-	              _lib.Col,
-	              { type: 'sm-7' },
-	              _react2['default'].createElement(
-	                _lib.Typ,
-	                { subheading: true },
-	                'Subheading'
-	              )
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            'p',
-	            null,
-	            'By adding an optional ',
-	            _react2['default'].createElement(
-	              'code',
 	              null,
-	              'primary'
-	            ),
-	            ' or ',
-	            _react2['default'].createElement(
-	              'code',
-	              null,
-	              'secondary'
-	            ),
-	            ' flag to any ',
-	            _react2['default'].createElement(
-	              'code',
-	              null,
-	              '<Typ>'
-	            ),
-	            ' the color is set to the primary or secondary colors.'
+	              _react2['default'].createElement(_lib.Checkbox, { label: 'Opposite', value: !this.state.checked, onChange: function (e) {
+	                  return _this.setState({ checked: !e.target.value });
+	                } })
+	            )
 	          ),
 	          _react2['default'].createElement(
-	            _lib.Row,
+	            'section',
 	            null,
 	            _react2['default'].createElement(
-	              _lib.Col,
-	              { type: 'sm-5' },
-	              _react2['default'].createElement(Example, { code: '\n<Typ primary display2>Primary</Typ>\n              ' })
+	              _lib.Typ,
+	              { secondary: true, display1: true },
+	              'Grid System'
 	            ),
 	            _react2['default'].createElement(
-	              _lib.Col,
-	              { type: 'sm-7' },
+	              'p',
+	              null,
+	              'material-components borrows the reponsive ',
 	              _react2['default'].createElement(
-	                _lib.Typ,
-	                { primary: true, display2: true },
-	                'Primay'
-	              )
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            _lib.Row,
-	            null,
-	            _react2['default'].createElement(
-	              _lib.Col,
-	              { type: 'sm-5' },
-	              _react2['default'].createElement(Example, { code: '\n<Typ secondary display2>Secondary</Typ>\n              ' })
-	            ),
-	            _react2['default'].createElement(
-	              _lib.Col,
-	              { type: 'sm-7' },
-	              _react2['default'].createElement(
-	                _lib.Typ,
-	                { secondary: true, display2: true },
-	                'Secondary'
-	              )
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            _lib.Typ,
-	            { secondary: true, display1: true },
-	            'Appbar, Appbar.Title and Appbar.Button'
-	          ),
-	          _react2['default'].createElement(Example, { code: '\n<Appbar>\n  <Appbar.Button style={{ float: \'left\' }}><Icon name="menu"/></Appbar.Button>\n  <Appbar.Title>Material Components</Appbar.Title>\n  <div style={{ float: \'right\' }}>\n    <Appbar.Button\n      onTouchTap={() => location.href=\'https://github.com/garth/material-components\'}>\n      <FaIcon name="github"/>\n    </Appbar.Button>\n    <Appbar.Button><Icon name="more_vert"/></Appbar.Button>\n  </div>\n</Appbar>\n          ' }),
-	          _react2['default'].createElement(
-	            'p',
-	            null,
-	            'See the appbar above.'
-	          ),
-	          _react2['default'].createElement(
-	            'p',
-	            null,
-	            'When using a darker primary color, try using ',
-	            _react2['default'].createElement(
-	              'code',
-	              null,
-	              '<Appbar.Button lightWaves={true}>X</Appbar.Button>'
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            _lib.Typ,
-	            { secondary: true, display1: true },
-	            'Buttons'
-	          ),
-	          _react2['default'].createElement(Example, { code: '\n<Button onTouchTap={onClick}>Normal</Button>\n<Button onTouchTap={onClick} primary={true}>Primary</Button>\n<Button onTouchTap={onClick} flat={true}>Flat</Button>\n<Button onTouchTap={onClick} primary={true} flat={true}>Primary Flat</Button>\n          ' }),
-	          _react2['default'].createElement(
-	            'p',
-	            null,
-	            _react2['default'].createElement(
-	              _lib.Button,
-	              null,
-	              'Normal'
-	            ),
-	            _react2['default'].createElement(
-	              _lib.Button,
-	              { primary: true },
-	              'Primary'
-	            ),
-	            _react2['default'].createElement(
-	              _lib.Button,
-	              { flat: true },
-	              'Flat'
-	            ),
-	            _react2['default'].createElement(
-	              _lib.Button,
-	              { primary: true, flat: true },
-	              'Primary Flat'
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            _lib.Typ,
-	            { secondary: true, display1: true },
-	            'Inputs'
-	          ),
-	          _react2['default'].createElement(Example, { code: '\n<Input label="Email" value={email} onChange={onEmailChange}/>\n<Input label="Password" type="password" value={password} onChange={onPasswordChange}/>\n<Input label="Success" value={email} isSuccess={true} onChange={onEmailChange}/>\n<Input label="Error" value={email} isError={true} message="fix me" onChange={onEmailChange}/>\n          ' }),
-	          _react2['default'].createElement(
-	            'div',
-	            { style: { margin: '16px 0' } },
-	            _react2['default'].createElement(
-	              _lib.Row,
-	              null,
-	              _react2['default'].createElement(
-	                _lib.Col,
-	                { type: 'md-6' },
-	                _react2['default'].createElement(_lib.Input, {
-	                  label: 'Email',
-	                  value: this.state.email,
-	                  onChange: function (e) {
-	                    return _this.setState({ email: e.target.value });
-	                  } })
+	                'a',
+	                { href: 'http://getbootstrap.com/css/#grid' },
+	                'grid system from bootstrap'
 	              ),
+	              '. Simply omit the ',
 	              _react2['default'].createElement(
-	                _lib.Col,
-	                { type: 'md-6' },
-	                _react2['default'].createElement(_lib.Input, {
-	                  label: 'Password',
-	                  type: 'password',
-	                  value: this.state.password,
-	                  onChange: function (e) {
-	                    return _this.setState({ password: e.target.value });
-	                  } })
-	              )
-	            ),
-	            _react2['default'].createElement(
-	              _lib.Row,
-	              null,
-	              _react2['default'].createElement(
-	                _lib.Col,
-	                { type: 'md-6' },
-	                _react2['default'].createElement(_lib.Input, {
-	                  label: 'Success',
-	                  value: this.state.email,
-	                  isSuccess: true,
-	                  onChange: function (e) {
-	                    return _this.setState({ email: e.target.value });
-	                  } })
+	                'code',
+	                null,
+	                'col-'
 	              ),
+	              ' class name prefix and pass all parameters via the ',
 	              _react2['default'].createElement(
-	                _lib.Col,
-	                { type: 'md-6' },
-	                _react2['default'].createElement(_lib.Input, {
-	                  label: 'Error',
-	                  value: this.state.email,
-	                  isError: true,
-	                  message: 'fix me',
-	                  onChange: function (e) {
-	                    return _this.setState({ email: e.target.value });
-	                  } })
-	              )
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            _lib.Typ,
-	            { secondary: true, display1: true },
-	            'Checkbox'
-	          ),
-	          _react2['default'].createElement(Example, { code: '\n<Checkbox label="Checkbox" value={checked} onChange={setChecked}/>\n          ' }),
-	          _react2['default'].createElement(
-	            'div',
-	            null,
-	            _react2['default'].createElement(_lib.Checkbox, { label: 'Checkbox', value: this.state.checked, onChange: function (e) {
-	                return _this.setState({ checked: e.target.value });
-	              } })
-	          ),
-	          _react2['default'].createElement(
-	            'div',
-	            null,
-	            _react2['default'].createElement(_lib.Checkbox, { label: 'Opposite', value: !this.state.checked, onChange: function (e) {
-	                return _this.setState({ checked: !e.target.value });
-	              } })
-	          ),
-	          _react2['default'].createElement(
-	            _lib.Typ,
-	            { secondary: true, display1: true },
-	            'Grid System'
-	          ),
-	          _react2['default'].createElement(
-	            'p',
-	            null,
-	            'material-components borrows the reponsive ',
-	            _react2['default'].createElement(
-	              'a',
-	              { href: 'http://getbootstrap.com/css/#grid' },
-	              'grid system from bootstrap'
+	                'code',
+	                null,
+	                'type'
+	              ),
+	              ' attribute.'
 	            ),
-	            '. Simply omit the ',
+	            _react2['default'].createElement(Example, { code: '\n<Row>\n  <Col type="md-5 md-offset-1"></Col>\n  <Col type="md-5"></Col>\n</Row>\n            ' }),
 	            _react2['default'].createElement(
-	              'code',
-	              null,
-	              'col-'
-	            ),
-	            ' class name prefix and pass all parameters via the ',
-	            _react2['default'].createElement(
-	              'code',
-	              null,
-	              'type'
-	            ),
-	            ' attribute.'
-	          ),
-	          _react2['default'].createElement(Example, { code: '\n<Row>\n  <Col type="md-5 md-offset-1"></Col>\n  <Col type="md-5"></Col>\n</Row>\n          ' }),
-	          _react2['default'].createElement(
-	            'div',
-	            { style: { padding: '16px 0' } },
-	            _react2['default'].createElement(
-	              _lib.Row,
-	              null,
+	              'div',
+	              { style: { padding: '16px 0' } },
 	              _react2['default'].createElement(
-	                _lib.Col,
-	                { type: 'md-5 md-offset-1' },
+	                _lib.Row,
+	                null,
 	                _react2['default'].createElement(
-	                  'div',
-	                  { className: 'paper1 padded' },
-	                  'md-5 md-offset-1'
-	                )
-	              ),
-	              _react2['default'].createElement(
-	                _lib.Col,
-	                { type: 'md-5' },
+	                  _lib.Col,
+	                  { type: 'md-5 md-offset-1' },
+	                  _react2['default'].createElement(
+	                    'div',
+	                    { className: 'paper1 padded' },
+	                    'md-5 md-offset-1'
+	                  )
+	                ),
 	                _react2['default'].createElement(
-	                  'div',
-	                  { className: 'paper1 padded' },
-	                  'md-5'
+	                  _lib.Col,
+	                  { type: 'md-5' },
+	                  _react2['default'].createElement(
+	                    'div',
+	                    { className: 'paper1 padded' },
+	                    'md-5'
+	                  )
 	                )
 	              )
 	            )
 	          ),
 	          _react2['default'].createElement(
-	            _lib.Typ,
-	            { secondary: true, display1: true },
-	            'Dialog'
-	          ),
-	          _react2['default'].createElement(Example, { code: '\n<Dialog isOpen={showDialog} width={400} height={172} title="Question?"\n  okLabel="OK" onOk={onOk} cancelLabel="Cancel" onCancel={onCancel}>\n</Dialog>\n          ' }),
-	          _react2['default'].createElement(
-	            _lib.Button,
-	            { style: { margin: '24px 0' }, primary: true, onTouchTap: function () {
-	                return _this.setState({ showDialog: true });
-	              } },
-	            'Show Dialog'
-	          ),
-	          _react2['default'].createElement(
-	            _lib.Dialog,
-	            {
-	              isOpen: this.state.showDialog,
-	              width: 400,
-	              height: 172,
-	              title: 'Do you confirm or deny?',
-	              okLabel: 'Confirm',
-	              onOk: function () {
-	                return _this.setState({ showDialog: false });
-	              },
-	              cancelLabel: 'Deny',
-	              onCancel: function () {
-	                return _this.setState({ showDialog: false });
-	              } },
-	            'the details of allogation'
+	            'section',
+	            null,
+	            _react2['default'].createElement(
+	              _lib.Typ,
+	              { secondary: true, display1: true },
+	              'Dialog'
+	            ),
+	            _react2['default'].createElement(Example, { code: '\n<Dialog isOpen={showDialog} width={400} height={172} title="Question?"\n  okLabel="OK" onOk={onOk} cancelLabel="Cancel" onCancel={onCancel}>\n</Dialog>\n            ' }),
+	            _react2['default'].createElement(
+	              _lib.Button,
+	              { style: { margin: '24px 0' }, primary: true, onTouchTap: function () {
+	                  return _this.setState({ showDialog: true });
+	                } },
+	              'Show Dialog'
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Dialog,
+	              {
+	                isOpen: this.state.showDialog,
+	                width: 400,
+	                height: 172,
+	                title: 'Do you confirm or deny?',
+	                okLabel: 'Confirm',
+	                onOk: function () {
+	                  return _this.setState({ showDialog: false });
+	                },
+	                cancelLabel: 'Deny',
+	                onCancel: function () {
+	                  return _this.setState({ showDialog: false });
+	                } },
+	              'the details of allogation'
+	            )
 	          )
 	        )
 	      );
