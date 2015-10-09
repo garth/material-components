@@ -784,7 +784,8 @@ body, .text-body {
     padding: 10px 0;
     display: block;
     width: 100%;
-    border: none; }
+    border: none;
+    background-color: transparent; }
   .input-group input:focus {
     outline: none; }
   .input-group label {
