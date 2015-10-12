@@ -54,6 +54,7 @@ class Application extends Component {
   };
 
   state = {
+    showMoreMenu: false,
     email: '',
     password: '',
     checked: false,
@@ -88,7 +89,13 @@ class Application extends Component {
               onTouchTap={() => location.href='https://github.com/garth/material-components'}>
               <FaIcon name="github"/>
             </Appbar.Button>
-            <Appbar.Button><Icon name="more_vert"/></Appbar.Button>
+            <Appbar.Button onTouchTap={() => this.setState({ showMoreMenu: true })}>
+              <Icon name="more_vert"/>
+            </Appbar.Button>
+            <Menu rightAlign isOpen={this.state.showMoreMenu} onDone={() => this.setState({ showMoreMenu: false })}>
+              <Menu.Item>Option A</Menu.Item>
+              <Menu.Item>Option B</Menu.Item>
+            </Menu>
           </div>
         </Appbar>
         <div style={{ padding: '24px', width: '950px' }}>
@@ -253,6 +260,10 @@ import {
       <FaIcon name="github"/>
     </Appbar.Button>
     <Appbar.Button><Icon name="more_vert"/></Appbar.Button>
+    <Menu rightAlign isOpen={showMoreMenu} onDone={hideMoreMenuFunc}>
+      <Menu.Item>Option A</Menu.Item>
+      <Menu.Item>Option B</Menu.Item>
+    </Menu>
   </div>
 </Appbar>
             `}/>
@@ -365,7 +376,7 @@ import {
   <Menu.Item onTouchTap={itemClicked}>Other Option</Menu.Item>
 </Menu>
 
-<Menu isOpen={this.state.showMenu} onDone={() => this.setState({ showMenu: false })}>
+<Menu rightAlign isOpen={this.state.showMenu} onDone={() => this.setState({ showMenu: false })}>
   <Menu.Item showIcon icon={<Icon name="settings"/>} onTouchTap={itemClicked}>Settings</Menu.Item>
   <Menu.Item showIcon onTouchTap={itemClicked}>No Icon</Menu.Item>
   <Menu.Seperator/>
@@ -380,15 +391,14 @@ import {
               </Menu>
               <Button style={{ margin: '0' }} primary={true} onTouchTap={() => this.setState({ showSimpleMenu: true })}>Simple Menu</Button>
 
-              <Menu isOpen={this.state.showMenu} onDone={() => this.setState({ showMenu: false })}>
+              <Button style={{ margin: '0 16px' }} primary={true} onTouchTap={() => this.setState({ showMenu: true })}>Menu</Button>
+              <Menu rightAlign isOpen={this.state.showMenu} onDone={() => this.setState({ showMenu: false })}>
                 <Menu.Item showIcon icon={<FaIcon name="cog"/>}>Settings</Menu.Item>
                 <Menu.Item showIcon>No Icon</Menu.Item>
                 <Menu.Seperator/>
                 <Menu.Item showIcon selected={this.state.selectedOption===1} onTouchTap={() => this.setState({ selectedOption: 1 })}>Option 1</Menu.Item>
                 <Menu.Item showIcon selected={this.state.selectedOption===2} onTouchTap={() => this.setState({ selectedOption: 2 })}>Option 2</Menu.Item>
               </Menu>
-              <Button style={{ margin: '0 16px' }} primary={true} onTouchTap={() => this.setState({ showMenu: true })}>Menu</Button>
-
             </div>
           </section>
 

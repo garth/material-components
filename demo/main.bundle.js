@@ -130,6 +130,7 @@
 	    _get(Object.getPrototypeOf(Application.prototype), 'constructor', this).apply(this, arguments);
 	
 	    this.state = {
+	      showMoreMenu: false,
 	      email: '',
 	      password: '',
 	      checked: false,
@@ -191,8 +192,26 @@
 	            ),
 	            _react2['default'].createElement(
 	              _lib.Appbar.Button,
-	              null,
+	              { onTouchTap: function () {
+	                  return _this.setState({ showMoreMenu: true });
+	                } },
 	              _react2['default'].createElement(Icon, { name: 'more_vert' })
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Menu,
+	              { rightAlign: true, isOpen: this.state.showMoreMenu, onDone: function () {
+	                  return _this.setState({ showMoreMenu: false });
+	                } },
+	              _react2['default'].createElement(
+	                _lib.Menu.Item,
+	                null,
+	                'Option A'
+	              ),
+	              _react2['default'].createElement(
+	                _lib.Menu.Item,
+	                null,
+	                'Option B'
+	              )
 	            )
 	          )
 	        ),
@@ -528,7 +547,7 @@
 	              { secondary: true, display1: true },
 	              'Appbar, Appbar.Title and Appbar.Button'
 	            ),
-	            _react2['default'].createElement(Example, { code: '\n<Appbar>\n  <Appbar.Button style={{ float: \'left\' }}><Icon name="menu"/></Appbar.Button>\n  <Appbar.Title>Material Components</Appbar.Title>\n  <div style={{ float: \'right\' }}>\n    <Appbar.Button\n      onTouchTap={() => location.href=\'https://github.com/garth/material-components\'}>\n      <FaIcon name="github"/>\n    </Appbar.Button>\n    <Appbar.Button><Icon name="more_vert"/></Appbar.Button>\n  </div>\n</Appbar>\n            ' }),
+	            _react2['default'].createElement(Example, { code: '\n<Appbar>\n  <Appbar.Button style={{ float: \'left\' }}><Icon name="menu"/></Appbar.Button>\n  <Appbar.Title>Material Components</Appbar.Title>\n  <div style={{ float: \'right\' }}>\n    <Appbar.Button\n      onTouchTap={() => location.href=\'https://github.com/garth/material-components\'}>\n      <FaIcon name="github"/>\n    </Appbar.Button>\n    <Appbar.Button><Icon name="more_vert"/></Appbar.Button>\n    <Menu rightAlign isOpen={showMoreMenu} onDone={hideMoreMenuFunc}>\n      <Menu.Item>Option A</Menu.Item>\n      <Menu.Item>Option B</Menu.Item>\n    </Menu>\n  </div>\n</Appbar>\n            ' }),
 	            _react2['default'].createElement(
 	              'p',
 	              null,
@@ -736,7 +755,7 @@
 	              { secondary: true, display1: true },
 	              'Menu'
 	            ),
-	            _react2['default'].createElement(Example, { code: '\n<Menu isOpen={showSimpleMenuProperty} onDone={hideSimpleMenuFunction}>\n  <Menu.Item onTouchTap={itemClicked}>Simple Menu Item</Menu.Item>\n  <Menu.Item onTouchTap={itemClicked}>Other Option</Menu.Item>\n</Menu>\n\n<Menu isOpen={this.state.showMenu} onDone={() => this.setState({ showMenu: false })}>\n  <Menu.Item showIcon icon={<Icon name="settings"/>} onTouchTap={itemClicked}>Settings</Menu.Item>\n  <Menu.Item showIcon onTouchTap={itemClicked}>No Icon</Menu.Item>\n  <Menu.Seperator/>\n  <Menu.Item showIcon selected={selectedOption===1} onTouchTap={() => setSelectedOption(1)}>Option 1</Menu.Item>\n  <Menu.Item showIcon selected={selectedOption===2} onTouchTap={() => setSelectedOption(2)}>Option 2</Menu.Item>\n</Menu>\n            ' }),
+	            _react2['default'].createElement(Example, { code: '\n<Menu isOpen={showSimpleMenuProperty} onDone={hideSimpleMenuFunction}>\n  <Menu.Item onTouchTap={itemClicked}>Simple Menu Item</Menu.Item>\n  <Menu.Item onTouchTap={itemClicked}>Other Option</Menu.Item>\n</Menu>\n\n<Menu rightAlign isOpen={this.state.showMenu} onDone={() => this.setState({ showMenu: false })}>\n  <Menu.Item showIcon icon={<Icon name="settings"/>} onTouchTap={itemClicked}>Settings</Menu.Item>\n  <Menu.Item showIcon onTouchTap={itemClicked}>No Icon</Menu.Item>\n  <Menu.Seperator/>\n  <Menu.Item showIcon selected={selectedOption===1} onTouchTap={() => setSelectedOption(1)}>Option 1</Menu.Item>\n  <Menu.Item showIcon selected={selectedOption===2} onTouchTap={() => setSelectedOption(2)}>Option 2</Menu.Item>\n</Menu>\n            ' }),
 	            _react2['default'].createElement(
 	              'div',
 	              { style: { margin: '24px 0' } },
@@ -764,8 +783,15 @@
 	                'Simple Menu'
 	              ),
 	              _react2['default'].createElement(
+	                _lib.Button,
+	                { style: { margin: '0 16px' }, primary: true, onTouchTap: function () {
+	                    return _this.setState({ showMenu: true });
+	                  } },
+	                'Menu'
+	              ),
+	              _react2['default'].createElement(
 	                _lib.Menu,
-	                { isOpen: this.state.showMenu, onDone: function () {
+	                { rightAlign: true, isOpen: this.state.showMenu, onDone: function () {
 	                    return _this.setState({ showMenu: false });
 	                  } },
 	                _react2['default'].createElement(
@@ -793,13 +819,6 @@
 	                    } },
 	                  'Option 2'
 	                )
-	              ),
-	              _react2['default'].createElement(
-	                _lib.Button,
-	                { style: { margin: '0 16px' }, primary: true, onTouchTap: function () {
-	                    return _this.setState({ showMenu: true });
-	                  } },
-	                'Menu'
 	              )
 	            )
 	          ),
@@ -28383,13 +28402,19 @@
 	      var _props = this.props;
 	      var children = _props.children;
 	      var isOpen = _props.isOpen;
-	      var
-	      //rightAlign,
-	      style = _props.style;
+	      var rightAlign = _props.rightAlign;
+	      var style = _props.style;
 	
-	      // if (rightAlign) {
-	      //   style.right = '0';
-	      // }
+	      var menuStyle = {
+	        zIndex: 1001,
+	        padding: '10px 0',
+	        backgroundColor: '#fff',
+	        color: '#000',
+	        position: 'absolute'
+	      };
+	      if (rightAlign) {
+	        menuStyle.right = '0';
+	      }
 	
 	      var menu = isOpen ? _react2['default'].createElement('div', {
 	        key: 'menu',
@@ -28397,13 +28422,7 @@
 	          zIndex: 1000
 	        } }, _react2['default'].createElement(_mask2['default'], { dark: false, onTouchTap: function onTouchTap() {
 	          return _this2.onDone();
-	        } }), _react2['default'].createElement('div', { className: 'transition paper1', style: Object.assign({
-	          zIndex: 1001,
-	          padding: '10px 0',
-	          backgroundColor: '#fff',
-	          color: '#000',
-	          position: 'absolute'
-	        }, style) }, children)) : null;
+	        } }), _react2['default'].createElement('div', { className: 'transition paper1', style: Object.assign(menuStyle, style) }, children)) : null;
 	
 	      return _react2['default'].createElement(_reactAddonsCssTransitionGroup2['default'], {
 	        transitionEnterTimeout: 300,
@@ -28424,7 +28443,7 @@
 	      children: _react.PropTypes.node,
 	      isOpen: _react.PropTypes.bool,
 	      onDone: _react.PropTypes.func,
-	      //rightAlign: PropTypes.bool,
+	      rightAlign: _react.PropTypes.bool,
 	      style: _react.PropTypes.object
 	    },
 	    enumerable: true

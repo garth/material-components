@@ -12,6 +12,7 @@ class Menu extends Component {
     children: PropTypes.node,
     isOpen: PropTypes.bool,
     onDone: PropTypes.func,
+    rightAlign: PropTypes.bool,
     style: PropTypes.object
   };
 
@@ -41,8 +42,20 @@ class Menu extends Component {
     const {
       children,
       isOpen,
+      rightAlign,
       style
     } = this.props;
+
+    let menuStyle = {
+      zIndex: 1001,
+      padding: '10px 0',
+      backgroundColor: '#fff',
+      color: '#000',
+      position: 'absolute'
+    };
+    if (rightAlign) {
+      menuStyle.right = '0';
+    }
 
     let menu = isOpen ? (
       <div
@@ -51,13 +64,7 @@ class Menu extends Component {
           zIndex: 1000
         }}>
         <Mask dark={false} onTouchTap={() => this.onDone()}/>
-        <div className="transition paper1" style={Object.assign({
-          zIndex: 1001,
-          padding: '10px 0',
-          backgroundColor: '#fff',
-          color: '#000',
-          position: 'absolute'
-        }, style)}>
+        <div className="transition paper1" style={Object.assign(menuStyle, style)}>
           {children}
         </div>
       </div>
