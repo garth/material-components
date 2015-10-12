@@ -107,18 +107,18 @@ export default class Dialog extends Component {
     }
 
     let dialog = isOpen ? (
-      <div key="dialog">
+      <div key="dialog" style={{ zIndex: 1000 }}>
         <Mask/>
         <div
+          className="paper2 transition"
           style={Object.assign({
             position: 'fixed',
-            zIndex: 100,
+            zIndex: 1001,
             top: `${top}px`,
             left: `${left}px`,
             width: `${maxWidth}px`,
             maxHeight: `${maxHeight}px`
-          }, style)}
-          className="paper2">
+          }, style)}>
           <div style={{ padding: '24px' }}>
             {titleElement}
             <div
@@ -140,7 +140,8 @@ export default class Dialog extends Component {
       <ReactCSSTransitionGroup
         transitionEnterTimeout={300}
         transitionLeaveTimeout={300}
-        transitionName="dialog">
+        transitionName="dialog"
+        style={{ zIndex: 1000 }}>
         {dialog}
       </ReactCSSTransitionGroup>
     );

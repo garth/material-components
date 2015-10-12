@@ -9,6 +9,7 @@ export default function Mask({
 
   style = Object.assign({
     position: 'fixed',
+    zIndex: 1000,
     top: 0,
     right: 0,
     bottom: 0,
@@ -18,7 +19,7 @@ export default function Mask({
 
   return (
     <div
-      className={classNames('mask', { dark })}
+      className={classNames('mask', { dark, transition: dark })}
       style={style}
       onTouchTap={onTouchTap}/>
   );
