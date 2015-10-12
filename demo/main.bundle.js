@@ -217,7 +217,7 @@
 	        ),
 	        _react2['default'].createElement(
 	          'div',
-	          { style: { padding: '88px 24px 24px', width: '950px' } },
+	          { style: { padding: '24px', width: '950px' } },
 	          _react2['default'].createElement(
 	            'section',
 	            null,
@@ -25816,7 +25816,7 @@
 	      var fixed = _props.fixed;
 	      var style = _props.style;
 	
-	      return _react2['default'].createElement('div', { className: 'paper1', style: Object.assign({
+	      return _react2['default'].createElement('div', { style: { height: '64px' } }, _react2['default'].createElement('div', { className: 'paper1', style: Object.assign({
 	          position: fixed ? 'fixed' : 'inherit',
 	          width: '100%',
 	          zIndex: '1',
@@ -25825,7 +25825,7 @@
 	          padding: '16px 8px',
 	          backgroundColor: primaryColor,
 	          color: primaryFontColor
-	        }, style) }, children);
+	        }, style) }, children));
 	    }
 	  }], [{
 	    key: 'displayName',

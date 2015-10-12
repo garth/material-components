@@ -98,7 +98,7 @@ class Application extends Component {
             </Menu>
           </div>
         </Appbar>
-        <div style={{ padding: '88px 24px 24px', width: '950px' }}>
+        <div style={{ padding: '24px', width: '950px' }}>
           <section>
             <Typ secondary display1>Introduction</Typ>
             <p>
