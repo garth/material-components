@@ -28249,7 +28249,7 @@
 	        readOnly: readOnly,
 	        required: true }), _react2['default'].createElement('span', { className: (0, _classnames2['default'])('bar', { open: isError || isSuccess }), style: {
 	          backgroundColor: isError ? errorColor : isSuccess ? successColor : secondaryColor
-	        } }), _react2['default'].createElement('label', { ref: 'label' }, label), _react2['default'].createElement('div', { className: 'info', style: {
+	        } }), _react2['default'].createElement('label', null, _react2['default'].createElement('span', { ref: 'label' }, label)), _react2['default'].createElement('div', { className: 'info', style: {
 	          color: isError ? errorColor : 'inherit'
 	        } }, message));
 	    }

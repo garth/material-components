@@ -61,7 +61,7 @@ class Input extends Component {
         <span className={classNames('bar', { open: isError || isSuccess })} style={{
           backgroundColor: isError ? errorColor : isSuccess ? successColor : secondaryColor
         }}/>
-        <label ref="label">{label}</label>
+        <label><span ref="label">{label}</span></label>
         <div className="info" style={{
           color: isError ? errorColor : 'inherit'
         }}>{message}</div>
