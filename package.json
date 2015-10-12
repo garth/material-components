@@ -1,6 +1,6 @@
 {
   "name": "material-components",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Stateless UI components for react that follow material design",
   "main": "lib/index.js",
   "scripts": {

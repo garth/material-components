@@ -81,7 +81,7 @@ class Application extends Component {
   render() {
     return (
       <div>
-        <Appbar>
+        <Appbar fixed>
           <Appbar.Button style={{ float: 'left' }}><Icon name="menu"/></Appbar.Button>
           <Appbar.Title>Material Components</Appbar.Title>
           <div style={{ float: 'right' }}>
@@ -98,7 +98,7 @@ class Application extends Component {
             </Menu>
           </div>
         </Appbar>
-        <div style={{ padding: '24px', width: '950px' }}>
+        <div style={{ padding: '88px 24px 24px', width: '950px' }}>
           <section>
             <Typ secondary display1>Introduction</Typ>
             <p>
@@ -251,7 +251,7 @@ import {
           <section>
             <Typ secondary display1>Appbar, Appbar.Title and Appbar.Button</Typ>
             <Example code={`
-<Appbar>
+<Appbar fixed>
   <Appbar.Button style={{ float: 'left' }}><Icon name="menu"/></Appbar.Button>
   <Appbar.Title>Material Components</Appbar.Title>
   <div style={{ float: 'right' }}>

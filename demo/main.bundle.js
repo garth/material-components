@@ -168,7 +168,7 @@
 	        null,
 	        _react2['default'].createElement(
 	          _lib.Appbar,
-	          null,
+	          { fixed: true },
 	          _react2['default'].createElement(
 	            _lib.Appbar.Button,
 	            { style: { float: 'left' } },
@@ -217,7 +217,7 @@
 	        ),
 	        _react2['default'].createElement(
 	          'div',
-	          { style: { padding: '24px', width: '950px' } },
+	          { style: { padding: '88px 24px 24px', width: '950px' } },
 	          _react2['default'].createElement(
 	            'section',
 	            null,
@@ -547,7 +547,7 @@
 	              { secondary: true, display1: true },
 	              'Appbar, Appbar.Title and Appbar.Button'
 	            ),
-	            _react2['default'].createElement(Example, { code: '\n<Appbar>\n  <Appbar.Button style={{ float: \'left\' }}><Icon name="menu"/></Appbar.Button>\n  <Appbar.Title>Material Components</Appbar.Title>\n  <div style={{ float: \'right\' }}>\n    <Appbar.Button\n      onTouchTap={() => location.href=\'https://github.com/garth/material-components\'}>\n      <FaIcon name="github"/>\n    </Appbar.Button>\n    <Appbar.Button><Icon name="more_vert"/></Appbar.Button>\n    <Menu rightAlign isOpen={showMoreMenu} onDone={hideMoreMenuFunc}>\n      <Menu.Item>Option A</Menu.Item>\n      <Menu.Item>Option B</Menu.Item>\n    </Menu>\n  </div>\n</Appbar>\n            ' }),
+	            _react2['default'].createElement(Example, { code: '\n<Appbar fixed>\n  <Appbar.Button style={{ float: \'left\' }}><Icon name="menu"/></Appbar.Button>\n  <Appbar.Title>Material Components</Appbar.Title>\n  <div style={{ float: \'right\' }}>\n    <Appbar.Button\n      onTouchTap={() => location.href=\'https://github.com/garth/material-components\'}>\n      <FaIcon name="github"/>\n    </Appbar.Button>\n    <Appbar.Button><Icon name="more_vert"/></Appbar.Button>\n    <Menu rightAlign isOpen={showMoreMenu} onDone={hideMoreMenuFunc}>\n      <Menu.Item>Option A</Menu.Item>\n      <Menu.Item>Option B</Menu.Item>\n    </Menu>\n  </div>\n</Appbar>\n            ' }),
 	            _react2['default'].createElement(
 	              'p',
 	              null,
@@ -25813,9 +25813,12 @@
 	      var primaryFontColor = _context$componentStyle.primaryFontColor;
 	      var _props = this.props;
 	      var children = _props.children;
+	      var fixed = _props.fixed;
 	      var style = _props.style;
 	
 	      return _react2['default'].createElement('div', { className: 'paper1', style: Object.assign({
+	          position: fixed ? 'fixed' : 'inherit',
+	          width: '100%',
 	          zIndex: '1',
 	          height: '64px',
 	          lineHeight: '32px',
@@ -25838,6 +25841,7 @@
 	    key: 'propTypes',
 	    value: {
 	      children: _react.PropTypes.node,
+	      fixed: _react.PropTypes.bool,
 	      style: _react.PropTypes.object
 	    },
 	    enumerable: true
