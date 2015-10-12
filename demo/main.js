@@ -371,12 +371,12 @@ import {
           <section>
             <Typ secondary display1>Menu</Typ>
             <Example code={`
-<Menu isOpen={showSimpleMenuProperty} onDone={hideSimpleMenuFunction}>
+<Menu isOpen={showSimpleMenuProp onDone={hideSimpleMenuFunc}>
   <Menu.Item onTouchTap={itemClicked}>Simple Menu Item</Menu.Item>
   <Menu.Item onTouchTap={itemClicked}>Other Option</Menu.Item>
 </Menu>
 
-<Menu rightAlign isOpen={this.state.showMenu} onDone={() => this.setState({ showMenu: false })}>
+<Menu rightAlign isOpen={showMenuProp} onDone={hideMenuFunc}>
   <Menu.Item showIcon icon={<Icon name="settings"/>} onTouchTap={itemClicked}>Settings</Menu.Item>
   <Menu.Item showIcon onTouchTap={itemClicked}>No Icon</Menu.Item>
   <Menu.Seperator/>

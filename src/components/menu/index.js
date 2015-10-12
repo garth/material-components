@@ -51,7 +51,8 @@ class Menu extends Component {
       padding: '10px 0',
       backgroundColor: '#fff',
       color: '#000',
-      position: 'absolute'
+      position: 'absolute',
+      top: '-8px'
     };
     if (rightAlign) {
       menuStyle.right = '0';

@@ -755,7 +755,7 @@
 	              { secondary: true, display1: true },
 	              'Menu'
 	            ),
-	            _react2['default'].createElement(Example, { code: '\n<Menu isOpen={showSimpleMenuProperty} onDone={hideSimpleMenuFunction}>\n  <Menu.Item onTouchTap={itemClicked}>Simple Menu Item</Menu.Item>\n  <Menu.Item onTouchTap={itemClicked}>Other Option</Menu.Item>\n</Menu>\n\n<Menu rightAlign isOpen={this.state.showMenu} onDone={() => this.setState({ showMenu: false })}>\n  <Menu.Item showIcon icon={<Icon name="settings"/>} onTouchTap={itemClicked}>Settings</Menu.Item>\n  <Menu.Item showIcon onTouchTap={itemClicked}>No Icon</Menu.Item>\n  <Menu.Seperator/>\n  <Menu.Item showIcon selected={selectedOption===1} onTouchTap={() => setSelectedOption(1)}>Option 1</Menu.Item>\n  <Menu.Item showIcon selected={selectedOption===2} onTouchTap={() => setSelectedOption(2)}>Option 2</Menu.Item>\n</Menu>\n            ' }),
+	            _react2['default'].createElement(Example, { code: '\n<Menu isOpen={showSimpleMenuProp onDone={hideSimpleMenuFunc}>\n  <Menu.Item onTouchTap={itemClicked}>Simple Menu Item</Menu.Item>\n  <Menu.Item onTouchTap={itemClicked}>Other Option</Menu.Item>\n</Menu>\n\n<Menu rightAlign isOpen={showMenuProp} onDone={hideMenuFunc}>\n  <Menu.Item showIcon icon={<Icon name="settings"/>} onTouchTap={itemClicked}>Settings</Menu.Item>\n  <Menu.Item showIcon onTouchTap={itemClicked}>No Icon</Menu.Item>\n  <Menu.Seperator/>\n  <Menu.Item showIcon selected={selectedOption===1} onTouchTap={() => setSelectedOption(1)}>Option 1</Menu.Item>\n  <Menu.Item showIcon selected={selectedOption===2} onTouchTap={() => setSelectedOption(2)}>Option 2</Menu.Item>\n</Menu>\n            ' }),
 	            _react2['default'].createElement(
 	              'div',
 	              { style: { margin: '24px 0' } },
@@ -28414,7 +28414,8 @@
 	        padding: '10px 0',
 	        backgroundColor: '#fff',
 	        color: '#000',
-	        position: 'absolute'
+	        position: 'absolute',
+	        top: '-8px'
 	      };
 	      if (rightAlign) {
 	        menuStyle.right = '0';
