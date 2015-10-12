@@ -7,6 +7,7 @@ module.exports = {
   Divider: require('./components/divider'),
   Input: require('./components/input'),
   Mask: require('./components/mask'),
+  Menu: require('./components/menu'),
   Row: require('./components/row'),
   Typ: require('./components/typography')
 };

@@ -11,7 +11,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 // import the material-components
-import { Appbar, Button, Checkbox, Col, Dialog, Divider, Input, Row, Typ } from '../lib';
+import { Appbar, Button, Checkbox, Col, Dialog, Divider, Input, Row, Typ, Menu } from '../lib';
 
 // component to render code examples
 function Example({ code }) {
@@ -22,7 +22,7 @@ function Example({ code }) {
         padding: '8px 0',
         margin: '0',
         borderRadius: '0',
-        width: '100%',
+        width: '100%'
       }}>
         {code.trim()}
       </pre>
@@ -57,7 +57,10 @@ class Application extends Component {
     email: '',
     password: '',
     checked: false,
-    showDialog: false
+    showDialog: false,
+    showSimpleMenu: false,
+    showMenu: false,
+    selectedOption: 1
   }
 
   getChildContext() {
@@ -119,7 +122,8 @@ import {
   Divider,
   Input,
   Row,
-  Typ
+  Typ,
+  Menu
 } from 'material-components';
             `}/>
           </section>
@@ -350,6 +354,41 @@ import {
                 <Col type="md-5 md-offset-1"><div className="paper1 padded">md-5 md-offset-1</div></Col>
                 <Col type="md-5"><div className="paper1 padded">md-5</div></Col>
               </Row>
+            </div>
+          </section>
+
+          <section>
+            <Typ secondary display1>Menu</Typ>
+            <Example code={`
+<Menu isOpen={showSimpleMenuProperty} onDone={hideSimpleMenuFunction}>
+  <Menu.Item onTouchTap={itemClicked}>Simple Menu Item</Menu.Item>
+  <Menu.Item onTouchTap={itemClicked}>Other Option</Menu.Item>
+</Menu>
+
+<Menu isOpen={this.state.showMenu} onDone={() => this.setState({ showMenu: false })}>
+  <Menu.Item showIcon icon={<Icon name="settings"/>} onTouchTap={itemClicked}>Settings</Menu.Item>
+  <Menu.Item showIcon onTouchTap={itemClicked}>No Icon</Menu.Item>
+  <Menu.Seperator/>
+  <Menu.Item showIcon selected={selectedOption===1} onTouchTap={() => setSelectedOption(1)}>Option 1</Menu.Item>
+  <Menu.Item showIcon selected={selectedOption===2} onTouchTap={() => setSelectedOption(2)}>Option 2</Menu.Item>
+</Menu>
+            `}/>
+            <div style={{ margin: '24px 0' }}>
+              <Menu isOpen={this.state.showSimpleMenu} onDone={() => this.setState({ showSimpleMenu: false })}>
+                <Menu.Item>Simple Menu Item</Menu.Item>
+                <Menu.Item>Other Option</Menu.Item>
+              </Menu>
+              <Button style={{ margin: '0' }} primary={true} onTouchTap={() => this.setState({ showSimpleMenu: true })}>Simple Menu</Button>
+
+              <Menu isOpen={this.state.showMenu} onDone={() => this.setState({ showMenu: false })}>
+                <Menu.Item showIcon icon={<FaIcon name="cog"/>}>Settings</Menu.Item>
+                <Menu.Item showIcon>No Icon</Menu.Item>
+                <Menu.Seperator/>
+                <Menu.Item showIcon selected={this.state.selectedOption===1} onTouchTap={() => this.setState({ selectedOption: 1 })}>Option 1</Menu.Item>
+                <Menu.Item showIcon selected={this.state.selectedOption===2} onTouchTap={() => this.setState({ selectedOption: 2 })}>Option 2</Menu.Item>
+              </Menu>
+              <Button style={{ margin: '0 16px' }} primary={true} onTouchTap={() => this.setState({ showMenu: true })}>Menu</Button>
+
             </div>
           </section>
 
