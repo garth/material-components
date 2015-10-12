@@ -1,6 +1,6 @@
 {
   "name": "material-components",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "Stateless UI components for react that follow material design",
   "main": "lib/index.js",
   "scripts": {
@@ -16,9 +16,17 @@
     "url": "git+https://github.com/garth/material-components.git"
   },
   "keywords": [
-    "react",
+    "appbar",
+    "button",
+    "checkbox",
+    "component",
+    "dialog",
+    "grid",
+    "input",
+    "material design",
     "material",
-    "component"
+    "react",
+    "react-component"
   ],
   "author": "Garth Williams",
   "license": "MIT",

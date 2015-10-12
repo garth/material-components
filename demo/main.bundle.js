@@ -213,7 +213,7 @@
 	                { href: 'https://facebook.github.io/react/' },
 	                'React'
 	              ),
-	              ' (0.14.0+) user interface components based on ',
+	              ' (0.14.0) user interface components based on ',
 	              _react2['default'].createElement(
 	                'a',
 	                { href: 'https://www.google.com/design/spec/' },
