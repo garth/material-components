@@ -836,5 +836,8 @@ body, .text-body {
   opacity: 0;
   transition: opacity 0.3s ease; }
 
+.menu-item:hover {
+  background-color: #eee; }
+
 * {
   box-sizing: border-box; }

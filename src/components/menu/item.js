@@ -12,7 +12,7 @@ class Item extends Component {
 
   static propTypes = {
     children: PropTypes.node,
-    icon: PropTypes.string,
+    icon: PropTypes.node,
     onTouchTap: PropTypes.func,
     selected: PropTypes.bool,
     showIcon: PropTypes.bool,
@@ -72,6 +72,7 @@ class Item extends Component {
 
     return (
       <div
+        className="menu-item"
         style={Object.assign({
           padding: '0 40px 0 24px',
           cursor: 'pointer',
