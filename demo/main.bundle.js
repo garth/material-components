@@ -79,8 +79,8 @@
 	var _lib = __webpack_require__(350);
 	
 	// component to render code examples
-	__webpack_require__(382);
-	__webpack_require__(386);
+	__webpack_require__(383);
+	__webpack_require__(387);
 	(0, _reactTapEventPlugin2['default'])();function Example(_ref) {
 	  var code = _ref.code;
 	
@@ -130,6 +130,7 @@
 	    _get(Object.getPrototypeOf(Application.prototype), 'constructor', this).apply(this, arguments);
 	
 	    this.state = {
+	      screen: {},
 	      sidenavOpen: false,
 	      showMoreMenu: false,
 	      email: '',
@@ -145,6 +146,15 @@
 	  // render the app
 	
 	  _createClass(Application, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      var _this = this;
+	
+	      _lib.events.responsive.addListener(function (screen) {
+	        return _this.setState({ screen: screen });
+	      });
+	    }
+	  }, {
 	    key: 'getChildContext',
 	    value: function getChildContext() {
 	      return {
@@ -162,7 +172,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this = this;
+	      var _this2 = this;
 	
 	      return _react2['default'].createElement(
 	        'div',
@@ -170,7 +180,7 @@
 	        _react2['default'].createElement(
 	          _lib.Sidenav,
 	          { isOpen: this.state.sidenavOpen, onDone: function () {
-	              return _this.setState({ sidenavOpen: false });
+	              return _this2.setState({ sidenavOpen: false });
 	            } },
 	          _react2['default'].createElement(
 	            _lib.Sidenav.Title,
@@ -200,14 +210,14 @@
 	          _react2['default'].createElement(
 	            _lib.Appbar.Button,
 	            { style: { float: 'left' }, onTouchTap: function () {
-	                return _this.setState({ sidenavOpen: true });
+	                return _this2.setState({ sidenavOpen: true });
 	              } },
 	            _react2['default'].createElement(Icon, { name: 'menu' })
 	          ),
 	          _react2['default'].createElement(
 	            _lib.Appbar.Title,
 	            null,
-	            'Material Components'
+	            this.state.screen.type === 'xs' ? 'Demo' : 'Material Components'
 	          ),
 	          _react2['default'].createElement(
 	            'div',
@@ -223,14 +233,14 @@
 	            _react2['default'].createElement(
 	              _lib.Appbar.Button,
 	              { onTouchTap: function () {
-	                  return _this.setState({ showMoreMenu: true });
+	                  return _this2.setState({ showMoreMenu: true });
 	                } },
 	              _react2['default'].createElement(Icon, { name: 'more_vert' })
 	            ),
 	            _react2['default'].createElement(
 	              _lib.Menu,
 	              { rightAlign: true, isOpen: this.state.showMoreMenu, onDone: function () {
-	                  return _this.setState({ showMoreMenu: false });
+	                  return _this2.setState({ showMoreMenu: false });
 	                } },
 	              _react2['default'].createElement(
 	                _lib.Menu.Item,
@@ -665,7 +675,7 @@
 	                    label: 'Email',
 	                    value: this.state.email,
 	                    onChange: function (e) {
-	                      return _this.setState({ email: e.target.value });
+	                      return _this2.setState({ email: e.target.value });
 	                    } })
 	                ),
 	                _react2['default'].createElement(
@@ -676,7 +686,7 @@
 	                    type: 'password',
 	                    value: this.state.password,
 	                    onChange: function (e) {
-	                      return _this.setState({ password: e.target.value });
+	                      return _this2.setState({ password: e.target.value });
 	                    } })
 	                )
 	              ),
@@ -691,7 +701,7 @@
 	                    value: this.state.email,
 	                    isSuccess: true,
 	                    onChange: function (e) {
-	                      return _this.setState({ email: e.target.value });
+	                      return _this2.setState({ email: e.target.value });
 	                    } })
 	                ),
 	                _react2['default'].createElement(
@@ -703,7 +713,7 @@
 	                    isError: true,
 	                    message: 'fix me',
 	                    onChange: function (e) {
-	                      return _this.setState({ email: e.target.value });
+	                      return _this2.setState({ email: e.target.value });
 	                    } })
 	                )
 	              )
@@ -722,14 +732,14 @@
 	              'div',
 	              null,
 	              _react2['default'].createElement(_lib.Checkbox, { label: 'Checkbox', value: this.state.checked, onChange: function (e) {
-	                  return _this.setState({ checked: e.target.value });
+	                  return _this2.setState({ checked: e.target.value });
 	                } })
 	            ),
 	            _react2['default'].createElement(
 	              'div',
 	              null,
 	              _react2['default'].createElement(_lib.Checkbox, { label: 'Opposite', value: !this.state.checked, onChange: function (e) {
-	                  return _this.setState({ checked: !e.target.value });
+	                  return _this2.setState({ checked: !e.target.value });
 	                } })
 	            )
 	          ),
@@ -807,7 +817,7 @@
 	              _react2['default'].createElement(
 	                _lib.Menu,
 	                { isOpen: this.state.showSimpleMenu, onDone: function () {
-	                    return _this.setState({ showSimpleMenu: false });
+	                    return _this2.setState({ showSimpleMenu: false });
 	                  } },
 	                _react2['default'].createElement(
 	                  _lib.Menu.Item,
@@ -823,21 +833,21 @@
 	              _react2['default'].createElement(
 	                _lib.Button,
 	                { style: { margin: '0' }, primary: true, onTouchTap: function () {
-	                    return _this.setState({ showSimpleMenu: true });
+	                    return _this2.setState({ showSimpleMenu: true });
 	                  } },
 	                'Simple Menu'
 	              ),
 	              _react2['default'].createElement(
 	                _lib.Button,
 	                { style: { margin: '0 16px' }, primary: true, onTouchTap: function () {
-	                    return _this.setState({ showMenu: true });
+	                    return _this2.setState({ showMenu: true });
 	                  } },
 	                'Menu'
 	              ),
 	              _react2['default'].createElement(
 	                _lib.Menu,
 	                { rightAlign: true, isOpen: this.state.showMenu, onDone: function () {
-	                    return _this.setState({ showMenu: false });
+	                    return _this2.setState({ showMenu: false });
 	                  } },
 	                _react2['default'].createElement(
 	                  _lib.Menu.Item,
@@ -853,14 +863,14 @@
 	                _react2['default'].createElement(
 	                  _lib.Menu.Item,
 	                  { showIcon: true, selected: this.state.selectedOption === 1, onTouchTap: function () {
-	                      return _this.setState({ selectedOption: 1 });
+	                      return _this2.setState({ selectedOption: 1 });
 	                    } },
 	                  'Option 1'
 	                ),
 	                _react2['default'].createElement(
 	                  _lib.Menu.Item,
 	                  { showIcon: true, selected: this.state.selectedOption === 2, onTouchTap: function () {
-	                      return _this.setState({ selectedOption: 2 });
+	                      return _this2.setState({ selectedOption: 2 });
 	                    } },
 	                  'Option 2'
 	                )
@@ -879,7 +889,7 @@
 	            _react2['default'].createElement(
 	              _lib.Button,
 	              { style: { margin: '24px 0' }, primary: true, onTouchTap: function () {
-	                  return _this.setState({ showDialog: true });
+	                  return _this2.setState({ showDialog: true });
 	                } },
 	              'Show Dialog'
 	            ),
@@ -892,11 +902,11 @@
 	                title: 'Do you confirm or deny?',
 	                okLabel: 'Confirm',
 	                onOk: function () {
-	                  return _this.setState({ showDialog: false });
+	                  return _this2.setState({ showDialog: false });
 	                },
 	                cancelLabel: 'Deny',
 	                onCancel: function () {
-	                  return _this.setState({ showDialog: false });
+	                  return _this2.setState({ showDialog: false });
 	                } },
 	              'the details of allogation'
 	            )
@@ -1019,6 +1029,105 @@
 	                  );
 	                })
 	              )
+	            )
+	          ),
+	          _react2['default'].createElement(
+	            'section',
+	            null,
+	            _react2['default'].createElement(
+	              _lib.Typ,
+	              { secondary: true, display1: true },
+	              'Responsive Events'
+	            ),
+	            _react2['default'].createElement(
+	              'p',
+	              null,
+	              'Responsive Events are emitted whenever the screen type or orientation changes. This can be used to modify the UI to suite the device. Unlike CSS media queries which change the style of always present elements, this feature can be used to completely change what application renders. Meaning that your app should only render the elements needed on mobile and not just hide the desktop elements.'
+	            ),
+	            _react2['default'].createElement(
+	              'p',
+	              null,
+	              'How you use this feature depends on what framework you use for your application. With Cerebral you would send a signal, with a flux framework you would call an action. In both cases you would then apply the screen data to your central store which would cause your application components which observe the screen object in your store to re-render.'
+	            ),
+	            _react2['default'].createElement(Example, { code: '\n// how you apply the change to your store depends on your framework choice\nevents.responsive.addListener(screen => store.set(\'screen\', screen));\n            ' }),
+	            _react2['default'].createElement(
+	              'p',
+	              null,
+	              'Event listeners receive a screen object which looks like:'
+	            ),
+	            _react2['default'].createElement(Example, { code: '\n{\n  type: \'xs\',\n  size: 1,\n  isLandscape: true,\n  isPortrait: false\n}\n            ' }),
+	            _react2['default'].createElement(
+	              'p',
+	              null,
+	              'following the same reponsive configuration as bootstrap, ',
+	              _react2['default'].createElement(
+	                'code',
+	                null,
+	                'type'
+	              ),
+	              ' can be one of ',
+	              _react2['default'].createElement(
+	                'code',
+	                null,
+	                '\'xs\''
+	              ),
+	              ', ',
+	              _react2['default'].createElement(
+	                'code',
+	                null,
+	                '\'sm\''
+	              ),
+	              ', ',
+	              _react2['default'].createElement(
+	                'code',
+	                null,
+	                '\'md\''
+	              ),
+	              ' or ',
+	              _react2['default'].createElement(
+	                'code',
+	                null,
+	                '\'lg\''
+	              ),
+	              '. ',
+	              _react2['default'].createElement(
+	                'code',
+	                null,
+	                'size'
+	              ),
+	              ' is the same as ',
+	              _react2['default'].createElement(
+	                'code',
+	                null,
+	                'type'
+	              ),
+	              ' (',
+	              _react2['default'].createElement(
+	                'code',
+	                null,
+	                'xs=1, sm=2, md=3, lg=4'
+	              ),
+	              '), but allows you to filter by range (',
+	              _react2['default'].createElement(
+	                'code',
+	                null,
+	                'if (screen.size > 2) '
+	              ),
+	              ').'
+	            ),
+	            _react2['default'].createElement(
+	              'div',
+	              { className: 'paper' + this.state.screen.size + ' padded' },
+	              'As the screen gets larger this paper will rise.',
+	              _react2['default'].createElement('br', null),
+	              'The screen is ',
+	              this.state.screen.type,
+	              '.'
+	            ),
+	            _react2['default'].createElement(
+	              'p',
+	              null,
+	              'The event is only triggered when these values change and not on every window resize event, so updating the UI every time this event is triggered should be ok.'
 	            )
 	          )
 	        )
@@ -25892,7 +26001,11 @@
 	  Row: __webpack_require__(374),
 	  Sidenav: __webpack_require__(375),
 	  Table: __webpack_require__(378),
-	  Typ: __webpack_require__(381)
+	  Typ: __webpack_require__(381),
+	
+	  events: {
+	    responsive: __webpack_require__(382)
+	  }
 	};
 
 /***/ },
@@ -29596,15 +29709,78 @@
 
 /***/ },
 /* 382 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	var screenInfo = undefined;
+	var subscribers = {};
+	
+	function resize() {
+	  var width = window.innerWidth || document.body.clientWidth || 1024;
+	  var height = window.innerHeight || document.body.clientHeight || 768;
+	
+	  var type = 'xs';
+	  var size = 1;
+	  if (width >= 1200) {
+	    size = 4;
+	    type = 'lg';
+	  } else if (width >= 992) {
+	    size = 3;
+	    type = 'md';
+	  } else if (width >= 768) {
+	    size = 2;
+	    type = 'sm';
+	  }
+	
+	  var isLandscape = width >= height;
+	
+	  if (!screenInfo || type !== screenInfo.type || isLandscape !== screenInfo.isLandscape) {
+	    screenInfo = {
+	      type: type,
+	      size: size,
+	      isLandscape: isLandscape,
+	      isPortrait: !isLandscape
+	    };
+	    Object.keys(subscribers).forEach(function (eventHandler) {
+	      subscribers[eventHandler](screenInfo);
+	    });
+	  }
+	}
+	
+	exports['default'] = {
+	  addListener: function addListener(eventHandler) {
+	    if (typeof eventHandler !== 'function') {
+	      return;
+	    }
+	    if (!screenInfo) {
+	      window.addEventListener('resize', resize);
+	      resize();
+	    }
+	    subscribers[eventHandler] = eventHandler;
+	    eventHandler(screenInfo);
+	  },
+	
+	  removeListener: function removeListener(eventHandler) {
+	    delete subscribers[eventHandler];
+	  }
+	};
+	module.exports = exports['default'];
+
+/***/ },
+/* 383 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(383);
+	var content = __webpack_require__(384);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(385)(content, {});
+	var update = __webpack_require__(386)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -29621,10 +29797,10 @@
 	}
 
 /***/ },
-/* 383 */
+/* 384 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(384)();
+	exports = module.exports = __webpack_require__(385)();
 	// imports
 	
 	
@@ -29635,7 +29811,7 @@
 
 
 /***/ },
-/* 384 */
+/* 385 */
 /***/ function(module, exports) {
 
 	/*
@@ -29691,7 +29867,7 @@
 
 
 /***/ },
-/* 385 */
+/* 386 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -29916,16 +30092,16 @@
 
 
 /***/ },
-/* 386 */
+/* 387 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(387);
+	var content = __webpack_require__(388);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(385)(content, {});
+	var update = __webpack_require__(386)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -29942,10 +30118,10 @@
 	}
 
 /***/ },
-/* 387 */
+/* 388 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(384)();
+	exports = module.exports = __webpack_require__(385)();
 	// imports
 	
 	

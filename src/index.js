@@ -11,5 +11,9 @@ module.exports = {
   Row: require('./components/row'),
   Sidenav: require('./components/sidenav'),
   Table: require('./components/table'),
-  Typ: require('./components/typography')
+  Typ: require('./components/typography'),
+
+  events: {
+    responsive: require('./events/responsive')
+  }
 };
