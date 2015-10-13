@@ -83,6 +83,7 @@ class Application extends Component {
     return (
       <div>
         <Sidenav isOpen={this.state.sidenavOpen} onDone={() => this.setState({ sidenavOpen: false })}>
+          <Sidenav.Title showCloseButton>Menu</Sidenav.Title>
           <Sidenav.Item showIcon icon={<FaIcon name="user"/>}>Option A</Sidenav.Item>
           <Sidenav.Item showIcon icon={<FaIcon name="car"/>}>Option B</Sidenav.Item>
           <Sidenav.Seperator/>
@@ -289,6 +290,7 @@ import {
             <Typ secondary display1>Sidenav</Typ>
             <Example code={`
 <Sidenav isOpen={sidenavOpen} onDone={closeSidenavFunc}>
+  <Sidenav.Title showCloseButton>Menu</Sidenav.Title>
   <Sidenav.Item showIcon icon={<Icon name="user"/>} onTouchTap={itemSelected}>Option A</Sidenav.Item>
   <Sidenav.Item showIcon icon={<Icon name="car"/>} onTouchTap={itemSelected}>Option B</Sidenav.Item>
   <Sidenav.Seperator/>
