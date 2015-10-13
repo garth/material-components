@@ -839,5 +839,45 @@ body, .text-body {
 .menu-item:hover {
   background-color: #eee; }
 
+table.m-c th, table.m-c td {
+  box-shadow: 0 0.5px 0 0 rgba(0, 0, 0, 0.156), 0 1.5px 0 0 rgba(0, 0, 0, 0.055);
+  text-align: left;
+  padding: 4px 12px;
+  vertical-align: middle; }
+
+table.m-c th {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.54);
+  height: 56px; }
+
+table.m-c tr.toolbar th {
+  height: 64px; }
+
+table.m-c td {
+  font-size: 13px;
+  line-height: 17px;
+  color: rgba(0, 0, 0, 0.87);
+  height: 48px; }
+
+table.m-c th:first-child, table.m-c td:first-child {
+  padding-left: 24px; }
+
+table.m-c th:last-child, table.m-c td:last-child {
+  padding-right: 24px; }
+
+table.m-c tbody tr.clickable {
+  cursor: pointer; }
+  table.m-c tbody tr.clickable:hover {
+    background-color: #EEE; }
+
+table.m-c tbody tr.disabled td * {
+  opacity: 0.5;
+  text-decoration: line-through; }
+
+table.m-c tbody tr:last-child td {
+  box-shadow: none; }
+
 * {
   box-sizing: border-box; }

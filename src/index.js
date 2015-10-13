@@ -9,5 +9,6 @@ module.exports = {
   Mask: require('./components/mask'),
   Menu: require('./components/menu'),
   Row: require('./components/row'),
+  Table: require('./components/table'),
   Typ: require('./components/typography')
 };

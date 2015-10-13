@@ -11,7 +11,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 // import the material-components
-import { Appbar, Button, Checkbox, Col, Dialog, Divider, Input, Row, Typ, Menu } from '../lib';
+import { Appbar, Button, Checkbox, Col, Dialog, Divider, Input, Row, Typ, Menu, Table } from '../lib';
 
 // component to render code examples
 function Example({ code }) {
@@ -130,6 +130,7 @@ import {
   Input,
   Row,
   Typ,
+  Table,
   Menu
 } from 'material-components';
             `}/>
@@ -270,7 +271,7 @@ import {
             <p>See the appbar above.</p>
             <p>
               When using a darker primary color, try
-              using <code>{'<Appbar.Button lightWaves={true}>X</Appbar.Button>'}</code>
+              using <code>{'<Appbar.Button lightWaves>X</Appbar.Button>'}</code>
             </p>
           </section>
 
@@ -278,15 +279,15 @@ import {
             <Typ secondary display1>Buttons</Typ>
             <Example code={`
 <Button onTouchTap={onClick}>Normal</Button>
-<Button onTouchTap={onClick} primary={true}>Primary</Button>
-<Button onTouchTap={onClick} flat={true}>Flat</Button>
-<Button onTouchTap={onClick} primary={true} flat={true}>Primary Flat</Button>
+<Button onTouchTap={onClick} primary>Primary</Button>
+<Button onTouchTap={onClick} flat>Flat</Button>
+<Button onTouchTap={onClick} primary flat>Primary Flat</Button>
             `}/>
             <p>
               <Button>Normal</Button>
-              <Button primary={true}>Primary</Button>
-              <Button flat={true}>Flat</Button>
-              <Button primary={true} flat={true}>Primary Flat</Button>
+              <Button primary>Primary</Button>
+              <Button flat>Flat</Button>
+              <Button primary flat>Primary Flat</Button>
             </p>
           </section>
 
@@ -295,8 +296,8 @@ import {
             <Example code={`
 <Input label="Email" value={email} onChange={onEmailChange}/>
 <Input label="Password" type="password" value={password} onChange={onPasswordChange}/>
-<Input label="Success" value={email} isSuccess={true} onChange={onEmailChange}/>
-<Input label="Error" value={email} isError={true} message="fix me" onChange={onEmailChange}/>
+<Input label="Success" value={email} isSuccess onChange={onEmailChange}/>
+<Input label="Error" value={email} isError message="fix me" onChange={onEmailChange}/>
             `}/>
             <div style={{ margin: '16px 0' }}>
               <Row>
@@ -319,14 +320,14 @@ import {
                   <Input
                     label="Success"
                     value={this.state.email}
-                    isSuccess={true}
+                    isSuccess
                     onChange={(e) => this.setState({ email: e.target.value })}/>
                 </Col>
                 <Col type="md-6">
                   <Input
                     label="Error"
                     value={this.state.email}
-                    isError={true}
+                    isError
                     message="fix me"
                     onChange={(e) => this.setState({ email: e.target.value })}/>
                 </Col>
@@ -389,9 +390,9 @@ import {
                 <Menu.Item>Simple Menu Item</Menu.Item>
                 <Menu.Item>Other Option</Menu.Item>
               </Menu>
-              <Button style={{ margin: '0' }} primary={true} onTouchTap={() => this.setState({ showSimpleMenu: true })}>Simple Menu</Button>
+              <Button style={{ margin: '0' }} primary onTouchTap={() => this.setState({ showSimpleMenu: true })}>Simple Menu</Button>
 
-              <Button style={{ margin: '0 16px' }} primary={true} onTouchTap={() => this.setState({ showMenu: true })}>Menu</Button>
+              <Button style={{ margin: '0 16px' }} primary onTouchTap={() => this.setState({ showMenu: true })}>Menu</Button>
               <Menu rightAlign isOpen={this.state.showMenu} onDone={() => this.setState({ showMenu: false })}>
                 <Menu.Item showIcon icon={<FaIcon name="cog"/>}>Settings</Menu.Item>
                 <Menu.Item showIcon>No Icon</Menu.Item>
@@ -409,7 +410,7 @@ import {
   okLabel="OK" onOk={onOk} cancelLabel="Cancel" onCancel={onCancel}>
 </Dialog>
             `}/>
-            <Button style={{ margin: '24px 0' }} primary={true} onTouchTap={() => this.setState({ showDialog: true })}>Show Dialog</Button>
+            <Button style={{ margin: '24px 0' }} primary onTouchTap={() => this.setState({ showDialog: true })}>Show Dialog</Button>
             <Dialog
               isOpen={this.state.showDialog}
               width={400}
@@ -421,6 +422,62 @@ import {
               onCancel={() => this.setState({ showDialog: false })}>
               the details of allogation
             </Dialog>
+          </section>
+
+          <section>
+            <Typ secondary display1>Table</Typ>
+            <Example code={`
+<Table className="paper1">
+  <thead>
+    <Table.Toolbar colSpan={3}>
+      <Button style={{ margin: '0 8px', padding: '0 8px' }} primary flat>Add</Button>
+    </Table.Toolbar>
+    <Table.Row>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Role</th>
+    </Table.Row>
+  </thead>
+  <tbody>
+    {[
+      { firstName: 'Brian', lastName: 'Wilson', role: 'user' },
+      { firstName: 'Geoff', lastName: 'Hayes', role: 'user' },
+      { firstName: 'John', lastName: 'Doe', role: 'admin' }
+    ].map((user, index) => (
+      <Table.Row key={index} onTouchTap={select(user)}>
+        <td>{user.firstName}</td>
+        <td>{user.lastName}</td>
+        <td>{user.role}</td>
+      </Table.Row>
+    ))}
+  </tbody>
+</Table>
+            `}/>
+            <Table style={{ margin: '24px 0' }} className="paper1">
+              <thead>
+                <Table.Toolbar colSpan={3}>
+                  <Button style={{ margin: '0 8px', padding: '0 8px' }} primary flat>Add</Button>
+                </Table.Toolbar>
+                <Table.Row>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Role</th>
+                </Table.Row>
+              </thead>
+              <tbody>
+                {[
+                  { firstName: 'Brian', lastName: 'Wilson', role: 'user' },
+                  { firstName: 'Geoff', lastName: 'Hayes', role: 'user' },
+                  { firstName: 'John', lastName: 'Doe', role: 'admin' }
+                ].map((user, index) => (
+                  <Table.Row key={index} onTouchTap={() => console.log('clicked', user)}>
+                    <td>{user.firstName}</td>
+                    <td>{user.lastName}</td>
+                    <td>{user.role}</td>
+                  </Table.Row>
+                ))}
+              </tbody>
+            </Table>
           </section>
         </div>
       </div>
