@@ -140,7 +140,7 @@ export default class Dialog extends Component {
       <ReactCSSTransitionGroup
         transitionEnterTimeout={300}
         transitionLeaveTimeout={300}
-        transitionName="dialog"
+        transitionName="popup"
         style={{ zIndex: 1000 }}>
         {dialog}
       </ReactCSSTransitionGroup>

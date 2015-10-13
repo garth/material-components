@@ -822,19 +822,19 @@ body, .text-body {
   .mask.dark {
     opacity: 1; }
 
-.dialog-enter .transition {
+.popup-enter .transition {
   opacity: 0; }
 
-.dialog-enter.dialog-enter-active .transition {
+.popup-enter.popup-enter-active .transition {
   opacity: 1;
-  transition: opacity 0.3s ease; }
+  transition: opacity 0.3s ease-out; }
 
-.dialog-leave .transiation {
+.popup-leave .transiation {
   opacity: 1; }
 
-.dialog-leave.dialog-leave-active .transition {
+.popup-leave.popup-leave-active .transition {
   opacity: 0;
-  transition: opacity 0.3s ease; }
+  transition: opacity 0.3s ease-in; }
 
 .menu-item:hover {
   background-color: #eee; }
