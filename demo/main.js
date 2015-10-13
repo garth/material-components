@@ -426,6 +426,11 @@ import {
 
           <section>
             <Typ secondary display1>Table</Typ>
+            <p>
+              Only <code>Table</code>, <code>Table.Toolbar</code> and <code>Table.Row</code> are necessary, for other
+              element types use the default html
+              elements <code>thead</code>, <code>tbody</code>, <code>th</code> and <code>td</code>.
+            </p>
             <Example code={`
 <Table className="paper1">
   <thead>

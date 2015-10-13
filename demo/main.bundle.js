@@ -79,8 +79,8 @@
 	var _lib = __webpack_require__(350);
 	
 	// component to render code examples
-	__webpack_require__(376);
-	__webpack_require__(380);
+	__webpack_require__(379);
+	__webpack_require__(383);
 	(0, _reactTapEventPlugin2['default'])();function Example(_ref) {
 	  var code = _ref.code;
 	
@@ -863,6 +863,53 @@
 	              _lib.Typ,
 	              { secondary: true, display1: true },
 	              'Table'
+	            ),
+	            _react2['default'].createElement(
+	              'p',
+	              null,
+	              'Only ',
+	              _react2['default'].createElement(
+	                'code',
+	                null,
+	                'Table'
+	              ),
+	              ', ',
+	              _react2['default'].createElement(
+	                'code',
+	                null,
+	                'Table.Toolbar'
+	              ),
+	              ' and ',
+	              _react2['default'].createElement(
+	                'code',
+	                null,
+	                'Table.Row'
+	              ),
+	              ' are necessary, for other element types use the default html elements ',
+	              _react2['default'].createElement(
+	                'code',
+	                null,
+	                'thead'
+	              ),
+	              ', ',
+	              _react2['default'].createElement(
+	                'code',
+	                null,
+	                'tbody'
+	              ),
+	              ', ',
+	              _react2['default'].createElement(
+	                'code',
+	                null,
+	                'th'
+	              ),
+	              ' and ',
+	              _react2['default'].createElement(
+	                'code',
+	                null,
+	                'td'
+	              ),
+	              '.'
 	            ),
 	            _react2['default'].createElement(Example, { code: '\n<Table className="paper1">\n  <thead>\n    <Table.Toolbar colSpan={3}>\n      <Button style={{ margin: \'0 8px\', padding: \'0 8px\' }} primary flat>Add</Button>\n    </Table.Toolbar>\n    <Table.Row>\n      <th>First Name</th>\n      <th>Last Name</th>\n      <th>Role</th>\n    </Table.Row>\n  </thead>\n  <tbody>\n    {[\n      { firstName: \'Brian\', lastName: \'Wilson\', role: \'user\' },\n      { firstName: \'Geoff\', lastName: \'Hayes\', role: \'user\' },\n      { firstName: \'John\', lastName: \'Doe\', role: \'admin\' }\n    ].map((user, index) => (\n      <Table.Row key={index} onTouchTap={select(user)}>\n        <td>{user.firstName}</td>\n        <td>{user.lastName}</td>\n        <td>{user.role}</td>\n      </Table.Row>\n    ))}\n  </tbody>\n</Table>\n            ' }),
 	            _react2['default'].createElement(
@@ -25798,8 +25845,8 @@
 	  Mask: __webpack_require__(368),
 	  Menu: __webpack_require__(371),
 	  Row: __webpack_require__(374),
-	  Table: __webpack_require__(382),
-	  Typ: __webpack_require__(375)
+	  Table: __webpack_require__(375),
+	  Typ: __webpack_require__(378)
 	};
 
 /***/ },
@@ -28797,6 +28844,134 @@
 	  value: true
 	});
 	
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { 'default': obj };
+	}
+	
+	var _react = __webpack_require__(190);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _classnames = __webpack_require__(353);
+	
+	var _classnames2 = _interopRequireDefault(_classnames);
+	
+	var _toolbar = __webpack_require__(376);
+	
+	var _toolbar2 = _interopRequireDefault(_toolbar);
+	
+	var _row = __webpack_require__(377);
+	
+	var _row2 = _interopRequireDefault(_row);
+	
+	var Table = function Table(_ref) {
+	  var _ref$children = _ref.children;
+	  var children = _ref$children === undefined ? null : _ref$children;
+	  var _ref$className = _ref.className;
+	  var className = _ref$className === undefined ? '' : _ref$className;
+	  var _ref$style = _ref.style;
+	  var style = _ref$style === undefined ? {} : _ref$style;
+	
+	  return _react2['default'].createElement('table', {
+	    style: Object.assign({
+	      width: '100%'
+	    }, style),
+	    className: (0, _classnames2['default'])('m-c', className) }, children);
+	};
+	
+	Table.Toolbar = _toolbar2['default'];
+	Table.Row = _row2['default'];
+	
+	exports['default'] = Table;
+	module.exports = exports['default'];
+
+/***/ },
+/* 376 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports["default"] = TableToolbar;
+	
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { "default": obj };
+	}
+	
+	var _react = __webpack_require__(190);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function TableToolbar(_ref) {
+	  var _ref$children = _ref.children;
+	  var children = _ref$children === undefined ? null : _ref$children;
+	  var _ref$colSpan = _ref.colSpan;
+	  var colSpan = _ref$colSpan === undefined ? 1 : _ref$colSpan;
+	  var _ref$style = _ref.style;
+	  var style = _ref$style === undefined ? {} : _ref$style;
+	
+	  return _react2["default"].createElement("tr", { className: "toolbar" }, _react2["default"].createElement("th", {
+	    colSpan: colSpan,
+	    style: Object.assign({
+	      paddingLeft: 0
+	    }, style) }, children));
+	}
+	
+	module.exports = exports["default"];
+
+/***/ },
+/* 377 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	exports['default'] = TableRow;
+	
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { 'default': obj };
+	}
+	
+	var _react = __webpack_require__(190);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _classnames = __webpack_require__(353);
+	
+	var _classnames2 = _interopRequireDefault(_classnames);
+	
+	function TableRow(_ref) {
+	  var _ref$children = _ref.children;
+	  var children = _ref$children === undefined ? null : _ref$children;
+	  var _ref$className = _ref.className;
+	  var className = _ref$className === undefined ? '' : _ref$className;
+	  var _ref$onTouchTap = _ref.onTouchTap;
+	  var onTouchTap = _ref$onTouchTap === undefined ? null : _ref$onTouchTap;
+	  var _ref$style = _ref.style;
+	  var style = _ref$style === undefined ? {} : _ref$style;
+	
+	  return _react2['default'].createElement('tr', {
+	    className: (0, _classnames2['default'])(className, { clickable: onTouchTap }),
+	    style: style,
+	    onTouchTap: onTouchTap }, children);
+	}
+	
+	module.exports = exports['default'];
+
+/***/ },
+/* 378 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
 	var _createClass = (function () {
 	  function defineProperties(target, props) {
 	    for (var i = 0; i < props.length; i++) {
@@ -28927,16 +29102,16 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 376 */
+/* 379 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(377);
+	var content = __webpack_require__(380);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(379)(content, {});
+	var update = __webpack_require__(382)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -28953,10 +29128,10 @@
 	}
 
 /***/ },
-/* 377 */
+/* 380 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(378)();
+	exports = module.exports = __webpack_require__(381)();
 	// imports
 	
 	
@@ -28967,7 +29142,7 @@
 
 
 /***/ },
-/* 378 */
+/* 381 */
 /***/ function(module, exports) {
 
 	/*
@@ -29023,7 +29198,7 @@
 
 
 /***/ },
-/* 379 */
+/* 382 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -29248,16 +29423,16 @@
 
 
 /***/ },
-/* 380 */
+/* 383 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(381);
+	var content = __webpack_require__(384);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(379)(content, {});
+	var update = __webpack_require__(382)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -29274,10 +29449,10 @@
 	}
 
 /***/ },
-/* 381 */
+/* 384 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(378)();
+	exports = module.exports = __webpack_require__(381)();
 	// imports
 	
 	
@@ -29286,134 +29461,6 @@
 	
 	// exports
 
-
-/***/ },
-/* 382 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { 'default': obj };
-	}
-	
-	var _react = __webpack_require__(190);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _classnames = __webpack_require__(353);
-	
-	var _classnames2 = _interopRequireDefault(_classnames);
-	
-	var _toolbar = __webpack_require__(383);
-	
-	var _toolbar2 = _interopRequireDefault(_toolbar);
-	
-	var _row = __webpack_require__(384);
-	
-	var _row2 = _interopRequireDefault(_row);
-	
-	var Table = function Table(_ref) {
-	  var _ref$children = _ref.children;
-	  var children = _ref$children === undefined ? null : _ref$children;
-	  var _ref$className = _ref.className;
-	  var className = _ref$className === undefined ? '' : _ref$className;
-	  var _ref$style = _ref.style;
-	  var style = _ref$style === undefined ? {} : _ref$style;
-	
-	  return _react2['default'].createElement('table', {
-	    style: Object.assign({
-	      width: '100%'
-	    }, style),
-	    className: (0, _classnames2['default'])('m-c', className) }, children);
-	};
-	
-	Table.Toolbar = _toolbar2['default'];
-	Table.Row = _row2['default'];
-	
-	exports['default'] = Table;
-	module.exports = exports['default'];
-
-/***/ },
-/* 383 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports["default"] = TableToolbar;
-	
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { "default": obj };
-	}
-	
-	var _react = __webpack_require__(190);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function TableToolbar(_ref) {
-	  var _ref$children = _ref.children;
-	  var children = _ref$children === undefined ? null : _ref$children;
-	  var _ref$colSpan = _ref.colSpan;
-	  var colSpan = _ref$colSpan === undefined ? 1 : _ref$colSpan;
-	  var _ref$style = _ref.style;
-	  var style = _ref$style === undefined ? {} : _ref$style;
-	
-	  return _react2["default"].createElement("tr", { className: "toolbar" }, _react2["default"].createElement("th", {
-	    colSpan: colSpan,
-	    style: Object.assign({
-	      paddingLeft: 0
-	    }, style) }, children));
-	}
-	
-	module.exports = exports["default"];
-
-/***/ },
-/* 384 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	exports['default'] = TableRow;
-	
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { 'default': obj };
-	}
-	
-	var _react = __webpack_require__(190);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _classnames = __webpack_require__(353);
-	
-	var _classnames2 = _interopRequireDefault(_classnames);
-	
-	function TableRow(_ref) {
-	  var _ref$children = _ref.children;
-	  var children = _ref$children === undefined ? null : _ref$children;
-	  var _ref$className = _ref.className;
-	  var className = _ref$className === undefined ? '' : _ref$className;
-	  var _ref$onTouchTap = _ref.onTouchTap;
-	  var onTouchTap = _ref$onTouchTap === undefined ? null : _ref$onTouchTap;
-	  var _ref$style = _ref.style;
-	  var style = _ref$style === undefined ? {} : _ref$style;
-	
-	  return _react2['default'].createElement('tr', {
-	    className: (0, _classnames2['default'])(className, { clickable: onTouchTap }),
-	    style: style,
-	    onTouchTap: onTouchTap }, children);
-	}
-	
-	module.exports = exports['default'];
 
 /***/ }
 /******/ ]);
