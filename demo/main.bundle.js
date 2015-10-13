@@ -217,7 +217,7 @@
 	        ),
 	        _react2['default'].createElement(
 	          'div',
-	          { style: { padding: '24px', width: '950px' } },
+	          { style: { padding: '24px', maxWidth: '950px' } },
 	          _react2['default'].createElement(
 	            'section',
 	            null,
@@ -313,7 +313,7 @@
 	                  { type: 'sm-offset-1 sm-2' },
 	                  _react2['default'].createElement(
 	                    'div',
-	                    { className: 'paper1 padded' },
+	                    { className: 'paper1 padded', style: { margin: '16px 0' } },
 	                    'Paper 1'
 	                  )
 	                ),
@@ -322,7 +322,7 @@
 	                  { type: 'sm-2' },
 	                  _react2['default'].createElement(
 	                    'div',
-	                    { className: 'paper2 padded' },
+	                    { className: 'paper2 padded', style: { margin: '16px 0' } },
 	                    'Paper 2'
 	                  )
 	                ),
@@ -331,7 +331,7 @@
 	                  { type: 'sm-2' },
 	                  _react2['default'].createElement(
 	                    'div',
-	                    { className: 'paper3 padded' },
+	                    { className: 'paper3 padded', style: { margin: '16px 0' } },
 	                    'Paper 3'
 	                  )
 	                ),
@@ -340,7 +340,7 @@
 	                  { type: 'sm-2' },
 	                  _react2['default'].createElement(
 	                    'div',
-	                    { className: 'paper4 padded' },
+	                    { className: 'paper4 padded', style: { margin: '16px 0' } },
 	                    'Paper 4'
 	                  )
 	                ),
@@ -349,14 +349,14 @@
 	                  { type: 'sm-2' },
 	                  _react2['default'].createElement(
 	                    'div',
-	                    { className: 'paper5 padded' },
+	                    { className: 'paper5 padded', style: { margin: '16px 0' } },
 	                    'Paper 5'
 	                  )
 	                )
 	              ),
 	              _react2['default'].createElement(
 	                'div',
-	                { style: { margin: '24px 0 16px 0' }, className: 'paper1 padded' },
+	                { className: 'paper1 padded', style: { margin: '16px 0' } },
 	                'Before divider',
 	                _react2['default'].createElement(_lib.Divider, null),
 	                'After divider'

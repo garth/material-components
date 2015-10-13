@@ -98,7 +98,7 @@ class Application extends Component {
             </Menu>
           </div>
         </Appbar>
-        <div style={{ padding: '24px', width: '950px' }}>
+        <div style={{ padding: '24px', maxWidth: '950px' }}>
           <section>
             <Typ secondary display1>Introduction</Typ>
             <p>
@@ -152,23 +152,23 @@ import {
             <div style={{ margin: '16px 0' }}>
               <Row>
                 <Col type="sm-offset-1 sm-2">
-                  <div className="paper1 padded">Paper 1</div>
+                  <div className="paper1 padded" style={{ margin: '16px 0' }}>Paper 1</div>
                 </Col>
                 <Col type="sm-2">
-                  <div className="paper2 padded">Paper 2</div>
+                  <div className="paper2 padded" style={{ margin: '16px 0' }}>Paper 2</div>
                 </Col>
                 <Col type="sm-2">
-                  <div className="paper3 padded">Paper 3</div>
+                  <div className="paper3 padded" style={{ margin: '16px 0' }}>Paper 3</div>
                 </Col>
                 <Col type="sm-2">
-                  <div className="paper4 padded">Paper 4</div>
+                  <div className="paper4 padded" style={{ margin: '16px 0' }}>Paper 4</div>
                 </Col>
                 <Col type="sm-2">
-                  <div className="paper5 padded">Paper 5</div>
+                  <div className="paper5 padded" style={{ margin: '16px 0' }}>Paper 5</div>
                 </Col>
               </Row>
 
-              <div style={{ margin: '24px 0 16px 0' }} className="paper1 padded">
+              <div className="paper1 padded" style={{ margin: '16px 0' }}>
                 Before divider
                 <Divider/>
                 After divider
