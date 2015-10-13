@@ -879,5 +879,37 @@ table.m-c tbody tr.disabled td * {
 table.m-c tbody tr:last-child td {
   box-shadow: none; }
 
+.sidenav {
+  position: absolute;
+  width: 280px; }
+
+.sidenav-enter .sidenav {
+  left: -280px; }
+
+.sidenav-enter .mask {
+  opacity: 0; }
+
+.sidenav-enter.sidenav-enter-active .sidenav {
+  left: 0;
+  transition: left 0.3s ease-in-out; }
+
+.sidenav-enter.sidenav-enter-active .mask {
+  opacity: 1;
+  transition: opacity 0.3s ease; }
+
+.sidenav-leave .sidenav {
+  left: 0; }
+
+.sidenav-leave .mask {
+  opacity: 1; }
+
+.sidenav-leave.sidenav-leave-active .sidenav {
+  left: -280px;
+  transition: left 0.3s ease-in-out; }
+
+.sidenav-leave.sidenav-leave-active .mask {
+  opacity: 0;
+  transition: opacity 0.3s ease; }
+
 * {
   box-sizing: border-box; }

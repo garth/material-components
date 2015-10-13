@@ -11,7 +11,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 // import the material-components
-import { Appbar, Button, Checkbox, Col, Dialog, Divider, Input, Row, Typ, Menu, Table } from '../lib';
+import { Appbar, Button, Checkbox, Col, Dialog, Divider, Input, Row, Typ, Menu, Sidenav, Table } from '../lib';
 
 // component to render code examples
 function Example({ code }) {
@@ -54,6 +54,7 @@ class Application extends Component {
   };
 
   state = {
+    sidenavOpen: false,
     showMoreMenu: false,
     email: '',
     password: '',
@@ -81,8 +82,16 @@ class Application extends Component {
   render() {
     return (
       <div>
+        <Sidenav isOpen={this.state.sidenavOpen} onDone={() => this.setState({ sidenavOpen: false })}>
+          <Sidenav.Item showIcon icon={<FaIcon name="user"/>}>Option A</Sidenav.Item>
+          <Sidenav.Item showIcon icon={<FaIcon name="car"/>}>Option B</Sidenav.Item>
+          <Sidenav.Seperator/>
+          <Sidenav.Item showIcon icon={<FaIcon name="cog"/>}>Settings</Sidenav.Item>
+        </Sidenav>
         <Appbar fixed>
-          <Appbar.Button style={{ float: 'left' }}><Icon name="menu"/></Appbar.Button>
+          <Appbar.Button style={{ float: 'left' }} onTouchTap={() => this.setState({ sidenavOpen: true })}>
+            <Icon name="menu"/>
+          </Appbar.Button>
           <Appbar.Title>Material Components</Appbar.Title>
           <div style={{ float: 'right' }}>
             <Appbar.Button
@@ -128,10 +137,11 @@ import {
   Dialog,
   Divider,
   Input,
+  Menu,
   Row,
-  Typ,
+  Sidenav,
   Table,
-  Menu
+  Typ
 } from 'material-components';
             `}/>
           </section>
@@ -273,6 +283,19 @@ import {
               When using a darker primary color, try
               using <code>{'<Appbar.Button lightWaves>X</Appbar.Button>'}</code>
             </p>
+          </section>
+
+          <section>
+            <Typ secondary display1>Sidenav</Typ>
+            <Example code={`
+<Sidenav isOpen={sidenavOpen} onDone={closeSidenavFunc}>
+  <Sidenav.Item showIcon icon={<Icon name="user"/>} onTouchTap={itemSelected}>Option A</Sidenav.Item>
+  <Sidenav.Item showIcon icon={<Icon name="car"/>} onTouchTap={itemSelected}>Option B</Sidenav.Item>
+  <Sidenav.Seperator/>
+  <Sidenav.Item showIcon icon={<Icon name="cog"/>} onTouchTap={itemSelected}>Settings</Sidenav.Item>
+</Sidenav>
+            `}/>
+            <p>See the sidenav above.</p>
           </section>
 
           <section>

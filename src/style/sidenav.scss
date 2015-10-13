@@ -1,0 +1,47 @@
+$width: 280px;
+$duration: .3s;
+
+.sidenav {
+  position: absolute;
+  width: $width;
+}
+
+.sidenav-enter {
+  .sidenav {
+    left: -1 * $width;
+  }
+  .mask {
+    opacity: 0;
+  }
+}
+
+.sidenav-enter.sidenav-enter-active {
+  .sidenav {
+    left: 0;
+    transition: left $duration ease-in-out;
+  }
+  .mask {
+    opacity: 1;
+    transition: opacity $duration ease;
+  }
+}
+
+.sidenav-leave {
+  .sidenav {
+    left: 0;
+  }
+  .mask {
+    opacity: 1;
+  }
+}
+
+.sidenav-leave.sidenav-leave-active {
+  .sidenav {
+    left: -1 * $width;
+    transition: left $duration ease-in-out;
+  }
+  .mask {
+    opacity: 0;
+    transition: opacity $duration ease;
+  }
+}
