@@ -5,6 +5,10 @@ class Item extends Component {
 
   static displayName = 'Sidenav.Item';
 
+  static contextTypes = {
+    componentStyle: React.PropTypes.object
+  };
+
   static propTypes = {
     children: PropTypes.node,
     icon: PropTypes.node,
@@ -20,16 +24,28 @@ class Item extends Component {
 
   render() {
     const {
+      primaryColor,
+      typographyColor
+    } = this.context.componentStyle;
+    const {
       children,
+      icon,
+      onTouchTap,
+      selected,
+      showIcon,
       style
     } = this.props;
 
     return (
       <MenuItem
+        icon={icon}
+        onTouchTap={onTouchTap}
+        selected={false}
+        showIcon={showIcon}
         style={Object.assign({
-          padding: '8px 40px 8px 24px'
-        }, style)}
-        {...this.props}>
+          padding: '8px 40px 8px 24px',
+          color: selected ? primaryColor : typographyColor
+        }, style)}>
         {children}
       </MenuItem>
     );

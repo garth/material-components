@@ -90,7 +90,7 @@ class Application extends Component {
         <Sidenav isOpen={this.state.sidenavOpen} onDone={() => this.setState({ sidenavOpen: false })}>
           <Sidenav.Title showCloseButton>Menu</Sidenav.Title>
           <Sidenav.Item showIcon icon={<FaIcon name="user"/>}>Option A</Sidenav.Item>
-          <Sidenav.Item showIcon icon={<FaIcon name="car"/>}>Option B</Sidenav.Item>
+          <Sidenav.Item showIcon icon={<FaIcon name="car"/>} selected>Option B</Sidenav.Item>
           <Sidenav.Seperator/>
           <Sidenav.Item showIcon icon={<FaIcon name="cog"/>}>Settings</Sidenav.Item>
         </Sidenav>
@@ -297,7 +297,7 @@ import {
 <Sidenav isOpen={sidenavOpen} onDone={closeSidenavFunc}>
   <Sidenav.Title showCloseButton>Menu</Sidenav.Title>
   <Sidenav.Item showIcon icon={<Icon name="user"/>} onTouchTap={itemSelected}>Option A</Sidenav.Item>
-  <Sidenav.Item showIcon icon={<Icon name="car"/>} onTouchTap={itemSelected}>Option B</Sidenav.Item>
+  <Sidenav.Item showIcon icon={<Icon name="car"/>} onTouchTap={itemSelected} selected>Option B</Sidenav.Item>
   <Sidenav.Seperator/>
   <Sidenav.Item showIcon icon={<Icon name="cog"/>} onTouchTap={itemSelected}>Settings</Sidenav.Item>
 </Sidenav>

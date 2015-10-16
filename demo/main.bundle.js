@@ -194,7 +194,7 @@
 	          ),
 	          _react2['default'].createElement(
 	            _lib.Sidenav.Item,
-	            { showIcon: true, icon: _react2['default'].createElement(FaIcon, { name: 'car' }) },
+	            { showIcon: true, icon: _react2['default'].createElement(FaIcon, { name: 'car' }), selected: true },
 	            'Option B'
 	          ),
 	          _react2['default'].createElement(_lib.Sidenav.Seperator, null),
@@ -612,7 +612,7 @@
 	              { secondary: true, display1: true },
 	              'Sidenav'
 	            ),
-	            _react2['default'].createElement(Example, { code: '\n<Sidenav isOpen={sidenavOpen} onDone={closeSidenavFunc}>\n  <Sidenav.Title showCloseButton>Menu</Sidenav.Title>\n  <Sidenav.Item showIcon icon={<Icon name="user"/>} onTouchTap={itemSelected}>Option A</Sidenav.Item>\n  <Sidenav.Item showIcon icon={<Icon name="car"/>} onTouchTap={itemSelected}>Option B</Sidenav.Item>\n  <Sidenav.Seperator/>\n  <Sidenav.Item showIcon icon={<Icon name="cog"/>} onTouchTap={itemSelected}>Settings</Sidenav.Item>\n</Sidenav>\n            ' }),
+	            _react2['default'].createElement(Example, { code: '\n<Sidenav isOpen={sidenavOpen} onDone={closeSidenavFunc}>\n  <Sidenav.Title showCloseButton>Menu</Sidenav.Title>\n  <Sidenav.Item showIcon icon={<Icon name="user"/>} onTouchTap={itemSelected}>Option A</Sidenav.Item>\n  <Sidenav.Item showIcon icon={<Icon name="car"/>} onTouchTap={itemSelected} selected>Option B</Sidenav.Item>\n  <Sidenav.Seperator/>\n  <Sidenav.Item showIcon icon={<Icon name="cog"/>} onTouchTap={itemSelected}>Settings</Sidenav.Item>\n</Sidenav>\n            ' }),
 	            _react2['default'].createElement(
 	              'p',
 	              null,
@@ -29184,16 +29184,6 @@
 	  value: true
 	});
 	
-	var _extends = Object.assign || function (target) {
-	  for (var i = 1; i < arguments.length; i++) {
-	    var source = arguments[i];for (var key in source) {
-	      if (Object.prototype.hasOwnProperty.call(source, key)) {
-	        target[key] = source[key];
-	      }
-	    }
-	  }return target;
-	};
-	
 	var _createClass = (function () {
 	  function defineProperties(target, props) {
 	    for (var i = 0; i < props.length; i++) {
@@ -29260,19 +29250,36 @@
 	  _createClass(Item, [{
 	    key: 'render',
 	    value: function render() {
+	      var _context$componentStyle = this.context.componentStyle;
+	      var primaryColor = _context$componentStyle.primaryColor;
+	      var typographyColor = _context$componentStyle.typographyColor;
 	      var _props = this.props;
 	      var children = _props.children;
+	      var icon = _props.icon;
+	      var onTouchTap = _props.onTouchTap;
+	      var selected = _props.selected;
+	      var showIcon = _props.showIcon;
 	      var style = _props.style;
 	
-	      return _react2['default'].createElement(_menuItem2['default'], _extends({
+	      return _react2['default'].createElement(_menuItem2['default'], {
+	        icon: icon,
+	        onTouchTap: onTouchTap,
+	        selected: false,
+	        showIcon: showIcon,
 	        style: Object.assign({
-	          padding: '8px 40px 8px 24px'
-	        }, style)
-	      }, this.props), children);
+	          padding: '8px 40px 8px 24px',
+	          color: selected ? primaryColor : typographyColor
+	        }, style) }, children);
 	    }
 	  }], [{
 	    key: 'displayName',
 	    value: 'Sidenav.Item',
+	    enumerable: true
+	  }, {
+	    key: 'contextTypes',
+	    value: {
+	      componentStyle: _react2['default'].PropTypes.object
+	    },
 	    enumerable: true
 	  }, {
 	    key: 'propTypes',
