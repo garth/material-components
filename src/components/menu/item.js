@@ -61,7 +61,6 @@ class Item extends Component {
         <div style={{
           display: 'inline-block',
           width: '48px',
-          height: '32px',
           lineHeight: '32px',
           fontSize: '20px'
         }}>
@@ -75,6 +74,7 @@ class Item extends Component {
         className="menu-item"
         style={Object.assign({
           padding: '0 40px 0 24px',
+          lineHeight: '32px',
           cursor: 'pointer',
           whiteSpace: 'nowrap',
           display: 'block'
@@ -83,8 +83,6 @@ class Item extends Component {
         {iconContainer}
         <div style={{
           display: 'inline-block',
-          lineHeight: '32px',
-          height: '32px',
           fontSize: '16px'
         }}>
           {children}

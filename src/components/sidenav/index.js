@@ -54,7 +54,8 @@ class Sidenav extends Component {
           top: '64px',
           left: 0,
           bottom: 0,
-          width: '60px',
+          width: '62px',
+          marginLeft: '-2px',
           overflow: 'hidden'
         }, style)}>
         {children}

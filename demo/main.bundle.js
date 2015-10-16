@@ -194,7 +194,7 @@
 	          ),
 	          _react2['default'].createElement(
 	            _lib.Sidenav.Item,
-	            { showIcon: true, icon: _react2['default'].createElement(FaIcon, { name: 'car' }), selected: true },
+	            { showIcon: true, icon: _react2['default'].createElement(FaIcon, { name: 'dashboard' }), selected: true },
 	            'Option B'
 	          ),
 	          _react2['default'].createElement(_lib.Sidenav.Seperator, null),
@@ -612,11 +612,45 @@
 	              { secondary: true, display1: true },
 	              'Sidenav'
 	            ),
-	            _react2['default'].createElement(Example, { code: '\n<Sidenav isOpen={sidenavOpen} onDone={closeSidenavFunc}>\n  <Sidenav.Title showCloseButton>Menu</Sidenav.Title>\n  <Sidenav.Item showIcon icon={<Icon name="user"/>} onTouchTap={itemSelected}>Option A</Sidenav.Item>\n  <Sidenav.Item showIcon icon={<Icon name="car"/>} onTouchTap={itemSelected} selected>Option B</Sidenav.Item>\n  <Sidenav.Seperator/>\n  <Sidenav.Item showIcon icon={<Icon name="cog"/>} onTouchTap={itemSelected}>Settings</Sidenav.Item>\n</Sidenav>\n            ' }),
+	            _react2['default'].createElement(Example, { code: '\n<Sidenav isOpen={sidenavOpen} onDone={closeSidenavFunc}>\n  <Sidenav.Title showCloseButton>Menu</Sidenav.Title>\n  <Sidenav.Item showIcon icon={<Icon name="user"/>} onTouchTap={itemSelected}>Option A</Sidenav.Item>\n  <Sidenav.Item showIcon icon={<Icon name="dashboard"/>} onTouchTap={itemSelected} selected>Option B</Sidenav.Item>\n  <Sidenav.Seperator/>\n  <Sidenav.Item showIcon icon={<Icon name="cog"/>} onTouchTap={itemSelected}>Settings</Sidenav.Item>\n</Sidenav>\n            ' }),
 	            _react2['default'].createElement(
 	              'p',
 	              null,
 	              'See the sidenav above.'
+	            ),
+	            _react2['default'].createElement(
+	              'p',
+	              null,
+	              'It\'s also possible to have a mini sidenav that is always on display.'
+	            ),
+	            _react2['default'].createElement(Example, { code: '\n<Sidenav mini>\n  <Sidenav.Item showIcon icon={<Icon name="user"/>} onTouchTap={itemSelected}/>\n  <Sidenav.Item showIcon icon={<Icon name="dashboard"/>} onTouchTap={itemSelected} selected/>\n  <Sidenav.Seperator/>\n  <Sidenav.Item showIcon icon={<Icon name="cog"/>} onTouchTap={itemSelected}/>\n</Sidenav>\n<div style={{ marginLeft: \'60px\' }}>\n  Page Content\n</div>\n            ' }),
+	            _react2['default'].createElement(
+	              'div',
+	              { className: 'paper1', style: {
+	                  height: '200px',
+	                  margin: '16px 0'
+	                } },
+	              _react2['default'].createElement(
+	                _lib.Sidenav,
+	                { mini: true, style: {
+	                    float: 'left',
+	                    position: 'relative',
+	                    top: '0',
+	                    height: '200px'
+	                  } },
+	                _react2['default'].createElement(_lib.Sidenav.Item, { showIcon: true, icon: _react2['default'].createElement(FaIcon, { name: 'user' }) }),
+	                _react2['default'].createElement(_lib.Sidenav.Item, { showIcon: true, icon: _react2['default'].createElement(FaIcon, { name: 'dashboard' }), selected: true }),
+	                _react2['default'].createElement(_lib.Sidenav.Seperator, null),
+	                _react2['default'].createElement(_lib.Sidenav.Item, { showIcon: true, icon: _react2['default'].createElement(FaIcon, { name: 'cog' }) })
+	              ),
+	              _react2['default'].createElement(
+	                'div',
+	                { style: {
+	                    padding: '16px',
+	                    marginLeft: '60px'
+	                  } },
+	                'Page Content'
+	              )
 	            )
 	          ),
 	          _react2['default'].createElement(
@@ -28870,7 +28904,6 @@
 	        iconContainer = _react2['default'].createElement('div', { style: {
 	            display: 'inline-block',
 	            width: '48px',
-	            height: '32px',
 	            lineHeight: '32px',
 	            fontSize: '20px'
 	          } }, iconElement || ' ');
@@ -28880,6 +28913,7 @@
 	        className: 'menu-item',
 	        style: Object.assign({
 	          padding: '0 40px 0 24px',
+	          lineHeight: '32px',
 	          cursor: 'pointer',
 	          whiteSpace: 'nowrap',
 	          display: 'block'
@@ -28888,8 +28922,6 @@
 	          return _this.onTouchTap();
 	        } }, iconContainer, _react2['default'].createElement('div', { style: {
 	          display: 'inline-block',
-	          lineHeight: '32px',
-	          height: '32px',
 	          fontSize: '16px'
 	        } }, children));
 	    }
@@ -29118,7 +29150,8 @@
 	          top: '64px',
 	          left: 0,
 	          bottom: 0,
-	          width: '60px',
+	          width: '62px',
+	          marginLeft: '-2px',
 	          overflow: 'hidden'
 	        }, style) }, children) : _react2['default'].createElement(_reactAddonsCssTransitionGroup2['default'], {
 	        transitionEnterTimeout: 300,
