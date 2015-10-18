@@ -879,10 +879,6 @@ table.m-c tbody tr.disabled td * {
 table.m-c tbody tr:last-child td {
   box-shadow: none; }
 
-.sidenav {
-  position: absolute;
-  width: 280px; }
-
 .sidenav-enter .sidenav {
   left: -280px; }
 
@@ -891,11 +887,11 @@ table.m-c tbody tr:last-child td {
 
 .sidenav-enter.sidenav-enter-active .sidenav {
   left: 0;
-  transition: left 0.3s ease-in-out; }
+  transition: left 0.3s ease-out; }
 
 .sidenav-enter.sidenav-enter-active .mask {
   opacity: 1;
-  transition: opacity 0.3s ease; }
+  transition: opacity 0.3s ease-out; }
 
 .sidenav-leave .sidenav {
   left: 0; }
@@ -905,11 +901,36 @@ table.m-c tbody tr:last-child td {
 
 .sidenav-leave.sidenav-leave-active .sidenav {
   left: -280px;
-  transition: left 0.3s ease-in-out; }
+  transition: left 0.3s ease-in; }
 
 .sidenav-leave.sidenav-leave-active .mask {
   opacity: 0;
-  transition: opacity 0.3s ease; }
+  transition: opacity 0.3s ease-in; }
+
+@keyframes spinner-rotate {
+  100% {
+    transform: rotate(360deg); } }
+
+@keyframes spinner-dash {
+  0% {
+    stroke-dasharray: 1,400;
+    stroke-dashoffset: 0; }
+  50% {
+    stroke-dasharray: 211,400;
+    stroke-dashoffset: -82; }
+  100% {
+    stroke-dasharray: 211,400;
+    stroke-dashoffset: -294; } }
+
+@keyframes spinner-color {
+  100%, 0% {
+    stroke: #d62d20; }
+  40% {
+    stroke: #0057e7; }
+  66% {
+    stroke: #008744; }
+  80%, 90% {
+    stroke: #ffa700; } }
 
 * {
   box-sizing: border-box; }

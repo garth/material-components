@@ -1,11 +1,6 @@
 $width: 280px;
 $duration: .3s;
 
-.sidenav {
-  position: absolute;
-  width: $width;
-}
-
 .sidenav-enter {
   .sidenav {
     left: -1 * $width;
@@ -18,11 +13,11 @@ $duration: .3s;
 .sidenav-enter.sidenav-enter-active {
   .sidenav {
     left: 0;
-    transition: left $duration ease-in-out;
+    transition: left $duration ease-out;
   }
   .mask {
     opacity: 1;
-    transition: opacity $duration ease;
+    transition: opacity $duration ease-out;
   }
 }
 
@@ -38,10 +33,10 @@ $duration: .3s;
 .sidenav-leave.sidenav-leave-active {
   .sidenav {
     left: -1 * $width;
-    transition: left $duration ease-in-out;
+    transition: left $duration ease-in;
   }
   .mask {
     opacity: 0;
-    transition: opacity $duration ease;
+    transition: opacity $duration ease-in;
   }
 }

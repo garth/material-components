@@ -11,7 +11,9 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 // import the material-components
-import { Appbar, Button, Checkbox, Col, Dialog, Divider, Input, Row, Typ, Menu, Sidenav, Table, events } from '../lib';
+import {
+  Appbar, Button, Checkbox, Col, Dialog, Divider, Input, Row, Typ, Menu, Sidenav, Spinner, Table, events
+} from '../lib';
 
 // component to render code examples
 function Example({ code }) {
@@ -63,7 +65,8 @@ class Application extends Component {
     showDialog: false,
     showSimpleMenu: false,
     showMenu: false,
-    selectedOption: 1
+    selectedOption: 1,
+    isLoading: false
   }
 
   componentWillMount() {
@@ -146,8 +149,10 @@ import {
   Menu,
   Row,
   Sidenav,
+  Spinner,
   Table,
-  Typ
+  Typ,
+  events
 } from 'material-components';
             `}/>
           </section>
@@ -548,6 +553,40 @@ import {
                 ))}
               </tbody>
             </Table>
+          </section>
+
+          <section>
+            <Typ secondary display1>Spinner</Typ>
+            <Example code={`
+// inline spinners
+<Spinner size={25} inline/>
+<Spinner size={50} inline primary/>
+<Spinner size={75} inline secondary/>
+
+// page spinner
+<Spinner isOpen={isLoading}/>
+            `}/>
+            <div style={{ margin: '24px 0' }} className="paper1 padded">
+              <Row>
+                <Col type="sm-4"><Spinner style={{ margin: '10px auto' }} size={25} inline/></Col>
+                <Col type="sm-4"><Spinner style={{ margin: '10px auto' }} size={25} inline primary/></Col>
+                <Col type="sm-4"><Spinner style={{ margin: '10px auto' }} size={25} inline secondary/></Col>
+              </Row>
+              <Row>
+                <Col type="sm-4"><Spinner style={{ margin: '10px auto' }} size={50} inline/></Col>
+                <Col type="sm-4"><Spinner style={{ margin: '10px auto' }} size={50} inline primary/></Col>
+                <Col type="sm-4"><Spinner style={{ margin: '10px auto' }} size={50} inline secondary/></Col>
+              </Row>
+              <Row>
+                <Col type="sm-4"><Spinner style={{ margin: '10px auto' }} size={75} inline/></Col>
+                <Col type="sm-4"><Spinner style={{ margin: '10px auto' }} size={75} inline primary/></Col>
+                <Col type="sm-4"><Spinner style={{ margin: '10px auto' }} size={75} inline secondary/></Col>
+              </Row>
+            </div>
+            <div style={{ margin: '24px 0' }}>
+              <Checkbox label="Page is loading" value={this.state.isLoading} onChange={(e) => this.setState({ isLoading: e.target.value })}/>
+            </div>
+            <Spinner isOpen={this.state.isLoading}/>
           </section>
 
           <section>
