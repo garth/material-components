@@ -79,8 +79,8 @@
 	var _lib = __webpack_require__(350);
 	
 	// component to render code examples
-	__webpack_require__(384);
-	__webpack_require__(388);
+	__webpack_require__(385);
+	__webpack_require__(389);
 	(0, _reactTapEventPlugin2['default'])();function Example(_ref) {
 	  var code = _ref.code;
 	
@@ -26191,14 +26191,14 @@
 	  Mask: __webpack_require__(368),
 	  Menu: __webpack_require__(371),
 	  Row: __webpack_require__(374),
-	  Select: __webpack_require__(390),
-	  Sidenav: __webpack_require__(375),
-	  Spinner: __webpack_require__(378),
-	  Table: __webpack_require__(379),
-	  Typ: __webpack_require__(382),
+	  Select: __webpack_require__(375),
+	  Sidenav: __webpack_require__(376),
+	  Spinner: __webpack_require__(379),
+	  Table: __webpack_require__(380),
+	  Typ: __webpack_require__(383),
 	
 	  events: {
-	    responsive: __webpack_require__(383)
+	    responsive: __webpack_require__(384)
 	  }
 	};
 
@@ -29267,6 +29267,191 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _classnames = __webpack_require__(353);
+	
+	var _classnames2 = _interopRequireDefault(_classnames);
+	
+	var _input = __webpack_require__(370);
+	
+	var _input2 = _interopRequireDefault(_input);
+	
+	var _menu = __webpack_require__(371);
+	
+	var _menu2 = _interopRequireDefault(_menu);
+	
+	var Select = (function (_Component) {
+	  _inherits(Select, _Component);
+	
+	  function Select() {
+	    _classCallCheck(this, Select);
+	
+	    _get(Object.getPrototypeOf(Select.prototype), 'constructor', this).apply(this, arguments);
+	  }
+	
+	  _createClass(Select, [{
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props;
+	      var isError = _props.isError;
+	      var isOpen = _props.isOpen;
+	      var isSuccess = _props.isSuccess;
+	      var label = _props.label;
+	      var message = _props.message;
+	      var onChange = _props.onChange;
+	      var onDone = _props.onDone;
+	      var onOpen = _props.onOpen;
+	      var options = _props.options;
+	      var readOnly = _props.readOnly;
+	      var selected = _props.selected;
+	      var style = _props.style;
+	
+	      var selectedIndex = 0;
+	      var menuItems = isOpen && !readOnly ? options.map(function (option, index) {
+	        var isSelected = selected && option.label === selected.label;
+	        if (!selectedIndex && isSelected) {
+	          selectedIndex = index;
+	        }
+	        return _react2['default'].createElement(_menu2['default'].Item, {
+	          className: (0, _classnames2['default'])({ selected: isSelected }),
+	          key: option.key || option.label,
+	          onTouchTap: function onTouchTap() {
+	            return onChange({ target: option });
+	          } }, option.label);
+	      }) : null;
+	
+	      var top = 10 - selectedIndex * 32;
+	
+	      return _react2['default'].createElement('div', {
+	        style: Object.assign({
+	          position: 'relative'
+	        }, style) }, _react2['default'].createElement(_menu2['default'], {
+	        style: {
+	          position: 'relative',
+	          top: top + 'px',
+	          width: '100%'
+	        },
+	        isOpen: !!menuItems,
+	        onDone: onDone }, menuItems), _react2['default'].createElement('svg', {
+	        style: {
+	          position: 'absolute',
+	          right: '0px',
+	          top: '28px'
+	        },
+	        fill: '#aaa',
+	        height: '24',
+	        viewBox: '0 0 24 24',
+	        width: '24' }, _react2['default'].createElement('path', { d: 'M7 10l5 5 5-5z' }), _react2['default'].createElement('path', { d: 'M0 0h24v24H0z', fill: 'none' })), _react2['default'].createElement(_input2['default'], {
+	        inputStyle: { cursor: 'pointer' },
+	        isError: isError,
+	        isSuccess: isSuccess,
+	        label: label,
+	        message: message,
+	        onClick: onOpen,
+	        readOnly: true,
+	        value: selected && selected.label || '' }));
+	    }
+	  }], [{
+	    key: 'displayName',
+	    value: 'Select',
+	    enumerable: true
+	  }, {
+	    key: 'propTypes',
+	    value: {
+	      isError: _react.PropTypes.bool,
+	      isOpen: _react.PropTypes.bool,
+	      isSuccess: _react.PropTypes.bool,
+	      label: _react.PropTypes.string,
+	      message: _react.PropTypes.node,
+	      onChange: _react.PropTypes.func,
+	      onDone: _react.PropTypes.func,
+	      onOpen: _react.PropTypes.func,
+	      options: _react.PropTypes.array,
+	      readOnly: _react.PropTypes.bool,
+	      selected: _react.PropTypes.object,
+	      style: _react.PropTypes.object
+	    },
+	    enumerable: true
+	  }, {
+	    key: 'defaultProps',
+	    value: {
+	      isError: false,
+	      isOpen: false,
+	      isSuccess: false,
+	      message: '',
+	      options: [],
+	      readOnly: false,
+	      selected: null,
+	      style: {}
+	    },
+	    enumerable: true
+	  }]);
+	
+	  return Select;
+	})(_react.Component);
+	
+	exports['default'] = Select;
+	module.exports = exports['default'];
+
+/***/ },
+/* 376 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	var _createClass = (function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ('value' in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	  };
+	})();
+	
+	var _get = function get(_x, _x2, _x3) {
+	  var _again = true;_function: while (_again) {
+	    var object = _x,
+	        property = _x2,
+	        receiver = _x3;desc = parent = getter = undefined;_again = false;if (object === null) object = Function.prototype;var desc = Object.getOwnPropertyDescriptor(object, property);if (desc === undefined) {
+	      var parent = Object.getPrototypeOf(object);if (parent === null) {
+	        return undefined;
+	      } else {
+	        _x = parent;_x2 = property;_x3 = receiver;_again = true;continue _function;
+	      }
+	    } else if ('value' in desc) {
+	      return desc.value;
+	    } else {
+	      var getter = desc.get;if (getter === undefined) {
+	        return undefined;
+	      }return getter.call(receiver);
+	    }
+	  }
+	};
+	
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { 'default': obj };
+	}
+	
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError('Cannot call a class as a function');
+	  }
+	}
+	
+	function _inherits(subClass, superClass) {
+	  if (typeof superClass !== 'function' && superClass !== null) {
+	    throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass);
+	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	}
+	
+	var _react = __webpack_require__(190);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
 	var _reactAddonsCssTransitionGroup = __webpack_require__(361);
 	
 	var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
@@ -29275,11 +29460,11 @@
 	
 	var _mask2 = _interopRequireDefault(_mask);
 	
-	var _item = __webpack_require__(376);
+	var _item = __webpack_require__(377);
 	
 	var _item2 = _interopRequireDefault(_item);
 	
-	var _title = __webpack_require__(377);
+	var _title = __webpack_require__(378);
 	
 	var _title2 = _interopRequireDefault(_title);
 	
@@ -29390,7 +29575,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 376 */
+/* 377 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29522,7 +29707,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 377 */
+/* 378 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29663,7 +29848,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 378 */
+/* 379 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29834,7 +30019,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 379 */
+/* 380 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29855,11 +30040,11 @@
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _toolbar = __webpack_require__(380);
+	var _toolbar = __webpack_require__(381);
 	
 	var _toolbar2 = _interopRequireDefault(_toolbar);
 	
-	var _row = __webpack_require__(381);
+	var _row = __webpack_require__(382);
 	
 	var _row2 = _interopRequireDefault(_row);
 	
@@ -29885,7 +30070,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 380 */
+/* 381 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29921,7 +30106,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 381 */
+/* 382 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29962,7 +30147,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 382 */
+/* 383 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30101,7 +30286,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 383 */
+/* 384 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -30164,16 +30349,16 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 384 */
+/* 385 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(385);
+	var content = __webpack_require__(386);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(387)(content, {});
+	var update = __webpack_require__(388)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -30190,10 +30375,10 @@
 	}
 
 /***/ },
-/* 385 */
+/* 386 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(386)();
+	exports = module.exports = __webpack_require__(387)();
 	// imports
 	
 	
@@ -30204,7 +30389,7 @@
 
 
 /***/ },
-/* 386 */
+/* 387 */
 /***/ function(module, exports) {
 
 	/*
@@ -30260,7 +30445,7 @@
 
 
 /***/ },
-/* 387 */
+/* 388 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -30485,16 +30670,16 @@
 
 
 /***/ },
-/* 388 */
+/* 389 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(389);
+	var content = __webpack_require__(390);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(387)(content, {});
+	var update = __webpack_require__(388)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -30511,10 +30696,10 @@
 	}
 
 /***/ },
-/* 389 */
+/* 390 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(386)();
+	exports = module.exports = __webpack_require__(387)();
 	// imports
 	
 	
@@ -30523,176 +30708,6 @@
 	
 	// exports
 
-
-/***/ },
-/* 390 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	
-	var _createClass = (function () {
-	  function defineProperties(target, props) {
-	    for (var i = 0; i < props.length; i++) {
-	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ('value' in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-	    }
-	  }return function (Constructor, protoProps, staticProps) {
-	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-	  };
-	})();
-	
-	var _get = function get(_x, _x2, _x3) {
-	  var _again = true;_function: while (_again) {
-	    var object = _x,
-	        property = _x2,
-	        receiver = _x3;desc = parent = getter = undefined;_again = false;if (object === null) object = Function.prototype;var desc = Object.getOwnPropertyDescriptor(object, property);if (desc === undefined) {
-	      var parent = Object.getPrototypeOf(object);if (parent === null) {
-	        return undefined;
-	      } else {
-	        _x = parent;_x2 = property;_x3 = receiver;_again = true;continue _function;
-	      }
-	    } else if ('value' in desc) {
-	      return desc.value;
-	    } else {
-	      var getter = desc.get;if (getter === undefined) {
-	        return undefined;
-	      }return getter.call(receiver);
-	    }
-	  }
-	};
-	
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { 'default': obj };
-	}
-	
-	function _classCallCheck(instance, Constructor) {
-	  if (!(instance instanceof Constructor)) {
-	    throw new TypeError('Cannot call a class as a function');
-	  }
-	}
-	
-	function _inherits(subClass, superClass) {
-	  if (typeof superClass !== 'function' && superClass !== null) {
-	    throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass);
-	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-	}
-	
-	var _react = __webpack_require__(190);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _classnames = __webpack_require__(353);
-	
-	var _classnames2 = _interopRequireDefault(_classnames);
-	
-	var _input = __webpack_require__(370);
-	
-	var _input2 = _interopRequireDefault(_input);
-	
-	var _menu = __webpack_require__(371);
-	
-	var _menu2 = _interopRequireDefault(_menu);
-	
-	var Select = (function (_Component) {
-	  _inherits(Select, _Component);
-	
-	  function Select() {
-	    _classCallCheck(this, Select);
-	
-	    _get(Object.getPrototypeOf(Select.prototype), 'constructor', this).apply(this, arguments);
-	  }
-	
-	  _createClass(Select, [{
-	    key: 'render',
-	    value: function render() {
-	      var _props = this.props;
-	      var isError = _props.isError;
-	      var isOpen = _props.isOpen;
-	      var isSuccess = _props.isSuccess;
-	      var label = _props.label;
-	      var message = _props.message;
-	      var onChange = _props.onChange;
-	      var onDone = _props.onDone;
-	      var onOpen = _props.onOpen;
-	      var options = _props.options;
-	      var readOnly = _props.readOnly;
-	      var selected = _props.selected;
-	
-	      var selectedIndex = 0;
-	      var menuItems = isOpen && !readOnly ? options.map(function (option, index) {
-	        var isSelected = selected && option.label === selected.label;
-	        if (!selectedIndex && isSelected) {
-	          selectedIndex = index;
-	        }
-	        return _react2['default'].createElement(_menu2['default'].Item, {
-	          className: (0, _classnames2['default'])({ selected: isSelected }),
-	          key: option.key || option.label,
-	          onTouchTap: function onTouchTap() {
-	            return onChange({ target: option });
-	          } }, option.label);
-	      }) : null;
-	
-	      var top = 10 - selectedIndex * 32;
-	
-	      return _react2['default'].createElement('div', null, _react2['default'].createElement(_menu2['default'], {
-	        style: {
-	          position: 'relative',
-	          top: top + 'px',
-	          width: '100%'
-	        },
-	        isOpen: !!menuItems,
-	        onDone: onDone }, menuItems), _react2['default'].createElement(_input2['default'], {
-	        inputStyle: { cursor: 'pointer' },
-	        isError: isError,
-	        isSuccess: isSuccess,
-	        label: label,
-	        message: message,
-	        onClick: onOpen,
-	        readOnly: true,
-	        value: selected && selected.label || '' }));
-	    }
-	  }], [{
-	    key: 'displayName',
-	    value: 'Select',
-	    enumerable: true
-	  }, {
-	    key: 'propTypes',
-	    value: {
-	      isError: _react.PropTypes.bool,
-	      isOpen: _react.PropTypes.bool,
-	      isSuccess: _react.PropTypes.bool,
-	      label: _react.PropTypes.string,
-	      message: _react.PropTypes.node,
-	      onChange: _react.PropTypes.func,
-	      onDone: _react.PropTypes.func,
-	      onOpen: _react.PropTypes.func,
-	      options: _react.PropTypes.array,
-	      readOnly: _react.PropTypes.bool,
-	      selected: _react.PropTypes.object
-	    },
-	    enumerable: true
-	  }, {
-	    key: 'defaultProps',
-	    value: {
-	      isError: false,
-	      isOpen: false,
-	      isSuccess: false,
-	      message: '',
-	      options: [],
-	      readOnly: false,
-	      selected: null
-	    },
-	    enumerable: true
-	  }]);
-	
-	  return Select;
-	})(_react.Component);
-	
-	exports['default'] = Select;
-	module.exports = exports['default'];
 
 /***/ }
 /******/ ]);

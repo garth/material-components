@@ -18,7 +18,8 @@ class Select extends Component {
     onOpen: PropTypes.func,
     options: PropTypes.array,
     readOnly: PropTypes.bool,
-    selected: PropTypes.object
+    selected: PropTypes.object,
+    style: PropTypes.object
   };
 
   static defaultProps = {
@@ -28,7 +29,8 @@ class Select extends Component {
     message: '',
     options: [],
     readOnly: false,
-    selected: null
+    selected: null,
+    style: {}
   };
 
   render() {
@@ -43,7 +45,8 @@ class Select extends Component {
       onOpen,
       options,
       readOnly,
-      selected
+      selected,
+      style
     } = this.props;
 
     let selectedIndex = 0;
@@ -65,7 +68,10 @@ class Select extends Component {
     const top = 10 - (selectedIndex * 32)
 
     return (
-      <div>
+      <div
+        style={Object.assign({
+          position: 'relative'
+        }, style)}>
         <Menu
           style={{
             position: 'relative',
@@ -76,6 +82,19 @@ class Select extends Component {
           onDone={onDone}>
           {menuItems}
         </Menu>
+        <svg
+          style={{
+            position: 'absolute',
+            right: '0px',
+            top: '28px'
+          }}
+          fill="#aaa"
+          height="24"
+          viewBox="0 0 24 24"
+          width="24">
+          <path d="M7 10l5 5 5-5z"/>
+          <path d="M0 0h24v24H0z" fill="none"/>
+        </svg>
         <Input
           inputStyle={{ cursor: 'pointer' }}
           isError={isError}

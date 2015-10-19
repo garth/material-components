@@ -4,9 +4,11 @@ import classNames from 'classnames';
 class Typ extends Component {
 
   static displayName = 'Typography';
+
   static contextTypes = {
     componentStyle: React.PropTypes.object
   };
+
   static propTypes = {
     children: PropTypes.node,
     display3: PropTypes.bool,
