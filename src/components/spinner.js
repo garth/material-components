@@ -83,7 +83,7 @@ class Spinner extends Component {
         {isOpen ? (
           <div key="spinner">
             <div
-              className="paper2 transition"
+              className="paper1 transition"
               style={{
                 zIndex: 1100,
                 position: 'fixed',
