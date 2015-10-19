@@ -29679,7 +29679,7 @@
 	        transitionLeaveTimeout: 300,
 	        transitionName: 'popup',
 	        style: { zIndex: 1100 } }, isOpen ? _react2['default'].createElement('div', { key: 'spinner' }, _react2['default'].createElement('div', {
-	        className: 'paper2 transition',
+	        className: 'paper1 transition',
 	        style: {
 	          zIndex: 1100,
 	          position: 'fixed',
