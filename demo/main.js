@@ -64,7 +64,7 @@ class Application extends Component {
     selectOption: false,
     selectSuccessOption: false,
     selectErrorOption: false,
-    selectedOption: null,
+    selected: null,
     checked: false,
     showDialog: false,
     showSimpleMenu: false,
@@ -412,54 +412,92 @@ import {
 
           <section>
             <Typ secondary display1>Select</Typ>
+            <Example code={`
+let options = [
+  { value: 0, label: 'Option 1' },
+  { value: 1, label: 'Option 2' },
+  { value: 2, label: 'Option 3' }
+];
+
+<Select
+  label="option"
+  selected={selectedObject}
+  options={options}
+  isOpen={isSelectOpen}
+  onOpen={setOpenState}
+  onChange={optionSelected}
+  onDone={setClosedState}/>
+
+<Select
+  label="Success option"
+  selected={selectedObject}
+  options={options}
+  isSuccess
+  isOpen={isSelectOpen}
+  onOpen={setOpenState}
+  onChange={optionSelected}
+  onDone={setClosedState}/>
+
+// note that this version uses selectedValue instead of an object
+<Select
+  label="Error option"
+  selectedValue={selectedObject.value}
+  options={options}
+  isError
+  message="fix me"
+  isOpen={isSelectOpen}
+  onOpen={setOpenState}
+  onChange={optionSelected}
+  onDone={setClosedState}/>
+            `}/>
             <div style={{ margin: '16px 0' }}>
               <Row>
                 <Col type="md-4">
                   <Select
                     label="option"
-                    selected={this.state.selectedOption}
+                    selected={this.state.selected}
                     options={[
-                      { label: 'Option 1' },
-                      { label: 'Option 2' },
-                      { label: 'Option 3' },
-                      { label: 'Option 4' }
+                      { value: 0, label: 'Option 1' },
+                      { value: 1, label: 'Option 2' },
+                      { value: 2, label: 'Option 3' },
+                      { value: 3, label: 'Option 4' }
                     ]}
                     isOpen={this.state.selectOption}
                     onOpen={e => this.setState({ selectOption: true })}
-                    onChange={e => this.setState({ selectedOption: e.target })}
+                    onChange={e => this.setState({ selected: e.target })}
                     onDone={e => this.setState({ selectOption: false })}/>
                 </Col>
                 <Col type="md-4">
                   <Select
                     label="Success option"
-                    selected={this.state.selectedOption}
+                    selected={this.state.selected}
                     options={[
-                      { label: 'Option 1' },
-                      { label: 'Option 2' },
-                      { label: 'Option 3' },
-                      { label: 'Option 4' }
+                      { value: 0, label: 'Option 1' },
+                      { value: 1, label: 'Option 2' },
+                      { value: 2, label: 'Option 3' },
+                      { value: 3, label: 'Option 4' }
                     ]}
                     isSuccess
                     isOpen={this.state.selectSuccessOption}
                     onOpen={e => this.setState({ selectSuccessOption: true })}
-                    onChange={e => this.setState({ selectedOption: e.target })}
+                    onChange={e => this.setState({ selected: e.target })}
                     onDone={e => this.setState({ selectSuccessOption: false })}/>
                 </Col>
                 <Col type="md-4">
                   <Select
                     label="Error option"
-                    selected={this.state.selectedOption}
+                    selectedValue={this.state.selected && this.state.selected.value}
                     options={[
-                      { label: 'Option 1' },
-                      { label: 'Option 2' },
-                      { label: 'Option 3' },
-                      { label: 'Option 4' }
+                      { value: 0, label: 'Option 1' },
+                      { value: 1, label: 'Option 2' },
+                      { value: 2, label: 'Option 3' },
+                      { value: 3, label: 'Option 4' }
                     ]}
                     isError
                     message="fix me"
                     isOpen={this.state.selectErrorOption}
                     onOpen={e => this.setState({ selectErrorOption: true })}
-                    onChange={e => this.setState({ selectedOption: e.target })}
+                    onChange={e => this.setState({ selected: e.target })}
                     onDone={e => this.setState({ selectErrorOption: false })}/>
                 </Col>
               </Row>

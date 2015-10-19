@@ -19,6 +19,7 @@ class Select extends Component {
     options: PropTypes.array,
     readOnly: PropTypes.bool,
     selected: PropTypes.object,
+    selectedValue: PropTypes.any,
     style: PropTypes.object
   };
 
@@ -30,6 +31,7 @@ class Select extends Component {
     options: [],
     readOnly: false,
     selected: null,
+    selectedValue: null,
     style: {}
   };
 
@@ -46,14 +48,18 @@ class Select extends Component {
       options,
       readOnly,
       selected,
+      selectedValue,
       style
     } = this.props;
 
     let selectedIndex = 0;
-    let menuItems = isOpen && !readOnly ? options.map((option, index) => {
-      let isSelected = selected && option.label === selected.label;
+    let displayValue = '';
+    let menuItems = options.map((option, index) => {
+      let isSelected = (selected && option.label === selected.label)
+       || (selectedValue !== null && option.value === selectedValue);
       if (!selectedIndex && isSelected) {
         selectedIndex = index;
+        displayValue = option.label;
       }
       return (
         <Menu.Item
@@ -63,9 +69,9 @@ class Select extends Component {
           {option.label}
         </Menu.Item>
       );
-    }) : null;
+    });
 
-    const top = 10 - (selectedIndex * 32)
+    const top = 10 - (selectedIndex * 32);
 
     return (
       <div
@@ -78,7 +84,7 @@ class Select extends Component {
             top: `${top}px`,
             width: '100%'
           }}
-          isOpen={!!menuItems}
+          isOpen={isOpen && !readOnly && !!menuItems}
           onDone={onDone}>
           {menuItems}
         </Menu>
@@ -88,10 +94,7 @@ class Select extends Component {
             right: '0px',
             top: '28px'
           }}
-          fill="#aaa"
-          height="24"
-          viewBox="0 0 24 24"
-          width="24">
+          fill="#aaa" height="24" viewBox="0 0 24 24" width="24">
           <path d="M7 10l5 5 5-5z"/>
           <path d="M0 0h24v24H0z" fill="none"/>
         </svg>
@@ -103,7 +106,7 @@ class Select extends Component {
           message={message}
           onClick={onOpen}
           readOnly
-          value={selected && selected.label || ''}/>
+          value={`${displayValue}`}/>
       </div>
     );
   }
