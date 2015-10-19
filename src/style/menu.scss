@@ -1,3 +1,6 @@
-.menu-item:hover {
+.menu-item:hover:not(.selected) {
   background-color: #eee;
+}
+.menu-item.selected {
+  background-color: #dcdcdc;
 }

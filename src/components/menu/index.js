@@ -78,7 +78,8 @@ class Menu extends Component {
         transitionName="popup"
         style={{
           zIndex: 1000,
-          position: 'absolute'
+          position: 'absolute',
+          width: rightAlign ? null : '100%'
         }}>
         {menu}
       </ReactCSSTransitionGroup>

@@ -12,7 +12,7 @@ injectTapEventPlugin();
 
 // import the material-components
 import {
-  Appbar, Button, Checkbox, Col, Dialog, Divider, Input, Row, Typ, Menu, Sidenav, Spinner, Table, events
+  Appbar, Button, Checkbox, Col, Dialog, Divider, Input, Row, Typ, Menu, Select, Sidenav, Spinner, Table, events
 } from '../lib';
 
 // component to render code examples
@@ -61,6 +61,10 @@ class Application extends Component {
     showMoreMenu: false,
     email: '',
     password: '',
+    selectOption: false,
+    selectSuccessOption: false,
+    selectErrorOption: false,
+    selectedOption: null,
     checked: false,
     showDialog: false,
     showSimpleMenu: false,
@@ -148,6 +152,7 @@ import {
   Input,
   Menu,
   Row,
+  Select,
   Sidenav,
   Spinner,
   Table,
@@ -169,7 +174,7 @@ import {
 <div className="paper3 padded">Paper 3</div>
 <div className="paper4 padded">Paper 4</div>
 <div className="paper5 padded">Paper 5</div>
-<Divider>
+<Divider/>
             `}/>
             <div style={{ margin: '16px 0' }}>
               <Row>
@@ -375,14 +380,14 @@ import {
                   <Input
                     label="Email"
                     value={this.state.email}
-                    onChange={(e) => this.setState({ email: e.target.value })}/>
+                    onChange={e => this.setState({ email: e.target.value })}/>
                 </Col>
                 <Col type="md-6">
                   <Input
                     label="Password"
                     type="password"
                     value={this.state.password}
-                    onChange={(e) => this.setState({ password: e.target.value })}/>
+                    onChange={e => this.setState({ password: e.target.value })}/>
                 </Col>
               </Row>
               <Row>
@@ -391,7 +396,7 @@ import {
                     label="Success"
                     value={this.state.email}
                     isSuccess
-                    onChange={(e) => this.setState({ email: e.target.value })}/>
+                    onChange={e => this.setState({ email: e.target.value })}/>
                 </Col>
                 <Col type="md-6">
                   <Input
@@ -399,7 +404,63 @@ import {
                     value={this.state.email}
                     isError
                     message="fix me"
-                    onChange={(e) => this.setState({ email: e.target.value })}/>
+                    onChange={e => this.setState({ email: e.target.value })}/>
+                </Col>
+              </Row>
+            </div>
+          </section>
+
+          <section>
+            <Typ secondary display1>Select</Typ>
+            <div style={{ margin: '16px 0' }}>
+              <Row>
+                <Col type="md-4">
+                  <Select
+                    label="option"
+                    selected={this.state.selectedOption}
+                    options={[
+                      { label: 'Option 1' },
+                      { label: 'Option 2' },
+                      { label: 'Option 3' },
+                      { label: 'Option 4' }
+                    ]}
+                    isOpen={this.state.selectOption}
+                    onOpen={e => this.setState({ selectOption: true })}
+                    onChange={e => this.setState({ selectedOption: e.target })}
+                    onDone={e => this.setState({ selectOption: false })}/>
+                </Col>
+                <Col type="md-4">
+                  <Select
+                    label="Success option"
+                    selected={this.state.selectedOption}
+                    options={[
+                      { label: 'Option 1' },
+                      { label: 'Option 2' },
+                      { label: 'Option 3' },
+                      { label: 'Option 4' }
+                    ]}
+                    isSuccess
+                    isOpen={this.state.selectSuccessOption}
+                    onOpen={e => this.setState({ selectSuccessOption: true })}
+                    onChange={e => this.setState({ selectedOption: e.target })}
+                    onDone={e => this.setState({ selectSuccessOption: false })}/>
+                </Col>
+                <Col type="md-4">
+                  <Select
+                    label="Error option"
+                    selected={this.state.selectedOption}
+                    options={[
+                      { label: 'Option 1' },
+                      { label: 'Option 2' },
+                      { label: 'Option 3' },
+                      { label: 'Option 4' }
+                    ]}
+                    isError
+                    message="fix me"
+                    isOpen={this.state.selectErrorOption}
+                    onOpen={e => this.setState({ selectErrorOption: true })}
+                    onChange={e => this.setState({ selectedOption: e.target })}
+                    onDone={e => this.setState({ selectErrorOption: false })}/>
                 </Col>
               </Row>
             </div>

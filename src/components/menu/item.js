@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
+import classNames from 'classnames';
 import Waves from '../helpers/waves';
 
 class Item extends Component {
@@ -12,6 +13,7 @@ class Item extends Component {
 
   static propTypes = {
     children: PropTypes.node,
+    className: PropTypes.string,
     icon: PropTypes.node,
     onTouchTap: PropTypes.func,
     selected: PropTypes.bool,
@@ -40,6 +42,7 @@ class Item extends Component {
   render() {
     const {
       children,
+      className,
       icon,
       selected,
       showIcon,
@@ -71,7 +74,7 @@ class Item extends Component {
 
     return (
       <div
-        className="menu-item"
+        className={classNames('menu-item', className)}
         style={Object.assign({
           padding: '0 40px 0 24px',
           lineHeight: '32px',
