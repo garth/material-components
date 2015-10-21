@@ -149,6 +149,7 @@ import {
   Col,
   Dialog,
   Divider,
+  Form,
   Input,
   Menu,
   Row,
@@ -347,7 +348,19 @@ import {
                 Page Content
               </div>
             </div>
+          </section>
 
+          <section>
+            <Typ secondary display1>Form</Typ>
+            <p>
+              The <code>Form</code> component will prevent the default form submit behaviour and pass
+              the submit event on to the given onSubmit handler.
+            </p>
+            <Example code={`
+<Form onSubmit={onSubmit}/>
+  <Button type="submit">Submit</Button>
+</Form>
+            `}/>
           </section>
 
           <section>

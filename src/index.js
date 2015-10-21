@@ -5,6 +5,7 @@ module.exports = {
   Col: require('./components/col'),
   Dialog: require('./components/dialog'),
   Divider: require('./components/divider'),
+  Form: require('./components/form'),
   Input: require('./components/input'),
   Mask: require('./components/mask'),
   Menu: require('./components/menu'),

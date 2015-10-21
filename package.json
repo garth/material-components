@@ -1,6 +1,6 @@
 {
   "name": "material-components",
-  "version": "0.0.35",
+  "version": "0.0.36",
   "description": "Stateless UI components for react that follow material design",
   "main": "lib/index.js",
   "scripts": {
@@ -21,6 +21,7 @@
     "checkbox",
     "component",
     "dialog",
+    "form",
     "grid",
     "input",
     "material design",

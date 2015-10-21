@@ -79,8 +79,8 @@
 	var _lib = __webpack_require__(350);
 	
 	// component to render code examples
-	__webpack_require__(385);
-	__webpack_require__(389);
+	__webpack_require__(386);
+	__webpack_require__(390);
 	(0, _reactTapEventPlugin2['default'])();function Example(_ref) {
 	  var code = _ref.code;
 	
@@ -325,7 +325,7 @@
 	              { secondary: true, display1: true },
 	              'Import Components'
 	            ),
-	            _react2['default'].createElement(Example, { code: '\nimport {\n  Appbar,\n  Button,\n  Checkbox\n  Col,\n  Dialog,\n  Divider,\n  Input,\n  Menu,\n  Row,\n  Select,\n  Sidenav,\n  Spinner,\n  Table,\n  Typ,\n  events\n} from \'material-components\';\n            ' })
+	            _react2['default'].createElement(Example, { code: '\nimport {\n  Appbar,\n  Button,\n  Checkbox\n  Col,\n  Dialog,\n  Divider,\n  Form,\n  Input,\n  Menu,\n  Row,\n  Select,\n  Sidenav,\n  Spinner,\n  Table,\n  Typ,\n  events\n} from \'material-components\';\n            ' })
 	          ),
 	          _react2['default'].createElement(
 	            'section',
@@ -657,6 +657,27 @@
 	                'Page Content'
 	              )
 	            )
+	          ),
+	          _react2['default'].createElement(
+	            'section',
+	            null,
+	            _react2['default'].createElement(
+	              _lib.Typ,
+	              { secondary: true, display1: true },
+	              'Form'
+	            ),
+	            _react2['default'].createElement(
+	              'p',
+	              null,
+	              'The ',
+	              _react2['default'].createElement(
+	                'code',
+	                null,
+	                'Form'
+	              ),
+	              ' component will prevent the default form submit behaviour and pass the submit event on to the given onSubmit handler.'
+	            ),
+	            _react2['default'].createElement(Example, { code: '\n<Form onSubmit={onSubmit}/>\n  <Button type="submit">Submit</Button>\n</Form>\n            ' })
 	          ),
 	          _react2['default'].createElement(
 	            'section',
@@ -26188,18 +26209,19 @@
 	  Col: __webpack_require__(359),
 	  Dialog: __webpack_require__(360),
 	  Divider: __webpack_require__(369),
-	  Input: __webpack_require__(370),
+	  Form: __webpack_require__(370),
+	  Input: __webpack_require__(371),
 	  Mask: __webpack_require__(368),
-	  Menu: __webpack_require__(371),
-	  Row: __webpack_require__(374),
-	  Select: __webpack_require__(375),
-	  Sidenav: __webpack_require__(376),
-	  Spinner: __webpack_require__(379),
-	  Table: __webpack_require__(380),
-	  Typ: __webpack_require__(383),
+	  Menu: __webpack_require__(372),
+	  Row: __webpack_require__(375),
+	  Select: __webpack_require__(376),
+	  Sidenav: __webpack_require__(377),
+	  Spinner: __webpack_require__(380),
+	  Table: __webpack_require__(381),
+	  Typ: __webpack_require__(384),
 	
 	  events: {
-	    responsive: __webpack_require__(384)
+	    responsive: __webpack_require__(385)
 	  }
 	};
 
@@ -28623,6 +28645,48 @@
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
+	exports['default'] = Form;
+	
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { 'default': obj };
+	}
+	
+	var _react = __webpack_require__(190);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function Form(_ref) {
+	  var children = _ref.children;
+	  var _ref$className = _ref.className;
+	  var className = _ref$className === undefined ? '' : _ref$className;
+	  var _ref$onSubmit = _ref.onSubmit;
+	  var _onSubmit = _ref$onSubmit === undefined ? null : _ref$onSubmit;
+	  var _ref$style = _ref.style;
+	  var style = _ref$style === undefined ? {} : _ref$style;
+	
+	  return _react2['default'].createElement('form', {
+	    style: style,
+	    className: className,
+	    onSubmit: function onSubmit(e) {
+	      e.preventDefault();
+	      if (typeof _onSubmit === 'function') {
+	        _onSubmit(e);
+	      }
+	    },
+	    noValidate: true }, children);
+	}
+	
+	module.exports = exports['default'];
+
+/***/ },
+/* 371 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
 	
 	var _createClass = (function () {
 	  function defineProperties(target, props) {
@@ -28786,7 +28850,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 371 */
+/* 372 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28853,11 +28917,11 @@
 	
 	var _mask2 = _interopRequireDefault(_mask);
 	
-	var _item = __webpack_require__(372);
+	var _item = __webpack_require__(373);
 	
 	var _item2 = _interopRequireDefault(_item);
 	
-	var _seperator = __webpack_require__(373);
+	var _seperator = __webpack_require__(374);
 	
 	var _seperator2 = _interopRequireDefault(_seperator);
 	
@@ -28969,7 +29033,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 372 */
+/* 373 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29145,7 +29209,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 373 */
+/* 374 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29182,7 +29246,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 374 */
+/* 375 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29209,7 +29273,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 375 */
+/* 376 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29272,11 +29336,11 @@
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _input = __webpack_require__(370);
+	var _input = __webpack_require__(371);
 	
 	var _input2 = _interopRequireDefault(_input);
 	
-	var _menu = __webpack_require__(371);
+	var _menu = __webpack_require__(372);
 	
 	var _menu2 = _interopRequireDefault(_menu);
 	
@@ -29397,7 +29461,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 376 */
+/* 377 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29464,15 +29528,15 @@
 	
 	var _mask2 = _interopRequireDefault(_mask);
 	
-	var _item = __webpack_require__(377);
+	var _item = __webpack_require__(378);
 	
 	var _item2 = _interopRequireDefault(_item);
 	
-	var _title = __webpack_require__(378);
+	var _title = __webpack_require__(379);
 	
 	var _title2 = _interopRequireDefault(_title);
 	
-	var _menuSeperator = __webpack_require__(373);
+	var _menuSeperator = __webpack_require__(374);
 	
 	var _menuSeperator2 = _interopRequireDefault(_menuSeperator);
 	
@@ -29579,7 +29643,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 377 */
+/* 378 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29638,7 +29702,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _menuItem = __webpack_require__(372);
+	var _menuItem = __webpack_require__(373);
 	
 	var _menuItem2 = _interopRequireDefault(_menuItem);
 	
@@ -29711,7 +29775,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 378 */
+/* 379 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29852,7 +29916,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 379 */
+/* 380 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30023,7 +30087,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 380 */
+/* 381 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30044,11 +30108,11 @@
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _toolbar = __webpack_require__(381);
+	var _toolbar = __webpack_require__(382);
 	
 	var _toolbar2 = _interopRequireDefault(_toolbar);
 	
-	var _row = __webpack_require__(382);
+	var _row = __webpack_require__(383);
 	
 	var _row2 = _interopRequireDefault(_row);
 	
@@ -30074,7 +30138,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 381 */
+/* 382 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30110,7 +30174,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 382 */
+/* 383 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30151,7 +30215,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 383 */
+/* 384 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30290,7 +30354,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 384 */
+/* 385 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -30353,16 +30417,16 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 385 */
+/* 386 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(386);
+	var content = __webpack_require__(387);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(388)(content, {});
+	var update = __webpack_require__(389)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -30379,10 +30443,10 @@
 	}
 
 /***/ },
-/* 386 */
+/* 387 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(387)();
+	exports = module.exports = __webpack_require__(388)();
 	// imports
 	
 	
@@ -30393,7 +30457,7 @@
 
 
 /***/ },
-/* 387 */
+/* 388 */
 /***/ function(module, exports) {
 
 	/*
@@ -30449,7 +30513,7 @@
 
 
 /***/ },
-/* 388 */
+/* 389 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -30674,16 +30738,16 @@
 
 
 /***/ },
-/* 389 */
+/* 390 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(390);
+	var content = __webpack_require__(391);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(388)(content, {});
+	var update = __webpack_require__(389)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -30700,10 +30764,10 @@
 	}
 
 /***/ },
-/* 390 */
+/* 391 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(387)();
+	exports = module.exports = __webpack_require__(388)();
 	// imports
 	
 	
