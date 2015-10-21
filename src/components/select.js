@@ -19,20 +19,21 @@ class Select extends Component {
     options: PropTypes.array,
     readOnly: PropTypes.bool,
     selected: PropTypes.object,
-    selectedValue: PropTypes.any,
-    style: PropTypes.object
+    style: PropTypes.object,
+    value: PropTypes.any
   };
 
   static defaultProps = {
     isError: false,
     isOpen: false,
     isSuccess: false,
+    label: '',
     message: '',
     options: [],
     readOnly: false,
     selected: null,
-    selectedValue: null,
-    style: {}
+    style: {},
+    value: null
   };
 
   render() {
@@ -48,15 +49,15 @@ class Select extends Component {
       options,
       readOnly,
       selected,
-      selectedValue,
-      style
+      style,
+      value
     } = this.props;
 
     let selectedIndex = 0;
     let displayValue = '';
     let menuItems = options.map((option, index) => {
       let isSelected = (selected && option.label === selected.label)
-       || (selectedValue !== null && option.value === selectedValue);
+       || (value !== null && option.value === value);
       if (!selectedIndex && isSelected) {
         selectedIndex = index;
         displayValue = option.label;

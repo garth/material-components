@@ -766,7 +766,7 @@
 	              { secondary: true, display1: true },
 	              'Select'
 	            ),
-	            _react2['default'].createElement(Example, { code: '\nlet options = [\n  { value: 0, label: \'Option 1\' },\n  { value: 1, label: \'Option 2\' },\n  { value: 2, label: \'Option 3\' }\n];\n\n<Select\n  label="option"\n  selected={selectedObject}\n  options={options}\n  isOpen={isSelectOpen}\n  onOpen={setOpenState}\n  onChange={optionSelected}\n  onDone={setClosedState}/>\n\n<Select\n  label="Success option"\n  selected={selectedObject}\n  options={options}\n  isSuccess\n  isOpen={isSelectOpen}\n  onOpen={setOpenState}\n  onChange={optionSelected}\n  onDone={setClosedState}/>\n\n// note that this version uses selectedValue instead of an object\n<Select\n  label="Error option"\n  selectedValue={selectedObject.value}\n  options={options}\n  isError\n  message="fix me"\n  isOpen={isSelectOpen}\n  onOpen={setOpenState}\n  onChange={optionSelected}\n  onDone={setClosedState}/>\n            ' }),
+	            _react2['default'].createElement(Example, { code: '\nlet options = [\n  { value: 0, label: \'Option 1\' },\n  { value: 1, label: \'Option 2\' },\n  { value: 2, label: \'Option 3\' }\n];\n\n<Select\n  label="option"\n  selected={selectedObject}\n  options={options}\n  isOpen={isSelectOpen}\n  onOpen={setOpenState}\n  onChange={optionSelected}\n  onDone={setClosedState}/>\n\n<Select\n  label="Success option"\n  selected={selectedObject}\n  options={options}\n  isSuccess\n  isOpen={isSelectOpen}\n  onOpen={setOpenState}\n  onChange={optionSelected}\n  onDone={setClosedState}/>\n\n// note that this version uses value instead of a selected object\n<Select\n  label="Error option"\n  value={selectedObject.value}\n  options={options}\n  isError\n  message="fix me"\n  isOpen={isSelectOpen}\n  onOpen={setOpenState}\n  onChange={optionSelected}\n  onDone={setClosedState}/>\n            ' }),
 	            _react2['default'].createElement(
 	              'div',
 	              { style: { margin: '16px 0' } },
@@ -815,7 +815,7 @@
 	                  { type: 'md-4' },
 	                  _react2['default'].createElement(_lib.Select, {
 	                    label: 'Error option',
-	                    selectedValue: this.state.selected && this.state.selected.value,
+	                    value: this.state.selected && this.state.selected.value,
 	                    options: [{ value: 0, label: 'Option 1' }, { value: 1, label: 'Option 2' }, { value: 2, label: 'Option 3' }, { value: 3, label: 'Option 4' }],
 	                    isError: true,
 	                    message: 'fix me',
@@ -29304,13 +29304,13 @@
 	      var options = _props.options;
 	      var readOnly = _props.readOnly;
 	      var selected = _props.selected;
-	      var selectedValue = _props.selectedValue;
 	      var style = _props.style;
+	      var value = _props.value;
 	
 	      var selectedIndex = 0;
 	      var displayValue = '';
 	      var menuItems = options.map(function (option, index) {
-	        var isSelected = selected && option.label === selected.label || selectedValue !== null && option.value === selectedValue;
+	        var isSelected = selected && option.label === selected.label || value !== null && option.value === value;
 	        if (!selectedIndex && isSelected) {
 	          selectedIndex = index;
 	          displayValue = option.label;
@@ -29369,8 +29369,8 @@
 	      options: _react.PropTypes.array,
 	      readOnly: _react.PropTypes.bool,
 	      selected: _react.PropTypes.object,
-	      selectedValue: _react.PropTypes.any,
-	      style: _react.PropTypes.object
+	      style: _react.PropTypes.object,
+	      value: _react.PropTypes.any
 	    },
 	    enumerable: true
 	  }, {
@@ -29379,12 +29379,13 @@
 	      isError: false,
 	      isOpen: false,
 	      isSuccess: false,
+	      label: '',
 	      message: '',
 	      options: [],
 	      readOnly: false,
 	      selected: null,
-	      selectedValue: null,
-	      style: {}
+	      style: {},
+	      value: null
 	    },
 	    enumerable: true
 	  }]);

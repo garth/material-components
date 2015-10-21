@@ -438,10 +438,10 @@ let options = [
   onChange={optionSelected}
   onDone={setClosedState}/>
 
-// note that this version uses selectedValue instead of an object
+// note that this version uses value instead of a selected object
 <Select
   label="Error option"
-  selectedValue={selectedObject.value}
+  value={selectedObject.value}
   options={options}
   isError
   message="fix me"
@@ -486,7 +486,7 @@ let options = [
                 <Col type="md-4">
                   <Select
                     label="Error option"
-                    selectedValue={this.state.selected && this.state.selected.value}
+                    value={this.state.selected && this.state.selected.value}
                     options={[
                       { value: 0, label: 'Option 1' },
                       { value: 1, label: 'Option 2' },
