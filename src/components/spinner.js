@@ -76,8 +76,8 @@ class Spinner extends Component {
 
     return inline ? spinner : (
       <ReactCSSTransitionGroup
-        transitionEnterTimeout={300}
-        transitionLeaveTimeout={300}
+        transitionEnterTimeout={400}
+        transitionLeaveTimeout={400}
         transitionName="popup"
         style={{ zIndex: 1100 }}>
         {isOpen ? (

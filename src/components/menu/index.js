@@ -73,8 +73,8 @@ class Menu extends Component {
 
     return (
       <ReactCSSTransitionGroup
-        transitionEnterTimeout={300}
-        transitionLeaveTimeout={300}
+        transitionEnterTimeout={400}
+        transitionLeaveTimeout={400}
         transitionName="popup"
         style={{
           zIndex: 1000,

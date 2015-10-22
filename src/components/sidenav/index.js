@@ -62,8 +62,8 @@ class Sidenav extends Component {
       </div>
     ) : (
       <ReactCSSTransitionGroup
-        transitionEnterTimeout={300}
-        transitionLeaveTimeout={300}
+        transitionEnterTimeout={400}
+        transitionLeaveTimeout={400}
         transitionName="sidenav">
         {isOpen ? (
           <div key="sidenav">

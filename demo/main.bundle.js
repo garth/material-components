@@ -27723,8 +27723,8 @@
 	        } }, children)), footer)) : null;
 	
 	      return _react2['default'].createElement(_reactAddonsCssTransitionGroup2['default'], {
-	        transitionEnterTimeout: 300,
-	        transitionLeaveTimeout: 300,
+	        transitionEnterTimeout: 400,
+	        transitionLeaveTimeout: 400,
 	        transitionName: 'popup',
 	        style: { zIndex: 1000 } }, dialog);
 	    }
@@ -28984,8 +28984,8 @@
 	        } }), _react2['default'].createElement('div', { className: 'transition paper1', style: Object.assign(menuStyle, style) }, children)) : null;
 	
 	      return _react2['default'].createElement(_reactAddonsCssTransitionGroup2['default'], {
-	        transitionEnterTimeout: 300,
-	        transitionLeaveTimeout: 300,
+	        transitionEnterTimeout: 400,
+	        transitionLeaveTimeout: 400,
 	        transitionName: 'popup',
 	        style: {
 	          zIndex: 1000,
@@ -29589,8 +29589,8 @@
 	          marginLeft: '-2px',
 	          overflow: 'hidden'
 	        }, style) }, children) : _react2['default'].createElement(_reactAddonsCssTransitionGroup2['default'], {
-	        transitionEnterTimeout: 300,
-	        transitionLeaveTimeout: 300,
+	        transitionEnterTimeout: 400,
+	        transitionLeaveTimeout: 400,
 	        transitionName: 'sidenav' }, isOpen ? _react2['default'].createElement('div', { key: 'sidenav' }, _react2['default'].createElement(_mask2['default'], { onTouchTap: function onTouchTap() {
 	          return _this2.onDone();
 	        } }), _react2['default'].createElement('div', {
@@ -30029,8 +30029,8 @@
 	        strokeMiterlimit: '10' })));
 	
 	      return inline ? spinner : _react2['default'].createElement(_reactAddonsCssTransitionGroup2['default'], {
-	        transitionEnterTimeout: 300,
-	        transitionLeaveTimeout: 300,
+	        transitionEnterTimeout: 400,
+	        transitionLeaveTimeout: 400,
 	        transitionName: 'popup',
 	        style: { zIndex: 1100 } }, isOpen ? _react2['default'].createElement('div', { key: 'spinner' }, _react2['default'].createElement('div', {
 	        className: 'paper1 transition',
