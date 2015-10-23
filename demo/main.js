@@ -61,10 +61,12 @@ class Application extends Component {
     showMoreMenu: false,
     email: '',
     password: '',
-    selectOption: false,
-    selectSuccessOption: false,
-    selectErrorOption: false,
+    selectOpen: false,
+    selectSuccessOpen: false,
+    selectErrorOpen: false,
     selected: null,
+    largeSelectOpen: false,
+    largeSelectedValue: 0,
     checked: false,
     showDialog: false,
     showSimpleMenu: false,
@@ -475,10 +477,10 @@ let options = [
                       { value: 2, label: 'Option 3' },
                       { value: 3, label: 'Option 4' }
                     ]}
-                    isOpen={this.state.selectOption}
-                    onOpen={e => this.setState({ selectOption: true })}
+                    isOpen={this.state.selectOpen}
+                    onOpen={e => this.setState({ selectOpen: true })}
                     onChange={e => this.setState({ selected: e.target })}
-                    onDone={e => this.setState({ selectOption: false })}/>
+                    onDone={e => this.setState({ selectOpen: false })}/>
                 </Col>
                 <Col type="md-4">
                   <Select
@@ -491,10 +493,10 @@ let options = [
                       { value: 3, label: 'Option 4' }
                     ]}
                     isSuccess
-                    isOpen={this.state.selectSuccessOption}
-                    onOpen={e => this.setState({ selectSuccessOption: true })}
+                    isOpen={this.state.selectSuccessOpen}
+                    onOpen={e => this.setState({ selectSuccessOpen: true })}
                     onChange={e => this.setState({ selected: e.target })}
-                    onDone={e => this.setState({ selectSuccessOption: false })}/>
+                    onDone={e => this.setState({ selectSuccessOpen: false })}/>
                 </Col>
                 <Col type="md-4">
                   <Select
@@ -508,10 +510,28 @@ let options = [
                     ]}
                     isError
                     message="fix me"
-                    isOpen={this.state.selectErrorOption}
-                    onOpen={e => this.setState({ selectErrorOption: true })}
+                    isOpen={this.state.selectErrorOpen}
+                    onOpen={e => this.setState({ selectErrorOpen: true })}
                     onChange={e => this.setState({ selected: e.target })}
-                    onDone={e => this.setState({ selectErrorOption: false })}/>
+                    onDone={e => this.setState({ selectErrorOpen: false })}/>
+                </Col>
+              </Row>
+              <Row>
+                <Col type="md-4 md-offset-4">
+                  <Select
+                    label="large list of items"
+                    value={this.state.largeSelectedValue}
+                    options={(() => {
+                      let options = [];
+                      for (let i = 0; i < 100; i++) {
+                        options.push({ value: i, label: `Option ${i + 1}` });
+                      }
+                      return options;
+                    })()}
+                    isOpen={this.state.largeSelectOpen}
+                    onOpen={e => this.setState({ largeSelectOpen: true })}
+                    onChange={e => this.setState({ largeSelectedValue: e.target.value })}
+                    onDone={e => this.setState({ largeSelectOpen: false })}/>
                 </Col>
               </Row>
             </div>

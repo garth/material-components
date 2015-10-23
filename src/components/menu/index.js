@@ -1,8 +1,10 @@
 import React, { Component, PropTypes } from 'react';
+import ReactDOM from 'react-dom';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Mask from '../mask';
 import Item from './item';
 import Seperator from './seperator';
+import screen from '../helpers/screen';
 
 class Menu extends Component {
 
@@ -38,6 +40,47 @@ class Menu extends Component {
     }
   }
 
+  checkBounds() {
+    const menuElement = ReactDOM.findDOMNode(this.refs.menu);
+    if (menuElement) {
+      const screenHeight = screen.getSize().height;
+      const { top, bottom } = menuElement.getBoundingClientRect();
+      const originalHeight = bottom - top;
+      const minHeight = (32 * 5) + 20;
+
+      let offsetTop = top < 16 ? Math.ceil((top - 16) / -32) * 32 : 0;
+      let offsetBottom = bottom > screenHeight - 16 ? Math.ceil((bottom - screenHeight + 16) / 32) * 32 : 0;
+      let height = bottom - top - offsetTop - offsetBottom;
+      if (height < minHeight) {
+        height = minHeight > originalHeight ? originalHeight : minHeight;
+        if (top + offsetTop + height + 16 > screenHeight) {
+          offsetTop -= top + offsetTop + height + 16 - screenHeight;
+        }
+      }
+      menuElement.style.top = `${menuElement.offsetTop + offsetTop}px`;
+      menuElement.style.height = `${height}px`;
+      menuElement.scrollTop += offsetTop;
+    }
+  }
+
+  componentDidMount() {
+    this.checkBounds();
+    // close the options when resizing the window
+    window.addEventListener('resize', this._resize = () => {
+      if (this.props.isOpen) {
+        this.onDone();
+      }
+    });
+  }
+
+  componentDidUpdate() {
+    this.checkBounds();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._resize);
+  }
+
   render() {
     const {
       children,
@@ -52,6 +95,8 @@ class Menu extends Component {
       backgroundColor: '#fff',
       color: '#000',
       position: 'absolute',
+      overflowY: 'auto',
+      scrollbar: 'width: 4px',
       top: '-8px'
     };
     if (rightAlign) {
@@ -65,7 +110,7 @@ class Menu extends Component {
           zIndex: 1000
         }}>
         <Mask dark={false} onTouchTap={() => this.onDone()}/>
-        <div className="transition paper1" style={Object.assign(menuStyle, style)}>
+        <div ref="menu" className="transition paper1" style={Object.assign(menuStyle, style)}>
           {children}
         </div>
       </div>

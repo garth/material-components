@@ -79,8 +79,8 @@
 	var _lib = __webpack_require__(350);
 	
 	// component to render code examples
-	__webpack_require__(386);
-	__webpack_require__(390);
+	__webpack_require__(387);
+	__webpack_require__(391);
 	(0, _reactTapEventPlugin2['default'])();function Example(_ref) {
 	  var code = _ref.code;
 	
@@ -135,10 +135,12 @@
 	      showMoreMenu: false,
 	      email: '',
 	      password: '',
-	      selectOption: false,
-	      selectSuccessOption: false,
-	      selectErrorOption: false,
+	      selectOpen: false,
+	      selectSuccessOpen: false,
+	      selectErrorOpen: false,
 	      selected: null,
+	      largeSelectOpen: false,
+	      largeSelectedValue: 0,
 	      checked: false,
 	      showDialog: false,
 	      showSimpleMenu: false,
@@ -801,15 +803,15 @@
 	                    label: 'option',
 	                    selected: this.state.selected,
 	                    options: [{ value: 0, label: 'Option 1' }, { value: 1, label: 'Option 2' }, { value: 2, label: 'Option 3' }, { value: 3, label: 'Option 4' }],
-	                    isOpen: this.state.selectOption,
+	                    isOpen: this.state.selectOpen,
 	                    onOpen: function (e) {
-	                      return _this2.setState({ selectOption: true });
+	                      return _this2.setState({ selectOpen: true });
 	                    },
 	                    onChange: function (e) {
 	                      return _this2.setState({ selected: e.target });
 	                    },
 	                    onDone: function (e) {
-	                      return _this2.setState({ selectOption: false });
+	                      return _this2.setState({ selectOpen: false });
 	                    } })
 	                ),
 	                _react2['default'].createElement(
@@ -820,15 +822,15 @@
 	                    selected: this.state.selected,
 	                    options: [{ value: 0, label: 'Option 1' }, { value: 1, label: 'Option 2' }, { value: 2, label: 'Option 3' }, { value: 3, label: 'Option 4' }],
 	                    isSuccess: true,
-	                    isOpen: this.state.selectSuccessOption,
+	                    isOpen: this.state.selectSuccessOpen,
 	                    onOpen: function (e) {
-	                      return _this2.setState({ selectSuccessOption: true });
+	                      return _this2.setState({ selectSuccessOpen: true });
 	                    },
 	                    onChange: function (e) {
 	                      return _this2.setState({ selected: e.target });
 	                    },
 	                    onDone: function (e) {
-	                      return _this2.setState({ selectSuccessOption: false });
+	                      return _this2.setState({ selectSuccessOpen: false });
 	                    } })
 	                ),
 	                _react2['default'].createElement(
@@ -840,15 +842,43 @@
 	                    options: [{ value: 0, label: 'Option 1' }, { value: 1, label: 'Option 2' }, { value: 2, label: 'Option 3' }, { value: 3, label: 'Option 4' }],
 	                    isError: true,
 	                    message: 'fix me',
-	                    isOpen: this.state.selectErrorOption,
+	                    isOpen: this.state.selectErrorOpen,
 	                    onOpen: function (e) {
-	                      return _this2.setState({ selectErrorOption: true });
+	                      return _this2.setState({ selectErrorOpen: true });
 	                    },
 	                    onChange: function (e) {
 	                      return _this2.setState({ selected: e.target });
 	                    },
 	                    onDone: function (e) {
-	                      return _this2.setState({ selectErrorOption: false });
+	                      return _this2.setState({ selectErrorOpen: false });
+	                    } })
+	                )
+	              ),
+	              _react2['default'].createElement(
+	                _lib.Row,
+	                null,
+	                _react2['default'].createElement(
+	                  _lib.Col,
+	                  { type: 'md-4 md-offset-4' },
+	                  _react2['default'].createElement(_lib.Select, {
+	                    label: 'large list of items',
+	                    value: this.state.largeSelectedValue,
+	                    options: (function () {
+	                      var options = [];
+	                      for (var i = 0; i < 100; i++) {
+	                        options.push({ value: i, label: 'Option ' + (i + 1) });
+	                      }
+	                      return options;
+	                    })(),
+	                    isOpen: this.state.largeSelectOpen,
+	                    onOpen: function (e) {
+	                      return _this2.setState({ largeSelectOpen: true });
+	                    },
+	                    onChange: function (e) {
+	                      return _this2.setState({ largeSelectedValue: e.target.value });
+	                    },
+	                    onDone: function (e) {
+	                      return _this2.setState({ largeSelectOpen: false });
 	                    } })
 	                )
 	              )
@@ -26209,19 +26239,19 @@
 	  Col: __webpack_require__(359),
 	  Dialog: __webpack_require__(360),
 	  Divider: __webpack_require__(369),
-	  Form: __webpack_require__(370),
-	  Input: __webpack_require__(371),
+	  Form: __webpack_require__(371),
+	  Input: __webpack_require__(372),
 	  Mask: __webpack_require__(368),
-	  Menu: __webpack_require__(372),
-	  Row: __webpack_require__(375),
-	  Select: __webpack_require__(376),
-	  Sidenav: __webpack_require__(377),
-	  Spinner: __webpack_require__(380),
-	  Table: __webpack_require__(381),
-	  Typ: __webpack_require__(384),
+	  Menu: __webpack_require__(373),
+	  Row: __webpack_require__(376),
+	  Select: __webpack_require__(377),
+	  Sidenav: __webpack_require__(378),
+	  Spinner: __webpack_require__(381),
+	  Table: __webpack_require__(382),
+	  Typ: __webpack_require__(385),
 	
 	  events: {
-	    responsive: __webpack_require__(385)
+	    responsive: __webpack_require__(386)
 	  }
 	};
 
@@ -27621,6 +27651,10 @@
 	
 	var _button2 = _interopRequireDefault(_button);
 	
+	var _helpersScreen = __webpack_require__(370);
+	
+	var _helpersScreen2 = _interopRequireDefault(_helpersScreen);
+	
 	function button(label, onTouchTap) {
 	  if (!label) {
 	    return null;
@@ -27649,15 +27683,14 @@
 	    value: function componentDidMount() {
 	      var _this = this;
 	
-	      var resize = this.resize = function () {
+	      window.addEventListener('resize', this._resize = function () {
 	        return _this.forceUpdate();
-	      };
-	      window.addEventListener('resize', resize);
+	      });
 	    }
 	  }, {
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
-	      window.removeEventListener('resize', this.resize);
+	      window.removeEventListener('resize', this._resize);
 	    }
 	  }, {
 	    key: 'render',
@@ -27674,16 +27707,13 @@
 	      var title = _props.title;
 	      var width = _props.width;
 	
-	      var screen = {
-	        width: window.innerWidth || document.body.clientWidth || 1024,
-	        height: window.innerHeight || document.body.clientHeight || 768
-	      };
+	      var screenSize = _helpersScreen2['default'].getSize();
 	
-	      var top = screen.height / 2 - height / 2;
+	      var top = screenSize.height / 2 - height / 2;
 	      top = top < 24 ? 24 : top;
-	      var maxWidth = width > screen.width - 80 ? screen.width - 80 : width;
-	      var left = (screen.width - maxWidth) / 2;
-	      var maxHeight = screen.height - 48;
+	      var maxWidth = width > screenSize.width - 80 ? screenSize.width - 80 : width;
+	      var left = (screenSize.width - maxWidth) / 2;
+	      var maxHeight = screenSize.height - 48;
 	      var maxContentHeight = maxHeight - 48;
 	
 	      var footer = null;
@@ -28638,6 +28668,25 @@
 
 /***/ },
 /* 370 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports["default"] = {
+	  getSize: function getSize() {
+	    return {
+	      width: window.innerWidth || document.body.clientWidth || 1024,
+	      height: window.innerHeight || document.body.clientHeight || 768
+	    };
+	  }
+	};
+	module.exports = exports["default"];
+
+/***/ },
+/* 371 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28679,7 +28728,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 371 */
+/* 372 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28850,7 +28899,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 372 */
+/* 373 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28909,6 +28958,10 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _reactDom = __webpack_require__(345);
+	
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+	
 	var _reactAddonsCssTransitionGroup = __webpack_require__(361);
 	
 	var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
@@ -28917,13 +28970,17 @@
 	
 	var _mask2 = _interopRequireDefault(_mask);
 	
-	var _item = __webpack_require__(373);
+	var _item = __webpack_require__(374);
 	
 	var _item2 = _interopRequireDefault(_item);
 	
-	var _seperator = __webpack_require__(374);
+	var _seperator = __webpack_require__(375);
 	
 	var _seperator2 = _interopRequireDefault(_seperator);
+	
+	var _helpersScreen = __webpack_require__(370);
+	
+	var _helpersScreen2 = _interopRequireDefault(_helpersScreen);
 	
 	var Menu = (function (_Component) {
 	  _inherits(Menu, _Component);
@@ -28953,9 +29010,61 @@
 	      }
 	    }
 	  }, {
+	    key: 'checkBounds',
+	    value: function checkBounds() {
+	      var menuElement = _reactDom2['default'].findDOMNode(this.refs.menu);
+	      if (menuElement) {
+	        var screenHeight = _helpersScreen2['default'].getSize().height;
+	
+	        var _menuElement$getBoundingClientRect = menuElement.getBoundingClientRect();
+	
+	        var _top = _menuElement$getBoundingClientRect.top;
+	        var bottom = _menuElement$getBoundingClientRect.bottom;
+	
+	        var originalHeight = bottom - _top;
+	        var minHeight = 32 * 5 + 20;
+	
+	        var offsetTop = _top < 16 ? Math.ceil((_top - 16) / -32) * 32 : 0;
+	        var offsetBottom = bottom > screenHeight - 16 ? Math.ceil((bottom - screenHeight + 16) / 32) * 32 : 0;
+	        var height = bottom - _top - offsetTop - offsetBottom;
+	        if (height < minHeight) {
+	          height = minHeight > originalHeight ? originalHeight : minHeight;
+	          if (_top + offsetTop + height + 16 > screenHeight) {
+	            offsetTop -= _top + offsetTop + height + 16 - screenHeight;
+	          }
+	        }
+	        menuElement.style.top = menuElement.offsetTop + offsetTop + 'px';
+	        menuElement.style.height = height + 'px';
+	        menuElement.scrollTop += offsetTop;
+	      }
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+	
+	      this.checkBounds();
+	      // close the options when resizing the window
+	      window.addEventListener('resize', this._resize = function () {
+	        if (_this2.props.isOpen) {
+	          _this2.onDone();
+	        }
+	      });
+	    }
+	  }, {
+	    key: 'componentDidUpdate',
+	    value: function componentDidUpdate() {
+	      this.checkBounds();
+	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      window.removeEventListener('resize', this._resize);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
+	      var _this3 = this;
 	
 	      var _props = this.props;
 	      var children = _props.children;
@@ -28969,6 +29078,8 @@
 	        backgroundColor: '#fff',
 	        color: '#000',
 	        position: 'absolute',
+	        overflowY: 'auto',
+	        scrollbar: 'width: 4px',
 	        top: '-8px'
 	      };
 	      if (rightAlign) {
@@ -28980,8 +29091,8 @@
 	        style: {
 	          zIndex: 1000
 	        } }, _react2['default'].createElement(_mask2['default'], { dark: false, onTouchTap: function onTouchTap() {
-	          return _this2.onDone();
-	        } }), _react2['default'].createElement('div', { className: 'transition paper1', style: Object.assign(menuStyle, style) }, children)) : null;
+	          return _this3.onDone();
+	        } }), _react2['default'].createElement('div', { ref: 'menu', className: 'transition paper1', style: Object.assign(menuStyle, style) }, children)) : null;
 	
 	      return _react2['default'].createElement(_reactAddonsCssTransitionGroup2['default'], {
 	        transitionEnterTimeout: 400,
@@ -29033,7 +29144,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 373 */
+/* 374 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29209,7 +29320,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 374 */
+/* 375 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29246,7 +29357,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 375 */
+/* 376 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29273,7 +29384,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 376 */
+/* 377 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29336,11 +29447,11 @@
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _input = __webpack_require__(371);
+	var _input = __webpack_require__(372);
 	
 	var _input2 = _interopRequireDefault(_input);
 	
-	var _menu = __webpack_require__(372);
+	var _menu = __webpack_require__(373);
 	
 	var _menu2 = _interopRequireDefault(_menu);
 	
@@ -29461,7 +29572,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 377 */
+/* 378 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29528,15 +29639,15 @@
 	
 	var _mask2 = _interopRequireDefault(_mask);
 	
-	var _item = __webpack_require__(378);
+	var _item = __webpack_require__(379);
 	
 	var _item2 = _interopRequireDefault(_item);
 	
-	var _title = __webpack_require__(379);
+	var _title = __webpack_require__(380);
 	
 	var _title2 = _interopRequireDefault(_title);
 	
-	var _menuSeperator = __webpack_require__(374);
+	var _menuSeperator = __webpack_require__(375);
 	
 	var _menuSeperator2 = _interopRequireDefault(_menuSeperator);
 	
@@ -29643,7 +29754,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 378 */
+/* 379 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29702,7 +29813,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _menuItem = __webpack_require__(373);
+	var _menuItem = __webpack_require__(374);
 	
 	var _menuItem2 = _interopRequireDefault(_menuItem);
 	
@@ -29775,7 +29886,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 379 */
+/* 380 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29916,7 +30027,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 380 */
+/* 381 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30087,7 +30198,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 381 */
+/* 382 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30108,11 +30219,11 @@
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _toolbar = __webpack_require__(382);
+	var _toolbar = __webpack_require__(383);
 	
 	var _toolbar2 = _interopRequireDefault(_toolbar);
 	
-	var _row = __webpack_require__(383);
+	var _row = __webpack_require__(384);
 	
 	var _row2 = _interopRequireDefault(_row);
 	
@@ -30138,7 +30249,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 382 */
+/* 383 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30174,7 +30285,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 383 */
+/* 384 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30215,7 +30326,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 384 */
+/* 385 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30354,7 +30465,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 385 */
+/* 386 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -30417,16 +30528,16 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 386 */
+/* 387 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(387);
+	var content = __webpack_require__(388);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(389)(content, {});
+	var update = __webpack_require__(390)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -30443,10 +30554,10 @@
 	}
 
 /***/ },
-/* 387 */
+/* 388 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(388)();
+	exports = module.exports = __webpack_require__(389)();
 	// imports
 	
 	
@@ -30457,7 +30568,7 @@
 
 
 /***/ },
-/* 388 */
+/* 389 */
 /***/ function(module, exports) {
 
 	/*
@@ -30513,7 +30624,7 @@
 
 
 /***/ },
-/* 389 */
+/* 390 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -30738,16 +30849,16 @@
 
 
 /***/ },
-/* 390 */
+/* 391 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(391);
+	var content = __webpack_require__(392);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(389)(content, {});
+	var update = __webpack_require__(390)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -30764,10 +30875,10 @@
 	}
 
 /***/ },
-/* 391 */
+/* 392 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(388)();
+	exports = module.exports = __webpack_require__(389)();
 	// imports
 	
 	

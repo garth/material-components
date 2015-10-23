@@ -3,6 +3,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Mask from './mask';
 import Divider from './divider';
 import Button from './button';
+import screen from './helpers/screen';
 
 function button(label, onTouchTap) {
   if (!label) { return null; }
@@ -45,12 +46,11 @@ export default class Dialog extends Component {
   };
 
   componentDidMount() {
-    let resize = this.resize = () => this.forceUpdate();
-    window.addEventListener('resize', resize);
+    window.addEventListener('resize', this._resize = () => this.forceUpdate());
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.resize);
+    window.removeEventListener('resize', this._resize);
   }
 
   render() {
@@ -67,16 +67,13 @@ export default class Dialog extends Component {
       width
     } = this.props;
 
-    const screen = {
-      width: window.innerWidth || document.body.clientWidth || 1024,
-      height: window.innerHeight || document.body.clientHeight || 768
-    };
+    const screenSize = screen.getSize();
 
-    let top = (screen.height / 2) - (height / 2);
+    let top = (screenSize.height / 2) - (height / 2);
     top = top < 24 ? 24 : top;
-    let maxWidth = width > screen.width - 80 ? screen.width - 80 : width;
-    let left = (screen.width - maxWidth) / 2;
-    let maxHeight = screen.height - 48;
+    let maxWidth = width > screenSize.width - 80 ? screenSize.width - 80 : width;
+    let left = (screenSize.width - maxWidth) / 2;
+    let maxHeight = screenSize.height - 48;
     let maxContentHeight = maxHeight - 48;
 
     let footer = null;
