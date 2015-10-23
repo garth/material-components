@@ -46,7 +46,7 @@ class Menu extends Component {
       const screenHeight = screen.getSize().height;
       const { top, bottom } = menuElement.getBoundingClientRect();
       const originalHeight = bottom - top;
-      const minHeight = (32 * 5) + 20;
+      const minHeight = (32 * 8) + 20;
 
       let offsetTop = top < 16 ? Math.ceil((top - 16) / -32) * 32 : 0;
       let offsetBottom = bottom > screenHeight - 16 ? Math.ceil((bottom - screenHeight + 16) / 32) * 32 : 0;
