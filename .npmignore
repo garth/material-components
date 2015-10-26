@@ -1,7 +1,7 @@
 // same as .gitignore
 *.log
 node_modules
-demo/main.bundle.js.map
+demo/main.bundle.*
 
 // .npmignore only
 demo/main.bundle.js
