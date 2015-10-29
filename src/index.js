@@ -1,6 +1,7 @@
 module.exports = {
   Appbar: require('./components/appbar'),
   Button: require('./components/button'),
+  Calendar: require('./components/calendar'),
   Checkbox: require('./components/checkbox'),
   Col: require('./components/col'),
   Dialog: require('./components/dialog'),
