@@ -1,4 +1,5 @@
 var path = require('path');
+var ContextReplacementPlugin = require("webpack/lib/ContextReplacementPlugin");
 
 module.exports = {
   context: __dirname,
@@ -19,5 +20,9 @@ module.exports = {
       test: /\.css$/,
       loader: 'style!css'
     }]
-  }
+  },
+  plugins: [
+    // don't include all moment locales
+    new ContextReplacementPlugin(/moment[\/\\]locale$/, /^\.\/(en)$/)
+  ]
 };

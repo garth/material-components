@@ -12,7 +12,8 @@ injectTapEventPlugin();
 
 // import the material-components
 import {
-  Appbar, Button, Checkbox, Col, Dialog, Divider, Input, Row, Typ, Menu, Select, Sidenav, Spinner, Table, events
+  Appbar, Button, Checkbox, Col, Dialog, Divider, Input, Row,
+  Typ, Menu, Select, Sidenav, Spinner, Table, events, Calendar
 } from '../lib';
 
 // component to render code examples
@@ -72,7 +73,12 @@ class Application extends Component {
     showSimpleMenu: false,
     showMenu: false,
     selectedOption: 1,
-    isLoading: false
+    isLoading: false,
+    calendar: {
+      year: 2015,
+      month: 10
+    },
+    selectedDate: new Date(2015, 10, 20)
   }
 
   componentWillMount() {
@@ -147,6 +153,7 @@ class Application extends Component {
 import {
   Appbar,
   Button,
+  Calendar,
   Checkbox
   Col,
   Dialog,
@@ -764,6 +771,47 @@ events.responsive.addListener(screen => store.set('screen', screen));
               The event is only triggered when these values change and not on every window resize event, so updating
               the UI every time this event is triggered should be ok.
             </p>
+          </section>
+
+          <section>
+            <Typ secondary display1>Calendar</Typ>
+            <p>
+              The <code>Calendar</code> component uses the internationalisation from moment.js, to change the
+              locale settings <a href="http://momentjs.com/docs/#/i18n/">configure moment</a> with your
+              desired locale.
+            </p>
+            <Example code={`
+// Non interactive calendar of the current month
+<Calendar/>
+
+// Non interactive calendar of given month
+<Calendar titleFormat="MMM" year={2010} month={0} value={new Date(2010, 0, 5)}/>
+            `}/>
+            <Row>
+              <Col type="sm-6">
+                <Calendar className="paper1" style={{ margin: '24px auto', padding: '12px' }}/>
+              </Col>
+              <Col type="sm-6">
+                <Calendar titleFormat="MMM" year={2010} month={0} value={new Date(2010, 0, 5)} className="paper1" style={{ margin: '24px auto', padding: '12px' }}/>
+              </Col>
+            </Row>
+            <Example code={`
+// Interactive calendar
+<Calendar
+  year={year}
+  month={month}
+  value={selectedDate}
+  onChange={setDate}
+  onNavigate={updateCalendar}/>
+            `}/>
+            <Calendar
+              year={this.state.calendar.year}
+              month={this.state.calendar.month}
+              value={this.state.selectedDate}
+              onChange={e => this.setState({ selectedDate: e.target.value })}
+              onNavigate={e => this.setState({ calendar: e.target.value })}
+              className="paper1"
+              style={{ margin: '24px auto', padding: '12px' }}/>
           </section>
         </div>
       </div>
