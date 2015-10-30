@@ -12,7 +12,7 @@ injectTapEventPlugin();
 
 // import the material-components
 import {
-  Appbar, Button, Checkbox, Col, Dialog, Divider, Input, Row,
+  Appbar, Button, Checkbox, Col, DatePicker, Dialog, Divider, Input, Row,
   Typ, Menu, Select, Sidenav, Spinner, Table, events, Calendar
 } from '../lib';
 
@@ -78,7 +78,14 @@ class Application extends Component {
       year: 2015,
       month: 10
     },
-    selectedDate: new Date(2015, 10, 20)
+    selectedDate: new Date(2015, 10, 20),
+    showDatePicker: false,
+    pickedDate: null,
+    pickingDate: null,
+    pickedCalendar: {
+      year: 2015,
+      month: 10
+    },
   }
 
   componentWillMount() {
@@ -156,6 +163,7 @@ import {
   Calendar,
   Checkbox
   Col,
+  DatePicker,
   Dialog,
   Divider,
   Form,
@@ -629,8 +637,15 @@ let options = [
           <section>
             <Typ secondary display1>Dialog</Typ>
             <Example code={`
-<Dialog isOpen={showDialog} width={400} height={172} title="Question?"
-  okLabel="OK" onOk={onOk} cancelLabel="Cancel" onCancel={onCancel}>
+<Dialog
+  isOpen={showDialog}
+  width={400}
+  height={172}
+  title="Question?"
+  okLabel="OK"
+  onOk={onOk}
+  cancelLabel="Cancel"
+  onCancel={onCancel}>
 </Dialog>
             `}/>
             <Button style={{ margin: '24px 0' }} primary onTouchTap={() => this.setState({ showDialog: true })}>Show Dialog</Button>
@@ -645,6 +660,41 @@ let options = [
               onCancel={() => this.setState({ showDialog: false })}>
               the details of allogation
             </Dialog>
+          </section>
+
+          <section>
+            <Typ secondary display1>Date Picker</Typ>
+            <Example code={`
+<DatePicker
+  isOpen={showDatePicker}
+  year={year}
+  month={month}
+  pickingValue={pickingDate}
+  onChange={onChange}
+  onNavigate={onNavigate}
+  onOk={onOk}
+  onCancel={onCancel}/>
+            `}/>
+            <Button primary onTouchTap={e => {
+              this.setState({ pickingDate: this.state.pickedDate });
+              this.setState({ showDatePicker: true });
+            }}>Pick Date</Button>
+            Picked Date: {this.state.pickedDate ? this.state.pickedDate.toDateString() : 'none'}
+            <DatePicker
+              isOpen={this.state.showDatePicker}
+              year={this.state.pickedCalendar.year}
+              month={this.state.pickedCalendar.month}
+              pickingValue={this.state.pickingDate}
+              onChange={e => this.setState({ pickingDate: e.target.value })}
+              onNavigate={e => this.setState({ pickedCalendar: e.target.value })}
+              onOk={e => {
+                this.setState({ showDatePicker: false });
+                this.setState({ pickedDate: e.target.value });
+              }}
+              onCancel={e => {
+                this.setState({ showDatePicker: false });
+                this.setState({ pickingDate: null });
+              }}/>
           </section>
 
           <section>

@@ -4,6 +4,7 @@ module.exports = {
   Calendar: require('./components/calendar'),
   Checkbox: require('./components/checkbox'),
   Col: require('./components/col'),
+  DatePicker: require('./components/datepicker'),
   Dialog: require('./components/dialog'),
   Divider: require('./components/divider'),
   Form: require('./components/form'),
