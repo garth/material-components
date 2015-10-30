@@ -13,25 +13,23 @@ export default class Calendar extends Component {
 
   static propTypes = {
     className: PropTypes.string,
-    locale: PropTypes.string,
     month: PropTypes.number,
-    onNavigate: PropTypes.func,
     onChange: PropTypes.func,
-    value: PropTypes.any,
+    onNavigate: PropTypes.func,
     style: PropTypes.object,
     titleFormat: PropTypes.string,
     validDays: PropTypes.array,
+    value: PropTypes.any,
     year: PropTypes.number
   };
 
   static defaultProps = {
     className: '',
-    locale: 'en',
     month: (new Date()).getMonth(),
-    value: null,
     style: {},
     titleFormat: 'MMMM YYYY',
     validDays: null,
+    value: null,
     year: (new Date()).getFullYear()
   };
 
@@ -61,7 +59,6 @@ export default class Calendar extends Component {
     } = this.context.componentStyle;
     const {
       className,
-      locale,
       month,
       onNavigate,
       onChange,
@@ -76,7 +73,7 @@ export default class Calendar extends Component {
     const previousMonth = date.clone().subtract(1, 'months');
     const nextMonth = date.clone().add(1, 'months');
 
-    const localeData = moment.localeData(locale);
+    const localeData = moment.localeData();
     const firstDayOfWeek = localeData.firstDayOfWeek();
     let weekdays = moment.weekdaysShort().map(day => day[0]);
     if (firstDayOfWeek > 0) {
@@ -131,7 +128,7 @@ export default class Calendar extends Component {
           cursor: 'pointer',
           height: '48px',
           width: '48px',
-          margin: '-9px'
+          marginLeft: '-5px'
         }}
         onTouchTap={() => onNavigate({ target: { value: {
           year: previousMonth.get('year'),
@@ -152,7 +149,7 @@ export default class Calendar extends Component {
           cursor: 'pointer',
           height: '48px',
           width: '48px',
-          margin: '-9px'
+          marginRight: '-5px'
         }}
         onTouchTap={() => onNavigate({ target: { value: {
           year: nextMonth.get('year'),
@@ -189,7 +186,8 @@ export default class Calendar extends Component {
             style={{
               color: '#3e3e3e',
               textAlign: 'center',
-              fontSize: '14px'
+              fontSize: '14px',
+              lineHeight: '48px'
             }}>
             {date.format(titleFormat)}
           </div>
