@@ -1,4 +1,6 @@
 import React, { Component, PropTypes } from 'react';
+import ReactDOM from 'react-dom';
+import Waves from './helpers/waves';
 import moment from 'moment';
 
 export default class Calendar extends Component {
@@ -32,6 +34,13 @@ export default class Calendar extends Component {
     validDays: null,
     year: (new Date()).getFullYear()
   };
+
+  componentDidMount() {
+    if (this.props.onNavigate) {
+      Waves.attach(ReactDOM.findDOMNode(this.refs.previous));
+      Waves.attach(ReactDOM.findDOMNode(this.refs.next));
+    }
+  }
 
   onChange(day, validDay) {
     const {
@@ -114,36 +123,42 @@ export default class Calendar extends Component {
 
     let navigation = onNavigate ? [(
       <div
-        key="back"
+        key="previous"
+        ref="previous"
+        className="waves-circle"
         style={{
           float: 'left',
-          paddingTop: '3px',
           cursor: 'pointer',
-          marginBottom: '-10px'
+          height: '48px',
+          width: '48px',
+          margin: '-9px'
         }}
         onTouchTap={() => onNavigate({ target: { value: {
           year: previousMonth.get('year'),
           month: previousMonth.get('month')
         }}})}>
-        <svg fill={typographyColor} height="24" viewBox="0 0 24 24" width="24">
+        <svg fill={typographyColor} height="24" viewBox="0 0 24 24" width="24" style={{margin: '12px 9px 6px 9px'}}>
           <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
           <path d="M0 0h24v24H0z" fill="none"/>
         </svg>
       </div>
     ), (
       <div
-        key="forward"
+        key="next"
+        ref="next"
+        className="waves-circle"
         style={{
           float: 'right',
-          paddingTop: '3px',
           cursor: 'pointer',
-          marginBottom: '-10px'
+          height: '48px',
+          width: '48px',
+          margin: '-9px'
         }}
         onTouchTap={() => onNavigate({ target: { value: {
           year: nextMonth.get('year'),
           month: nextMonth.get('month')
         }}})}>
-        <svg fill={typographyColor} height="24" viewBox="0 0 24 24" width="24">
+        <svg fill={typographyColor} height="24" viewBox="0 0 24 24" width="24" style={{margin: '12px 9px 6px 9px'}}>
           <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
           <path d="M0 0h24v24H0z" fill="none"/>
         </svg>
