@@ -29,7 +29,9 @@ export default class Dialog extends Component {
     cancelLabel: PropTypes.string,
     children: PropTypes.node,
     height: PropTypes.number,
+    hideDivider: PropTypes.bool,
     isOpen: PropTypes.bool,
+    noPadding: PropTypes.bool,
     okLabel: PropTypes.string,
     onCancel: PropTypes.func,
     onOk: PropTypes.func,
@@ -40,7 +42,9 @@ export default class Dialog extends Component {
 
   static defaultProps = {
     height: 130,
+    hideDivider: false,
     isOpen: false,
+    noPadding: false,
     style: {},
     width: 280
   };
@@ -58,7 +62,9 @@ export default class Dialog extends Component {
       cancelLabel,
       children,
       height,
+      hideDivider,
       isOpen,
+      noPadding,
       okLabel,
       onCancel,
       onOk,
@@ -83,7 +89,9 @@ export default class Dialog extends Component {
           height: '56px',
           textAlign: 'right'
         }}>
-          <Divider style={{ margin: 0 }}/>
+          {hideDivider ? null : (
+            <Divider style={{ margin: 0 }}/>
+          )}
           {button(cancelLabel, onCancel)}
           {button(okLabel, onOk)}
         </div>
@@ -116,7 +124,7 @@ export default class Dialog extends Component {
             width: `${maxWidth}px`,
             maxHeight: `${maxHeight}px`
           }, style)}>
-          <div style={{ padding: '24px' }}>
+          <div style={{ padding: noPadding ? 0 : '24px' }}>
             {titleElement}
             <div
               style={{

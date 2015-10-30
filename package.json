@@ -1,6 +1,6 @@
 {
   "name": "material-components",
-  "version": "0.0.41",
+  "version": "0.0.43",
   "description": "Stateless UI components for react that follow material design",
   "main": "lib/index.js",
   "scripts": {
@@ -21,6 +21,7 @@
     "calendar",
     "checkbox",
     "component",
+    "datepicker",
     "dialog",
     "form",
     "grid",

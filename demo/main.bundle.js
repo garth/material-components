@@ -79,8 +79,8 @@
 	var _lib = __webpack_require__(352);
 	
 	// component to render code examples
-	__webpack_require__(393);
-	__webpack_require__(397);
+	__webpack_require__(394);
+	__webpack_require__(398);
 	(0, _reactTapEventPlugin2['default'])();function Example(_ref) {
 	  var code = _ref.code;
 	
@@ -151,7 +151,14 @@
 	        year: 2015,
 	        month: 10
 	      },
-	      selectedDate: new Date(2015, 10, 20)
+	      selectedDate: new Date(2015, 10, 20),
+	      showDatePicker: false,
+	      pickedDate: null,
+	      pickingDate: null,
+	      pickedCalendar: {
+	        year: 2015,
+	        month: 10
+	      }
 	    };
 	  }
 	
@@ -332,7 +339,7 @@
 	              { secondary: true, display1: true },
 	              'Import Components'
 	            ),
-	            _react2['default'].createElement(Example, { code: '\nimport {\n  Appbar,\n  Button,\n  Calendar,\n  Checkbox\n  Col,\n  Dialog,\n  Divider,\n  Form,\n  Input,\n  Menu,\n  Row,\n  Select,\n  Sidenav,\n  Spinner,\n  Table,\n  Typ,\n  events\n} from \'material-components\';\n            ' })
+	            _react2['default'].createElement(Example, { code: '\nimport {\n  Appbar,\n  Button,\n  Calendar,\n  Checkbox\n  Col,\n  DatePicker,\n  Dialog,\n  Divider,\n  Form,\n  Input,\n  Menu,\n  Row,\n  Select,\n  Sidenav,\n  Spinner,\n  Table,\n  Typ,\n  events\n} from \'material-components\';\n            ' })
 	          ),
 	          _react2['default'].createElement(
 	            'section',
@@ -694,7 +701,32 @@
 	              { secondary: true, display1: true },
 	              'Buttons'
 	            ),
-	            _react2['default'].createElement(Example, { code: '\n<Button onTouchTap={onClick}>Normal</Button>\n<Button onTouchTap={onClick} primary>Primary</Button>\n<Button onTouchTap={onClick} flat>Flat</Button>\n<Button onTouchTap={onClick} primary flat>Primary Flat</Button>\n            ' }),
+	            _react2['default'].createElement(Example, { code: '\n// enabled buttons\n<Button onTouchTap={onClick}>Normal</Button>\n<Button onTouchTap={onClick} primary>Primary</Button>\n<Button onTouchTap={onClick} flat>Flat</Button>\n<Button onTouchTap={onClick} primary flat>Primary Flat</Button>\n            ' }),
+	            _react2['default'].createElement(
+	              'p',
+	              null,
+	              _react2['default'].createElement(
+	                _lib.Button,
+	                { onTouchTap: function (e) {} },
+	                'Normal'
+	              ),
+	              _react2['default'].createElement(
+	                _lib.Button,
+	                { onTouchTap: function (e) {}, primary: true },
+	                'Primary'
+	              ),
+	              _react2['default'].createElement(
+	                _lib.Button,
+	                { onTouchTap: function (e) {}, flat: true },
+	                'Flat'
+	              ),
+	              _react2['default'].createElement(
+	                _lib.Button,
+	                { onTouchTap: function (e) {}, primary: true, flat: true },
+	                'Primary Flat'
+	              )
+	            ),
+	            _react2['default'].createElement(Example, { code: '\n// disabled buttons\n<Button>Normal</Button>\n<Button primary>Primary</Button>\n<Button flat>Flat</Button>\n<Button primary flat>Primary Flat</Button>\n            ' }),
 	            _react2['default'].createElement(
 	              'p',
 	              null,
@@ -1055,7 +1087,7 @@
 	              { secondary: true, display1: true },
 	              'Dialog'
 	            ),
-	            _react2['default'].createElement(Example, { code: '\n<Dialog isOpen={showDialog} width={400} height={172} title="Question?"\n  okLabel="OK" onOk={onOk} cancelLabel="Cancel" onCancel={onCancel}>\n</Dialog>\n            ' }),
+	            _react2['default'].createElement(Example, { code: '\n<Dialog\n  isOpen={showDialog}\n  width={400}\n  height={172}\n  title="Question?"\n  okLabel="OK"\n  onOk={onOk}\n  cancelLabel="Cancel"\n  onCancel={onCancel}>\n</Dialog>\n            ' }),
 	            _react2['default'].createElement(
 	              _lib.Button,
 	              { style: { margin: '24px 0' }, primary: true, onTouchTap: function () {
@@ -1080,6 +1112,45 @@
 	                } },
 	              'the details of allogation'
 	            )
+	          ),
+	          _react2['default'].createElement(
+	            'section',
+	            null,
+	            _react2['default'].createElement(
+	              _lib.Typ,
+	              { secondary: true, display1: true },
+	              'Date Picker'
+	            ),
+	            _react2['default'].createElement(Example, { code: '\n<DatePicker\n  isOpen={showDatePicker}\n  year={year}\n  month={month}\n  pickingValue={pickingDate}\n  onChange={onChange}\n  onNavigate={onNavigate}\n  onOk={onOk}\n  onCancel={onCancel}/>\n            ' }),
+	            _react2['default'].createElement(
+	              _lib.Button,
+	              { primary: true, onTouchTap: function (e) {
+	                  _this2.setState({ pickingDate: _this2.state.pickedDate });
+	                  _this2.setState({ showDatePicker: true });
+	                } },
+	              'Pick Date'
+	            ),
+	            'Picked Date: ',
+	            this.state.pickedDate ? this.state.pickedDate.toDateString() : 'none',
+	            _react2['default'].createElement(_lib.DatePicker, {
+	              isOpen: this.state.showDatePicker,
+	              year: this.state.pickedCalendar.year,
+	              month: this.state.pickedCalendar.month,
+	              pickingValue: this.state.pickingDate,
+	              onChange: function (e) {
+	                return _this2.setState({ pickingDate: e.target.value });
+	              },
+	              onNavigate: function (e) {
+	                return _this2.setState({ pickedCalendar: e.target.value });
+	              },
+	              onOk: function (e) {
+	                _this2.setState({ showDatePicker: false });
+	                _this2.setState({ pickedDate: e.target.value });
+	              },
+	              onCancel: function (e) {
+	                _this2.setState({ showDatePicker: false });
+	                _this2.setState({ pickingDate: null });
+	              } })
 	          ),
 	          _react2['default'].createElement(
 	            'section',
@@ -26360,21 +26431,22 @@
 	  Calendar: __webpack_require__(360),
 	  Checkbox: __webpack_require__(364),
 	  Col: __webpack_require__(365),
-	  Dialog: __webpack_require__(366),
-	  Divider: __webpack_require__(375),
-	  Form: __webpack_require__(377),
-	  Input: __webpack_require__(378),
-	  Mask: __webpack_require__(374),
-	  Menu: __webpack_require__(379),
-	  Row: __webpack_require__(382),
-	  Select: __webpack_require__(383),
-	  Sidenav: __webpack_require__(384),
-	  Spinner: __webpack_require__(387),
-	  Table: __webpack_require__(388),
-	  Typ: __webpack_require__(391),
+	  DatePicker: __webpack_require__(366),
+	  Dialog: __webpack_require__(367),
+	  Divider: __webpack_require__(376),
+	  Form: __webpack_require__(378),
+	  Input: __webpack_require__(379),
+	  Mask: __webpack_require__(375),
+	  Menu: __webpack_require__(380),
+	  Row: __webpack_require__(383),
+	  Select: __webpack_require__(384),
+	  Sidenav: __webpack_require__(385),
+	  Spinner: __webpack_require__(388),
+	  Table: __webpack_require__(389),
+	  Typ: __webpack_require__(392),
 	
 	  events: {
-	    responsive: __webpack_require__(392)
+	    responsive: __webpack_require__(393)
 	  }
 	};
 
@@ -27472,10 +27544,17 @@
 	        textAlign: 'center',
 	        minWidth: '64px',
 	        textTransform: 'uppercase',
-	        cursor: 'pointer'
+	        cursor: onTouchTap ? 'pointer' : 'inherit'
 	      };
 	
-	      if (primary) {
+	      if (!onTouchTap) {
+	        if (flat) {
+	          style.color = 'rgba(0, 0, 0, 0.26)';
+	        } else {
+	          style.color = 'rgba(0, 0, 0, 0.26)';
+	          style.backgroundColor = 'rgba(0, 0, 0, 0.12)';
+	        }
+	      } else if (primary) {
 	        if (flat) {
 	          style.color = secondaryColor;
 	        } else {
@@ -27489,9 +27568,10 @@
 	        onTouchTap: onTouchTap,
 	        style: Object.assign(style, styleOverrides),
 	        className: (0, _classnames2['default'])('waves-button', {
-	          'waves-float': !flat,
+	          'waves-float': !flat && onTouchTap,
 	          'waves-light': primary && !flat
-	        }) }, children);
+	        }),
+	        disabled: !onTouchTap }, children);
 	    }
 	  }], [{
 	    key: 'displayName',
@@ -27599,6 +27679,14 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _reactDom = __webpack_require__(347);
+	
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+	
+	var _helpersWaves = __webpack_require__(356);
+	
+	var _helpersWaves2 = _interopRequireDefault(_helpersWaves);
+	
 	var _moment = __webpack_require__(361);
 	
 	var _moment2 = _interopRequireDefault(_moment);
@@ -27613,6 +27701,14 @@
 	  }
 	
 	  _createClass(Calendar, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      if (this.props.onNavigate) {
+	        _helpersWaves2['default'].attach(_reactDom2['default'].findDOMNode(this.refs.previous));
+	        _helpersWaves2['default'].attach(_reactDom2['default'].findDOMNode(this.refs.next));
+	      }
+	    }
+	  }, {
 	    key: 'onChange',
 	    value: function onChange(day, validDay) {
 	      var _props = this.props;
@@ -27635,7 +27731,6 @@
 	      var typographyColor = _context$componentStyle.typographyColor;
 	      var _props2 = this.props;
 	      var className = _props2.className;
-	      var locale = _props2.locale;
 	      var month = _props2.month;
 	      var onNavigate = _props2.onNavigate;
 	      var onChange = _props2.onChange;
@@ -27649,7 +27744,7 @@
 	      var previousMonth = date.clone().subtract(1, 'months');
 	      var nextMonth = date.clone().add(1, 'months');
 	
-	      var localeData = _moment2['default'].localeData(locale);
+	      var localeData = _moment2['default'].localeData();
 	      var firstDayOfWeek = localeData.firstDayOfWeek();
 	      var weekdays = _moment2['default'].weekdaysShort().map(function (day) {
 	        return day[0];
@@ -27692,32 +27787,38 @@
 	      }
 	
 	      var navigation = onNavigate ? [_react2['default'].createElement('div', {
-	        key: 'back',
+	        key: 'previous',
+	        ref: 'previous',
+	        className: 'waves-circle',
 	        style: {
 	          float: 'left',
-	          paddingTop: '3px',
 	          cursor: 'pointer',
-	          marginBottom: '-10px'
+	          height: '48px',
+	          width: '48px',
+	          marginLeft: '-5px'
 	        },
 	        onTouchTap: function onTouchTap() {
 	          return onNavigate({ target: { value: {
 	                year: previousMonth.get('year'),
 	                month: previousMonth.get('month')
 	              } } });
-	        } }, _react2['default'].createElement('svg', { fill: typographyColor, height: '24', viewBox: '0 0 24 24', width: '24' }, _react2['default'].createElement('path', { d: 'M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z' }), _react2['default'].createElement('path', { d: 'M0 0h24v24H0z', fill: 'none' }))), _react2['default'].createElement('div', {
-	        key: 'forward',
+	        } }, _react2['default'].createElement('svg', { fill: typographyColor, height: '24', viewBox: '0 0 24 24', width: '24', style: { margin: '12px 9px 6px 9px' } }, _react2['default'].createElement('path', { d: 'M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z' }), _react2['default'].createElement('path', { d: 'M0 0h24v24H0z', fill: 'none' }))), _react2['default'].createElement('div', {
+	        key: 'next',
+	        ref: 'next',
+	        className: 'waves-circle',
 	        style: {
 	          float: 'right',
-	          paddingTop: '3px',
 	          cursor: 'pointer',
-	          marginBottom: '-10px'
+	          height: '48px',
+	          width: '48px',
+	          marginRight: '-5px'
 	        },
 	        onTouchTap: function onTouchTap() {
 	          return onNavigate({ target: { value: {
 	                year: nextMonth.get('year'),
 	                month: nextMonth.get('month')
 	              } } });
-	        } }, _react2['default'].createElement('svg', { fill: typographyColor, height: '24', viewBox: '0 0 24 24', width: '24' }, _react2['default'].createElement('path', { d: 'M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z' }), _react2['default'].createElement('path', { d: 'M0 0h24v24H0z', fill: 'none' })))] : null;
+	        } }, _react2['default'].createElement('svg', { fill: typographyColor, height: '24', viewBox: '0 0 24 24', width: '24', style: { margin: '12px 9px 6px 9px' } }, _react2['default'].createElement('path', { d: 'M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z' }), _react2['default'].createElement('path', { d: 'M0 0h24v24H0z', fill: 'none' })))] : null;
 	
 	      var padding = date.weekday() ? _react2['default'].createElement('div', {
 	        style: {
@@ -27737,7 +27838,8 @@
 	        style: {
 	          color: '#3e3e3e',
 	          textAlign: 'center',
-	          fontSize: '14px'
+	          fontSize: '14px',
+	          lineHeight: '48px'
 	        } }, date.format(titleFormat))), _react2['default'].createElement('div', {
 	        style: {
 	          color: '#9e9e9e',
@@ -27767,14 +27869,13 @@
 	    key: 'propTypes',
 	    value: {
 	      className: _react.PropTypes.string,
-	      locale: _react.PropTypes.string,
 	      month: _react.PropTypes.number,
-	      onNavigate: _react.PropTypes.func,
 	      onChange: _react.PropTypes.func,
-	      value: _react.PropTypes.any,
+	      onNavigate: _react.PropTypes.func,
 	      style: _react.PropTypes.object,
 	      titleFormat: _react.PropTypes.string,
 	      validDays: _react.PropTypes.array,
+	      value: _react.PropTypes.any,
 	      year: _react.PropTypes.number
 	    },
 	    enumerable: true
@@ -27782,12 +27883,11 @@
 	    key: 'defaultProps',
 	    value: {
 	      className: '',
-	      locale: 'en',
 	      month: new Date().getMonth(),
-	      value: null,
 	      style: {},
 	      titleFormat: 'MMMM YYYY',
 	      validDays: null,
+	      value: null,
 	      year: new Date().getFullYear()
 	    },
 	    enumerable: true
@@ -31277,15 +31377,212 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactAddonsCssTransitionGroup = __webpack_require__(367);
+	var _moment = __webpack_require__(361);
+	
+	var _moment2 = _interopRequireDefault(_moment);
+	
+	var _dialog = __webpack_require__(367);
+	
+	var _dialog2 = _interopRequireDefault(_dialog);
+	
+	var _calendar = __webpack_require__(360);
+	
+	var _calendar2 = _interopRequireDefault(_calendar);
+	
+	var _helpersScreen = __webpack_require__(377);
+	
+	var _helpersScreen2 = _interopRequireDefault(_helpersScreen);
+	
+	var DatePicker = (function (_Component) {
+	  _inherits(DatePicker, _Component);
+	
+	  function DatePicker() {
+	    _classCallCheck(this, DatePicker);
+	
+	    _get(Object.getPrototypeOf(DatePicker.prototype), 'constructor', this).apply(this, arguments);
+	  }
+	
+	  _createClass(DatePicker, [{
+	    key: 'render',
+	    value: function render() {
+	      var _this = this;
+	
+	      var _context$componentStyle = this.context.componentStyle;
+	      var secondaryColor = _context$componentStyle.secondaryColor;
+	      var secondaryFontColor = _context$componentStyle.secondaryFontColor;
+	      var _props = this.props;
+	      var isOpen = _props.isOpen;
+	      var month = _props.month;
+	      var onCancel = _props.onCancel;
+	      var onChange = _props.onChange;
+	      var onNavigate = _props.onNavigate;
+	      var onOk = _props.onOk;
+	      var validDays = _props.validDays;
+	      var pickingValue = _props.pickingValue;
+	      var year = _props.year;
+	
+	      var _screen$getSize = _helpersScreen2['default'].getSize();
+	
+	      var width = _screen$getSize.width;
+	      var height = _screen$getSize.height;
+	
+	      var isPortrait = height > width;
+	      var displayDate = pickingValue ? (0, _moment2['default'])(pickingValue) : (0, _moment2['default'])({ year: year, month: month, day: 1 });
+	
+	      var dateLines = null;
+	      if (!pickingValue) {
+	        dateLines = [displayDate.format('MMM')];
+	      } else if (isPortrait) {
+	        dateLines = [displayDate.format('ddd, MMM D')];
+	      } else {
+	        dateLines = [displayDate.format('ddd,'), displayDate.format('MMM D')];
+	      }
+	
+	      return _react2['default'].createElement(_dialog2['default'], {
+	        isOpen: isOpen,
+	        onOk: pickingValue ? function (e) {
+	          return onOk({ target: { value: _this.props.pickingValue } });
+	        } : null,
+	        okLabel: 'OK',
+	        onCancel: onCancel,
+	        cancelLabel: 'Cancel',
+	        width: isPortrait ? 328 : 496,
+	        height: isPortrait ? 388 : 292,
+	        hideDivider: true,
+	        noPadding: true,
+	        style: { overflow: 'hidden' } }, _react2['default'].createElement('div', {
+	        style: {
+	          width: isPortrait ? '100%' : '168px',
+	          height: isPortrait ? '96px' : '322px',
+	          marginBottom: isPortrait ? 0 : '-56px',
+	          backgroundColor: secondaryColor,
+	          color: secondaryFontColor,
+	          padding: isPortrait ? '16px 24px' : '16px',
+	          position: 'fixed'
+	        } }, _react2['default'].createElement('div', { style: { fontSize: '15px', marginBottom: '2px' } }, displayDate.get('year')), _react2['default'].createElement('div', { style: { fontSize: '36px', fontWeight: 600, lineHeight: '40px' } }, dateLines.map(function (line, index) {
+	        return _react2['default'].createElement('div', { key: index }, line);
+	      }))), _react2['default'].createElement(_calendar2['default'], {
+	        month: month,
+	        onChange: onChange,
+	        onNavigate: onNavigate,
+	        validDays: validDays,
+	        value: pickingValue,
+	        year: year,
+	        style: {
+	          margin: isPortrait ? '104px 24px 0' : '8px 24px 0 192px'
+	        } }));
+	    }
+	  }], [{
+	    key: 'displayName',
+	    value: 'DatePicker',
+	    enumerable: true
+	  }, {
+	    key: 'contextTypes',
+	    value: {
+	      componentStyle: _react2['default'].PropTypes.object
+	    },
+	    enumerable: true
+	  }, {
+	    key: 'propTypes',
+	    value: {
+	      isOpen: _react.PropTypes.bool,
+	      month: _react.PropTypes.number,
+	      onCancel: _react.PropTypes.func,
+	      onChange: _react.PropTypes.func,
+	      onNavigate: _react.PropTypes.func,
+	      onOk: _react.PropTypes.func,
+	      validDays: _react.PropTypes.array,
+	      pickingValue: _react.PropTypes.object,
+	      year: _react.PropTypes.number
+	    },
+	    enumerable: true
+	  }, {
+	    key: 'defaultProps',
+	    value: {
+	      isOpen: false,
+	      month: new Date().getMonth(),
+	      validDays: null,
+	      value: null,
+	      year: new Date().getFullYear()
+	    },
+	    enumerable: true
+	  }]);
+	
+	  return DatePicker;
+	})(_react.Component);
+	
+	exports['default'] = DatePicker;
+	module.exports = exports['default'];
+
+/***/ },
+/* 367 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	var _createClass = (function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ('value' in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	  };
+	})();
+	
+	var _get = function get(_x, _x2, _x3) {
+	  var _again = true;_function: while (_again) {
+	    var object = _x,
+	        property = _x2,
+	        receiver = _x3;_again = false;if (object === null) object = Function.prototype;var desc = Object.getOwnPropertyDescriptor(object, property);if (desc === undefined) {
+	      var parent = Object.getPrototypeOf(object);if (parent === null) {
+	        return undefined;
+	      } else {
+	        _x = parent;_x2 = property;_x3 = receiver;_again = true;desc = parent = undefined;continue _function;
+	      }
+	    } else if ('value' in desc) {
+	      return desc.value;
+	    } else {
+	      var getter = desc.get;if (getter === undefined) {
+	        return undefined;
+	      }return getter.call(receiver);
+	    }
+	  }
+	};
+	
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { 'default': obj };
+	}
+	
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError('Cannot call a class as a function');
+	  }
+	}
+	
+	function _inherits(subClass, superClass) {
+	  if (typeof superClass !== 'function' && superClass !== null) {
+	    throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass);
+	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	}
+	
+	var _react = __webpack_require__(191);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactAddonsCssTransitionGroup = __webpack_require__(368);
 	
 	var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
 	
-	var _mask = __webpack_require__(374);
+	var _mask = __webpack_require__(375);
 	
 	var _mask2 = _interopRequireDefault(_mask);
 	
-	var _divider = __webpack_require__(375);
+	var _divider = __webpack_require__(376);
 	
 	var _divider2 = _interopRequireDefault(_divider);
 	
@@ -31293,7 +31590,7 @@
 	
 	var _button2 = _interopRequireDefault(_button);
 	
-	var _helpersScreen = __webpack_require__(376);
+	var _helpersScreen = __webpack_require__(377);
 	
 	var _helpersScreen2 = _interopRequireDefault(_helpersScreen);
 	
@@ -31341,7 +31638,9 @@
 	      var cancelLabel = _props.cancelLabel;
 	      var children = _props.children;
 	      var height = _props.height;
+	      var hideDivider = _props.hideDivider;
 	      var isOpen = _props.isOpen;
+	      var noPadding = _props.noPadding;
 	      var okLabel = _props.okLabel;
 	      var onCancel = _props.onCancel;
 	      var onOk = _props.onOk;
@@ -31363,7 +31662,7 @@
 	        footer = _react2['default'].createElement('div', { style: {
 	            height: '56px',
 	            textAlign: 'right'
-	          } }, _react2['default'].createElement(_divider2['default'], { style: { margin: 0 } }), button(cancelLabel, onCancel), button(okLabel, onOk));
+	          } }, hideDivider ? null : _react2['default'].createElement(_divider2['default'], { style: { margin: 0 } }), button(cancelLabel, onCancel), button(okLabel, onOk));
 	        maxContentHeight -= 56;
 	      }
 	
@@ -31386,7 +31685,7 @@
 	          left: left + 'px',
 	          width: maxWidth + 'px',
 	          maxHeight: maxHeight + 'px'
-	        }, style) }, _react2['default'].createElement('div', { style: { padding: '24px' } }, titleElement, _react2['default'].createElement('div', {
+	        }, style) }, _react2['default'].createElement('div', { style: { padding: noPadding ? 0 : '24px' } }, titleElement, _react2['default'].createElement('div', {
 	        style: {
 	          maxHeight: maxContentHeight + 'px',
 	          overflow: 'scroll',
@@ -31410,7 +31709,9 @@
 	      cancelLabel: _react.PropTypes.string,
 	      children: _react.PropTypes.node,
 	      height: _react.PropTypes.number,
+	      hideDivider: _react.PropTypes.bool,
 	      isOpen: _react.PropTypes.bool,
+	      noPadding: _react.PropTypes.bool,
 	      okLabel: _react.PropTypes.string,
 	      onCancel: _react.PropTypes.func,
 	      onOk: _react.PropTypes.func,
@@ -31423,7 +31724,9 @@
 	    key: 'defaultProps',
 	    value: {
 	      height: 130,
+	      hideDivider: false,
 	      isOpen: false,
+	      noPadding: false,
 	      style: {},
 	      width: 280
 	    },
@@ -31437,13 +31740,13 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 367 */
+/* 368 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(368);
+	module.exports = __webpack_require__(369);
 
 /***/ },
-/* 368 */
+/* 369 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -31464,8 +31767,8 @@
 	
 	var assign = __webpack_require__(228);
 	
-	var ReactTransitionGroup = __webpack_require__(369);
-	var ReactCSSTransitionGroupChild = __webpack_require__(371);
+	var ReactTransitionGroup = __webpack_require__(370);
+	var ReactCSSTransitionGroupChild = __webpack_require__(372);
 	
 	function createTransitionTimeoutPropValidator(transitionType) {
 	  var timeoutPropName = 'transition' + transitionType + 'Timeout';
@@ -31531,7 +31834,7 @@
 	module.exports = ReactCSSTransitionGroup;
 
 /***/ },
-/* 369 */
+/* 370 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -31548,7 +31851,7 @@
 	'use strict';
 	
 	var React = __webpack_require__(192);
-	var ReactTransitionChildMapping = __webpack_require__(370);
+	var ReactTransitionChildMapping = __webpack_require__(371);
 	
 	var assign = __webpack_require__(228);
 	var emptyFunction = __webpack_require__(204);
@@ -31741,7 +32044,7 @@
 	module.exports = ReactTransitionGroup;
 
 /***/ },
-/* 370 */
+/* 371 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -31844,7 +32147,7 @@
 	module.exports = ReactTransitionChildMapping;
 
 /***/ },
-/* 371 */
+/* 372 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -31864,8 +32167,8 @@
 	var React = __webpack_require__(192);
 	var ReactDOM = __webpack_require__(193);
 	
-	var CSSCore = __webpack_require__(372);
-	var ReactTransitionEvents = __webpack_require__(373);
+	var CSSCore = __webpack_require__(373);
+	var ReactTransitionEvents = __webpack_require__(374);
 	
 	var onlyChild = __webpack_require__(345);
 	
@@ -32009,7 +32312,7 @@
 	module.exports = ReactCSSTransitionGroupChild;
 
 /***/ },
-/* 372 */
+/* 373 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -32112,7 +32415,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(190)))
 
 /***/ },
-/* 373 */
+/* 374 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -32226,7 +32529,7 @@
 	module.exports = ReactTransitionEvents;
 
 /***/ },
-/* 374 */
+/* 375 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32275,7 +32578,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 375 */
+/* 376 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32309,7 +32612,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 376 */
+/* 377 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -32328,7 +32631,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 377 */
+/* 378 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32370,7 +32673,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 378 */
+/* 379 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32541,7 +32844,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 379 */
+/* 380 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32604,23 +32907,23 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _reactAddonsCssTransitionGroup = __webpack_require__(367);
+	var _reactAddonsCssTransitionGroup = __webpack_require__(368);
 	
 	var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
 	
-	var _mask = __webpack_require__(374);
+	var _mask = __webpack_require__(375);
 	
 	var _mask2 = _interopRequireDefault(_mask);
 	
-	var _item = __webpack_require__(380);
+	var _item = __webpack_require__(381);
 	
 	var _item2 = _interopRequireDefault(_item);
 	
-	var _seperator = __webpack_require__(381);
+	var _seperator = __webpack_require__(382);
 	
 	var _seperator2 = _interopRequireDefault(_seperator);
 	
-	var _helpersScreen = __webpack_require__(376);
+	var _helpersScreen = __webpack_require__(377);
 	
 	var _helpersScreen2 = _interopRequireDefault(_helpersScreen);
 	
@@ -32786,7 +33089,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 380 */
+/* 381 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32962,7 +33265,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 381 */
+/* 382 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32980,7 +33283,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _divider = __webpack_require__(375);
+	var _divider = __webpack_require__(376);
 	
 	var _divider2 = _interopRequireDefault(_divider);
 	
@@ -32999,7 +33302,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 382 */
+/* 383 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -33026,7 +33329,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 383 */
+/* 384 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33089,11 +33392,11 @@
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _input = __webpack_require__(378);
+	var _input = __webpack_require__(379);
 	
 	var _input2 = _interopRequireDefault(_input);
 	
-	var _menu = __webpack_require__(379);
+	var _menu = __webpack_require__(380);
 	
 	var _menu2 = _interopRequireDefault(_menu);
 	
@@ -33214,7 +33517,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 384 */
+/* 385 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33273,23 +33576,23 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactAddonsCssTransitionGroup = __webpack_require__(367);
+	var _reactAddonsCssTransitionGroup = __webpack_require__(368);
 	
 	var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
 	
-	var _mask = __webpack_require__(374);
+	var _mask = __webpack_require__(375);
 	
 	var _mask2 = _interopRequireDefault(_mask);
 	
-	var _item = __webpack_require__(385);
+	var _item = __webpack_require__(386);
 	
 	var _item2 = _interopRequireDefault(_item);
 	
-	var _title = __webpack_require__(386);
+	var _title = __webpack_require__(387);
 	
 	var _title2 = _interopRequireDefault(_title);
 	
-	var _menuSeperator = __webpack_require__(381);
+	var _menuSeperator = __webpack_require__(382);
 	
 	var _menuSeperator2 = _interopRequireDefault(_menuSeperator);
 	
@@ -33396,7 +33699,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 385 */
+/* 386 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33455,7 +33758,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _menuItem = __webpack_require__(380);
+	var _menuItem = __webpack_require__(381);
 	
 	var _menuItem2 = _interopRequireDefault(_menuItem);
 	
@@ -33528,7 +33831,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 386 */
+/* 387 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33669,7 +33972,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 387 */
+/* 388 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33728,7 +34031,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactAddonsCssTransitionGroup = __webpack_require__(367);
+	var _reactAddonsCssTransitionGroup = __webpack_require__(368);
 	
 	var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
 	
@@ -33840,7 +34143,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 388 */
+/* 389 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33861,11 +34164,11 @@
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _toolbar = __webpack_require__(389);
+	var _toolbar = __webpack_require__(390);
 	
 	var _toolbar2 = _interopRequireDefault(_toolbar);
 	
-	var _row = __webpack_require__(390);
+	var _row = __webpack_require__(391);
 	
 	var _row2 = _interopRequireDefault(_row);
 	
@@ -33891,7 +34194,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 389 */
+/* 390 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -33927,7 +34230,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 390 */
+/* 391 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33968,7 +34271,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 391 */
+/* 392 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -34107,7 +34410,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 392 */
+/* 393 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -34170,16 +34473,16 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 393 */
+/* 394 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(394);
+	var content = __webpack_require__(395);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(396)(content, {});
+	var update = __webpack_require__(397)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -34196,10 +34499,10 @@
 	}
 
 /***/ },
-/* 394 */
+/* 395 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(395)();
+	exports = module.exports = __webpack_require__(396)();
 	// imports
 	
 	
@@ -34210,7 +34513,7 @@
 
 
 /***/ },
-/* 395 */
+/* 396 */
 /***/ function(module, exports) {
 
 	/*
@@ -34266,7 +34569,7 @@
 
 
 /***/ },
-/* 396 */
+/* 397 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -34520,16 +34823,16 @@
 
 
 /***/ },
-/* 397 */
+/* 398 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(398);
+	var content = __webpack_require__(399);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(396)(content, {});
+	var update = __webpack_require__(397)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -34546,10 +34849,10 @@
 	}
 
 /***/ },
-/* 398 */
+/* 399 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(395)();
+	exports = module.exports = __webpack_require__(396)();
 	// imports
 	
 	

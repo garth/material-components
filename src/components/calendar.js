@@ -1,4 +1,6 @@
 import React, { Component, PropTypes } from 'react';
+import ReactDOM from 'react-dom';
+import Waves from './helpers/waves';
 import moment from 'moment';
 
 export default class Calendar extends Component {
@@ -11,27 +13,32 @@ export default class Calendar extends Component {
 
   static propTypes = {
     className: PropTypes.string,
-    locale: PropTypes.string,
     month: PropTypes.number,
-    onNavigate: PropTypes.func,
     onChange: PropTypes.func,
-    value: PropTypes.any,
+    onNavigate: PropTypes.func,
     style: PropTypes.object,
     titleFormat: PropTypes.string,
     validDays: PropTypes.array,
+    value: PropTypes.any,
     year: PropTypes.number
   };
 
   static defaultProps = {
     className: '',
-    locale: 'en',
     month: (new Date()).getMonth(),
-    value: null,
     style: {},
     titleFormat: 'MMMM YYYY',
     validDays: null,
+    value: null,
     year: (new Date()).getFullYear()
   };
+
+  componentDidMount() {
+    if (this.props.onNavigate) {
+      Waves.attach(ReactDOM.findDOMNode(this.refs.previous));
+      Waves.attach(ReactDOM.findDOMNode(this.refs.next));
+    }
+  }
 
   onChange(day, validDay) {
     const {
@@ -52,7 +59,6 @@ export default class Calendar extends Component {
     } = this.context.componentStyle;
     const {
       className,
-      locale,
       month,
       onNavigate,
       onChange,
@@ -67,7 +73,7 @@ export default class Calendar extends Component {
     const previousMonth = date.clone().subtract(1, 'months');
     const nextMonth = date.clone().add(1, 'months');
 
-    const localeData = moment.localeData(locale);
+    const localeData = moment.localeData();
     const firstDayOfWeek = localeData.firstDayOfWeek();
     let weekdays = moment.weekdaysShort().map(day => day[0]);
     if (firstDayOfWeek > 0) {
@@ -114,36 +120,42 @@ export default class Calendar extends Component {
 
     let navigation = onNavigate ? [(
       <div
-        key="back"
+        key="previous"
+        ref="previous"
+        className="waves-circle"
         style={{
           float: 'left',
-          paddingTop: '3px',
           cursor: 'pointer',
-          marginBottom: '-10px'
+          height: '48px',
+          width: '48px',
+          marginLeft: '-5px'
         }}
         onTouchTap={() => onNavigate({ target: { value: {
           year: previousMonth.get('year'),
           month: previousMonth.get('month')
         }}})}>
-        <svg fill={typographyColor} height="24" viewBox="0 0 24 24" width="24">
+        <svg fill={typographyColor} height="24" viewBox="0 0 24 24" width="24" style={{margin: '12px 9px 6px 9px'}}>
           <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
           <path d="M0 0h24v24H0z" fill="none"/>
         </svg>
       </div>
     ), (
       <div
-        key="forward"
+        key="next"
+        ref="next"
+        className="waves-circle"
         style={{
           float: 'right',
-          paddingTop: '3px',
           cursor: 'pointer',
-          marginBottom: '-10px'
+          height: '48px',
+          width: '48px',
+          marginRight: '-5px'
         }}
         onTouchTap={() => onNavigate({ target: { value: {
           year: nextMonth.get('year'),
           month: nextMonth.get('month')
         }}})}>
-        <svg fill={typographyColor} height="24" viewBox="0 0 24 24" width="24">
+        <svg fill={typographyColor} height="24" viewBox="0 0 24 24" width="24" style={{margin: '12px 9px 6px 9px'}}>
           <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
           <path d="M0 0h24v24H0z" fill="none"/>
         </svg>
@@ -174,7 +186,8 @@ export default class Calendar extends Component {
             style={{
               color: '#3e3e3e',
               textAlign: 'center',
-              fontSize: '14px'
+              fontSize: '14px',
+              lineHeight: '48px'
             }}>
             {date.format(titleFormat)}
           </div>

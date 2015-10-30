@@ -54,10 +54,17 @@ export default class Button extends Component {
       textAlign: 'center',
       minWidth: '64px',
       textTransform: 'uppercase',
-      cursor: 'pointer'
+      cursor: onTouchTap ? 'pointer' : 'inherit'
     };
 
-    if (primary) {
+    if (!onTouchTap) {
+      if (flat) {
+        style.color = 'rgba(0, 0, 0, 0.26)';
+      } else {
+        style.color = 'rgba(0, 0, 0, 0.26)';
+        style.backgroundColor = 'rgba(0, 0, 0, 0.12)';
+      }
+    } else if (primary) {
       if (flat) {
         style.color = secondaryColor;
       } else {
@@ -73,10 +80,11 @@ export default class Button extends Component {
         style={Object.assign(style, styleOverrides)}
         className={classNames(
           'waves-button', {
-            'waves-float': !flat,
+            'waves-float': !flat && onTouchTap,
             'waves-light': primary && !flat
           }
-        )}>
+        )}
+        disabled={!onTouchTap}>
         {children}
       </button>
     );
