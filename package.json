@@ -1,6 +1,6 @@
 {
   "name": "material-components",
-  "version": "0.0.40",
+  "version": "0.0.41",
   "description": "Stateless UI components for react that follow material design",
   "main": "lib/index.js",
   "scripts": {
@@ -44,8 +44,8 @@
     "node-waves": "^0.7.4"
   },
   "devDependencies": {
-    "babel": "^6.0.2",
-    "babel-core": "^6.0.2",
+    "babel": "^5.8.29",
+    "babel-core": "^5.8.29",
     "babel-eslint": "^4.1.1",
     "babel-loader": "^5.3.3",
     "bootstrap-sass": "^3.3.5",
@@ -53,7 +53,7 @@
     "css-loader": "^0.21.0",
     "eslint": "^1.7.3",
     "eslint-plugin-react": "^3.6.3",
-    "mocha": "^2.3.2",
+    "mocha": "^2.3.3",
     "node-sass": "^3.4.1",
     "normalize.css": "^3.0.3",
     "parallelshell": "^2.0.0",
@@ -65,9 +65,9 @@
   "peerDependencies": {
     "classnames": "^2.2.0",
     "moment": "^2.10.6",
-    "react": "^0.14.0",
-    "react-addons-css-transition-group": "^0.14.0",
-    "react-dom": "^0.14.0",
+    "react": "^0.14.1",
+    "react-addons-css-transition-group": "^0.14.1",
+    "react-dom": "^0.14.1",
     "react-tap-event-plugin": "^0.2.1"
   }
 }
