@@ -10,6 +10,8 @@ material-components is a library of [React](https://facebook.github.io/react/) (
 
 Unlike some other React based component libraries, material-components are completely stateless making them an ideal companion to libraries such as [Cerebral](http://christianalfoni.com/cerebral/) or [Redux](http://rackt.github.io/redux/). But they can also be used with other flux based frameworks or even without a framework at all.
 
+The development of material-components has been sponsored by [Elastic Time](http://www.elastictime.com/).
+
 Demo & Code Examples
 --------------------
 

@@ -329,6 +329,17 @@
 	                'GitHub Repository'
 	              ),
 	              '.'
+	            ),
+	            _react2['default'].createElement(
+	              'p',
+	              null,
+	              'The development of material-components has been sponsored by ',
+	              _react2['default'].createElement(
+	                'a',
+	                { href: 'http://www.elastictime.com/' },
+	                'Elastic Time'
+	              ),
+	              '.'
 	            )
 	          ),
 	          _react2['default'].createElement(
