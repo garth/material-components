@@ -152,6 +152,10 @@ class Application extends Component {
               For source code, installation and configuration info please see
               the <a href="https://github.com/garth/material-components">GitHub Repository</a>.
             </p>
+            <p>
+              The development of material-components has been sponsored
+              by <a href="http://www.elastictime.com/">Elastic Time</a>.
+            </p>
           </section>
 
           <section>
