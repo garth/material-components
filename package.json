@@ -42,6 +42,7 @@
   },
   "homepage": "https://github.com/garth/material-components#readme",
   "dependencies": {
+    "exenv": "^1.2.0",
     "node-waves": "^0.7.4"
   },
   "devDependencies": {
