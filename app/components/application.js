@@ -1,54 +1,17 @@
-import 'babel/polyfill';
 import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
-
-// load the css
-require('normalize.css/normalize.css');
-require('../lib/index.css');
-
-// support tap events
-import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin();
 
 // import the material-components
 import {
   Appbar, Button, Checkbox, Col, DatePicker, Dialog, Divider, Input, Row,
   Typ, Menu, Select, Sidenav, Spinner, Table, events, Calendar
-} from '../lib';
+} from '../../lib';
 
-// component to render code examples
-function Example({ code }) {
-  return (
-    <div style={{ padding: '8px 0' }}>
-      <pre className="prettyprint lang-js linenums" style={{
-        fontFamily: 'Ubuntu Mono',
-        padding: '8px 0',
-        margin: '0',
-        borderRadius: '0',
-        width: '100%'
-      }}>
-        {code.trim()}
-      </pre>
-    </div>
-  )
-}
-
-// icon components
-function FaIcon({ name }) {
-  return (
-    <i className={`fa fa-${name}`}/>
-  );
-}
-function Icon({name}) {
-  return (
-    <i className="material-icons md-36" style={{
-      lineHeight: 'inherit'
-    }}>{name}</i>
-  );
-}
+import Example from './example';
+import FaIcon from './faicon';
+import Icon from './icon';
 
 // the demo app
-class Application extends Component {
+export default class Application extends Component {
 
   static displayName = 'Application';
 
@@ -85,7 +48,7 @@ class Application extends Component {
     pickedCalendar: {
       year: 2015,
       month: 10
-    },
+    }
   }
 
   componentWillMount() {
@@ -886,6 +849,3 @@ events.responsive.addListener(screen => store.set('screen', screen));
     );
   }
 }
-
-// render the app
-ReactDOM.render(<Application/>, document.getElementById('root'));

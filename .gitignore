@@ -1,4 +1,4 @@
 *.log
 node_modules
-demo/main.bundle.js.map
+build/main.js.map
 lib
