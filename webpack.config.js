@@ -1,13 +1,13 @@
 var path = require('path');
-var ContextReplacementPlugin = require("webpack/lib/ContextReplacementPlugin");
+var ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
 
 module.exports = {
   context: __dirname,
   devtool: 'source-map',
-  entry: './main.js',
+  entry: './app/main.js',
   output: {
     path: __dirname,
-    filename: 'main.bundle.js'
+    filename: 'build/main.js'
   },
   module: {
     loaders: [{

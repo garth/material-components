@@ -4,10 +4,10 @@
   "description": "Stateless UI components for react that follow material design",
   "main": "lib/index.js",
   "scripts": {
-    "lint": "eslint src test",
-    "dev": "parallelshell 'babel src --watch --out-dir lib' 'watch --wait=1 \"eslint src test && mocha --compilers js:babel/register --recursive --reporter dot\" src test' 'node-sass --watch src/index.scss lib/index.css' 'webpack --watch --config demo/webpack.config.js'",
-    "prebuild": "npm run lint && rimraf lib",
-    "build": "babel src --out-dir lib && node-sass src/index.scss lib/index.css && webpack --config demo/webpack.config.js",
+    "lint": "eslint src app test",
+    "dev": "parallelshell 'babel src --watch --out-dir lib' 'watch --wait=1 \"eslint src app test && mocha --compilers js:babel/register --recursive --reporter dot\" src app test' 'node-sass --watch src/index.scss lib/index.css' 'webpack-dev-server'",
+    "prebuild": "npm run lint && rimraf lib && rimraf build",
+    "build": "babel src --out-dir lib && node-sass src/index.scss lib/index.css && webpack --config webpack.config.js",
     "pretest": "npm run lint",
     "test": "mocha --compilers js:babel/register --recursive"
   },
@@ -50,7 +50,12 @@
     "babel-core": "^5.8.29",
     "babel-eslint": "^4.1.4",
     "babel-loader": "^5.3.3",
+    "baobab": "^2.1.0",
     "bootstrap-sass": "^3.3.5",
+    "cerebral": "^0.21.0",
+    "cerebral-baobab": "^0.3.1",
+    "cerebral-react": "^0.5.0",
+    "cerebral-router": "^0.6.1",
     "chai": "^3.4.0",
     "css-loader": "^0.22.0",
     "eslint": "^1.7.3",
@@ -59,10 +64,12 @@
     "node-sass": "^3.4.1",
     "normalize.css": "^3.0.3",
     "parallelshell": "^2.0.0",
+    "path-to-regexp": "^1.2.1",
     "rimraf": "^2.4.3",
     "style-loader": "^0.13.0",
     "watch": "^0.16.0",
-    "webpack": "^1.12.3"
+    "webpack": "^1.12.3",
+    "webpack-dev-server": "^1.12.1"
   },
   "peerDependencies": {
     "classnames": "^2.2.0",
