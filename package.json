@@ -48,13 +48,13 @@
   "devDependencies": {
     "babel": "^5.8.29",
     "babel-core": "^5.8.29",
-    "babel-eslint": "^4.1.1",
+    "babel-eslint": "^4.1.4",
     "babel-loader": "^5.3.3",
     "bootstrap-sass": "^3.3.5",
     "chai": "^3.4.0",
-    "css-loader": "^0.21.0",
+    "css-loader": "^0.22.0",
     "eslint": "^1.7.3",
-    "eslint-plugin-react": "^3.6.3",
+    "eslint-plugin-react": "^3.7.1",
     "mocha": "^2.3.3",
     "node-sass": "^3.4.1",
     "normalize.css": "^3.0.3",
@@ -62,7 +62,7 @@
     "rimraf": "^2.4.3",
     "style-loader": "^0.13.0",
     "watch": "^0.16.0",
-    "webpack": "^1.12.2"
+    "webpack": "^1.12.3"
   },
   "peerDependencies": {
     "classnames": "^2.2.0",

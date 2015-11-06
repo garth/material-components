@@ -5,22 +5,6 @@ import Divider from './divider';
 import Button from './button';
 import screen from './helpers/screen';
 
-function button(label, onTouchTap) {
-  if (!label) { return null; }
-  return (
-    <Button
-      style={{
-        margin: '8px 8px 8px 0',
-        padding: '0 8px'
-      }}
-      primary={true}
-      flat={true}
-      onTouchTap={onTouchTap}>
-      {label}
-    </Button>
-  );
-}
-
 export default class Dialog extends Component {
 
   static displayName = 'Dialog';
@@ -55,6 +39,22 @@ export default class Dialog extends Component {
 
   componentWillUnmount() {
     window.removeEventListener('resize', this._resize);
+  }
+
+  button(label, onTouchTap) {
+    if (!label) { return null; }
+    return (
+      <Button
+        style={{
+          margin: '8px 8px 8px 0',
+          padding: '0 8px'
+        }}
+        primary={true}
+        flat={true}
+        onTouchTap={onTouchTap}>
+        {label}
+      </Button>
+    );
   }
 
   render() {
@@ -92,8 +92,8 @@ export default class Dialog extends Component {
           {hideDivider ? null : (
             <Divider style={{ margin: 0 }}/>
           )}
-          {button(cancelLabel, onCancel)}
-          {button(okLabel, onOk)}
+          {this.button(cancelLabel, onCancel)}
+          {this.button(okLabel, onOk)}
         </div>
       );
       maxContentHeight -= 56;
