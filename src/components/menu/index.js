@@ -48,8 +48,8 @@ class Menu extends Component {
       const originalHeight = bottom - top;
       const minHeight = (32 * 8) + 20;
 
-      let offsetTop = top < 16 ? Math.ceil((top - 16) / -32) * 32 : 0;
-      let offsetBottom = bottom > screenHeight - 16 ? Math.ceil((bottom - screenHeight + 16) / 32) * 32 : 0;
+      let offsetTop = top < 6 ? Math.ceil((top - 16) / -32) * 32 : 0;
+      let offsetBottom = bottom > screenHeight - 6 ? Math.ceil((bottom - screenHeight + 16) / 32) * 32 : 0;
       let height = bottom - top - offsetTop - offsetBottom;
       if (height < minHeight) {
         height = minHeight > originalHeight ? originalHeight : minHeight;
