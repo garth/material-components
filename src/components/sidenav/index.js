@@ -74,6 +74,7 @@ class Sidenav extends Component {
                 position: 'fixed',
                 top: 0,
                 bottom: 0,
+                overflow: 'auto',
                 width: '280px',
                 zIndex: 1001
               }, style)}>
