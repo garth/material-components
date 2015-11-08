@@ -62,9 +62,39 @@
 	
 	__webpack_require__(215);
 	
+	__webpack_require__(241);
+	
+	__webpack_require__(242);
+	
+	__webpack_require__(243);
+	
+	__webpack_require__(244);
+	
+	__webpack_require__(245);
+	
+	__webpack_require__(246);
+	
+	__webpack_require__(247);
+	
+	__webpack_require__(249);
+	
+	__webpack_require__(251);
+	
+	__webpack_require__(252);
+	
+	__webpack_require__(253);
+	
+	// hookup the screen event to the signal
+	
+	var _controller = __webpack_require__(216);
+	
+	var _controller2 = _interopRequireDefault(_controller);
+	
+	var _lib = __webpack_require__(254);
+	
 	// start the router
 	
-	var _router = __webpack_require__(241);
+	var _router = __webpack_require__(436);
 	
 	var _router2 = _interopRequireDefault(_router);
 	
@@ -74,23 +104,22 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(394);
+	var _reactDom = __webpack_require__(395);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _cerebralReact = __webpack_require__(395);
+	var _cerebralReact = __webpack_require__(450);
 	
-	var _controller = __webpack_require__(216);
-	
-	var _controller2 = _interopRequireDefault(_controller);
-	
-	var _componentsApplicationJs = __webpack_require__(403);
+	var _componentsApplicationJs = __webpack_require__(458);
 	
 	var _componentsApplicationJs2 = _interopRequireDefault(_componentsApplicationJs);
 	
-	__webpack_require__(449);
-	__webpack_require__(453);
+	__webpack_require__(488);
+	__webpack_require__(490);
 	(0, _reactTapEventPlugin2['default'])();
+	_lib.events.responsive.addListener(function (screen) {
+	  return _controller2['default'].signals.screenChanged({ screen: screen });
+	});
 	_router2['default'].trigger();
 	
 	_reactDom2['default'].render(_react2['default'].createElement(_cerebralReact.Container, { controller: _controller2['default'], app: _componentsApplicationJs2['default'] }), document.getElementById('root'));
@@ -7796,13 +7825,11 @@
 	
 	var _controller2 = _interopRequireDefault(_controller);
 	
-	var _actionsRoute = __webpack_require__(240);
+	var _actionsBasic = __webpack_require__(240);
 	
-	// public routes
+	_controller2['default'].signal('calendarChanged', [(0, _actionsBasic.setInputValue)(['demos', 'calendar', 'selectedDate'])]);
 	
-	_controller2['default'].signal('homeOpened', [(0, _actionsRoute.setRoute)('home')]);
-	
-	_controller2['default'].signal('notFoundOpened', [(0, _actionsRoute.setRoute)('notFound')]);
+	_controller2['default'].signal('calendarNavigate', [(0, _actionsBasic.setInputValue)(['demos', 'calendar', 'calendar'])]);
 
 /***/ },
 /* 216 */
@@ -7825,13 +7852,61 @@
 	var _cerebralBaobab2 = _interopRequireDefault(_cerebralBaobab);
 	
 	exports['default'] = (0, _cerebral2['default'])((0, _cerebralBaobab2['default'])({
+	
+	  screen: {},
+	  sidenavOpen: false,
+	  showMoreMenu: false,
+	
+	  demos: {
+	    input: {
+	      email: '',
+	      password: ''
+	    },
+	    select: {
+	      selectOpen: false,
+	      selectSuccessOpen: false,
+	      selectErrorOpen: false,
+	      selected: null,
+	      largeSelectOpen: false,
+	      largeSelectedValue: 0
+	    },
+	    checkbox: {
+	      checked: false
+	    },
+	    dialog: {
+	      showDialog: false
+	    },
+	    menu: {
+	      showSimpleMenu: false,
+	      showMenu: false,
+	      selectedOption: 1
+	    },
+	    spinner: {
+	      isLoading: false
+	    },
+	    calendar: {
+	      calendar: {
+	        year: 2015,
+	        month: 10
+	      },
+	      selectedDate: new Date(2015, 10, 20)
+	    },
+	    datePicker: {
+	      showDatePicker: false,
+	      pickedDate: null,
+	      pickingDate: null,
+	      pickedCalendar: {
+	        year: 2015,
+	        month: 10
+	      }
+	    }
+	  },
+	
 	  // routing
 	  route: {
 	    url: '/',
-	    path: '/',
-	    params: {},
-	    query: {},
-	    page: 'home'
+	    page: 'home',
+	    title: ''
 	  }
 	}));
 	module.exports = exports['default'];
@@ -13225,24 +13300,27 @@
 /* 240 */
 /***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 	
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports['default'] = {
+	exports["default"] = {
 	
-	  setRoute: function setRoute(page) {
-	    return function setRoute(input, state) {
-	      state.set(['route', 'page'], page);
-	      state.set(['route', 'path'], input.path);
-	      state.set(['route', 'params'], input.params);
-	      state.set(['route', 'query'], input.query);
+	  set: function set(statePath, value) {
+	    return function set(input, state) {
+	      state.set(statePath, value);
+	    };
+	  },
+	
+	  setInputValue: function setInputValue(statePath) {
+	    return function setInputValue(input, state) {
+	      state.set(statePath, input.value);
 	    };
 	  }
 	
 	};
-	module.exports = exports['default'];
+	module.exports = exports["default"];
 
 /***/ },
 /* 241 */
@@ -13250,28 +13328,15 @@
 
 	'use strict';
 	
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
-	var _cerebralRouter = __webpack_require__(242);
-	
-	var _cerebralRouter2 = _interopRequireDefault(_cerebralRouter);
 	
 	var _controller = __webpack_require__(216);
 	
 	var _controller2 = _interopRequireDefault(_controller);
 	
-	exports['default'] = (0, _cerebralRouter2['default'])(_controller2['default'], {
-	  '/': 'homeOpened',
-	  '*': 'notFoundOpened'
-	}, {
-	  onlyHash: true,
-	  urlStorePath: ['route', 'url']
-	});
-	module.exports = exports['default'];
+	var _actionsBasic = __webpack_require__(240);
+	
+	_controller2['default'].signal('checkboxChanged', [(0, _actionsBasic.setInputValue)(['demos', 'checkbox', 'checked'])]);
 
 /***/ },
 /* 242 */
@@ -13279,4478 +13344,437 @@
 
 	'use strict';
 	
-	var urlMapper = __webpack_require__(243);
-	var addressbar = __webpack_require__(250);
-	var pathToRegexp = __webpack_require__(248);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var wrappedRoutes = null;
+	var _controller = __webpack_require__(216);
 	
-	function router(controller, routes, options) {
+	var _controller2 = _interopRequireDefault(_controller);
 	
-	  options = options || {};
+	var _actionsBasic = __webpack_require__(240);
 	
-	  if (!routes) {
-	    throw new Error('Cerebral router - Routes configuration wasn\'t provided.');
-	  }
+	_controller2['default'].signal('datePickerOpened', [(0, _actionsBasic.setInputValue)(['demos', 'datePicker', 'pickingDate']), (0, _actionsBasic.set)(['demos', 'datePicker', 'showDatePicker'], true)]);
 	
-	  if (!options.baseUrl && options.onlyHash) {
-	    // autodetect baseUrl
-	    options.baseUrl = addressbar.pathname;
-	  }
-	  options.baseUrl = (options.baseUrl || '') + (options.onlyHash ? '#' : '');
+	_controller2['default'].signal('datePickerChanged', [(0, _actionsBasic.setInputValue)(['demos', 'datePicker', 'pickingDate'])]);
 	
-	  var urlStorePath = options.urlStorePath || 'url';
+	_controller2['default'].signal('datePickerNavigate', [(0, _actionsBasic.setInputValue)(['demos', 'datePicker', 'pickedCalendar'])]);
 	
-	  // action to inject
-	  function setUrl(input, state, output) {
-	    state.set(urlStorePath, input.route.url);
-	  }
+	_controller2['default'].signal('datePickerSelected', [(0, _actionsBasic.setInputValue)(['demos', 'datePicker', 'pickedDate']), (0, _actionsBasic.set)(['demos', 'datePicker', 'showDatePicker'], false)]);
 	
-	  // Create url based on direct signal input
-	  function getUrl(route, input) {
-	    return pathToRegexp.compile(route)(input);
-	  }
-	
-	  wrappedRoutes = Object.keys(routes).reduce(function (wrappedRoutes, route) {
-	
-	    var signalPath = routes[route].split('.');
-	    var signalParent = controller.signals;
-	    var signal;
-	    while (signalPath.length - 1) {
-	      signalParent = signalParent[signalPath.shift()];
-	    }
-	    signal = signalParent[signalPath];
-	    if (!signal) {
-	      throw new Error('Cerebral router - The signal "' + routes[route] + '" for the route "' + route + '" does not exist.');
-	    }
-	
-	    if (typeof signal.getUrl === "function") {
-	      throw new Error('Cerebral router - The signal "' + routes[route] + '" has already been bound to route. Create a new signal and reuse actions instead if needed.');
-	    } else {
-	      signal.chain = [setUrl].concat(signal.chain);
-	    }
-	
-	    function wrappedSignal() {
-	
-	      var hasSync = arguments[0] === true;
-	      var input = hasSync ? arguments[1] || {} : arguments[0] || {};
-	
-	      if (!input.route) {
-	        input.route = {
-	          url: getUrl(route, input)
-	        };
-	      } else {
-	        // If called from a url change, add params to input
-	        var params = pathToRegexp(route).keys;
-	
-	        input = params.reduce(function (input, param) {
-	          input[param.name] = input.route.params[param.name];
-	          return input;
-	        }, input);
-	      }
-	
-	      // Should always run sync
-	      signal.apply(null, hasSync ? [arguments[0], input, arguments[2]] : [true, input, arguments[1]]);
-	    }
-	
-	    // callback for urlMapper
-	    wrappedRoutes[route] = function (payload) {
-	      wrappedSignal({ route: payload });
-	    };
-	
-	    signalParent[signalPath[0]] = wrappedSignal;
-	
-	    wrappedSignal.sync = function (payload) {
-	      wrappedSignal(true, payload);
-	    };
-	
-	    wrappedSignal.getUrl = function (payload) {
-	      var url = getUrl(route, payload);
-	      return options.baseUrl + url;
-	    };
-	
-	    return wrappedRoutes;
-	  }, {});
-	
-	  function onAddressbarChange(event) {
-	
-	    var matchedRoute;
-	    var url = event.target.value.replace(addressbar.origin, '');
-	
-	    if (options.onlyHash && ! ~url.indexOf('#')) {
-	      // treat hash absense as root route
-	      url = url + '#/';
-	    }
-	
-	    if (controller.store.isRemembering()) {
-	      return;
-	    }
-	
-	    // check if url should be routed
-	    if (url.indexOf(options.baseUrl) === 0) {
-	      event.preventDefault();
-	      matchedRoute = urlMapper(url.replace(options.baseUrl, ''), wrappedRoutes);
-	
-	      if (!matchedRoute) {
-	        console.warn('Cerebral router - No route matched "' + url + '" url, navigation was prevented. ' + 'Please verify url or catch unmatched routes with a "/*" route.');
-	      }
-	    }
-	  }
-	
-	  function onControllerChange() {
-	
-	    var url = controller.get(urlStorePath);
-	    if (url) addressbar.value = options.baseUrl + url;
-	  }
-	
-	  addressbar.on('change', onAddressbarChange);
-	  controller.on('change', onControllerChange);
-	
-	  return controller.services.router = {
-	    trigger: function trigger() {
-	
-	      // If developing, remember signals before
-	      // route trigger
-	      if (controller.store.getSignals().length) {
-	        controller.store.rememberInitial(controller.store.getSignals().length - 1);
-	      }
-	
-	      onAddressbarChange({
-	        preventDefault: function preventDefault() {},
-	        target: { value: addressbar.value }
-	      });
-	    },
-	
-	    detach: function detach() {
-	      addressbar.removeListener('change', onAddressbarChange);
-	      controller.removeListener('change', onControllerChange);
-	    },
-	
-	    redirect: function redirect(url, params) {
-	
-	      params = params || {};
-	      params.replace = typeof params.replace === "undefined" ? true : params.replace;
-	
-	      addressbar.value = {
-	        value: options.baseUrl + url,
-	        replace: params.replace
-	      };
-	
-	      urlMapper(url, wrappedRoutes);
-	    }
-	  };
-	}
-	
-	router.redirect = function (url, params) {
-	
-	  function action(input, state, output, services) {
-	    return services.router.redirect(url, params);
-	  }
-	
-	  action.displayName = 'redirect(' + url + ')';
-	
-	  return action;
-	};
-	
-	module.exports = router;
+	_controller2['default'].signal('datePickerCanceled', [(0, _actionsBasic.set)(['demos', 'datePicker', 'pickedDate'], null), (0, _actionsBasic.set)(['demos', 'datePicker', 'showDatePicker'], false)]);
 
 /***/ },
 /* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var qs = __webpack_require__(244);
-	var pathtoRegexp = __webpack_require__(248);
-	var cache = {};
 	
-	function isMatch(re, path, keys) {
-	  var match = re.exec(decodeURIComponent(path));
-	  if (!match) {
-	    return null;
-	  }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	  var params = {};
+	var _controller = __webpack_require__(216);
 	
-	  for (var i = 1; i < match.length; ++i) {
-	    var key = keys[i - 1];
-	    var value = decodeURIComponent(match[i].replace(/\+/g, ' '));
-	    if (value !== undefined || !hasOwnProperty.call(params, key.name)) {
-	      params[key.name] = value;
-	    }
-	  }
+	var _controller2 = _interopRequireDefault(_controller);
 	
-	  return params;
-	}
+	var _actionsBasic = __webpack_require__(240);
 	
-	module.exports = function (url, routes) {
+	_controller2['default'].signal('dialogOpened', [(0, _actionsBasic.set)(['demos', 'dialog', 'showDialog'], true)]);
 	
-	  var path = url;
-	
-	  var params = {};
-	  var route = {};
-	  var hash = null;
-	  var queryString = null;
-	  var matchedRoute;
-	
-	  if (~path.indexOf('#')) {
-	    hash = path.split(/#(.+)/)[1];
-	    path = path.split('#')[0];
-	  }
-	
-	  if (~path.indexOf('?')) {
-	    queryString = path.split(/\?(.+)/)[1];
-	    path = path.split('?')[0];
-	  }
-	
-	  for (route in routes) {
-	    if (!cache[route]) {
-	      var keys = [];
-	      var re = pathtoRegexp(route, keys);
-	      cache[route] = {
-	        keys: keys,
-	        re: re
-	      };
-	    }
-	    params = isMatch(cache[route].re, path, cache[route].keys);
-	    if (params) {
-	      var query = queryString ? qs.parse(queryString) : {};
-	
-	      routes[route]({
-	        url: url,
-	        path: path,
-	        hash: hash || '',
-	        params: params,
-	        query: query
-	      });
-	
-	      matchedRoute = route;
-	      break;
-	    }
-	  }
-	
-	  return matchedRoute;
-	};
+	_controller2['default'].signal('dialogClosed', [(0, _actionsBasic.set)(['demos', 'dialog', 'showDialog'], false)]);
 
 /***/ },
 /* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
-	// Load modules
-	
 	'use strict';
 	
-	var Stringify = __webpack_require__(245);
-	var Parse = __webpack_require__(247);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	// Declare internals
+	var _controller = __webpack_require__(216);
 	
-	var internals = {};
+	var _controller2 = _interopRequireDefault(_controller);
 	
-	module.exports = {
-	    stringify: Stringify,
-	    parse: Parse
-	};
+	var _actionsBasic = __webpack_require__(240);
+	
+	_controller2['default'].signal('emailChanged', [(0, _actionsBasic.setInputValue)(['demos', 'input', 'email'])]);
+	
+	_controller2['default'].signal('passwordChanged', [(0, _actionsBasic.setInputValue)(['demos', 'input', 'password'])]);
 
 /***/ },
 /* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
-	// Load modules
-	
 	'use strict';
 	
-	var Utils = __webpack_require__(246);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	// Declare internals
+	var _controller = __webpack_require__(216);
 	
-	var internals = {
-	    delimiter: '&',
-	    arrayPrefixGenerators: {
-	        brackets: function brackets(prefix, key) {
+	var _controller2 = _interopRequireDefault(_controller);
 	
-	            return prefix + '[]';
-	        },
-	        indices: function indices(prefix, key) {
+	var _actionsBasic = __webpack_require__(240);
 	
-	            return prefix + '[' + key + ']';
-	        },
-	        repeat: function repeat(prefix, key) {
+	_controller2['default'].signal('menuOpened', [(0, _actionsBasic.set)(['demos', 'menu', 'showMenu'], true)]);
 	
-	            return prefix;
-	        }
-	    },
-	    strictNullHandling: false
-	};
+	_controller2['default'].signal('menuClosed', [(0, _actionsBasic.set)(['demos', 'menu', 'showMenu'], false)]);
 	
-	internals.stringify = function (obj, prefix, generateArrayPrefix, strictNullHandling, filter) {
+	_controller2['default'].signal('simpleMenuOpened', [(0, _actionsBasic.set)(['demos', 'menu', 'showSimpleMenu'], true)]);
 	
-	    if (typeof filter === 'function') {
-	        obj = filter(prefix, obj);
-	    } else if (Utils.isBuffer(obj)) {
-	        obj = obj.toString();
-	    } else if (obj instanceof Date) {
-	        obj = obj.toISOString();
-	    } else if (obj === null) {
-	        if (strictNullHandling) {
-	            return Utils.encode(prefix);
-	        }
+	_controller2['default'].signal('simpleMenuClosed', [(0, _actionsBasic.set)(['demos', 'menu', 'showSimpleMenu'], false)]);
 	
-	        obj = '';
-	    }
-	
-	    if (typeof obj === 'string' || typeof obj === 'number' || typeof obj === 'boolean') {
-	
-	        return [Utils.encode(prefix) + '=' + Utils.encode(obj)];
-	    }
-	
-	    var values = [];
-	
-	    if (typeof obj === 'undefined') {
-	        return values;
-	    }
-	
-	    var objKeys = Array.isArray(filter) ? filter : Object.keys(obj);
-	    for (var i = 0, il = objKeys.length; i < il; ++i) {
-	        var key = objKeys[i];
-	
-	        if (Array.isArray(obj)) {
-	            values = values.concat(internals.stringify(obj[key], generateArrayPrefix(prefix, key), generateArrayPrefix, strictNullHandling, filter));
-	        } else {
-	            values = values.concat(internals.stringify(obj[key], prefix + '[' + key + ']', generateArrayPrefix, strictNullHandling, filter));
-	        }
-	    }
-	
-	    return values;
-	};
-	
-	module.exports = function (obj, options) {
-	
-	    options = options || {};
-	    var delimiter = typeof options.delimiter === 'undefined' ? internals.delimiter : options.delimiter;
-	    var strictNullHandling = typeof options.strictNullHandling === 'boolean' ? options.strictNullHandling : internals.strictNullHandling;
-	    var objKeys;
-	    var filter;
-	    if (typeof options.filter === 'function') {
-	        filter = options.filter;
-	        obj = filter('', obj);
-	    } else if (Array.isArray(options.filter)) {
-	        objKeys = filter = options.filter;
-	    }
-	
-	    var keys = [];
-	
-	    if (typeof obj !== 'object' || obj === null) {
-	
-	        return '';
-	    }
-	
-	    var arrayFormat;
-	    if (options.arrayFormat in internals.arrayPrefixGenerators) {
-	        arrayFormat = options.arrayFormat;
-	    } else if ('indices' in options) {
-	        arrayFormat = options.indices ? 'indices' : 'repeat';
-	    } else {
-	        arrayFormat = 'indices';
-	    }
-	
-	    var generateArrayPrefix = internals.arrayPrefixGenerators[arrayFormat];
-	
-	    if (!objKeys) {
-	        objKeys = Object.keys(obj);
-	    }
-	    for (var i = 0, il = objKeys.length; i < il; ++i) {
-	        var key = objKeys[i];
-	        keys = keys.concat(internals.stringify(obj[key], key, generateArrayPrefix, strictNullHandling, filter));
-	    }
-	
-	    return keys.join(delimiter);
-	};
+	_controller2['default'].signal('selectMenuOption', [(0, _actionsBasic.setInputValue)(['demos', 'menu', 'selectedOption'])]);
 
 /***/ },
 /* 246 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	// Load modules
-	
-	// Declare internals
-	
 	'use strict';
 	
-	var internals = {};
-	internals.hexTable = new Array(256);
-	for (var h = 0; h < 256; ++h) {
-	    internals.hexTable[h] = '%' + ((h < 16 ? '0' : '') + h.toString(16)).toUpperCase();
-	}
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	exports.arrayToObject = function (source, options) {
+	var _controller = __webpack_require__(216);
 	
-	    var obj = options.plainObjects ? Object.create(null) : {};
-	    for (var i = 0, il = source.length; i < il; ++i) {
-	        if (typeof source[i] !== 'undefined') {
+	var _controller2 = _interopRequireDefault(_controller);
 	
-	            obj[i] = source[i];
-	        }
-	    }
+	var _actionsBasic = __webpack_require__(240);
 	
-	    return obj;
-	};
+	_controller2['default'].signal('moreMenuOpened', [(0, _actionsBasic.set)('showMoreMenu', true)]);
 	
-	exports.merge = function (target, source, options) {
-	
-	    if (!source) {
-	        return target;
-	    }
-	
-	    if (typeof source !== 'object') {
-	        if (Array.isArray(target)) {
-	            target.push(source);
-	        } else if (typeof target === 'object') {
-	            target[source] = true;
-	        } else {
-	            target = [target, source];
-	        }
-	
-	        return target;
-	    }
-	
-	    if (typeof target !== 'object') {
-	        target = [target].concat(source);
-	        return target;
-	    }
-	
-	    if (Array.isArray(target) && !Array.isArray(source)) {
-	
-	        target = exports.arrayToObject(target, options);
-	    }
-	
-	    var keys = Object.keys(source);
-	    for (var k = 0, kl = keys.length; k < kl; ++k) {
-	        var key = keys[k];
-	        var value = source[key];
-	
-	        if (!Object.prototype.hasOwnProperty.call(target, key)) {
-	            target[key] = value;
-	        } else {
-	            target[key] = exports.merge(target[key], value, options);
-	        }
-	    }
-	
-	    return target;
-	};
-	
-	exports.decode = function (str) {
-	
-	    try {
-	        return decodeURIComponent(str.replace(/\+/g, ' '));
-	    } catch (e) {
-	        return str;
-	    }
-	};
-	
-	exports.encode = function (str) {
-	
-	    // This code was originally written by Brian White (mscdex) for the io.js core querystring library.
-	    // It has been adapted here for stricter adherence to RFC 3986
-	    if (str.length === 0) {
-	        return str;
-	    }
-	
-	    if (typeof str !== 'string') {
-	        str = '' + str;
-	    }
-	
-	    var out = '';
-	    for (var i = 0, il = str.length; i < il; ++i) {
-	        var c = str.charCodeAt(i);
-	
-	        if (c === 0x2D || // -
-	        c === 0x2E || // .
-	        c === 0x5F || // _
-	        c === 0x7E || // ~
-	        c >= 0x30 && c <= 0x39 || // 0-9
-	        c >= 0x41 && c <= 0x5A || // a-z
-	        c >= 0x61 && c <= 0x7A) {
-	            // A-Z
-	
-	            out += str[i];
-	            continue;
-	        }
-	
-	        if (c < 0x80) {
-	            out += internals.hexTable[c];
-	            continue;
-	        }
-	
-	        if (c < 0x800) {
-	            out += internals.hexTable[0xC0 | c >> 6] + internals.hexTable[0x80 | c & 0x3F];
-	            continue;
-	        }
-	
-	        if (c < 0xD800 || c >= 0xE000) {
-	            out += internals.hexTable[0xE0 | c >> 12] + internals.hexTable[0x80 | c >> 6 & 0x3F] + internals.hexTable[0x80 | c & 0x3F];
-	            continue;
-	        }
-	
-	        ++i;
-	        c = 0x10000 + ((c & 0x3FF) << 10 | str.charCodeAt(i) & 0x3FF);
-	        out += internals.hexTable[0xF0 | c >> 18] + internals.hexTable[0x80 | c >> 12 & 0x3F] + internals.hexTable[0x80 | c >> 6 & 0x3F] + internals.hexTable[0x80 | c & 0x3F];
-	    }
-	
-	    return out;
-	};
-	
-	exports.compact = function (obj, refs) {
-	
-	    if (typeof obj !== 'object' || obj === null) {
-	
-	        return obj;
-	    }
-	
-	    refs = refs || [];
-	    var lookup = refs.indexOf(obj);
-	    if (lookup !== -1) {
-	        return refs[lookup];
-	    }
-	
-	    refs.push(obj);
-	
-	    if (Array.isArray(obj)) {
-	        var compacted = [];
-	
-	        for (var i = 0, il = obj.length; i < il; ++i) {
-	            if (typeof obj[i] !== 'undefined') {
-	                compacted.push(obj[i]);
-	            }
-	        }
-	
-	        return compacted;
-	    }
-	
-	    var keys = Object.keys(obj);
-	    for (i = 0, il = keys.length; i < il; ++i) {
-	        var key = keys[i];
-	        obj[key] = exports.compact(obj[key], refs);
-	    }
-	
-	    return obj;
-	};
-	
-	exports.isRegExp = function (obj) {
-	
-	    return Object.prototype.toString.call(obj) === '[object RegExp]';
-	};
-	
-	exports.isBuffer = function (obj) {
-	
-	    if (obj === null || typeof obj === 'undefined') {
-	
-	        return false;
-	    }
-	
-	    return !!(obj.constructor && obj.constructor.isBuffer && obj.constructor.isBuffer(obj));
-	};
+	_controller2['default'].signal('moreMenuClosed', [(0, _actionsBasic.set)('showMoreMenu', false)]);
 
 /***/ },
 /* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
-	// Load modules
-	
 	'use strict';
 	
-	var Utils = __webpack_require__(246);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	// Declare internals
+	var _controller = __webpack_require__(216);
 	
-	var internals = {
-	    delimiter: '&',
-	    depth: 5,
-	    arrayLimit: 20,
-	    parameterLimit: 1000,
-	    strictNullHandling: false,
-	    plainObjects: false,
-	    allowPrototypes: false
-	};
+	var _controller2 = _interopRequireDefault(_controller);
 	
-	internals.parseValues = function (str, options) {
+	var _actionsRoute = __webpack_require__(248);
 	
-	    var obj = {};
-	    var parts = str.split(options.delimiter, options.parameterLimit === Infinity ? undefined : options.parameterLimit);
+	_controller2['default'].signal('introductionPageOpened', [(0, _actionsRoute.setRoute)('introduction', 'Introduction')]);
 	
-	    for (var i = 0, il = parts.length; i < il; ++i) {
-	        var part = parts[i];
-	        var pos = part.indexOf(']=') === -1 ? part.indexOf('=') : part.indexOf(']=') + 1;
+	_controller2['default'].signal('gettingStartedPageOpened', [(0, _actionsRoute.setRoute)('gettingStarted', 'Getting Started')]);
 	
-	        if (pos === -1) {
-	            obj[Utils.decode(part)] = '';
+	_controller2['default'].signal('paperPageOpened', [(0, _actionsRoute.setRoute)('paper', 'Paper')]);
 	
-	            if (options.strictNullHandling) {
-	                obj[Utils.decode(part)] = null;
-	            }
-	        } else {
-	            var key = Utils.decode(part.slice(0, pos));
-	            var val = Utils.decode(part.slice(pos + 1));
+	_controller2['default'].signal('typographyPageOpened', [(0, _actionsRoute.setRoute)('typography', 'Typography')]);
 	
-	            if (!Object.prototype.hasOwnProperty.call(obj, key)) {
-	                obj[key] = val;
-	            } else {
-	                obj[key] = [].concat(obj[key]).concat(val);
-	            }
-	        }
-	    }
+	_controller2['default'].signal('appbarPageOpened', [(0, _actionsRoute.setRoute)('appbar', 'Appbar')]);
 	
-	    return obj;
-	};
+	_controller2['default'].signal('sidenavPageOpened', [(0, _actionsRoute.setRoute)('sidenav', 'Sidenav')]);
 	
-	internals.parseObject = function (chain, val, options) {
+	_controller2['default'].signal('formPageOpened', [(0, _actionsRoute.setRoute)('form', 'Form')]);
 	
-	    if (!chain.length) {
-	        return val;
-	    }
+	_controller2['default'].signal('buttonPageOpened', [(0, _actionsRoute.setRoute)('button', 'Button')]);
 	
-	    var root = chain.shift();
+	_controller2['default'].signal('inputPageOpened', [(0, _actionsRoute.setRoute)('input', 'Input')]);
 	
-	    var obj;
-	    if (root === '[]') {
-	        obj = [];
-	        obj = obj.concat(internals.parseObject(chain, val, options));
-	    } else {
-	        obj = options.plainObjects ? Object.create(null) : {};
-	        var cleanRoot = root[0] === '[' && root[root.length - 1] === ']' ? root.slice(1, root.length - 1) : root;
-	        var index = parseInt(cleanRoot, 10);
-	        var indexString = '' + index;
-	        if (!isNaN(index) && root !== cleanRoot && indexString === cleanRoot && index >= 0 && options.parseArrays && index <= options.arrayLimit) {
+	_controller2['default'].signal('selectPageOpened', [(0, _actionsRoute.setRoute)('select', 'Select')]);
 	
-	            obj = [];
-	            obj[index] = internals.parseObject(chain, val, options);
-	        } else {
-	            obj[cleanRoot] = internals.parseObject(chain, val, options);
-	        }
-	    }
+	_controller2['default'].signal('checkboxPageOpened', [(0, _actionsRoute.setRoute)('checkbox', 'Checkbox')]);
 	
-	    return obj;
-	};
+	_controller2['default'].signal('gridSystemPageOpened', [(0, _actionsRoute.setRoute)('gridSystem', 'Grid System')]);
 	
-	internals.parseKeys = function (key, val, options) {
+	_controller2['default'].signal('menuPageOpened', [(0, _actionsRoute.setRoute)('menu', 'Menu')]);
 	
-	    if (!key) {
-	        return;
-	    }
+	_controller2['default'].signal('dialogPageOpened', [(0, _actionsRoute.setRoute)('dialog', 'Dialog')]);
 	
-	    // Transform dot notation to bracket notation
+	_controller2['default'].signal('datePickerPageOpened', [(0, _actionsRoute.setRoute)('datePicker', 'Date Picker')]);
 	
-	    if (options.allowDots) {
-	        key = key.replace(/\.([^\.\[]+)/g, '[$1]');
-	    }
+	_controller2['default'].signal('tablePageOpened', [(0, _actionsRoute.setRoute)('table', 'Table')]);
 	
-	    // The regex chunks
+	_controller2['default'].signal('spinnerPageOpened', [(0, _actionsRoute.setRoute)('spinner', 'Spinner')]);
 	
-	    var parent = /^([^\[\]]*)/;
-	    var child = /(\[[^\[\]]*\])/g;
+	_controller2['default'].signal('calendarPageOpened', [(0, _actionsRoute.setRoute)('calendar', 'Calendar')]);
 	
-	    // Get the parent
+	_controller2['default'].signal('responsiveEventsPageOpened', [(0, _actionsRoute.setRoute)('responsiveEvents', 'Responsive Events')]);
 	
-	    var segment = parent.exec(key);
-	
-	    // Stash the parent if it exists
-	
-	    var keys = [];
-	    if (segment[1]) {
-	        // If we aren't using plain objects, optionally prefix keys
-	        // that would overwrite object prototype properties
-	        if (!options.plainObjects && Object.prototype.hasOwnProperty(segment[1])) {
-	
-	            if (!options.allowPrototypes) {
-	                return;
-	            }
-	        }
-	
-	        keys.push(segment[1]);
-	    }
-	
-	    // Loop through children appending to the array until we hit depth
-	
-	    var i = 0;
-	    while ((segment = child.exec(key)) !== null && i < options.depth) {
-	
-	        ++i;
-	        if (!options.plainObjects && Object.prototype.hasOwnProperty(segment[1].replace(/\[|\]/g, ''))) {
-	
-	            if (!options.allowPrototypes) {
-	                continue;
-	            }
-	        }
-	        keys.push(segment[1]);
-	    }
-	
-	    // If there's a remainder, just add whatever is left
-	
-	    if (segment) {
-	        keys.push('[' + key.slice(segment.index) + ']');
-	    }
-	
-	    return internals.parseObject(keys, val, options);
-	};
-	
-	module.exports = function (str, options) {
-	
-	    options = options || {};
-	    options.delimiter = typeof options.delimiter === 'string' || Utils.isRegExp(options.delimiter) ? options.delimiter : internals.delimiter;
-	    options.depth = typeof options.depth === 'number' ? options.depth : internals.depth;
-	    options.arrayLimit = typeof options.arrayLimit === 'number' ? options.arrayLimit : internals.arrayLimit;
-	    options.parseArrays = options.parseArrays !== false;
-	    options.allowDots = options.allowDots !== false;
-	    options.plainObjects = typeof options.plainObjects === 'boolean' ? options.plainObjects : internals.plainObjects;
-	    options.allowPrototypes = typeof options.allowPrototypes === 'boolean' ? options.allowPrototypes : internals.allowPrototypes;
-	    options.parameterLimit = typeof options.parameterLimit === 'number' ? options.parameterLimit : internals.parameterLimit;
-	    options.strictNullHandling = typeof options.strictNullHandling === 'boolean' ? options.strictNullHandling : internals.strictNullHandling;
-	
-	    if (str === '' || str === null || typeof str === 'undefined') {
-	
-	        return options.plainObjects ? Object.create(null) : {};
-	    }
-	
-	    var tempObj = typeof str === 'string' ? internals.parseValues(str, options) : str;
-	    var obj = options.plainObjects ? Object.create(null) : {};
-	
-	    // Iterate over the keys and setup the new object
-	
-	    var keys = Object.keys(tempObj);
-	    for (var i = 0, il = keys.length; i < il; ++i) {
-	        var key = keys[i];
-	        var newObj = internals.parseKeys(key, tempObj[key], options);
-	        obj = Utils.merge(obj, newObj, options);
-	    }
-	
-	    return Utils.compact(obj);
-	};
+	_controller2['default'].signal('notFoundPageOpened', [(0, _actionsRoute.setRoute)('notFound', 'Page Not Found')]);
 
 /***/ },
 /* 248 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var isarray = __webpack_require__(249);
-	
-	/**
-	 * Expose `pathToRegexp`.
-	 */
-	module.exports = pathToRegexp;
-	module.exports.parse = parse;
-	module.exports.compile = compile;
-	module.exports.tokensToFunction = tokensToFunction;
-	module.exports.tokensToRegExp = tokensToRegExp;
-	
-	/**
-	 * The main path matching regexp utility.
-	 *
-	 * @type {RegExp}
-	 */
-	var PATH_REGEXP = new RegExp([
-	// Match escaped characters that would otherwise appear in future matches.
-	// This allows the user to escape special characters that won't transform.
-	'(\\\\.)',
-	// Match Express-style parameters and un-named parameters with a prefix
-	// and optional suffixes. Matches appear as:
-	//
-	// "/:test(\\d+)?" => ["/", "test", "\d+", undefined, "?", undefined]
-	// "/route(\\d+)"  => [undefined, undefined, undefined, "\d+", undefined, undefined]
-	// "/*"            => ["/", undefined, undefined, undefined, undefined, "*"]
-	'([\\/.])?(?:(?:\\:(\\w+)(?:\\(((?:\\\\.|[^()])+)\\))?|\\(((?:\\\\.|[^()])+)\\))([+*?])?|(\\*))'].join('|'), 'g');
-	
-	/**
-	 * Parse a string for the raw tokens.
-	 *
-	 * @param  {String} str
-	 * @return {Array}
-	 */
-	function parse(str) {
-	  var tokens = [];
-	  var key = 0;
-	  var index = 0;
-	  var path = '';
-	  var res;
-	
-	  while ((res = PATH_REGEXP.exec(str)) != null) {
-	    var m = res[0];
-	    var escaped = res[1];
-	    var offset = res.index;
-	    path += str.slice(index, offset);
-	    index = offset + m.length;
-	
-	    // Ignore already escaped sequences.
-	    if (escaped) {
-	      path += escaped[1];
-	      continue;
-	    }
-	
-	    // Push the current path onto the tokens.
-	    if (path) {
-	      tokens.push(path);
-	      path = '';
-	    }
-	
-	    var prefix = res[2];
-	    var name = res[3];
-	    var capture = res[4];
-	    var group = res[5];
-	    var suffix = res[6];
-	    var asterisk = res[7];
-	
-	    var repeat = suffix === '+' || suffix === '*';
-	    var optional = suffix === '?' || suffix === '*';
-	    var delimiter = prefix || '/';
-	    var pattern = capture || group || (asterisk ? '.*' : '[^' + delimiter + ']+?');
-	
-	    tokens.push({
-	      name: name || key++,
-	      prefix: prefix || '',
-	      delimiter: delimiter,
-	      optional: optional,
-	      repeat: repeat,
-	      pattern: escapeGroup(pattern)
-	    });
-	  }
-	
-	  // Match any characters still remaining.
-	  if (index < str.length) {
-	    path += str.substr(index);
-	  }
-	
-	  // If the path exists, push it onto the end.
-	  if (path) {
-	    tokens.push(path);
-	  }
-	
-	  return tokens;
-	}
-	
-	/**
-	 * Compile a string to a template function for the path.
-	 *
-	 * @param  {String}   str
-	 * @return {Function}
-	 */
-	function compile(str) {
-	  return tokensToFunction(parse(str));
-	}
-	
-	/**
-	 * Expose a method for transforming tokens into the path function.
-	 */
-	function tokensToFunction(tokens) {
-	  // Compile all the tokens into regexps.
-	  var matches = new Array(tokens.length);
-	
-	  // Compile all the patterns before compilation.
-	  for (var i = 0; i < tokens.length; i++) {
-	    if (typeof tokens[i] === 'object') {
-	      matches[i] = new RegExp('^' + tokens[i].pattern + '$');
-	    }
-	  }
-	
-	  return function (obj) {
-	    var path = '';
-	    var data = obj || {};
-	
-	    for (var i = 0; i < tokens.length; i++) {
-	      var token = tokens[i];
-	
-	      if (typeof token === 'string') {
-	        path += token;
-	
-	        continue;
-	      }
-	
-	      var value = data[token.name];
-	      var segment;
-	
-	      if (value == null) {
-	        if (token.optional) {
-	          continue;
-	        } else {
-	          throw new TypeError('Expected "' + token.name + '" to be defined');
-	        }
-	      }
-	
-	      if (isarray(value)) {
-	        if (!token.repeat) {
-	          throw new TypeError('Expected "' + token.name + '" to not repeat, but received "' + value + '"');
-	        }
-	
-	        if (value.length === 0) {
-	          if (token.optional) {
-	            continue;
-	          } else {
-	            throw new TypeError('Expected "' + token.name + '" to not be empty');
-	          }
-	        }
-	
-	        for (var j = 0; j < value.length; j++) {
-	          segment = encodeURIComponent(value[j]);
-	
-	          if (!matches[i].test(segment)) {
-	            throw new TypeError('Expected all "' + token.name + '" to match "' + token.pattern + '", but received "' + segment + '"');
-	          }
-	
-	          path += (j === 0 ? token.prefix : token.delimiter) + segment;
-	        }
-	
-	        continue;
-	      }
-	
-	      segment = encodeURIComponent(value);
-	
-	      if (!matches[i].test(segment)) {
-	        throw new TypeError('Expected "' + token.name + '" to match "' + token.pattern + '", but received "' + segment + '"');
-	      }
-	
-	      path += token.prefix + segment;
-	    }
-	
-	    return path;
-	  };
-	}
-	
-	/**
-	 * Escape a regular expression string.
-	 *
-	 * @param  {String} str
-	 * @return {String}
-	 */
-	function escapeString(str) {
-	  return str.replace(/([.+*?=^!:${}()[\]|\/])/g, '\\$1');
-	}
-	
-	/**
-	 * Escape the capturing group by escaping special characters and meaning.
-	 *
-	 * @param  {String} group
-	 * @return {String}
-	 */
-	function escapeGroup(group) {
-	  return group.replace(/([=!:$\/()])/g, '\\$1');
-	}
-	
-	/**
-	 * Attach the keys as a property of the regexp.
-	 *
-	 * @param  {RegExp} re
-	 * @param  {Array}  keys
-	 * @return {RegExp}
-	 */
-	function attachKeys(re, keys) {
-	  re.keys = keys;
-	  return re;
-	}
-	
-	/**
-	 * Get the flags for a regexp from the options.
-	 *
-	 * @param  {Object} options
-	 * @return {String}
-	 */
-	function flags(options) {
-	  return options.sensitive ? '' : 'i';
-	}
-	
-	/**
-	 * Pull out keys from a regexp.
-	 *
-	 * @param  {RegExp} path
-	 * @param  {Array}  keys
-	 * @return {RegExp}
-	 */
-	function regexpToRegexp(path, keys) {
-	  // Use a negative lookahead to match only capturing groups.
-	  var groups = path.source.match(/\((?!\?)/g);
-	
-	  if (groups) {
-	    for (var i = 0; i < groups.length; i++) {
-	      keys.push({
-	        name: i,
-	        prefix: null,
-	        delimiter: null,
-	        optional: false,
-	        repeat: false,
-	        pattern: null
-	      });
-	    }
-	  }
-	
-	  return attachKeys(path, keys);
-	}
-	
-	/**
-	 * Transform an array into a regexp.
-	 *
-	 * @param  {Array}  path
-	 * @param  {Array}  keys
-	 * @param  {Object} options
-	 * @return {RegExp}
-	 */
-	function arrayToRegexp(path, keys, options) {
-	  var parts = [];
-	
-	  for (var i = 0; i < path.length; i++) {
-	    parts.push(pathToRegexp(path[i], keys, options).source);
-	  }
-	
-	  var regexp = new RegExp('(?:' + parts.join('|') + ')', flags(options));
-	
-	  return attachKeys(regexp, keys);
-	}
-	
-	/**
-	 * Create a path regexp from string input.
-	 *
-	 * @param  {String} path
-	 * @param  {Array}  keys
-	 * @param  {Object} options
-	 * @return {RegExp}
-	 */
-	function stringToRegexp(path, keys, options) {
-	  var tokens = parse(path);
-	  var re = tokensToRegExp(tokens, options);
-	
-	  // Attach keys back to the regexp.
-	  for (var i = 0; i < tokens.length; i++) {
-	    if (typeof tokens[i] !== 'string') {
-	      keys.push(tokens[i]);
-	    }
-	  }
-	
-	  return attachKeys(re, keys);
-	}
-	
-	/**
-	 * Expose a function for taking tokens and returning a RegExp.
-	 *
-	 * @param  {Array}  tokens
-	 * @param  {Array}  keys
-	 * @param  {Object} options
-	 * @return {RegExp}
-	 */
-	function tokensToRegExp(tokens, options) {
-	  options = options || {};
-	
-	  var strict = options.strict;
-	  var end = options.end !== false;
-	  var route = '';
-	  var lastToken = tokens[tokens.length - 1];
-	  var endsWithSlash = typeof lastToken === 'string' && /\/$/.test(lastToken);
-	
-	  // Iterate over the tokens and create our regexp string.
-	  for (var i = 0; i < tokens.length; i++) {
-	    var token = tokens[i];
-	
-	    if (typeof token === 'string') {
-	      route += escapeString(token);
-	    } else {
-	      var prefix = escapeString(token.prefix);
-	      var capture = token.pattern;
-	
-	      if (token.repeat) {
-	        capture += '(?:' + prefix + capture + ')*';
-	      }
-	
-	      if (token.optional) {
-	        if (prefix) {
-	          capture = '(?:' + prefix + '(' + capture + '))?';
-	        } else {
-	          capture = '(' + capture + ')?';
-	        }
-	      } else {
-	        capture = prefix + '(' + capture + ')';
-	      }
-	
-	      route += capture;
-	    }
-	  }
-	
-	  // In non-strict mode we allow a slash at the end of match. If the path to
-	  // match already ends with a slash, we remove it for consistency. The slash
-	  // is valid at the end of a path match, not in the middle. This is important
-	  // in non-ending mode, where "/test/" shouldn't match "/test//route".
-	  if (!strict) {
-	    route = (endsWithSlash ? route.slice(0, -2) : route) + '(?:\\/(?=$))?';
-	  }
-	
-	  if (end) {
-	    route += '$';
-	  } else {
-	    // In non-ending mode, we need the capturing groups to match as much as
-	    // possible by using a positive lookahead to the end or next path segment.
-	    route += strict && endsWithSlash ? '' : '(?=\\/|$)';
-	  }
-	
-	  return new RegExp('^' + route, flags(options));
-	}
-	
-	/**
-	 * Normalize the given path string, returning a regular expression.
-	 *
-	 * An empty array can be passed in for the keys, which will hold the
-	 * placeholder key descriptions. For example, using `/user/:id`, `keys` will
-	 * contain `[{ name: 'id', delimiter: '/', optional: false, repeat: false }]`.
-	 *
-	 * @param  {(String|RegExp|Array)} path
-	 * @param  {Array}                 [keys]
-	 * @param  {Object}                [options]
-	 * @return {RegExp}
-	 */
-	function pathToRegexp(path, keys, options) {
-	  keys = keys || [];
-	
-	  if (!isarray(keys)) {
-	    options = keys;
-	    keys = [];
-	  } else if (!options) {
-	    options = {};
-	  }
-	
-	  if (path instanceof RegExp) {
-	    return regexpToRegexp(path, keys, options);
-	  }
-	
-	  if (isarray(path)) {
-	    return arrayToRegexp(path, keys, options);
-	  }
-	
-	  return stringToRegexp(path, keys, options);
-	}
-
-/***/ },
-/* 249 */
 /***/ function(module, exports) {
 
 	'use strict';
 	
-	module.exports = Array.isArray || function (arr) {
-	  return Object.prototype.toString.call(arr) == '[object Array]';
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	exports['default'] = {
+	
+	  setRoute: function setRoute(page, title) {
+	    return function setRoute(input, state) {
+	      state.set(['route', 'page'], page);
+	      state.set(['route', 'title'], title);
+	    };
+	  }
+	
 	};
+	module.exports = exports['default'];
+
+/***/ },
+/* 249 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _controller = __webpack_require__(216);
+	
+	var _controller2 = _interopRequireDefault(_controller);
+	
+	var _actionsScreen = __webpack_require__(250);
+	
+	_controller2['default'].signal('screenChanged', [_actionsScreen.setScreen]);
 
 /***/ },
 /* 250 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
+	'use strict';
 	
-	var URI = __webpack_require__(251);
-	var EventEmitter = __webpack_require__(229).EventEmitter;
-	var instance = null;
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	exports['default'] = {
 	
-	var location = window.location;
-	
-	module.exports = (function () {
-	
-	  if (instance) {
-	    return instance;
+	  setScreen: function setScreen(input, state) {
+	    state.set(['screen'], input.screen);
 	  }
 	
-	  var eventEmitter = new EventEmitter();
-	
-	  eventEmitter.addEventListener = eventEmitter.addListener;
-	  eventEmitter.removeEventListener = eventEmitter.removeListener;
-	
-	  var initialUrl = location.href;
-	  var origin = URI(initialUrl).protocol() + '://' + URI(initialUrl).host();
-	  var isPreventingDefault = false;
-	  var doReplace = false;
-	  var prevUrl = '';
-	  var linkClicked = false;
-	  var isEmitting = false;
-	  var setSyncUrl = false;
-	
-	  var emitChange = function emitChange(url, event) {
-	    eventEmitter.emit('change', {
-	      preventDefault: function preventDefault() {
-	        event && event.preventDefault();
-	        isPreventingDefault = true;
-	      },
-	      target: {
-	        value: url ? origin + url : location.href
-	      }
-	    });
-	  };
-	
-	  var onUrlChange = function onUrlChange(type) {
-	    return function (event) {
-	
-	      if (location.href === prevUrl) {
-	        return;
-	      }
-	
-	      // Fixes bug where trailing slash is converted to normal url
-	      if (location.href[location.href.length - 1] === '/') {
-	        doReplace = true;
-	      }
-	
-	      isEmitting = true;
-	      emitChange();
-	      isEmitting = false;
-	
-	      if (!setSyncUrl && isPreventingDefault) {
-	        history.replaceState({}, '', (prevUrl || initialUrl).replace(origin, ''));
-	      }
-	
-	      prevUrl = location.href;
-	      isPreventingDefault = false;
-	      setSyncUrl = false;
-	      doReplace = false;
-	    };
-	  };
-	
-	  global.addEventListener('popstate', onUrlChange('pop'));
-	
-	  Object.defineProperty(eventEmitter, 'value', {
-	    get: function get() {
-	      return location.href;
-	    },
-	    set: function set(value) {
-	
-	      if (typeof value !== 'string') {
-	        doReplace = Boolean(value.replace);
-	        value = value.value;
-	      }
-	
-	      // If emitting a change we flag that we are setting
-	      // a url based on the event being emitted
-	      if (isEmitting) {
-	        setSyncUrl = true;
-	      }
-	
-	      // Ensure full url
-	      if (value.indexOf(origin) === -1) {
-	        value = origin + value;
-	      }
-	
-	      // If it is same url, forget about it
-	      if (value === location.href) {
-	        return;
-	      }
-	
-	      // We might need to replace the url if we are fixing
-	      // for example trailing slash issue
-	      if (doReplace) {
-	        history.replaceState({}, '', value.replace(origin, ''));
-	        doReplace = false;
-	      } else {
-	        history.pushState({}, '', value.replace(origin, ''));
-	      }
-	
-	      prevUrl = location.href;
-	      isPreventingDefault = false;
-	    }
-	  });
-	
-	  // expose URLUtils like API https://developer.mozilla.org/en-US/docs/Web/API/URLUtils
-	  // thanks https://github.com/cofounders/urlutils for reference
-	  Object.defineProperty(eventEmitter, 'origin', {
-	    get: function get() {
-	      var uri = URI(location.href);
-	      return uri.protocol() + '://' + uri.host();
-	    }
-	  });
-	
-	  Object.defineProperty(eventEmitter, 'protocol', {
-	    get: function get() {
-	      return URI(location.href).protocol() + ':';
-	    }
-	  });
-	
-	  Object.defineProperty(eventEmitter, 'port', {
-	    get: function get() {
-	      return URI(location.href).port();
-	    }
-	  });
-	
-	  Object.defineProperty(eventEmitter, 'hostname', {
-	    get: function get() {
-	      return URI(location.href).hostname();
-	    }
-	  });
-	
-	  Object.defineProperty(eventEmitter, 'pathname', {
-	    get: function get() {
-	      return URI(location.href).pathname();
-	    }
-	  });
-	
-	  Object.defineProperty(eventEmitter, 'hash', {
-	    get: function get() {
-	      return URI(location.href).hash();
-	    }
-	  });
-	
-	  /*
-	    This code is from the Page JS source code. Amazing work on handling all
-	    kinds of scenarios with hyperlinks, thanks!
-	   */
-	
-	  var isSameOrigin = function isSameOrigin(href) {
-	    return href && 0 === href.indexOf(origin);
-	  };
-	
-	  var getClickedHref = function getClickedHref(event) {
-	    // check which button
-	    if (1 !== (null === event.which ? event.button : event.which)) {
-	      return false;
-	    };
-	
-	    // check for modifiers
-	    if (event.metaKey || event.ctrlKey || event.shiftKey) {
-	      return false;
-	    };
-	    if (event.defaultPrevented) {
-	      return false;
-	    };
-	
-	    // ensure link
-	    var element = event.target;
-	    while (element && 'A' !== element.nodeName) {
-	      element = element.parentNode;
-	    };
-	    if (!element || 'A' !== element.nodeName) {
-	      return false;
-	    };
-	
-	    // Ignore if tag has
-	    // 1. "download" attribute
-	    // 2. rel="external" attribute
-	    if (element.hasAttribute('download') || element.getAttribute('rel') === 'external') {
-	      return false;
-	    };
-	
-	    // Check for mailto: in the href
-	    var href = element.getAttribute('href');
-	    if (href && href.indexOf('mailto:') > -1) {
-	      return false;
-	    };
-	
-	    // check target
-	    if (element.target) {
-	      return false;
-	    };
-	
-	    // x-origin
-	    if (!isSameOrigin(element.href)) {
-	      return false;
-	    };
-	
-	    return href;
-	  };
-	
-	  global.addEventListener(document.ontouchstart ? 'touchstart' : 'click', function (event) {
-	    var href = getClickedHref(event);
-	    if (href) {
-	      linkClicked = true;
-	      isEmitting = true;
-	      emitChange(href, event);
-	      isEmitting = false;
-	      if (isPreventingDefault) {
-	        linkClicked = false;
-	      }
-	      prevUrl = href;
-	      isPreventingDefault = false;
-	    }
-	  });
-	
-	  instance = eventEmitter;
-	
-	  return eventEmitter;
-	})();
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+	};
+	module.exports = exports['default'];
 
 /***/ },
 /* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/*!
-	 * URI.js - Mutating URLs
-	 *
-	 * Version: 1.16.1
-	 *
-	 * Author: Rodney Rehm
-	 * Web: http://medialize.github.io/URI.js/
-	 *
-	 * Licensed under
-	 *   MIT License http://www.opensource.org/licenses/mit-license
-	 *   GPL v3 http://opensource.org/licenses/GPL-3.0
-	 *
-	 */
 	'use strict';
 	
-	(function (root, factory) {
-	  'use strict';
-	  // https://github.com/umdjs/umd/blob/master/returnExports.js
-	  if (true) {
-	    // Node
-	    module.exports = factory(__webpack_require__(252), __webpack_require__(254), __webpack_require__(255));
-	  } else if (typeof define === 'function' && define.amd) {
-	    // AMD. Register as an anonymous module.
-	    define(['./punycode', './IPv6', './SecondLevelDomains'], factory);
-	  } else {
-	    // Browser globals (root is window)
-	    root.URI = factory(root.punycode, root.IPv6, root.SecondLevelDomains, root);
-	  }
-	})(undefined, function (punycode, IPv6, SLD, root) {
-	  'use strict';
-	  /*global location, escape, unescape */
-	  // FIXME: v2.0.0 renamce non-camelCase properties to uppercase
-	  /*jshint camelcase: false */
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	  // save current URI variable, if any
-	  var _URI = root && root.URI;
+	var _controller = __webpack_require__(216);
 	
-	  function URI(url, base) {
-	    var _urlSupplied = arguments.length >= 1;
-	    var _baseSupplied = arguments.length >= 2;
+	var _controller2 = _interopRequireDefault(_controller);
 	
-	    // Allow instantiation without the 'new' keyword
-	    if (!(this instanceof URI)) {
-	      if (_urlSupplied) {
-	        if (_baseSupplied) {
-	          return new URI(url, base);
-	        }
+	var _actionsBasic = __webpack_require__(240);
 	
-	        return new URI(url);
-	      }
+	_controller2['default'].signal('selectChanged', [(0, _actionsBasic.setInputValue)(['demos', 'select', 'selected'])]);
 	
-	      return new URI();
-	    }
+	_controller2['default'].signal('selectOpened', [(0, _actionsBasic.set)(['demos', 'select', 'selectOpen'], true)]);
 	
-	    if (url === undefined) {
-	      if (_urlSupplied) {
-	        throw new TypeError('undefined is not a valid argument for URI');
-	      }
+	_controller2['default'].signal('selectClosed', [(0, _actionsBasic.set)(['demos', 'select', 'selectOpen'], false)]);
 	
-	      if (typeof location !== 'undefined') {
-	        url = location.href + '';
-	      } else {
-	        url = '';
-	      }
-	    }
+	_controller2['default'].signal('selectSuccessOpened', [(0, _actionsBasic.set)(['demos', 'select', 'selectSuccessOpen'], true)]);
 	
-	    this.href(url);
+	_controller2['default'].signal('selectSuccessClosed', [(0, _actionsBasic.set)(['demos', 'select', 'selectSuccessOpen'], false)]);
 	
-	    // resolve to base according to http://dvcs.w3.org/hg/url/raw-file/tip/Overview.html#constructor
-	    if (base !== undefined) {
-	      return this.absoluteTo(base);
-	    }
+	_controller2['default'].signal('selectErrorOpened', [(0, _actionsBasic.set)(['demos', 'select', 'selectErrorOpen'], true)]);
 	
-	    return this;
-	  }
+	_controller2['default'].signal('selectErrorClosed', [(0, _actionsBasic.set)(['demos', 'select', 'selectErrorOpen'], false)]);
 	
-	  URI.version = '1.16.1';
+	_controller2['default'].signal('selectLargeChanged', [(0, _actionsBasic.setInputValue)(['demos', 'select', 'largeSelectedValue'])]);
 	
-	  var p = URI.prototype;
-	  var hasOwn = Object.prototype.hasOwnProperty;
+	_controller2['default'].signal('selectLargeOpened', [(0, _actionsBasic.set)(['demos', 'select', 'largeSelectOpen'], true)]);
 	
-	  function escapeRegEx(string) {
-	    // https://github.com/medialize/URI.js/commit/85ac21783c11f8ccab06106dba9735a31a86924d#commitcomment-821963
-	    return string.replace(/([.*+?^=!:${}()|[\]\/\\])/g, '\\$1');
-	  }
-	
-	  function getType(value) {
-	    // IE8 doesn't return [Object Undefined] but [Object Object] for undefined value
-	    if (value === undefined) {
-	      return 'Undefined';
-	    }
-	
-	    return String(Object.prototype.toString.call(value)).slice(8, -1);
-	  }
-	
-	  function isArray(obj) {
-	    return getType(obj) === 'Array';
-	  }
-	
-	  function filterArrayValues(data, value) {
-	    var lookup = {};
-	    var i, length;
-	
-	    if (getType(value) === 'RegExp') {
-	      lookup = null;
-	    } else if (isArray(value)) {
-	      for (i = 0, length = value.length; i < length; i++) {
-	        lookup[value[i]] = true;
-	      }
-	    } else {
-	      lookup[value] = true;
-	    }
-	
-	    for (i = 0, length = data.length; i < length; i++) {
-	      /*jshint laxbreak: true */
-	      var _match = lookup && lookup[data[i]] !== undefined || !lookup && value.test(data[i]);
-	      /*jshint laxbreak: false */
-	      if (_match) {
-	        data.splice(i, 1);
-	        length--;
-	        i--;
-	      }
-	    }
-	
-	    return data;
-	  }
-	
-	  function arrayContains(list, value) {
-	    var i, length;
-	
-	    // value may be string, number, array, regexp
-	    if (isArray(value)) {
-	      // Note: this can be optimized to O(n) (instead of current O(m * n))
-	      for (i = 0, length = value.length; i < length; i++) {
-	        if (!arrayContains(list, value[i])) {
-	          return false;
-	        }
-	      }
-	
-	      return true;
-	    }
-	
-	    var _type = getType(value);
-	    for (i = 0, length = list.length; i < length; i++) {
-	      if (_type === 'RegExp') {
-	        if (typeof list[i] === 'string' && list[i].match(value)) {
-	          return true;
-	        }
-	      } else if (list[i] === value) {
-	        return true;
-	      }
-	    }
-	
-	    return false;
-	  }
-	
-	  function arraysEqual(one, two) {
-	    if (!isArray(one) || !isArray(two)) {
-	      return false;
-	    }
-	
-	    // arrays can't be equal if they have different amount of content
-	    if (one.length !== two.length) {
-	      return false;
-	    }
-	
-	    one.sort();
-	    two.sort();
-	
-	    for (var i = 0, l = one.length; i < l; i++) {
-	      if (one[i] !== two[i]) {
-	        return false;
-	      }
-	    }
-	
-	    return true;
-	  }
-	
-	  URI._parts = function () {
-	    return {
-	      protocol: null,
-	      username: null,
-	      password: null,
-	      hostname: null,
-	      urn: null,
-	      port: null,
-	      path: null,
-	      query: null,
-	      fragment: null,
-	      // state
-	      duplicateQueryParameters: URI.duplicateQueryParameters,
-	      escapeQuerySpace: URI.escapeQuerySpace
-	    };
-	  };
-	  // state: allow duplicate query parameters (a=1&a=1)
-	  URI.duplicateQueryParameters = false;
-	  // state: replaces + with %20 (space in query strings)
-	  URI.escapeQuerySpace = true;
-	  // static properties
-	  URI.protocol_expression = /^[a-z][a-z0-9.+-]*$/i;
-	  URI.idn_expression = /[^a-z0-9\.-]/i;
-	  URI.punycode_expression = /(xn--)/i;
-	  // well, 333.444.555.666 matches, but it sure ain't no IPv4 - do we care?
-	  URI.ip4_expression = /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/;
-	  // credits to Rich Brown
-	  // source: http://forums.intermapper.com/viewtopic.php?p=1096#1096
-	  // specification: http://www.ietf.org/rfc/rfc4291.txt
-	  URI.ip6_expression = /^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/;
-	  // expression used is "gruber revised" (@gruber v2) determined to be the
-	  // best solution in a regex-golf we did a couple of ages ago at
-	  // * http://mathiasbynens.be/demo/url-regex
-	  // * http://rodneyrehm.de/t/url-regex.html
-	  URI.find_uri_expression = /\b((?:[a-z][\w-]+:(?:\/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/ig;
-	  URI.findUri = {
-	    // valid "scheme://" or "www."
-	    start: /\b(?:([a-z][a-z0-9.+-]*:\/\/)|www\.)/gi,
-	    // everything up to the next whitespace
-	    end: /[\s\r\n]|$/,
-	    // trim trailing punctuation captured by end RegExp
-	    trim: /[`!()\[\]{};:'".,<>?«»“”„‘’]+$/
-	  };
-	  // http://www.iana.org/assignments/uri-schemes.html
-	  // http://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers#Well-known_ports
-	  URI.defaultPorts = {
-	    http: '80',
-	    https: '443',
-	    ftp: '21',
-	    gopher: '70',
-	    ws: '80',
-	    wss: '443'
-	  };
-	  // allowed hostname characters according to RFC 3986
-	  // ALPHA DIGIT "-" "." "_" "~" "!" "$" "&" "'" "(" ")" "*" "+" "," ";" "=" %encoded
-	  // I've never seen a (non-IDN) hostname other than: ALPHA DIGIT . -
-	  URI.invalid_hostname_characters = /[^a-zA-Z0-9\.-]/;
-	  // map DOM Elements to their URI attribute
-	  URI.domAttributes = {
-	    'a': 'href',
-	    'blockquote': 'cite',
-	    'link': 'href',
-	    'base': 'href',
-	    'script': 'src',
-	    'form': 'action',
-	    'img': 'src',
-	    'area': 'href',
-	    'iframe': 'src',
-	    'embed': 'src',
-	    'source': 'src',
-	    'track': 'src',
-	    'input': 'src', // but only if type="image"
-	    'audio': 'src',
-	    'video': 'src'
-	  };
-	  URI.getDomAttribute = function (node) {
-	    if (!node || !node.nodeName) {
-	      return undefined;
-	    }
-	
-	    var nodeName = node.nodeName.toLowerCase();
-	    // <input> should only expose src for type="image"
-	    if (nodeName === 'input' && node.type !== 'image') {
-	      return undefined;
-	    }
-	
-	    return URI.domAttributes[nodeName];
-	  };
-	
-	  function escapeForDumbFirefox36(value) {
-	    // https://github.com/medialize/URI.js/issues/91
-	    return escape(value);
-	  }
-	
-	  // encoding / decoding according to RFC3986
-	  function strictEncodeURIComponent(string) {
-	    // see https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/encodeURIComponent
-	    return encodeURIComponent(string).replace(/[!'()*]/g, escapeForDumbFirefox36).replace(/\*/g, '%2A');
-	  }
-	  URI.encode = strictEncodeURIComponent;
-	  URI.decode = decodeURIComponent;
-	  URI.iso8859 = function () {
-	    URI.encode = escape;
-	    URI.decode = unescape;
-	  };
-	  URI.unicode = function () {
-	    URI.encode = strictEncodeURIComponent;
-	    URI.decode = decodeURIComponent;
-	  };
-	  URI.characters = {
-	    pathname: {
-	      encode: {
-	        // RFC3986 2.1: For consistency, URI producers and normalizers should
-	        // use uppercase hexadecimal digits for all percent-encodings.
-	        expression: /%(24|26|2B|2C|3B|3D|3A|40)/ig,
-	        map: {
-	          // -._~!'()*
-	          '%24': '$',
-	          '%26': '&',
-	          '%2B': '+',
-	          '%2C': ',',
-	          '%3B': ';',
-	          '%3D': '=',
-	          '%3A': ':',
-	          '%40': '@'
-	        }
-	      },
-	      decode: {
-	        expression: /[\/\?#]/g,
-	        map: {
-	          '/': '%2F',
-	          '?': '%3F',
-	          '#': '%23'
-	        }
-	      }
-	    },
-	    reserved: {
-	      encode: {
-	        // RFC3986 2.1: For consistency, URI producers and normalizers should
-	        // use uppercase hexadecimal digits for all percent-encodings.
-	        expression: /%(21|23|24|26|27|28|29|2A|2B|2C|2F|3A|3B|3D|3F|40|5B|5D)/ig,
-	        map: {
-	          // gen-delims
-	          '%3A': ':',
-	          '%2F': '/',
-	          '%3F': '?',
-	          '%23': '#',
-	          '%5B': '[',
-	          '%5D': ']',
-	          '%40': '@',
-	          // sub-delims
-	          '%21': '!',
-	          '%24': '$',
-	          '%26': '&',
-	          '%27': '\'',
-	          '%28': '(',
-	          '%29': ')',
-	          '%2A': '*',
-	          '%2B': '+',
-	          '%2C': ',',
-	          '%3B': ';',
-	          '%3D': '='
-	        }
-	      }
-	    },
-	    urnpath: {
-	      // The characters under `encode` are the characters called out by RFC 2141 as being acceptable
-	      // for usage in a URN. RFC2141 also calls out "-", ".", and "_" as acceptable characters, but
-	      // these aren't encoded by encodeURIComponent, so we don't have to call them out here. Also
-	      // note that the colon character is not featured in the encoding map; this is because URI.js
-	      // gives the colons in URNs semantic meaning as the delimiters of path segements, and so it
-	      // should not appear unencoded in a segment itself.
-	      // See also the note above about RFC3986 and capitalalized hex digits.
-	      encode: {
-	        expression: /%(21|24|27|28|29|2A|2B|2C|3B|3D|40)/ig,
-	        map: {
-	          '%21': '!',
-	          '%24': '$',
-	          '%27': '\'',
-	          '%28': '(',
-	          '%29': ')',
-	          '%2A': '*',
-	          '%2B': '+',
-	          '%2C': ',',
-	          '%3B': ';',
-	          '%3D': '=',
-	          '%40': '@'
-	        }
-	      },
-	      // These characters are the characters called out by RFC2141 as "reserved" characters that
-	      // should never appear in a URN, plus the colon character (see note above).
-	      decode: {
-	        expression: /[\/\?#:]/g,
-	        map: {
-	          '/': '%2F',
-	          '?': '%3F',
-	          '#': '%23',
-	          ':': '%3A'
-	        }
-	      }
-	    }
-	  };
-	  URI.encodeQuery = function (string, escapeQuerySpace) {
-	    var escaped = URI.encode(string + '');
-	    if (escapeQuerySpace === undefined) {
-	      escapeQuerySpace = URI.escapeQuerySpace;
-	    }
-	
-	    return escapeQuerySpace ? escaped.replace(/%20/g, '+') : escaped;
-	  };
-	  URI.decodeQuery = function (string, escapeQuerySpace) {
-	    string += '';
-	    if (escapeQuerySpace === undefined) {
-	      escapeQuerySpace = URI.escapeQuerySpace;
-	    }
-	
-	    try {
-	      return URI.decode(escapeQuerySpace ? string.replace(/\+/g, '%20') : string);
-	    } catch (e) {
-	      // we're not going to mess with weird encodings,
-	      // give up and return the undecoded original string
-	      // see https://github.com/medialize/URI.js/issues/87
-	      // see https://github.com/medialize/URI.js/issues/92
-	      return string;
-	    }
-	  };
-	  // generate encode/decode path functions
-	  var _parts = { 'encode': 'encode', 'decode': 'decode' };
-	  var _part;
-	  var generateAccessor = function generateAccessor(_group, _part) {
-	    return function (string) {
-	      try {
-	        return URI[_part](string + '').replace(URI.characters[_group][_part].expression, function (c) {
-	          return URI.characters[_group][_part].map[c];
-	        });
-	      } catch (e) {
-	        // we're not going to mess with weird encodings,
-	        // give up and return the undecoded original string
-	        // see https://github.com/medialize/URI.js/issues/87
-	        // see https://github.com/medialize/URI.js/issues/92
-	        return string;
-	      }
-	    };
-	  };
-	
-	  for (_part in _parts) {
-	    URI[_part + 'PathSegment'] = generateAccessor('pathname', _parts[_part]);
-	    URI[_part + 'UrnPathSegment'] = generateAccessor('urnpath', _parts[_part]);
-	  }
-	
-	  var generateSegmentedPathFunction = function generateSegmentedPathFunction(_sep, _codingFuncName, _innerCodingFuncName) {
-	    return function (string) {
-	      // Why pass in names of functions, rather than the function objects themselves? The
-	      // definitions of some functions (but in particular, URI.decode) will occasionally change due
-	      // to URI.js having ISO8859 and Unicode modes. Passing in the name and getting it will ensure
-	      // that the functions we use here are "fresh".
-	      var actualCodingFunc;
-	      if (!_innerCodingFuncName) {
-	        actualCodingFunc = URI[_codingFuncName];
-	      } else {
-	        actualCodingFunc = function (string) {
-	          return URI[_codingFuncName](URI[_innerCodingFuncName](string));
-	        };
-	      }
-	
-	      var segments = (string + '').split(_sep);
-	
-	      for (var i = 0, length = segments.length; i < length; i++) {
-	        segments[i] = actualCodingFunc(segments[i]);
-	      }
-	
-	      return segments.join(_sep);
-	    };
-	  };
-	
-	  // This takes place outside the above loop because we don't want, e.g., encodeUrnPath functions.
-	  URI.decodePath = generateSegmentedPathFunction('/', 'decodePathSegment');
-	  URI.decodeUrnPath = generateSegmentedPathFunction(':', 'decodeUrnPathSegment');
-	  URI.recodePath = generateSegmentedPathFunction('/', 'encodePathSegment', 'decode');
-	  URI.recodeUrnPath = generateSegmentedPathFunction(':', 'encodeUrnPathSegment', 'decode');
-	
-	  URI.encodeReserved = generateAccessor('reserved', 'encode');
-	
-	  URI.parse = function (string, parts) {
-	    var pos;
-	    if (!parts) {
-	      parts = {};
-	    }
-	    // [protocol"://"[username[":"password]"@"]hostname[":"port]"/"?][path]["?"querystring]["#"fragment]
-	
-	    // extract fragment
-	    pos = string.indexOf('#');
-	    if (pos > -1) {
-	      // escaping?
-	      parts.fragment = string.substring(pos + 1) || null;
-	      string = string.substring(0, pos);
-	    }
-	
-	    // extract query
-	    pos = string.indexOf('?');
-	    if (pos > -1) {
-	      // escaping?
-	      parts.query = string.substring(pos + 1) || null;
-	      string = string.substring(0, pos);
-	    }
-	
-	    // extract protocol
-	    if (string.substring(0, 2) === '//') {
-	      // relative-scheme
-	      parts.protocol = null;
-	      string = string.substring(2);
-	      // extract "user:pass@host:port"
-	      string = URI.parseAuthority(string, parts);
-	    } else {
-	      pos = string.indexOf(':');
-	      if (pos > -1) {
-	        parts.protocol = string.substring(0, pos) || null;
-	        if (parts.protocol && !parts.protocol.match(URI.protocol_expression)) {
-	          // : may be within the path
-	          parts.protocol = undefined;
-	        } else if (string.substring(pos + 1, pos + 3) === '//') {
-	          string = string.substring(pos + 3);
-	
-	          // extract "user:pass@host:port"
-	          string = URI.parseAuthority(string, parts);
-	        } else {
-	          string = string.substring(pos + 1);
-	          parts.urn = true;
-	        }
-	      }
-	    }
-	
-	    // what's left must be the path
-	    parts.path = string;
-	
-	    // and we're done
-	    return parts;
-	  };
-	  URI.parseHost = function (string, parts) {
-	    // Copy chrome, IE, opera backslash-handling behavior.
-	    // Back slashes before the query string get converted to forward slashes
-	    // See: https://github.com/joyent/node/blob/386fd24f49b0e9d1a8a076592a404168faeecc34/lib/url.js#L115-L124
-	    // See: https://code.google.com/p/chromium/issues/detail?id=25916
-	    // https://github.com/medialize/URI.js/pull/233
-	    string = string.replace(/\\/g, '/');
-	
-	    // extract host:port
-	    var pos = string.indexOf('/');
-	    var bracketPos;
-	    var t;
-	
-	    if (pos === -1) {
-	      pos = string.length;
-	    }
-	
-	    if (string.charAt(0) === '[') {
-	      // IPv6 host - http://tools.ietf.org/html/draft-ietf-6man-text-addr-representation-04#section-6
-	      // I claim most client software breaks on IPv6 anyways. To simplify things, URI only accepts
-	      // IPv6+port in the format [2001:db8::1]:80 (for the time being)
-	      bracketPos = string.indexOf(']');
-	      parts.hostname = string.substring(1, bracketPos) || null;
-	      parts.port = string.substring(bracketPos + 2, pos) || null;
-	      if (parts.port === '/') {
-	        parts.port = null;
-	      }
-	    } else {
-	      var firstColon = string.indexOf(':');
-	      var firstSlash = string.indexOf('/');
-	      var nextColon = string.indexOf(':', firstColon + 1);
-	      if (nextColon !== -1 && (firstSlash === -1 || nextColon < firstSlash)) {
-	        // IPv6 host contains multiple colons - but no port
-	        // this notation is actually not allowed by RFC 3986, but we're a liberal parser
-	        parts.hostname = string.substring(0, pos) || null;
-	        parts.port = null;
-	      } else {
-	        t = string.substring(0, pos).split(':');
-	        parts.hostname = t[0] || null;
-	        parts.port = t[1] || null;
-	      }
-	    }
-	
-	    if (parts.hostname && string.substring(pos).charAt(0) !== '/') {
-	      pos++;
-	      string = '/' + string;
-	    }
-	
-	    return string.substring(pos) || '/';
-	  };
-	  URI.parseAuthority = function (string, parts) {
-	    string = URI.parseUserinfo(string, parts);
-	    return URI.parseHost(string, parts);
-	  };
-	  URI.parseUserinfo = function (string, parts) {
-	    // extract username:password
-	    var firstSlash = string.indexOf('/');
-	    var pos = string.lastIndexOf('@', firstSlash > -1 ? firstSlash : string.length - 1);
-	    var t;
-	
-	    // authority@ must come before /path
-	    if (pos > -1 && (firstSlash === -1 || pos < firstSlash)) {
-	      t = string.substring(0, pos).split(':');
-	      parts.username = t[0] ? URI.decode(t[0]) : null;
-	      t.shift();
-	      parts.password = t[0] ? URI.decode(t.join(':')) : null;
-	      string = string.substring(pos + 1);
-	    } else {
-	      parts.username = null;
-	      parts.password = null;
-	    }
-	
-	    return string;
-	  };
-	  URI.parseQuery = function (string, escapeQuerySpace) {
-	    if (!string) {
-	      return {};
-	    }
-	
-	    // throw out the funky business - "?"[name"="value"&"]+
-	    string = string.replace(/&+/g, '&').replace(/^\?*&*|&+$/g, '');
-	
-	    if (!string) {
-	      return {};
-	    }
-	
-	    var items = {};
-	    var splits = string.split('&');
-	    var length = splits.length;
-	    var v, name, value;
-	
-	    for (var i = 0; i < length; i++) {
-	      v = splits[i].split('=');
-	      name = URI.decodeQuery(v.shift(), escapeQuerySpace);
-	      // no "=" is null according to http://dvcs.w3.org/hg/url/raw-file/tip/Overview.html#collect-url-parameters
-	      value = v.length ? URI.decodeQuery(v.join('='), escapeQuerySpace) : null;
-	
-	      if (hasOwn.call(items, name)) {
-	        if (typeof items[name] === 'string' || items[name] === null) {
-	          items[name] = [items[name]];
-	        }
-	
-	        items[name].push(value);
-	      } else {
-	        items[name] = value;
-	      }
-	    }
-	
-	    return items;
-	  };
-	
-	  URI.build = function (parts) {
-	    var t = '';
-	
-	    if (parts.protocol) {
-	      t += parts.protocol + ':';
-	    }
-	
-	    if (!parts.urn && (t || parts.hostname)) {
-	      t += '//';
-	    }
-	
-	    t += URI.buildAuthority(parts) || '';
-	
-	    if (typeof parts.path === 'string') {
-	      if (parts.path.charAt(0) !== '/' && typeof parts.hostname === 'string') {
-	        t += '/';
-	      }
-	
-	      t += parts.path;
-	    }
-	
-	    if (typeof parts.query === 'string' && parts.query) {
-	      t += '?' + parts.query;
-	    }
-	
-	    if (typeof parts.fragment === 'string' && parts.fragment) {
-	      t += '#' + parts.fragment;
-	    }
-	    return t;
-	  };
-	  URI.buildHost = function (parts) {
-	    var t = '';
-	
-	    if (!parts.hostname) {
-	      return '';
-	    } else if (URI.ip6_expression.test(parts.hostname)) {
-	      t += '[' + parts.hostname + ']';
-	    } else {
-	      t += parts.hostname;
-	    }
-	
-	    if (parts.port) {
-	      t += ':' + parts.port;
-	    }
-	
-	    return t;
-	  };
-	  URI.buildAuthority = function (parts) {
-	    return URI.buildUserinfo(parts) + URI.buildHost(parts);
-	  };
-	  URI.buildUserinfo = function (parts) {
-	    var t = '';
-	
-	    if (parts.username) {
-	      t += URI.encode(parts.username);
-	
-	      if (parts.password) {
-	        t += ':' + URI.encode(parts.password);
-	      }
-	
-	      t += '@';
-	    }
-	
-	    return t;
-	  };
-	  URI.buildQuery = function (data, duplicateQueryParameters, escapeQuerySpace) {
-	    // according to http://tools.ietf.org/html/rfc3986 or http://labs.apache.org/webarch/uri/rfc/rfc3986.html
-	    // being »-._~!$&'()*+,;=:@/?« %HEX and alnum are allowed
-	    // the RFC explicitly states ?/foo being a valid use case, no mention of parameter syntax!
-	    // URI.js treats the query string as being application/x-www-form-urlencoded
-	    // see http://www.w3.org/TR/REC-html40/interact/forms.html#form-content-type
-	
-	    var t = '';
-	    var unique, key, i, length;
-	    for (key in data) {
-	      if (hasOwn.call(data, key) && key) {
-	        if (isArray(data[key])) {
-	          unique = {};
-	          for (i = 0, length = data[key].length; i < length; i++) {
-	            if (data[key][i] !== undefined && unique[data[key][i] + ''] === undefined) {
-	              t += '&' + URI.buildQueryParameter(key, data[key][i], escapeQuerySpace);
-	              if (duplicateQueryParameters !== true) {
-	                unique[data[key][i] + ''] = true;
-	              }
-	            }
-	          }
-	        } else if (data[key] !== undefined) {
-	          t += '&' + URI.buildQueryParameter(key, data[key], escapeQuerySpace);
-	        }
-	      }
-	    }
-	
-	    return t.substring(1);
-	  };
-	  URI.buildQueryParameter = function (name, value, escapeQuerySpace) {
-	    // http://www.w3.org/TR/REC-html40/interact/forms.html#form-content-type -- application/x-www-form-urlencoded
-	    // don't append "=" for null values, according to http://dvcs.w3.org/hg/url/raw-file/tip/Overview.html#url-parameter-serialization
-	    return URI.encodeQuery(name, escapeQuerySpace) + (value !== null ? '=' + URI.encodeQuery(value, escapeQuerySpace) : '');
-	  };
-	
-	  URI.addQuery = function (data, name, value) {
-	    if (typeof name === 'object') {
-	      for (var key in name) {
-	        if (hasOwn.call(name, key)) {
-	          URI.addQuery(data, key, name[key]);
-	        }
-	      }
-	    } else if (typeof name === 'string') {
-	      if (data[name] === undefined) {
-	        data[name] = value;
-	        return;
-	      } else if (typeof data[name] === 'string') {
-	        data[name] = [data[name]];
-	      }
-	
-	      if (!isArray(value)) {
-	        value = [value];
-	      }
-	
-	      data[name] = (data[name] || []).concat(value);
-	    } else {
-	      throw new TypeError('URI.addQuery() accepts an object, string as the name parameter');
-	    }
-	  };
-	  URI.removeQuery = function (data, name, value) {
-	    var i, length, key;
-	
-	    if (isArray(name)) {
-	      for (i = 0, length = name.length; i < length; i++) {
-	        data[name[i]] = undefined;
-	      }
-	    } else if (getType(name) === 'RegExp') {
-	      for (key in data) {
-	        if (name.test(key)) {
-	          data[key] = undefined;
-	        }
-	      }
-	    } else if (typeof name === 'object') {
-	      for (key in name) {
-	        if (hasOwn.call(name, key)) {
-	          URI.removeQuery(data, key, name[key]);
-	        }
-	      }
-	    } else if (typeof name === 'string') {
-	      if (value !== undefined) {
-	        if (getType(value) === 'RegExp') {
-	          if (!isArray(data[name]) && value.test(data[name])) {
-	            data[name] = undefined;
-	          } else {
-	            data[name] = filterArrayValues(data[name], value);
-	          }
-	        } else if (data[name] === value) {
-	          data[name] = undefined;
-	        } else if (isArray(data[name])) {
-	          data[name] = filterArrayValues(data[name], value);
-	        }
-	      } else {
-	        data[name] = undefined;
-	      }
-	    } else {
-	      throw new TypeError('URI.removeQuery() accepts an object, string, RegExp as the first parameter');
-	    }
-	  };
-	  URI.hasQuery = function (data, name, value, withinArray) {
-	    if (typeof name === 'object') {
-	      for (var key in name) {
-	        if (hasOwn.call(name, key)) {
-	          if (!URI.hasQuery(data, key, name[key])) {
-	            return false;
-	          }
-	        }
-	      }
-	
-	      return true;
-	    } else if (typeof name !== 'string') {
-	      throw new TypeError('URI.hasQuery() accepts an object, string as the name parameter');
-	    }
-	
-	    switch (getType(value)) {
-	      case 'Undefined':
-	        // true if exists (but may be empty)
-	        return name in data; // data[name] !== undefined;
-	
-	      case 'Boolean':
-	        // true if exists and non-empty
-	        var _booly = Boolean(isArray(data[name]) ? data[name].length : data[name]);
-	        return value === _booly;
-	
-	      case 'Function':
-	        // allow complex comparison
-	        return !!value(data[name], name, data);
-	
-	      case 'Array':
-	        if (!isArray(data[name])) {
-	          return false;
-	        }
-	
-	        var op = withinArray ? arrayContains : arraysEqual;
-	        return op(data[name], value);
-	
-	      case 'RegExp':
-	        if (!isArray(data[name])) {
-	          return Boolean(data[name] && data[name].match(value));
-	        }
-	
-	        if (!withinArray) {
-	          return false;
-	        }
-	
-	        return arrayContains(data[name], value);
-	
-	      case 'Number':
-	        value = String(value);
-	      /* falls through */
-	      case 'String':
-	        if (!isArray(data[name])) {
-	          return data[name] === value;
-	        }
-	
-	        if (!withinArray) {
-	          return false;
-	        }
-	
-	        return arrayContains(data[name], value);
-	
-	      default:
-	        throw new TypeError('URI.hasQuery() accepts undefined, boolean, string, number, RegExp, Function as the value parameter');
-	    }
-	  };
-	
-	  URI.commonPath = function (one, two) {
-	    var length = Math.min(one.length, two.length);
-	    var pos;
-	
-	    // find first non-matching character
-	    for (pos = 0; pos < length; pos++) {
-	      if (one.charAt(pos) !== two.charAt(pos)) {
-	        pos--;
-	        break;
-	      }
-	    }
-	
-	    if (pos < 1) {
-	      return one.charAt(0) === two.charAt(0) && one.charAt(0) === '/' ? '/' : '';
-	    }
-	
-	    // revert to last /
-	    if (one.charAt(pos) !== '/' || two.charAt(pos) !== '/') {
-	      pos = one.substring(0, pos).lastIndexOf('/');
-	    }
-	
-	    return one.substring(0, pos + 1);
-	  };
-	
-	  URI.withinString = function (string, callback, options) {
-	    options || (options = {});
-	    var _start = options.start || URI.findUri.start;
-	    var _end = options.end || URI.findUri.end;
-	    var _trim = options.trim || URI.findUri.trim;
-	    var _attributeOpen = /[a-z0-9-]=["']?$/i;
-	
-	    _start.lastIndex = 0;
-	    while (true) {
-	      var match = _start.exec(string);
-	      if (!match) {
-	        break;
-	      }
-	
-	      var start = match.index;
-	      if (options.ignoreHtml) {
-	        // attribut(e=["']?$)
-	        var attributeOpen = string.slice(Math.max(start - 3, 0), start);
-	        if (attributeOpen && _attributeOpen.test(attributeOpen)) {
-	          continue;
-	        }
-	      }
-	
-	      var end = start + string.slice(start).search(_end);
-	      var slice = string.slice(start, end).replace(_trim, '');
-	      if (options.ignore && options.ignore.test(slice)) {
-	        continue;
-	      }
-	
-	      end = start + slice.length;
-	      var result = callback(slice, start, end, string);
-	      string = string.slice(0, start) + result + string.slice(end);
-	      _start.lastIndex = start + result.length;
-	    }
-	
-	    _start.lastIndex = 0;
-	    return string;
-	  };
-	
-	  URI.ensureValidHostname = function (v) {
-	    // Theoretically URIs allow percent-encoding in Hostnames (according to RFC 3986)
-	    // they are not part of DNS and therefore ignored by URI.js
-	
-	    if (v.match(URI.invalid_hostname_characters)) {
-	      // test punycode
-	      if (!punycode) {
-	        throw new TypeError('Hostname "' + v + '" contains characters other than [A-Z0-9.-] and Punycode.js is not available');
-	      }
-	
-	      if (punycode.toASCII(v).match(URI.invalid_hostname_characters)) {
-	        throw new TypeError('Hostname "' + v + '" contains characters other than [A-Z0-9.-]');
-	      }
-	    }
-	  };
-	
-	  // noConflict
-	  URI.noConflict = function (removeAll) {
-	    if (removeAll) {
-	      var unconflicted = {
-	        URI: this.noConflict()
-	      };
-	
-	      if (root.URITemplate && typeof root.URITemplate.noConflict === 'function') {
-	        unconflicted.URITemplate = root.URITemplate.noConflict();
-	      }
-	
-	      if (root.IPv6 && typeof root.IPv6.noConflict === 'function') {
-	        unconflicted.IPv6 = root.IPv6.noConflict();
-	      }
-	
-	      if (root.SecondLevelDomains && typeof root.SecondLevelDomains.noConflict === 'function') {
-	        unconflicted.SecondLevelDomains = root.SecondLevelDomains.noConflict();
-	      }
-	
-	      return unconflicted;
-	    } else if (root.URI === this) {
-	      root.URI = _URI;
-	    }
-	
-	    return this;
-	  };
-	
-	  p.build = function (deferBuild) {
-	    if (deferBuild === true) {
-	      this._deferred_build = true;
-	    } else if (deferBuild === undefined || this._deferred_build) {
-	      this._string = URI.build(this._parts);
-	      this._deferred_build = false;
-	    }
-	
-	    return this;
-	  };
-	
-	  p.clone = function () {
-	    return new URI(this);
-	  };
-	
-	  p.valueOf = p.toString = function () {
-	    return this.build(false)._string;
-	  };
-	
-	  function generateSimpleAccessor(_part) {
-	    return function (v, build) {
-	      if (v === undefined) {
-	        return this._parts[_part] || '';
-	      } else {
-	        this._parts[_part] = v || null;
-	        this.build(!build);
-	        return this;
-	      }
-	    };
-	  }
-	
-	  function generatePrefixAccessor(_part, _key) {
-	    return function (v, build) {
-	      if (v === undefined) {
-	        return this._parts[_part] || '';
-	      } else {
-	        if (v !== null) {
-	          v = v + '';
-	          if (v.charAt(0) === _key) {
-	            v = v.substring(1);
-	          }
-	        }
-	
-	        this._parts[_part] = v;
-	        this.build(!build);
-	        return this;
-	      }
-	    };
-	  }
-	
-	  p.protocol = generateSimpleAccessor('protocol');
-	  p.username = generateSimpleAccessor('username');
-	  p.password = generateSimpleAccessor('password');
-	  p.hostname = generateSimpleAccessor('hostname');
-	  p.port = generateSimpleAccessor('port');
-	  p.query = generatePrefixAccessor('query', '?');
-	  p.fragment = generatePrefixAccessor('fragment', '#');
-	
-	  p.search = function (v, build) {
-	    var t = this.query(v, build);
-	    return typeof t === 'string' && t.length ? '?' + t : t;
-	  };
-	  p.hash = function (v, build) {
-	    var t = this.fragment(v, build);
-	    return typeof t === 'string' && t.length ? '#' + t : t;
-	  };
-	
-	  p.pathname = function (v, build) {
-	    if (v === undefined || v === true) {
-	      var res = this._parts.path || (this._parts.hostname ? '/' : '');
-	      return v ? (this._parts.urn ? URI.decodeUrnPath : URI.decodePath)(res) : res;
-	    } else {
-	      if (this._parts.urn) {
-	        this._parts.path = v ? URI.recodeUrnPath(v) : '';
-	      } else {
-	        this._parts.path = v ? URI.recodePath(v) : '/';
-	      }
-	      this.build(!build);
-	      return this;
-	    }
-	  };
-	  p.path = p.pathname;
-	  p.href = function (href, build) {
-	    var key;
-	
-	    if (href === undefined) {
-	      return this.toString();
-	    }
-	
-	    this._string = '';
-	    this._parts = URI._parts();
-	
-	    var _URI = href instanceof URI;
-	    var _object = typeof href === 'object' && (href.hostname || href.path || href.pathname);
-	    if (href.nodeName) {
-	      var attribute = URI.getDomAttribute(href);
-	      href = href[attribute] || '';
-	      _object = false;
-	    }
-	
-	    // window.location is reported to be an object, but it's not the sort
-	    // of object we're looking for:
-	    // * location.protocol ends with a colon
-	    // * location.query != object.search
-	    // * location.hash != object.fragment
-	    // simply serializing the unknown object should do the trick
-	    // (for location, not for everything...)
-	    if (!_URI && _object && href.pathname !== undefined) {
-	      href = href.toString();
-	    }
-	
-	    if (typeof href === 'string' || href instanceof String) {
-	      this._parts = URI.parse(String(href), this._parts);
-	    } else if (_URI || _object) {
-	      var src = _URI ? href._parts : href;
-	      for (key in src) {
-	        if (hasOwn.call(this._parts, key)) {
-	          this._parts[key] = src[key];
-	        }
-	      }
-	    } else {
-	      throw new TypeError('invalid input');
-	    }
-	
-	    this.build(!build);
-	    return this;
-	  };
-	
-	  // identification accessors
-	  p.is = function (what) {
-	    var ip = false;
-	    var ip4 = false;
-	    var ip6 = false;
-	    var name = false;
-	    var sld = false;
-	    var idn = false;
-	    var punycode = false;
-	    var relative = !this._parts.urn;
-	
-	    if (this._parts.hostname) {
-	      relative = false;
-	      ip4 = URI.ip4_expression.test(this._parts.hostname);
-	      ip6 = URI.ip6_expression.test(this._parts.hostname);
-	      ip = ip4 || ip6;
-	      name = !ip;
-	      sld = name && SLD && SLD.has(this._parts.hostname);
-	      idn = name && URI.idn_expression.test(this._parts.hostname);
-	      punycode = name && URI.punycode_expression.test(this._parts.hostname);
-	    }
-	
-	    switch (what.toLowerCase()) {
-	      case 'relative':
-	        return relative;
-	
-	      case 'absolute':
-	        return !relative;
-	
-	      // hostname identification
-	      case 'domain':
-	      case 'name':
-	        return name;
-	
-	      case 'sld':
-	        return sld;
-	
-	      case 'ip':
-	        return ip;
-	
-	      case 'ip4':
-	      case 'ipv4':
-	      case 'inet4':
-	        return ip4;
-	
-	      case 'ip6':
-	      case 'ipv6':
-	      case 'inet6':
-	        return ip6;
-	
-	      case 'idn':
-	        return idn;
-	
-	      case 'url':
-	        return !this._parts.urn;
-	
-	      case 'urn':
-	        return !!this._parts.urn;
-	
-	      case 'punycode':
-	        return punycode;
-	    }
-	
-	    return null;
-	  };
-	
-	  // component specific input validation
-	  var _protocol = p.protocol;
-	  var _port = p.port;
-	  var _hostname = p.hostname;
-	
-	  p.protocol = function (v, build) {
-	    if (v !== undefined) {
-	      if (v) {
-	        // accept trailing ://
-	        v = v.replace(/:(\/\/)?$/, '');
-	
-	        if (!v.match(URI.protocol_expression)) {
-	          throw new TypeError('Protocol "' + v + '" contains characters other than [A-Z0-9.+-] or doesn\'t start with [A-Z]');
-	        }
-	      }
-	    }
-	    return _protocol.call(this, v, build);
-	  };
-	  p.scheme = p.protocol;
-	  p.port = function (v, build) {
-	    if (this._parts.urn) {
-	      return v === undefined ? '' : this;
-	    }
-	
-	    if (v !== undefined) {
-	      if (v === 0) {
-	        v = null;
-	      }
-	
-	      if (v) {
-	        v += '';
-	        if (v.charAt(0) === ':') {
-	          v = v.substring(1);
-	        }
-	
-	        if (v.match(/[^0-9]/)) {
-	          throw new TypeError('Port "' + v + '" contains characters other than [0-9]');
-	        }
-	      }
-	    }
-	    return _port.call(this, v, build);
-	  };
-	  p.hostname = function (v, build) {
-	    if (this._parts.urn) {
-	      return v === undefined ? '' : this;
-	    }
-	
-	    if (v !== undefined) {
-	      var x = {};
-	      var res = URI.parseHost(v, x);
-	      if (res !== '/') {
-	        throw new TypeError('Hostname "' + v + '" contains characters other than [A-Z0-9.-]');
-	      }
-	
-	      v = x.hostname;
-	    }
-	    return _hostname.call(this, v, build);
-	  };
-	
-	  // compound accessors
-	  p.host = function (v, build) {
-	    if (this._parts.urn) {
-	      return v === undefined ? '' : this;
-	    }
-	
-	    if (v === undefined) {
-	      return this._parts.hostname ? URI.buildHost(this._parts) : '';
-	    } else {
-	      var res = URI.parseHost(v, this._parts);
-	      if (res !== '/') {
-	        throw new TypeError('Hostname "' + v + '" contains characters other than [A-Z0-9.-]');
-	      }
-	
-	      this.build(!build);
-	      return this;
-	    }
-	  };
-	  p.authority = function (v, build) {
-	    if (this._parts.urn) {
-	      return v === undefined ? '' : this;
-	    }
-	
-	    if (v === undefined) {
-	      return this._parts.hostname ? URI.buildAuthority(this._parts) : '';
-	    } else {
-	      var res = URI.parseAuthority(v, this._parts);
-	      if (res !== '/') {
-	        throw new TypeError('Hostname "' + v + '" contains characters other than [A-Z0-9.-]');
-	      }
-	
-	      this.build(!build);
-	      return this;
-	    }
-	  };
-	  p.userinfo = function (v, build) {
-	    if (this._parts.urn) {
-	      return v === undefined ? '' : this;
-	    }
-	
-	    if (v === undefined) {
-	      if (!this._parts.username) {
-	        return '';
-	      }
-	
-	      var t = URI.buildUserinfo(this._parts);
-	      return t.substring(0, t.length - 1);
-	    } else {
-	      if (v[v.length - 1] !== '@') {
-	        v += '@';
-	      }
-	
-	      URI.parseUserinfo(v, this._parts);
-	      this.build(!build);
-	      return this;
-	    }
-	  };
-	  p.resource = function (v, build) {
-	    var parts;
-	
-	    if (v === undefined) {
-	      return this.path() + this.search() + this.hash();
-	    }
-	
-	    parts = URI.parse(v);
-	    this._parts.path = parts.path;
-	    this._parts.query = parts.query;
-	    this._parts.fragment = parts.fragment;
-	    this.build(!build);
-	    return this;
-	  };
-	
-	  // fraction accessors
-	  p.subdomain = function (v, build) {
-	    if (this._parts.urn) {
-	      return v === undefined ? '' : this;
-	    }
-	
-	    // convenience, return "www" from "www.example.org"
-	    if (v === undefined) {
-	      if (!this._parts.hostname || this.is('IP')) {
-	        return '';
-	      }
-	
-	      // grab domain and add another segment
-	      var end = this._parts.hostname.length - this.domain().length - 1;
-	      return this._parts.hostname.substring(0, end) || '';
-	    } else {
-	      var e = this._parts.hostname.length - this.domain().length;
-	      var sub = this._parts.hostname.substring(0, e);
-	      var replace = new RegExp('^' + escapeRegEx(sub));
-	
-	      if (v && v.charAt(v.length - 1) !== '.') {
-	        v += '.';
-	      }
-	
-	      if (v) {
-	        URI.ensureValidHostname(v);
-	      }
-	
-	      this._parts.hostname = this._parts.hostname.replace(replace, v);
-	      this.build(!build);
-	      return this;
-	    }
-	  };
-	  p.domain = function (v, build) {
-	    if (this._parts.urn) {
-	      return v === undefined ? '' : this;
-	    }
-	
-	    if (typeof v === 'boolean') {
-	      build = v;
-	      v = undefined;
-	    }
-	
-	    // convenience, return "example.org" from "www.example.org"
-	    if (v === undefined) {
-	      if (!this._parts.hostname || this.is('IP')) {
-	        return '';
-	      }
-	
-	      // if hostname consists of 1 or 2 segments, it must be the domain
-	      var t = this._parts.hostname.match(/\./g);
-	      if (t && t.length < 2) {
-	        return this._parts.hostname;
-	      }
-	
-	      // grab tld and add another segment
-	      var end = this._parts.hostname.length - this.tld(build).length - 1;
-	      end = this._parts.hostname.lastIndexOf('.', end - 1) + 1;
-	      return this._parts.hostname.substring(end) || '';
-	    } else {
-	      if (!v) {
-	        throw new TypeError('cannot set domain empty');
-	      }
-	
-	      URI.ensureValidHostname(v);
-	
-	      if (!this._parts.hostname || this.is('IP')) {
-	        this._parts.hostname = v;
-	      } else {
-	        var replace = new RegExp(escapeRegEx(this.domain()) + '$');
-	        this._parts.hostname = this._parts.hostname.replace(replace, v);
-	      }
-	
-	      this.build(!build);
-	      return this;
-	    }
-	  };
-	  p.tld = function (v, build) {
-	    if (this._parts.urn) {
-	      return v === undefined ? '' : this;
-	    }
-	
-	    if (typeof v === 'boolean') {
-	      build = v;
-	      v = undefined;
-	    }
-	
-	    // return "org" from "www.example.org"
-	    if (v === undefined) {
-	      if (!this._parts.hostname || this.is('IP')) {
-	        return '';
-	      }
-	
-	      var pos = this._parts.hostname.lastIndexOf('.');
-	      var tld = this._parts.hostname.substring(pos + 1);
-	
-	      if (build !== true && SLD && SLD.list[tld.toLowerCase()]) {
-	        return SLD.get(this._parts.hostname) || tld;
-	      }
-	
-	      return tld;
-	    } else {
-	      var replace;
-	
-	      if (!v) {
-	        throw new TypeError('cannot set TLD empty');
-	      } else if (v.match(/[^a-zA-Z0-9-]/)) {
-	        if (SLD && SLD.is(v)) {
-	          replace = new RegExp(escapeRegEx(this.tld()) + '$');
-	          this._parts.hostname = this._parts.hostname.replace(replace, v);
-	        } else {
-	          throw new TypeError('TLD "' + v + '" contains characters other than [A-Z0-9]');
-	        }
-	      } else if (!this._parts.hostname || this.is('IP')) {
-	        throw new ReferenceError('cannot set TLD on non-domain host');
-	      } else {
-	        replace = new RegExp(escapeRegEx(this.tld()) + '$');
-	        this._parts.hostname = this._parts.hostname.replace(replace, v);
-	      }
-	
-	      this.build(!build);
-	      return this;
-	    }
-	  };
-	  p.directory = function (v, build) {
-	    if (this._parts.urn) {
-	      return v === undefined ? '' : this;
-	    }
-	
-	    if (v === undefined || v === true) {
-	      if (!this._parts.path && !this._parts.hostname) {
-	        return '';
-	      }
-	
-	      if (this._parts.path === '/') {
-	        return '/';
-	      }
-	
-	      var end = this._parts.path.length - this.filename().length - 1;
-	      var res = this._parts.path.substring(0, end) || (this._parts.hostname ? '/' : '');
-	
-	      return v ? URI.decodePath(res) : res;
-	    } else {
-	      var e = this._parts.path.length - this.filename().length;
-	      var directory = this._parts.path.substring(0, e);
-	      var replace = new RegExp('^' + escapeRegEx(directory));
-	
-	      // fully qualifier directories begin with a slash
-	      if (!this.is('relative')) {
-	        if (!v) {
-	          v = '/';
-	        }
-	
-	        if (v.charAt(0) !== '/') {
-	          v = '/' + v;
-	        }
-	      }
-	
-	      // directories always end with a slash
-	      if (v && v.charAt(v.length - 1) !== '/') {
-	        v += '/';
-	      }
-	
-	      v = URI.recodePath(v);
-	      this._parts.path = this._parts.path.replace(replace, v);
-	      this.build(!build);
-	      return this;
-	    }
-	  };
-	  p.filename = function (v, build) {
-	    if (this._parts.urn) {
-	      return v === undefined ? '' : this;
-	    }
-	
-	    if (v === undefined || v === true) {
-	      if (!this._parts.path || this._parts.path === '/') {
-	        return '';
-	      }
-	
-	      var pos = this._parts.path.lastIndexOf('/');
-	      var res = this._parts.path.substring(pos + 1);
-	
-	      return v ? URI.decodePathSegment(res) : res;
-	    } else {
-	      var mutatedDirectory = false;
-	
-	      if (v.charAt(0) === '/') {
-	        v = v.substring(1);
-	      }
-	
-	      if (v.match(/\.?\//)) {
-	        mutatedDirectory = true;
-	      }
-	
-	      var replace = new RegExp(escapeRegEx(this.filename()) + '$');
-	      v = URI.recodePath(v);
-	      this._parts.path = this._parts.path.replace(replace, v);
-	
-	      if (mutatedDirectory) {
-	        this.normalizePath(build);
-	      } else {
-	        this.build(!build);
-	      }
-	
-	      return this;
-	    }
-	  };
-	  p.suffix = function (v, build) {
-	    if (this._parts.urn) {
-	      return v === undefined ? '' : this;
-	    }
-	
-	    if (v === undefined || v === true) {
-	      if (!this._parts.path || this._parts.path === '/') {
-	        return '';
-	      }
-	
-	      var filename = this.filename();
-	      var pos = filename.lastIndexOf('.');
-	      var s, res;
-	
-	      if (pos === -1) {
-	        return '';
-	      }
-	
-	      // suffix may only contain alnum characters (yup, I made this up.)
-	      s = filename.substring(pos + 1);
-	      res = /^[a-z0-9%]+$/i.test(s) ? s : '';
-	      return v ? URI.decodePathSegment(res) : res;
-	    } else {
-	      if (v.charAt(0) === '.') {
-	        v = v.substring(1);
-	      }
-	
-	      var suffix = this.suffix();
-	      var replace;
-	
-	      if (!suffix) {
-	        if (!v) {
-	          return this;
-	        }
-	
-	        this._parts.path += '.' + URI.recodePath(v);
-	      } else if (!v) {
-	        replace = new RegExp(escapeRegEx('.' + suffix) + '$');
-	      } else {
-	        replace = new RegExp(escapeRegEx(suffix) + '$');
-	      }
-	
-	      if (replace) {
-	        v = URI.recodePath(v);
-	        this._parts.path = this._parts.path.replace(replace, v);
-	      }
-	
-	      this.build(!build);
-	      return this;
-	    }
-	  };
-	  p.segment = function (segment, v, build) {
-	    var separator = this._parts.urn ? ':' : '/';
-	    var path = this.path();
-	    var absolute = path.substring(0, 1) === '/';
-	    var segments = path.split(separator);
-	
-	    if (segment !== undefined && typeof segment !== 'number') {
-	      build = v;
-	      v = segment;
-	      segment = undefined;
-	    }
-	
-	    if (segment !== undefined && typeof segment !== 'number') {
-	      throw new Error('Bad segment "' + segment + '", must be 0-based integer');
-	    }
-	
-	    if (absolute) {
-	      segments.shift();
-	    }
-	
-	    if (segment < 0) {
-	      // allow negative indexes to address from the end
-	      segment = Math.max(segments.length + segment, 0);
-	    }
-	
-	    if (v === undefined) {
-	      /*jshint laxbreak: true */
-	      return segment === undefined ? segments : segments[segment];
-	      /*jshint laxbreak: false */
-	    } else if (segment === null || segments[segment] === undefined) {
-	        if (isArray(v)) {
-	          segments = [];
-	          // collapse empty elements within array
-	          for (var i = 0, l = v.length; i < l; i++) {
-	            if (!v[i].length && (!segments.length || !segments[segments.length - 1].length)) {
-	              continue;
-	            }
-	
-	            if (segments.length && !segments[segments.length - 1].length) {
-	              segments.pop();
-	            }
-	
-	            segments.push(v[i]);
-	          }
-	        } else if (v || typeof v === 'string') {
-	          if (segments[segments.length - 1] === '') {
-	            // empty trailing elements have to be overwritten
-	            // to prevent results such as /foo//bar
-	            segments[segments.length - 1] = v;
-	          } else {
-	            segments.push(v);
-	          }
-	        }
-	      } else {
-	        if (v) {
-	          segments[segment] = v;
-	        } else {
-	          segments.splice(segment, 1);
-	        }
-	      }
-	
-	    if (absolute) {
-	      segments.unshift('');
-	    }
-	
-	    return this.path(segments.join(separator), build);
-	  };
-	  p.segmentCoded = function (segment, v, build) {
-	    var segments, i, l;
-	
-	    if (typeof segment !== 'number') {
-	      build = v;
-	      v = segment;
-	      segment = undefined;
-	    }
-	
-	    if (v === undefined) {
-	      segments = this.segment(segment, v, build);
-	      if (!isArray(segments)) {
-	        segments = segments !== undefined ? URI.decode(segments) : undefined;
-	      } else {
-	        for (i = 0, l = segments.length; i < l; i++) {
-	          segments[i] = URI.decode(segments[i]);
-	        }
-	      }
-	
-	      return segments;
-	    }
-	
-	    if (!isArray(v)) {
-	      v = typeof v === 'string' || v instanceof String ? URI.encode(v) : v;
-	    } else {
-	      for (i = 0, l = v.length; i < l; i++) {
-	        v[i] = URI.encode(v[i]);
-	      }
-	    }
-	
-	    return this.segment(segment, v, build);
-	  };
-	
-	  // mutating query string
-	  var q = p.query;
-	  p.query = function (v, build) {
-	    if (v === true) {
-	      return URI.parseQuery(this._parts.query, this._parts.escapeQuerySpace);
-	    } else if (typeof v === 'function') {
-	      var data = URI.parseQuery(this._parts.query, this._parts.escapeQuerySpace);
-	      var result = v.call(this, data);
-	      this._parts.query = URI.buildQuery(result || data, this._parts.duplicateQueryParameters, this._parts.escapeQuerySpace);
-	      this.build(!build);
-	      return this;
-	    } else if (v !== undefined && typeof v !== 'string') {
-	      this._parts.query = URI.buildQuery(v, this._parts.duplicateQueryParameters, this._parts.escapeQuerySpace);
-	      this.build(!build);
-	      return this;
-	    } else {
-	      return q.call(this, v, build);
-	    }
-	  };
-	  p.setQuery = function (name, value, build) {
-	    var data = URI.parseQuery(this._parts.query, this._parts.escapeQuerySpace);
-	
-	    if (typeof name === 'string' || name instanceof String) {
-	      data[name] = value !== undefined ? value : null;
-	    } else if (typeof name === 'object') {
-	      for (var key in name) {
-	        if (hasOwn.call(name, key)) {
-	          data[key] = name[key];
-	        }
-	      }
-	    } else {
-	      throw new TypeError('URI.addQuery() accepts an object, string as the name parameter');
-	    }
-	
-	    this._parts.query = URI.buildQuery(data, this._parts.duplicateQueryParameters, this._parts.escapeQuerySpace);
-	    if (typeof name !== 'string') {
-	      build = value;
-	    }
-	
-	    this.build(!build);
-	    return this;
-	  };
-	  p.addQuery = function (name, value, build) {
-	    var data = URI.parseQuery(this._parts.query, this._parts.escapeQuerySpace);
-	    URI.addQuery(data, name, value === undefined ? null : value);
-	    this._parts.query = URI.buildQuery(data, this._parts.duplicateQueryParameters, this._parts.escapeQuerySpace);
-	    if (typeof name !== 'string') {
-	      build = value;
-	    }
-	
-	    this.build(!build);
-	    return this;
-	  };
-	  p.removeQuery = function (name, value, build) {
-	    var data = URI.parseQuery(this._parts.query, this._parts.escapeQuerySpace);
-	    URI.removeQuery(data, name, value);
-	    this._parts.query = URI.buildQuery(data, this._parts.duplicateQueryParameters, this._parts.escapeQuerySpace);
-	    if (typeof name !== 'string') {
-	      build = value;
-	    }
-	
-	    this.build(!build);
-	    return this;
-	  };
-	  p.hasQuery = function (name, value, withinArray) {
-	    var data = URI.parseQuery(this._parts.query, this._parts.escapeQuerySpace);
-	    return URI.hasQuery(data, name, value, withinArray);
-	  };
-	  p.setSearch = p.setQuery;
-	  p.addSearch = p.addQuery;
-	  p.removeSearch = p.removeQuery;
-	  p.hasSearch = p.hasQuery;
-	
-	  // sanitizing URLs
-	  p.normalize = function () {
-	    if (this._parts.urn) {
-	      return this.normalizeProtocol(false).normalizePath(false).normalizeQuery(false).normalizeFragment(false).build();
-	    }
-	
-	    return this.normalizeProtocol(false).normalizeHostname(false).normalizePort(false).normalizePath(false).normalizeQuery(false).normalizeFragment(false).build();
-	  };
-	  p.normalizeProtocol = function (build) {
-	    if (typeof this._parts.protocol === 'string') {
-	      this._parts.protocol = this._parts.protocol.toLowerCase();
-	      this.build(!build);
-	    }
-	
-	    return this;
-	  };
-	  p.normalizeHostname = function (build) {
-	    if (this._parts.hostname) {
-	      if (this.is('IDN') && punycode) {
-	        this._parts.hostname = punycode.toASCII(this._parts.hostname);
-	      } else if (this.is('IPv6') && IPv6) {
-	        this._parts.hostname = IPv6.best(this._parts.hostname);
-	      }
-	
-	      this._parts.hostname = this._parts.hostname.toLowerCase();
-	      this.build(!build);
-	    }
-	
-	    return this;
-	  };
-	  p.normalizePort = function (build) {
-	    // remove port of it's the protocol's default
-	    if (typeof this._parts.protocol === 'string' && this._parts.port === URI.defaultPorts[this._parts.protocol]) {
-	      this._parts.port = null;
-	      this.build(!build);
-	    }
-	
-	    return this;
-	  };
-	  p.normalizePath = function (build) {
-	    var _path = this._parts.path;
-	    if (!_path) {
-	      return this;
-	    }
-	
-	    if (this._parts.urn) {
-	      this._parts.path = URI.recodeUrnPath(this._parts.path);
-	      this.build(!build);
-	      return this;
-	    }
-	
-	    if (this._parts.path === '/') {
-	      return this;
-	    }
-	
-	    var _was_relative;
-	    var _leadingParents = '';
-	    var _parent, _pos;
-	
-	    // handle relative paths
-	    if (_path.charAt(0) !== '/') {
-	      _was_relative = true;
-	      _path = '/' + _path;
-	    }
-	
-	    // handle relative files (as opposed to directories)
-	    if (_path.slice(-3) === '/..' || _path.slice(-2) === '/.') {
-	      _path += '/';
-	    }
-	
-	    // resolve simples
-	    _path = _path.replace(/(\/(\.\/)+)|(\/\.$)/g, '/').replace(/\/{2,}/g, '/');
-	
-	    // remember leading parents
-	    if (_was_relative) {
-	      _leadingParents = _path.substring(1).match(/^(\.\.\/)+/) || '';
-	      if (_leadingParents) {
-	        _leadingParents = _leadingParents[0];
-	      }
-	    }
-	
-	    // resolve parents
-	    while (true) {
-	      _parent = _path.indexOf('/..');
-	      if (_parent === -1) {
-	        // no more ../ to resolve
-	        break;
-	      } else if (_parent === 0) {
-	        // top level cannot be relative, skip it
-	        _path = _path.substring(3);
-	        continue;
-	      }
-	
-	      _pos = _path.substring(0, _parent).lastIndexOf('/');
-	      if (_pos === -1) {
-	        _pos = _parent;
-	      }
-	      _path = _path.substring(0, _pos) + _path.substring(_parent + 3);
-	    }
-	
-	    // revert to relative
-	    if (_was_relative && this.is('relative')) {
-	      _path = _leadingParents + _path.substring(1);
-	    }
-	
-	    _path = URI.recodePath(_path);
-	    this._parts.path = _path;
-	    this.build(!build);
-	    return this;
-	  };
-	  p.normalizePathname = p.normalizePath;
-	  p.normalizeQuery = function (build) {
-	    if (typeof this._parts.query === 'string') {
-	      if (!this._parts.query.length) {
-	        this._parts.query = null;
-	      } else {
-	        this.query(URI.parseQuery(this._parts.query, this._parts.escapeQuerySpace));
-	      }
-	
-	      this.build(!build);
-	    }
-	
-	    return this;
-	  };
-	  p.normalizeFragment = function (build) {
-	    if (!this._parts.fragment) {
-	      this._parts.fragment = null;
-	      this.build(!build);
-	    }
-	
-	    return this;
-	  };
-	  p.normalizeSearch = p.normalizeQuery;
-	  p.normalizeHash = p.normalizeFragment;
-	
-	  p.iso8859 = function () {
-	    // expect unicode input, iso8859 output
-	    var e = URI.encode;
-	    var d = URI.decode;
-	
-	    URI.encode = escape;
-	    URI.decode = decodeURIComponent;
-	    try {
-	      this.normalize();
-	    } finally {
-	      URI.encode = e;
-	      URI.decode = d;
-	    }
-	    return this;
-	  };
-	
-	  p.unicode = function () {
-	    // expect iso8859 input, unicode output
-	    var e = URI.encode;
-	    var d = URI.decode;
-	
-	    URI.encode = strictEncodeURIComponent;
-	    URI.decode = unescape;
-	    try {
-	      this.normalize();
-	    } finally {
-	      URI.encode = e;
-	      URI.decode = d;
-	    }
-	    return this;
-	  };
-	
-	  p.readable = function () {
-	    var uri = this.clone();
-	    // removing username, password, because they shouldn't be displayed according to RFC 3986
-	    uri.username('').password('').normalize();
-	    var t = '';
-	    if (uri._parts.protocol) {
-	      t += uri._parts.protocol + '://';
-	    }
-	
-	    if (uri._parts.hostname) {
-	      if (uri.is('punycode') && punycode) {
-	        t += punycode.toUnicode(uri._parts.hostname);
-	        if (uri._parts.port) {
-	          t += ':' + uri._parts.port;
-	        }
-	      } else {
-	        t += uri.host();
-	      }
-	    }
-	
-	    if (uri._parts.hostname && uri._parts.path && uri._parts.path.charAt(0) !== '/') {
-	      t += '/';
-	    }
-	
-	    t += uri.path(true);
-	    if (uri._parts.query) {
-	      var q = '';
-	      for (var i = 0, qp = uri._parts.query.split('&'), l = qp.length; i < l; i++) {
-	        var kv = (qp[i] || '').split('=');
-	        q += '&' + URI.decodeQuery(kv[0], this._parts.escapeQuerySpace).replace(/&/g, '%26');
-	
-	        if (kv[1] !== undefined) {
-	          q += '=' + URI.decodeQuery(kv[1], this._parts.escapeQuerySpace).replace(/&/g, '%26');
-	        }
-	      }
-	      t += '?' + q.substring(1);
-	    }
-	
-	    t += URI.decodeQuery(uri.hash(), true);
-	    return t;
-	  };
-	
-	  // resolving relative and absolute URLs
-	  p.absoluteTo = function (base) {
-	    var resolved = this.clone();
-	    var properties = ['protocol', 'username', 'password', 'hostname', 'port'];
-	    var basedir, i, p;
-	
-	    if (this._parts.urn) {
-	      throw new Error('URNs do not have any generally defined hierarchical components');
-	    }
-	
-	    if (!(base instanceof URI)) {
-	      base = new URI(base);
-	    }
-	
-	    if (!resolved._parts.protocol) {
-	      resolved._parts.protocol = base._parts.protocol;
-	    }
-	
-	    if (this._parts.hostname) {
-	      return resolved;
-	    }
-	
-	    for (i = 0; p = properties[i]; i++) {
-	      resolved._parts[p] = base._parts[p];
-	    }
-	
-	    if (!resolved._parts.path) {
-	      resolved._parts.path = base._parts.path;
-	      if (!resolved._parts.query) {
-	        resolved._parts.query = base._parts.query;
-	      }
-	    } else if (resolved._parts.path.substring(-2) === '..') {
-	      resolved._parts.path += '/';
-	    }
-	
-	    if (resolved.path().charAt(0) !== '/') {
-	      basedir = base.directory();
-	      basedir = basedir ? basedir : base.path().indexOf('/') === 0 ? '/' : '';
-	      resolved._parts.path = (basedir ? basedir + '/' : '') + resolved._parts.path;
-	      resolved.normalizePath();
-	    }
-	
-	    resolved.build();
-	    return resolved;
-	  };
-	  p.relativeTo = function (base) {
-	    var relative = this.clone().normalize();
-	    var relativeParts, baseParts, common, relativePath, basePath;
-	
-	    if (relative._parts.urn) {
-	      throw new Error('URNs do not have any generally defined hierarchical components');
-	    }
-	
-	    base = new URI(base).normalize();
-	    relativeParts = relative._parts;
-	    baseParts = base._parts;
-	    relativePath = relative.path();
-	    basePath = base.path();
-	
-	    if (relativePath.charAt(0) !== '/') {
-	      throw new Error('URI is already relative');
-	    }
-	
-	    if (basePath.charAt(0) !== '/') {
-	      throw new Error('Cannot calculate a URI relative to another relative URI');
-	    }
-	
-	    if (relativeParts.protocol === baseParts.protocol) {
-	      relativeParts.protocol = null;
-	    }
-	
-	    if (relativeParts.username !== baseParts.username || relativeParts.password !== baseParts.password) {
-	      return relative.build();
-	    }
-	
-	    if (relativeParts.protocol !== null || relativeParts.username !== null || relativeParts.password !== null) {
-	      return relative.build();
-	    }
-	
-	    if (relativeParts.hostname === baseParts.hostname && relativeParts.port === baseParts.port) {
-	      relativeParts.hostname = null;
-	      relativeParts.port = null;
-	    } else {
-	      return relative.build();
-	    }
-	
-	    if (relativePath === basePath) {
-	      relativeParts.path = '';
-	      return relative.build();
-	    }
-	
-	    // determine common sub path
-	    common = URI.commonPath(relativePath, basePath);
-	
-	    // If the paths have nothing in common, return a relative URL with the absolute path.
-	    if (!common) {
-	      return relative.build();
-	    }
-	
-	    var parents = baseParts.path.substring(common.length).replace(/[^\/]*$/, '').replace(/.*?\//g, '../');
-	
-	    relativeParts.path = parents + relativeParts.path.substring(common.length) || './';
-	
-	    return relative.build();
-	  };
-	
-	  // comparing URIs
-	  p.equals = function (uri) {
-	    var one = this.clone();
-	    var two = new URI(uri);
-	    var one_map = {};
-	    var two_map = {};
-	    var checked = {};
-	    var one_query, two_query, key;
-	
-	    one.normalize();
-	    two.normalize();
-	
-	    // exact match
-	    if (one.toString() === two.toString()) {
-	      return true;
-	    }
-	
-	    // extract query string
-	    one_query = one.query();
-	    two_query = two.query();
-	    one.query('');
-	    two.query('');
-	
-	    // definitely not equal if not even non-query parts match
-	    if (one.toString() !== two.toString()) {
-	      return false;
-	    }
-	
-	    // query parameters have the same length, even if they're permuted
-	    if (one_query.length !== two_query.length) {
-	      return false;
-	    }
-	
-	    one_map = URI.parseQuery(one_query, this._parts.escapeQuerySpace);
-	    two_map = URI.parseQuery(two_query, this._parts.escapeQuerySpace);
-	
-	    for (key in one_map) {
-	      if (hasOwn.call(one_map, key)) {
-	        if (!isArray(one_map[key])) {
-	          if (one_map[key] !== two_map[key]) {
-	            return false;
-	          }
-	        } else if (!arraysEqual(one_map[key], two_map[key])) {
-	          return false;
-	        }
-	
-	        checked[key] = true;
-	      }
-	    }
-	
-	    for (key in two_map) {
-	      if (hasOwn.call(two_map, key)) {
-	        if (!checked[key]) {
-	          // two contains a parameter not present in one
-	          return false;
-	        }
-	      }
-	    }
-	
-	    return true;
-	  };
-	
-	  // state
-	  p.duplicateQueryParameters = function (v) {
-	    this._parts.duplicateQueryParameters = !!v;
-	    return this;
-	  };
-	
-	  p.escapeQuerySpace = function (v) {
-	    this._parts.escapeQuerySpace = !!v;
-	    return this;
-	  };
-	
-	  return URI;
-	});
+	_controller2['default'].signal('selectLargeClosed', [(0, _actionsBasic.set)(['demos', 'select', 'largeSelectOpen'], false)]);
 
 /***/ },
 /* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/*! http://mths.be/punycode v1.2.3 by @mathias */
 	'use strict';
 	
-	;(function (root) {
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-		/** Detect free variables */
-		var freeExports = typeof exports == 'object' && exports;
-		var freeModule = typeof module == 'object' && module && module.exports == freeExports && module;
-		var freeGlobal = typeof global == 'object' && global;
-		if (freeGlobal.global === freeGlobal || freeGlobal.window === freeGlobal) {
-			root = freeGlobal;
-		}
+	var _controller = __webpack_require__(216);
 	
-		/**
-	  * The `punycode` object.
-	  * @name punycode
-	  * @type Object
-	  */
-		var punycode,
-		   
+	var _controller2 = _interopRequireDefault(_controller);
 	
-		/** Highest positive signed 32-bit float value */
-		maxInt = 2147483647,
-		    // aka. 0x7FFFFFFF or 2^31-1
+	var _actionsBasic = __webpack_require__(240);
 	
-		/** Bootstring parameters */
-		base = 36,
-		    tMin = 1,
-		    tMax = 26,
-		    skew = 38,
-		    damp = 700,
-		    initialBias = 72,
-		    initialN = 128,
-		    // 0x80
-		delimiter = '-',
-		    // '\x2D'
+	_controller2['default'].signal('sidenavOpened', [(0, _actionsBasic.set)('sidenavOpen', true)]);
 	
-		/** Regular expressions */
-		regexPunycode = /^xn--/,
-		    regexNonASCII = /[^ -~]/,
-		    // unprintable ASCII chars + non-ASCII chars
-		regexSeparators = /\x2E|\u3002|\uFF0E|\uFF61/g,
-		    // RFC 3490 separators
-	
-		/** Error messages */
-		errors = {
-			'overflow': 'Overflow: input needs wider integers to process',
-			'not-basic': 'Illegal input >= 0x80 (not a basic code point)',
-			'invalid-input': 'Invalid input'
-		},
-		   
-	
-		/** Convenience shortcuts */
-		baseMinusTMin = base - tMin,
-		    floor = Math.floor,
-		    stringFromCharCode = String.fromCharCode,
-		   
-	
-		/** Temporary variable */
-		key;
-	
-		/*--------------------------------------------------------------------------*/
-	
-		/**
-	  * A generic error utility function.
-	  * @private
-	  * @param {String} type The error type.
-	  * @returns {Error} Throws a `RangeError` with the applicable error message.
-	  */
-		function error(type) {
-			throw RangeError(errors[type]);
-		}
-	
-		/**
-	  * A generic `Array#map` utility function.
-	  * @private
-	  * @param {Array} array The array to iterate over.
-	  * @param {Function} callback The function that gets called for every array
-	  * item.
-	  * @returns {Array} A new array of values returned by the callback function.
-	  */
-		function map(array, fn) {
-			var length = array.length;
-			while (length--) {
-				array[length] = fn(array[length]);
-			}
-			return array;
-		}
-	
-		/**
-	  * A simple `Array#map`-like wrapper to work with domain name strings.
-	  * @private
-	  * @param {String} domain The domain name.
-	  * @param {Function} callback The function that gets called for every
-	  * character.
-	  * @returns {Array} A new string of characters returned by the callback
-	  * function.
-	  */
-		function mapDomain(string, fn) {
-			return map(string.split(regexSeparators), fn).join('.');
-		}
-	
-		/**
-	  * Creates an array containing the numeric code points of each Unicode
-	  * character in the string. While JavaScript uses UCS-2 internally,
-	  * this function will convert a pair of surrogate halves (each of which
-	  * UCS-2 exposes as separate characters) into a single code point,
-	  * matching UTF-16.
-	  * @see `punycode.ucs2.encode`
-	  * @see <http://mathiasbynens.be/notes/javascript-encoding>
-	  * @memberOf punycode.ucs2
-	  * @name decode
-	  * @param {String} string The Unicode input string (UCS-2).
-	  * @returns {Array} The new array of code points.
-	  */
-		function ucs2decode(string) {
-			var output = [],
-			    counter = 0,
-			    length = string.length,
-			    value,
-			    extra;
-			while (counter < length) {
-				value = string.charCodeAt(counter++);
-				if (value >= 0xD800 && value <= 0xDBFF && counter < length) {
-					// high surrogate, and there is a next character
-					extra = string.charCodeAt(counter++);
-					if ((extra & 0xFC00) == 0xDC00) {
-						// low surrogate
-						output.push(((value & 0x3FF) << 10) + (extra & 0x3FF) + 0x10000);
-					} else {
-						// unmatched surrogate; only append this code unit, in case the next
-						// code unit is the high surrogate of a surrogate pair
-						output.push(value);
-						counter--;
-					}
-				} else {
-					output.push(value);
-				}
-			}
-			return output;
-		}
-	
-		/**
-	  * Creates a string based on an array of numeric code points.
-	  * @see `punycode.ucs2.decode`
-	  * @memberOf punycode.ucs2
-	  * @name encode
-	  * @param {Array} codePoints The array of numeric code points.
-	  * @returns {String} The new Unicode string (UCS-2).
-	  */
-		function ucs2encode(array) {
-			return map(array, function (value) {
-				var output = '';
-				if (value > 0xFFFF) {
-					value -= 0x10000;
-					output += stringFromCharCode(value >>> 10 & 0x3FF | 0xD800);
-					value = 0xDC00 | value & 0x3FF;
-				}
-				output += stringFromCharCode(value);
-				return output;
-			}).join('');
-		}
-	
-		/**
-	  * Converts a basic code point into a digit/integer.
-	  * @see `digitToBasic()`
-	  * @private
-	  * @param {Number} codePoint The basic numeric code point value.
-	  * @returns {Number} The numeric value of a basic code point (for use in
-	  * representing integers) in the range `0` to `base - 1`, or `base` if
-	  * the code point does not represent a value.
-	  */
-		function basicToDigit(codePoint) {
-			if (codePoint - 48 < 10) {
-				return codePoint - 22;
-			}
-			if (codePoint - 65 < 26) {
-				return codePoint - 65;
-			}
-			if (codePoint - 97 < 26) {
-				return codePoint - 97;
-			}
-			return base;
-		}
-	
-		/**
-	  * Converts a digit/integer into a basic code point.
-	  * @see `basicToDigit()`
-	  * @private
-	  * @param {Number} digit The numeric value of a basic code point.
-	  * @returns {Number} The basic code point whose value (when used for
-	  * representing integers) is `digit`, which needs to be in the range
-	  * `0` to `base - 1`. If `flag` is non-zero, the uppercase form is
-	  * used; else, the lowercase form is used. The behavior is undefined
-	  * if `flag` is non-zero and `digit` has no uppercase form.
-	  */
-		function digitToBasic(digit, flag) {
-			//  0..25 map to ASCII a..z or A..Z
-			// 26..35 map to ASCII 0..9
-			return digit + 22 + 75 * (digit < 26) - ((flag != 0) << 5);
-		}
-	
-		/**
-	  * Bias adaptation function as per section 3.4 of RFC 3492.
-	  * http://tools.ietf.org/html/rfc3492#section-3.4
-	  * @private
-	  */
-		function adapt(delta, numPoints, firstTime) {
-			var k = 0;
-			delta = firstTime ? floor(delta / damp) : delta >> 1;
-			delta += floor(delta / numPoints);
-			for (; /* no initialization */delta > baseMinusTMin * tMax >> 1; k += base) {
-				delta = floor(delta / baseMinusTMin);
-			}
-			return floor(k + (baseMinusTMin + 1) * delta / (delta + skew));
-		}
-	
-		/**
-	  * Converts a Punycode string of ASCII-only symbols to a string of Unicode
-	  * symbols.
-	  * @memberOf punycode
-	  * @param {String} input The Punycode string of ASCII-only symbols.
-	  * @returns {String} The resulting string of Unicode symbols.
-	  */
-		function decode(input) {
-			// Don't use UCS-2
-			var output = [],
-			    inputLength = input.length,
-			    out,
-			    i = 0,
-			    n = initialN,
-			    bias = initialBias,
-			    basic,
-			    j,
-			    index,
-			    oldi,
-			    w,
-			    k,
-			    digit,
-			    t,
-			    length,
-			   
-			/** Cached calculation results */
-			baseMinusT;
-	
-			// Handle the basic code points: let `basic` be the number of input code
-			// points before the last delimiter, or `0` if there is none, then copy
-			// the first basic code points to the output.
-	
-			basic = input.lastIndexOf(delimiter);
-			if (basic < 0) {
-				basic = 0;
-			}
-	
-			for (j = 0; j < basic; ++j) {
-				// if it's not a basic code point
-				if (input.charCodeAt(j) >= 0x80) {
-					error('not-basic');
-				}
-				output.push(input.charCodeAt(j));
-			}
-	
-			// Main decoding loop: start just after the last delimiter if any basic code
-			// points were copied; start at the beginning otherwise.
-	
-			for (index = basic > 0 ? basic + 1 : 0; index < inputLength;) /* no final expression */{
-	
-				// `index` is the index of the next character to be consumed.
-				// Decode a generalized variable-length integer into `delta`,
-				// which gets added to `i`. The overflow checking is easier
-				// if we increase `i` as we go, then subtract off its starting
-				// value at the end to obtain `delta`.
-				for (oldi = i, w = 1, k = base;; /* no condition */k += base) {
-	
-					if (index >= inputLength) {
-						error('invalid-input');
-					}
-	
-					digit = basicToDigit(input.charCodeAt(index++));
-	
-					if (digit >= base || digit > floor((maxInt - i) / w)) {
-						error('overflow');
-					}
-	
-					i += digit * w;
-					t = k <= bias ? tMin : k >= bias + tMax ? tMax : k - bias;
-	
-					if (digit < t) {
-						break;
-					}
-	
-					baseMinusT = base - t;
-					if (w > floor(maxInt / baseMinusT)) {
-						error('overflow');
-					}
-	
-					w *= baseMinusT;
-				}
-	
-				out = output.length + 1;
-				bias = adapt(i - oldi, out, oldi == 0);
-	
-				// `i` was supposed to wrap around from `out` to `0`,
-				// incrementing `n` each time, so we'll fix that now:
-				if (floor(i / out) > maxInt - n) {
-					error('overflow');
-				}
-	
-				n += floor(i / out);
-				i %= out;
-	
-				// Insert `n` at position `i` of the output
-				output.splice(i++, 0, n);
-			}
-	
-			return ucs2encode(output);
-		}
-	
-		/**
-	  * Converts a string of Unicode symbols to a Punycode string of ASCII-only
-	  * symbols.
-	  * @memberOf punycode
-	  * @param {String} input The string of Unicode symbols.
-	  * @returns {String} The resulting Punycode string of ASCII-only symbols.
-	  */
-		function encode(input) {
-			var n,
-			    delta,
-			    handledCPCount,
-			    basicLength,
-			    bias,
-			    j,
-			    m,
-			    q,
-			    k,
-			    t,
-			    currentValue,
-			    output = [],
-			   
-			/** `inputLength` will hold the number of code points in `input`. */
-			inputLength,
-			   
-			/** Cached calculation results */
-			handledCPCountPlusOne,
-			    baseMinusT,
-			    qMinusT;
-	
-			// Convert the input in UCS-2 to Unicode
-			input = ucs2decode(input);
-	
-			// Cache the length
-			inputLength = input.length;
-	
-			// Initialize the state
-			n = initialN;
-			delta = 0;
-			bias = initialBias;
-	
-			// Handle the basic code points
-			for (j = 0; j < inputLength; ++j) {
-				currentValue = input[j];
-				if (currentValue < 0x80) {
-					output.push(stringFromCharCode(currentValue));
-				}
-			}
-	
-			handledCPCount = basicLength = output.length;
-	
-			// `handledCPCount` is the number of code points that have been handled;
-			// `basicLength` is the number of basic code points.
-	
-			// Finish the basic string - if it is not empty - with a delimiter
-			if (basicLength) {
-				output.push(delimiter);
-			}
-	
-			// Main encoding loop:
-			while (handledCPCount < inputLength) {
-	
-				// All non-basic code points < n have been handled already. Find the next
-				// larger one:
-				for (m = maxInt, j = 0; j < inputLength; ++j) {
-					currentValue = input[j];
-					if (currentValue >= n && currentValue < m) {
-						m = currentValue;
-					}
-				}
-	
-				// Increase `delta` enough to advance the decoder's <n,i> state to <m,0>,
-				// but guard against overflow
-				handledCPCountPlusOne = handledCPCount + 1;
-				if (m - n > floor((maxInt - delta) / handledCPCountPlusOne)) {
-					error('overflow');
-				}
-	
-				delta += (m - n) * handledCPCountPlusOne;
-				n = m;
-	
-				for (j = 0; j < inputLength; ++j) {
-					currentValue = input[j];
-	
-					if (currentValue < n && ++delta > maxInt) {
-						error('overflow');
-					}
-	
-					if (currentValue == n) {
-						// Represent delta as a generalized variable-length integer
-						for (q = delta, k = base;; /* no condition */k += base) {
-							t = k <= bias ? tMin : k >= bias + tMax ? tMax : k - bias;
-							if (q < t) {
-								break;
-							}
-							qMinusT = q - t;
-							baseMinusT = base - t;
-							output.push(stringFromCharCode(digitToBasic(t + qMinusT % baseMinusT, 0)));
-							q = floor(qMinusT / baseMinusT);
-						}
-	
-						output.push(stringFromCharCode(digitToBasic(q, 0)));
-						bias = adapt(delta, handledCPCountPlusOne, handledCPCount == basicLength);
-						delta = 0;
-						++handledCPCount;
-					}
-				}
-	
-				++delta;
-				++n;
-			}
-			return output.join('');
-		}
-	
-		/**
-	  * Converts a Punycode string representing a domain name to Unicode. Only the
-	  * Punycoded parts of the domain name will be converted, i.e. it doesn't
-	  * matter if you call it on a string that has already been converted to
-	  * Unicode.
-	  * @memberOf punycode
-	  * @param {String} domain The Punycode domain name to convert to Unicode.
-	  * @returns {String} The Unicode representation of the given Punycode
-	  * string.
-	  */
-		function toUnicode(domain) {
-			return mapDomain(domain, function (string) {
-				return regexPunycode.test(string) ? decode(string.slice(4).toLowerCase()) : string;
-			});
-		}
-	
-		/**
-	  * Converts a Unicode string representing a domain name to Punycode. Only the
-	  * non-ASCII parts of the domain name will be converted, i.e. it doesn't
-	  * matter if you call it with a domain that's already in ASCII.
-	  * @memberOf punycode
-	  * @param {String} domain The domain name to convert, as a Unicode string.
-	  * @returns {String} The Punycode representation of the given domain name.
-	  */
-		function toASCII(domain) {
-			return mapDomain(domain, function (string) {
-				return regexNonASCII.test(string) ? 'xn--' + encode(string) : string;
-			});
-		}
-	
-		/*--------------------------------------------------------------------------*/
-	
-		/** Define the public API */
-		punycode = {
-			/**
-	   * A string representing the current Punycode.js version number.
-	   * @memberOf punycode
-	   * @type String
-	   */
-			'version': '1.2.3',
-			/**
-	   * An object of methods to convert from JavaScript's internal character
-	   * representation (UCS-2) to Unicode code points, and back.
-	   * @see <http://mathiasbynens.be/notes/javascript-encoding>
-	   * @memberOf punycode
-	   * @type Object
-	   */
-			'ucs2': {
-				'decode': ucs2decode,
-				'encode': ucs2encode
-			},
-			'decode': decode,
-			'encode': encode,
-			'toASCII': toASCII,
-			'toUnicode': toUnicode
-		};
-	
-		/** Expose `punycode` */
-		// Some AMD build optimizers, like r.js, check for specific condition patterns
-		// like the following:
-		if (true) {
-			!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
-				return punycode;
-			}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-		} else if (freeExports && !freeExports.nodeType) {
-			if (freeModule) {
-				// in Node.js or RingoJS v0.8.0+
-				freeModule.exports = punycode;
-			} else {
-				// in Narwhal or RingoJS v0.7.0-
-				for (key in punycode) {
-					punycode.hasOwnProperty(key) && (freeExports[key] = punycode[key]);
-				}
-			}
-		} else {
-			// in Rhino or a web browser
-			root.punycode = punycode;
-		}
-	})(undefined);
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(253)(module), (function() { return this; }())))
+	_controller2['default'].signal('sidenavClosed', [(0, _actionsBasic.set)('sidenavOpen', false)]);
 
 /***/ },
 /* 253 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
-	module.exports = function (module) {
-		if (!module.webpackPolyfill) {
-			module.deprecate = function () {};
-			module.paths = [];
-			// module.parent = undefined by default
-			module.children = [];
-			module.webpackPolyfill = 1;
-		}
-		return module;
-	};
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _controller = __webpack_require__(216);
+	
+	var _controller2 = _interopRequireDefault(_controller);
+	
+	var _actionsBasic = __webpack_require__(240);
+	
+	_controller2['default'].signal('isLoadingChanged', [(0, _actionsBasic.setInputValue)(['demos', 'spinner', 'isLoading'])]);
 
 /***/ },
 /* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/*!
-	 * URI.js - Mutating URLs
-	 * IPv6 Support
-	 *
-	 * Version: 1.16.1
-	 *
-	 * Author: Rodney Rehm
-	 * Web: http://medialize.github.io/URI.js/
-	 *
-	 * Licensed under
-	 *   MIT License http://www.opensource.org/licenses/mit-license
-	 *   GPL v3 http://opensource.org/licenses/GPL-3.0
-	 *
-	 */
-	
 	'use strict';
 	
-	(function (root, factory) {
-	  'use strict';
-	  // https://github.com/umdjs/umd/blob/master/returnExports.js
-	  if (true) {
-	    // Node
-	    module.exports = factory();
-	  } else if (typeof define === 'function' && define.amd) {
-	    // AMD. Register as an anonymous module.
-	    define(factory);
-	  } else {
-	    // Browser globals (root is window)
-	    root.IPv6 = factory(root);
+	module.exports = {
+	  Appbar: __webpack_require__(255),
+	  Button: __webpack_require__(401),
+	  Calendar: __webpack_require__(402),
+	  Checkbox: __webpack_require__(406),
+	  Col: __webpack_require__(407),
+	  DatePicker: __webpack_require__(408),
+	  Dialog: __webpack_require__(409),
+	  Divider: __webpack_require__(418),
+	  Form: __webpack_require__(420),
+	  Input: __webpack_require__(421),
+	  Mask: __webpack_require__(417),
+	  Menu: __webpack_require__(422),
+	  Row: __webpack_require__(425),
+	  Select: __webpack_require__(426),
+	  Sidenav: __webpack_require__(427),
+	  Spinner: __webpack_require__(430),
+	  Table: __webpack_require__(431),
+	  Typ: __webpack_require__(434),
+	
+	  events: {
+	    responsive: __webpack_require__(435)
 	  }
-	})(undefined, function (root) {
-	  'use strict';
-	
-	  /*
-	  var _in = "fe80:0000:0000:0000:0204:61ff:fe9d:f156";
-	  var _out = IPv6.best(_in);
-	  var _expected = "fe80::204:61ff:fe9d:f156";
-	   console.log(_in, _out, _expected, _out === _expected);
-	  */
-	
-	  // save current IPv6 variable, if any
-	  var _IPv6 = root && root.IPv6;
-	
-	  function bestPresentation(address) {
-	    // based on:
-	    // Javascript to test an IPv6 address for proper format, and to
-	    // present the "best text representation" according to IETF Draft RFC at
-	    // http://tools.ietf.org/html/draft-ietf-6man-text-addr-representation-04
-	    // 8 Feb 2010 Rich Brown, Dartware, LLC
-	    // Please feel free to use this code as long as you provide a link to
-	    // http://www.intermapper.com
-	    // http://intermapper.com/support/tools/IPV6-Validator.aspx
-	    // http://download.dartware.com/thirdparty/ipv6validator.js
-	
-	    var _address = address.toLowerCase();
-	    var segments = _address.split(':');
-	    var length = segments.length;
-	    var total = 8;
-	
-	    // trim colons (:: or ::a:b:c… or …a:b:c::)
-	    if (segments[0] === '' && segments[1] === '' && segments[2] === '') {
-	      // must have been ::
-	      // remove first two items
-	      segments.shift();
-	      segments.shift();
-	    } else if (segments[0] === '' && segments[1] === '') {
-	      // must have been ::xxxx
-	      // remove the first item
-	      segments.shift();
-	    } else if (segments[length - 1] === '' && segments[length - 2] === '') {
-	      // must have been xxxx::
-	      segments.pop();
-	    }
-	
-	    length = segments.length;
-	
-	    // adjust total segments for IPv4 trailer
-	    if (segments[length - 1].indexOf('.') !== -1) {
-	      // found a "." which means IPv4
-	      total = 7;
-	    }
-	
-	    // fill empty segments them with "0000"
-	    var pos;
-	    for (pos = 0; pos < length; pos++) {
-	      if (segments[pos] === '') {
-	        break;
-	      }
-	    }
-	
-	    if (pos < total) {
-	      segments.splice(pos, 1, '0000');
-	      while (segments.length < total) {
-	        segments.splice(pos, 0, '0000');
-	      }
-	
-	      length = segments.length;
-	    }
-	
-	    // strip leading zeros
-	    var _segments;
-	    for (var i = 0; i < total; i++) {
-	      _segments = segments[i].split('');
-	      for (var j = 0; j < 3; j++) {
-	        if (_segments[0] === '0' && _segments.length > 1) {
-	          _segments.splice(0, 1);
-	        } else {
-	          break;
-	        }
-	      }
-	
-	      segments[i] = _segments.join('');
-	    }
-	
-	    // find longest sequence of zeroes and coalesce them into one segment
-	    var best = -1;
-	    var _best = 0;
-	    var _current = 0;
-	    var current = -1;
-	    var inzeroes = false;
-	    // i; already declared
-	
-	    for (i = 0; i < total; i++) {
-	      if (inzeroes) {
-	        if (segments[i] === '0') {
-	          _current += 1;
-	        } else {
-	          inzeroes = false;
-	          if (_current > _best) {
-	            best = current;
-	            _best = _current;
-	          }
-	        }
-	      } else {
-	        if (segments[i] === '0') {
-	          inzeroes = true;
-	          current = i;
-	          _current = 1;
-	        }
-	      }
-	    }
-	
-	    if (_current > _best) {
-	      best = current;
-	      _best = _current;
-	    }
-	
-	    if (_best > 1) {
-	      segments.splice(best, _best, '');
-	    }
-	
-	    length = segments.length;
-	
-	    // assemble remaining segments
-	    var result = '';
-	    if (segments[0] === '') {
-	      result = ':';
-	    }
-	
-	    for (i = 0; i < length; i++) {
-	      result += segments[i];
-	      if (i === length - 1) {
-	        break;
-	      }
-	
-	      result += ':';
-	    }
-	
-	    if (segments[length - 1] === '') {
-	      result += ':';
-	    }
-	
-	    return result;
-	  }
-	
-	  function noConflict() {
-	    /*jshint validthis: true */
-	    if (root.IPv6 === this) {
-	      root.IPv6 = _IPv6;
-	    }
-	
-	    return this;
-	  }
-	
-	  return {
-	    best: bestPresentation,
-	    noConflict: noConflict
-	  };
-	});
+	};
 
 /***/ },
 /* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/*!
-	 * URI.js - Mutating URLs
-	 * Second Level Domain (SLD) Support
-	 *
-	 * Version: 1.16.1
-	 *
-	 * Author: Rodney Rehm
-	 * Web: http://medialize.github.io/URI.js/
-	 *
-	 * Licensed under
-	 *   MIT License http://www.opensource.org/licenses/mit-license
-	 *   GPL v3 http://opensource.org/licenses/GPL-3.0
-	 *
-	 */
-	
 	'use strict';
 	
-	(function (root, factory) {
-	  'use strict';
-	  // https://github.com/umdjs/umd/blob/master/returnExports.js
-	  if (true) {
-	    // Node
-	    module.exports = factory();
-	  } else if (typeof define === 'function' && define.amd) {
-	    // AMD. Register as an anonymous module.
-	    define(factory);
-	  } else {
-	    // Browser globals (root is window)
-	    root.SecondLevelDomains = factory(root);
-	  }
-	})(undefined, function (root) {
-	  'use strict';
-	
-	  // save current SecondLevelDomains variable, if any
-	  var _SecondLevelDomains = root && root.SecondLevelDomains;
-	
-	  var SLD = {
-	    // list of known Second Level Domains
-	    // converted list of SLDs from https://github.com/gavingmiller/second-level-domains
-	    // ----
-	    // publicsuffix.org is more current and actually used by a couple of browsers internally.
-	    // downside is it also contains domains like "dyndns.org" - which is fine for the security
-	    // issues browser have to deal with (SOP for cookies, etc) - but is way overboard for URI.js
-	    // ----
-	    list: {
-	      'ac': ' com gov mil net org ',
-	      'ae': ' ac co gov mil name net org pro sch ',
-	      'af': ' com edu gov net org ',
-	      'al': ' com edu gov mil net org ',
-	      'ao': ' co ed gv it og pb ',
-	      'ar': ' com edu gob gov int mil net org tur ',
-	      'at': ' ac co gv or ',
-	      'au': ' asn com csiro edu gov id net org ',
-	      'ba': ' co com edu gov mil net org rs unbi unmo unsa untz unze ',
-	      'bb': ' biz co com edu gov info net org store tv ',
-	      'bh': ' biz cc com edu gov info net org ',
-	      'bn': ' com edu gov net org ',
-	      'bo': ' com edu gob gov int mil net org tv ',
-	      'br': ' adm adv agr am arq art ato b bio blog bmd cim cng cnt com coop ecn edu eng esp etc eti far flog fm fnd fot fst g12 ggf gov imb ind inf jor jus lel mat med mil mus net nom not ntr odo org ppg pro psc psi qsl rec slg srv tmp trd tur tv vet vlog wiki zlg ',
-	      'bs': ' com edu gov net org ',
-	      'bz': ' du et om ov rg ',
-	      'ca': ' ab bc mb nb nf nl ns nt nu on pe qc sk yk ',
-	      'ck': ' biz co edu gen gov info net org ',
-	      'cn': ' ac ah bj com cq edu fj gd gov gs gx gz ha hb he hi hl hn jl js jx ln mil net nm nx org qh sc sd sh sn sx tj tw xj xz yn zj ',
-	      'co': ' com edu gov mil net nom org ',
-	      'cr': ' ac c co ed fi go or sa ',
-	      'cy': ' ac biz com ekloges gov ltd name net org parliament press pro tm ',
-	      'do': ' art com edu gob gov mil net org sld web ',
-	      'dz': ' art asso com edu gov net org pol ',
-	      'ec': ' com edu fin gov info med mil net org pro ',
-	      'eg': ' com edu eun gov mil name net org sci ',
-	      'er': ' com edu gov ind mil net org rochest w ',
-	      'es': ' com edu gob nom org ',
-	      'et': ' biz com edu gov info name net org ',
-	      'fj': ' ac biz com info mil name net org pro ',
-	      'fk': ' ac co gov net nom org ',
-	      'fr': ' asso com f gouv nom prd presse tm ',
-	      'gg': ' co net org ',
-	      'gh': ' com edu gov mil org ',
-	      'gn': ' ac com gov net org ',
-	      'gr': ' com edu gov mil net org ',
-	      'gt': ' com edu gob ind mil net org ',
-	      'gu': ' com edu gov net org ',
-	      'hk': ' com edu gov idv net org ',
-	      'hu': ' 2000 agrar bolt casino city co erotica erotika film forum games hotel info ingatlan jogasz konyvelo lakas media news org priv reklam sex shop sport suli szex tm tozsde utazas video ',
-	      'id': ' ac co go mil net or sch web ',
-	      'il': ' ac co gov idf k12 muni net org ',
-	      'in': ' ac co edu ernet firm gen gov i ind mil net nic org res ',
-	      'iq': ' com edu gov i mil net org ',
-	      'ir': ' ac co dnssec gov i id net org sch ',
-	      'it': ' edu gov ',
-	      'je': ' co net org ',
-	      'jo': ' com edu gov mil name net org sch ',
-	      'jp': ' ac ad co ed go gr lg ne or ',
-	      'ke': ' ac co go info me mobi ne or sc ',
-	      'kh': ' com edu gov mil net org per ',
-	      'ki': ' biz com de edu gov info mob net org tel ',
-	      'km': ' asso com coop edu gouv k medecin mil nom notaires pharmaciens presse tm veterinaire ',
-	      'kn': ' edu gov net org ',
-	      'kr': ' ac busan chungbuk chungnam co daegu daejeon es gangwon go gwangju gyeongbuk gyeonggi gyeongnam hs incheon jeju jeonbuk jeonnam k kg mil ms ne or pe re sc seoul ulsan ',
-	      'kw': ' com edu gov net org ',
-	      'ky': ' com edu gov net org ',
-	      'kz': ' com edu gov mil net org ',
-	      'lb': ' com edu gov net org ',
-	      'lk': ' assn com edu gov grp hotel int ltd net ngo org sch soc web ',
-	      'lr': ' com edu gov net org ',
-	      'lv': ' asn com conf edu gov id mil net org ',
-	      'ly': ' com edu gov id med net org plc sch ',
-	      'ma': ' ac co gov m net org press ',
-	      'mc': ' asso tm ',
-	      'me': ' ac co edu gov its net org priv ',
-	      'mg': ' com edu gov mil nom org prd tm ',
-	      'mk': ' com edu gov inf name net org pro ',
-	      'ml': ' com edu gov net org presse ',
-	      'mn': ' edu gov org ',
-	      'mo': ' com edu gov net org ',
-	      'mt': ' com edu gov net org ',
-	      'mv': ' aero biz com coop edu gov info int mil museum name net org pro ',
-	      'mw': ' ac co com coop edu gov int museum net org ',
-	      'mx': ' com edu gob net org ',
-	      'my': ' com edu gov mil name net org sch ',
-	      'nf': ' arts com firm info net other per rec store web ',
-	      'ng': ' biz com edu gov mil mobi name net org sch ',
-	      'ni': ' ac co com edu gob mil net nom org ',
-	      'np': ' com edu gov mil net org ',
-	      'nr': ' biz com edu gov info net org ',
-	      'om': ' ac biz co com edu gov med mil museum net org pro sch ',
-	      'pe': ' com edu gob mil net nom org sld ',
-	      'ph': ' com edu gov i mil net ngo org ',
-	      'pk': ' biz com edu fam gob gok gon gop gos gov net org web ',
-	      'pl': ' art bialystok biz com edu gda gdansk gorzow gov info katowice krakow lodz lublin mil net ngo olsztyn org poznan pwr radom slupsk szczecin torun warszawa waw wroc wroclaw zgora ',
-	      'pr': ' ac biz com edu est gov info isla name net org pro prof ',
-	      'ps': ' com edu gov net org plo sec ',
-	      'pw': ' belau co ed go ne or ',
-	      'ro': ' arts com firm info nom nt org rec store tm www ',
-	      'rs': ' ac co edu gov in org ',
-	      'sb': ' com edu gov net org ',
-	      'sc': ' com edu gov net org ',
-	      'sh': ' co com edu gov net nom org ',
-	      'sl': ' com edu gov net org ',
-	      'st': ' co com consulado edu embaixada gov mil net org principe saotome store ',
-	      'sv': ' com edu gob org red ',
-	      'sz': ' ac co org ',
-	      'tr': ' av bbs bel biz com dr edu gen gov info k12 name net org pol tel tsk tv web ',
-	      'tt': ' aero biz cat co com coop edu gov info int jobs mil mobi museum name net org pro tel travel ',
-	      'tw': ' club com ebiz edu game gov idv mil net org ',
-	      'mu': ' ac co com gov net or org ',
-	      'mz': ' ac co edu gov org ',
-	      'na': ' co com ',
-	      'nz': ' ac co cri geek gen govt health iwi maori mil net org parliament school ',
-	      'pa': ' abo ac com edu gob ing med net nom org sld ',
-	      'pt': ' com edu gov int net nome org publ ',
-	      'py': ' com edu gov mil net org ',
-	      'qa': ' com edu gov mil net org ',
-	      're': ' asso com nom ',
-	      'ru': ' ac adygeya altai amur arkhangelsk astrakhan bashkiria belgorod bir bryansk buryatia cbg chel chelyabinsk chita chukotka chuvashia com dagestan e-burg edu gov grozny int irkutsk ivanovo izhevsk jar joshkar-ola kalmykia kaluga kamchatka karelia kazan kchr kemerovo khabarovsk khakassia khv kirov koenig komi kostroma kranoyarsk kuban kurgan kursk lipetsk magadan mari mari-el marine mil mordovia mosreg msk murmansk nalchik net nnov nov novosibirsk nsk omsk orenburg org oryol penza perm pp pskov ptz rnd ryazan sakhalin samara saratov simbirsk smolensk spb stavropol stv surgut tambov tatarstan tom tomsk tsaritsyn tsk tula tuva tver tyumen udm udmurtia ulan-ude vladikavkaz vladimir vladivostok volgograd vologda voronezh vrn vyatka yakutia yamal yekaterinburg yuzhno-sakhalinsk ',
-	      'rw': ' ac co com edu gouv gov int mil net ',
-	      'sa': ' com edu gov med net org pub sch ',
-	      'sd': ' com edu gov info med net org tv ',
-	      'se': ' a ac b bd c d e f g h i k l m n o org p parti pp press r s t tm u w x y z ',
-	      'sg': ' com edu gov idn net org per ',
-	      'sn': ' art com edu gouv org perso univ ',
-	      'sy': ' com edu gov mil net news org ',
-	      'th': ' ac co go in mi net or ',
-	      'tj': ' ac biz co com edu go gov info int mil name net nic org test web ',
-	      'tn': ' agrinet com defense edunet ens fin gov ind info intl mincom nat net org perso rnrt rns rnu tourism ',
-	      'tz': ' ac co go ne or ',
-	      'ua': ' biz cherkassy chernigov chernovtsy ck cn co com crimea cv dn dnepropetrovsk donetsk dp edu gov if in ivano-frankivsk kh kharkov kherson khmelnitskiy kiev kirovograd km kr ks kv lg lugansk lutsk lviv me mk net nikolaev od odessa org pl poltava pp rovno rv sebastopol sumy te ternopil uzhgorod vinnica vn zaporizhzhe zhitomir zp zt ',
-	      'ug': ' ac co go ne or org sc ',
-	      'uk': ' ac bl british-library co cym gov govt icnet jet lea ltd me mil mod national-library-scotland nel net nhs nic nls org orgn parliament plc police sch scot soc ',
-	      'us': ' dni fed isa kids nsn ',
-	      'uy': ' com edu gub mil net org ',
-	      've': ' co com edu gob info mil net org web ',
-	      'vi': ' co com k12 net org ',
-	      'vn': ' ac biz com edu gov health info int name net org pro ',
-	      'ye': ' co com gov ltd me net org plc ',
-	      'yu': ' ac co edu gov org ',
-	      'za': ' ac agric alt bourse city co cybernet db edu gov grondar iaccess imt inca landesign law mil net ngo nis nom olivetti org pix school tm web ',
-	      'zm': ' ac co com edu gov net org sch '
-	    },
-	    // gorhill 2013-10-25: Using indexOf() instead Regexp(). Significant boost
-	    // in both performance and memory footprint. No initialization required.
-	    // http://jsperf.com/uri-js-sld-regex-vs-binary-search/4
-	    // Following methods use lastIndexOf() rather than array.split() in order
-	    // to avoid any memory allocations.
-	    has: function has(domain) {
-	      var tldOffset = domain.lastIndexOf('.');
-	      if (tldOffset <= 0 || tldOffset >= domain.length - 1) {
-	        return false;
-	      }
-	      var sldOffset = domain.lastIndexOf('.', tldOffset - 1);
-	      if (sldOffset <= 0 || sldOffset >= tldOffset - 1) {
-	        return false;
-	      }
-	      var sldList = SLD.list[domain.slice(tldOffset + 1)];
-	      if (!sldList) {
-	        return false;
-	      }
-	      return sldList.indexOf(' ' + domain.slice(sldOffset + 1, tldOffset) + ' ') >= 0;
-	    },
-	    is: function is(domain) {
-	      var tldOffset = domain.lastIndexOf('.');
-	      if (tldOffset <= 0 || tldOffset >= domain.length - 1) {
-	        return false;
-	      }
-	      var sldOffset = domain.lastIndexOf('.', tldOffset - 1);
-	      if (sldOffset >= 0) {
-	        return false;
-	      }
-	      var sldList = SLD.list[domain.slice(tldOffset + 1)];
-	      if (!sldList) {
-	        return false;
-	      }
-	      return sldList.indexOf(' ' + domain.slice(0, tldOffset) + ' ') >= 0;
-	    },
-	    get: function get(domain) {
-	      var tldOffset = domain.lastIndexOf('.');
-	      if (tldOffset <= 0 || tldOffset >= domain.length - 1) {
-	        return null;
-	      }
-	      var sldOffset = domain.lastIndexOf('.', tldOffset - 1);
-	      if (sldOffset <= 0 || sldOffset >= tldOffset - 1) {
-	        return null;
-	      }
-	      var sldList = SLD.list[domain.slice(tldOffset + 1)];
-	      if (!sldList) {
-	        return null;
-	      }
-	      if (sldList.indexOf(' ' + domain.slice(sldOffset + 1, tldOffset) + ' ') < 0) {
-	        return null;
-	      }
-	      return domain.slice(sldOffset + 1);
-	    },
-	    noConflict: function noConflict() {
-	      if (root.SecondLevelDomains === this) {
-	        root.SecondLevelDomains = _SecondLevelDomains;
-	      }
-	      return this;
-	    }
-	  };
-	
-	  return SLD;
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
 	});
+	
+	var _createClass = (function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ('value' in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	  };
+	})();
+	
+	var _get = function get(_x, _x2, _x3) {
+	  var _again = true;_function: while (_again) {
+	    var object = _x,
+	        property = _x2,
+	        receiver = _x3;_again = false;if (object === null) object = Function.prototype;var desc = Object.getOwnPropertyDescriptor(object, property);if (desc === undefined) {
+	      var parent = Object.getPrototypeOf(object);if (parent === null) {
+	        return undefined;
+	      } else {
+	        _x = parent;_x2 = property;_x3 = receiver;_again = true;desc = parent = undefined;continue _function;
+	      }
+	    } else if ('value' in desc) {
+	      return desc.value;
+	    } else {
+	      var getter = desc.get;if (getter === undefined) {
+	        return undefined;
+	      }return getter.call(receiver);
+	    }
+	  }
+	};
+	
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { 'default': obj };
+	}
+	
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError('Cannot call a class as a function');
+	  }
+	}
+	
+	function _inherits(subClass, superClass) {
+	  if (typeof superClass !== 'function' && superClass !== null) {
+	    throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass);
+	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	}
+	
+	var _react = __webpack_require__(256);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _button = __webpack_require__(394);
+	
+	var _button2 = _interopRequireDefault(_button);
+	
+	var _title = __webpack_require__(400);
+	
+	var _title2 = _interopRequireDefault(_title);
+	
+	var Appbar = (function (_Component) {
+	  _inherits(Appbar, _Component);
+	
+	  function Appbar() {
+	    _classCallCheck(this, Appbar);
+	
+	    _get(Object.getPrototypeOf(Appbar.prototype), 'constructor', this).apply(this, arguments);
+	  }
+	
+	  _createClass(Appbar, [{
+	    key: 'render',
+	    value: function render() {
+	      var _context$componentStyle = this.context.componentStyle;
+	      var primaryColor = _context$componentStyle.primaryColor;
+	      var primaryFontColor = _context$componentStyle.primaryFontColor;
+	      var _props = this.props;
+	      var children = _props.children;
+	      var fixed = _props.fixed;
+	      var style = _props.style;
+	
+	      return _react2['default'].createElement('div', { style: { height: '64px' } }, _react2['default'].createElement('div', { className: 'paper1', style: Object.assign({
+	          position: fixed ? 'fixed' : 'inherit',
+	          width: '100%',
+	          zIndex: '1',
+	          height: '64px',
+	          lineHeight: '32px',
+	          padding: '16px 8px',
+	          backgroundColor: primaryColor,
+	          color: primaryFontColor
+	        }, style) }, children));
+	    }
+	  }], [{
+	    key: 'displayName',
+	    value: 'Appbar',
+	    enumerable: true
+	  }, {
+	    key: 'contextTypes',
+	    value: {
+	      componentStyle: _react2['default'].PropTypes.object
+	    },
+	    enumerable: true
+	  }, {
+	    key: 'propTypes',
+	    value: {
+	      children: _react.PropTypes.node,
+	      fixed: _react.PropTypes.bool,
+	      style: _react.PropTypes.object
+	    },
+	    enumerable: true
+	  }]);
+	
+	  return Appbar;
+	})(_react.Component);
+	
+	Appbar.Button = _button2['default'];
+	Appbar.Title = _title2['default'];
+	
+	exports['default'] = Appbar;
+	module.exports = exports['default'];
 
 /***/ },
 /* 256 */
@@ -35390,1807 +31414,6 @@
 
 	'use strict';
 	
-	module.exports = __webpack_require__(258);
-
-/***/ },
-/* 395 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var mixin = __webpack_require__(396);
-	var decorator = __webpack_require__(397);
-	var hoc = __webpack_require__(399);
-	var container = __webpack_require__(400);
-	var component = __webpack_require__(401);
-	var link = __webpack_require__(402);
-	
-	module.exports = {
-	  Mixin: mixin,
-	  Decorator: decorator,
-	  HOC: hoc,
-	  Container: container,
-	  Component: component,
-	  Link: link
-	};
-
-/***/ },
-/* 396 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(256);
-	var callbacks = [];
-	var listener = false;
-	
-	module.exports = {
-	  contextTypes: {
-	    controller: React.PropTypes.object
-	  },
-	  componentWillMount: function componentWillMount() {
-	    this.signals = this.context.controller.signals;
-	
-	    if (!this.getStatePaths) {
-	      return;
-	    }
-	
-	    if (!listener) {
-	      listener = true;
-	      this.context.controller.on('change', function () {
-	        callbacks.forEach(function (cb) {
-	          cb();
-	        });
-	      });
-	    }
-	    callbacks.push(this._update);
-	    this._update();
-	  },
-	  componentWillUnmount: function componentWillUnmount() {
-	    this._isUmounting = true;
-	    if (this.getStatePaths || this.getComputedPaths) {
-	      callbacks.splice(callbacks.indexOf(this._update), 1);
-	    }
-	  },
-	  shouldComponentUpdate: function shouldComponentUpdate(nextProps, nextState) {
-	    var propKeys = Object.keys(nextProps);
-	    var stateKeys = Object.keys(nextState);
-	
-	    // props
-	    for (var x = 0; x < propKeys.length; x++) {
-	      var key = propKeys[x];
-	      if (this.props[key] !== nextProps[key]) {
-	        return true;
-	      }
-	    }
-	
-	    // State
-	    for (var x = 0; x < stateKeys.length; x++) {
-	      var key = stateKeys[x];
-	      if (this.state[key] !== nextState[key]) {
-	        return true;
-	      }
-	    }
-	
-	    return false;
-	  },
-	  _update: function _update() {
-	    if (this._isUmounting) {
-	      return;
-	    }
-	    var statePaths = this.getStatePaths ? this.getStatePaths() : {};
-	    var computedPaths = this.getComputedPaths ? this.getComputedPaths() : {};
-	    var controller = this.context.controller;
-	    var newState = {};
-	
-	    newState = Object.keys(statePaths).reduce(function (newState, key) {
-	      if (!Array.isArray(statePaths[key])) {
-	        throw new Error('Cerebral-React - You have to pass an array as state path ' + statePaths[key] + ' is not valid');
-	      }
-	      var value = controller.get(statePaths[key]);
-	      if (value !== undefined) {
-	        newState[key] = value;
-	      }
-	      return newState;
-	    }, newState);
-	
-	    newState = Object.keys(computedPaths).reduce(function (newState, key) {
-	      if (!Array.isArray(computedPaths[key])) {
-	        throw new Error('Cerebral-React - You have to pass an array as a computed path ' + computedPaths[key] + ' is not valid');
-	      }
-	      newState[key] = controller.getComputedValue(computedPaths[key]);;
-	      return newState;
-	    }, newState);
-	
-	    this.setState(newState);
-	  }
-	};
-
-/***/ },
-/* 397 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(256);
-	var mixin = __webpack_require__(396);
-	var render = __webpack_require__(398);
-	
-	module.exports = function (paths, computedPaths) {
-	  return function (Component) {
-	    return React.createClass({
-	      displayName: Component.name + 'Container',
-	      mixins: [mixin],
-	      getStatePaths: function getStatePaths() {
-	        if (!paths) {
-	          return {};
-	        }
-	        return typeof paths === 'function' ? paths(this.props) : paths;
-	      },
-	      getComputedPaths: function getComputedPaths() {
-	        if (!computedPaths) {
-	          return {};
-	        }
-	        return typeof computedPaths === 'function' ? computedPaths(this.props) : computedPaths;
-	      },
-	      render: render(Component)
-	    });
-	  };
-	};
-
-/***/ },
-/* 398 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(256);
-	
-	module.exports = function (Component) {
-	  return function () {
-	    var state = this.state || {};
-	    var props = this.props || {};
-	
-	    var propsToPass = Object.keys(state).reduce(function (props, key) {
-	      props[key] = state[key];
-	      return props;
-	    }, {});
-	
-	    propsToPass = Object.keys(props).reduce(function (propsToPass, key) {
-	      propsToPass[key] = props[key];
-	      return propsToPass;
-	    }, propsToPass);
-	
-	    propsToPass.signals = this.signals;
-	    propsToPass.get = this.get;
-	
-	    return React.createElement(Component, propsToPass);
-	  };
-	};
-
-/***/ },
-/* 399 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(256);
-	var mixin = __webpack_require__(396);
-	var render = __webpack_require__(398);
-	
-	module.exports = function (Component, paths, computedPaths) {
-	  return React.createClass({
-	    displayName: Component.name + 'Container',
-	    mixins: [mixin],
-	    getStatePaths: function getStatePaths() {
-	      if (!paths) {
-	        return {};
-	      }
-	      return typeof paths === 'function' ? paths(this.props) : paths;
-	    },
-	    getComputedPaths: function getComputedPaths() {
-	      if (!computedPaths) {
-	        return {};
-	      }
-	      return typeof computedPaths === 'function' ? computedPaths(this.props) : computedPaths;
-	    },
-	    render: render(Component)
-	  });
-	};
-
-/***/ },
-/* 400 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(256);
-	
-	module.exports = React.createClass({
-	  displayName: 'CerebralContainer',
-	  childContextTypes: {
-	    controller: React.PropTypes.object.isRequired
-	  },
-	  componentWillMount: function componentWillMount() {
-	    this.props.controller.devtools.start();
-	  },
-	  getChildContext: function getChildContext() {
-	    return {
-	      controller: this.props.controller
-	    };
-	  },
-	  render: function render() {
-	    return this.props.app ? React.createElement(this.props.app) : this.props.children;
-	  }
-	});
-
-/***/ },
-/* 401 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(256);
-	var mixin = __webpack_require__(396);
-	var render = __webpack_require__(398);
-	
-	module.exports = function () {
-	
-	  var paths;
-	  var componentDefinition;
-	  var Component = null;
-	
-	  if (arguments.length === 2) {
-	    paths = arguments[0];
-	    componentDefinition = arguments[1];
-	  } else {
-	    paths = {};
-	    componentDefinition = arguments[0];
-	  }
-	
-	  if (typeof componentDefinition === 'function') {
-	    Component = componentDefinition;
-	  } else {
-	    Component = React.createClass(componentDefinition);
-	  }
-	
-	  return React.createClass({
-	    mixins: [mixin],
-	    getStatePaths: function getStatePaths() {
-	      if (!paths) {
-	        return {};
-	      }
-	      return typeof paths === 'function' ? paths(this.props) : paths;
-	    },
-	    render: render(Component)
-	  });
-	};
-
-/***/ },
-/* 402 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(256);
-	
-	module.exports = React.createClass({
-	  displayName: 'exports',
-	
-	  render: function render() {
-	
-	    if (typeof this.props.signal !== 'function') {
-	      throw new Error('Cerebral React - You have to pass a signal to the LINK component');
-	    }
-	
-	    if (typeof this.props.signal.getUrl !== 'function') {
-	      throw new Error('Cerebral React - The signal passed is not bound to a route');
-	    }
-	
-	    var passedProps = this.props;
-	    var props = Object.keys(passedProps).reduce(function (props, key) {
-	      props[key] = passedProps[key];
-	      return props;
-	    }, {});
-	
-	    props.href = this.props.signal.getUrl(this.props.params || {});
-	
-	    return React.DOM.a(props, this.props.children);
-	  }
-	});
-
-/***/ },
-/* 403 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-	
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var _react = __webpack_require__(256);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	// import the material-components
-	
-	var _lib = __webpack_require__(404);
-	
-	var _example = __webpack_require__(446);
-	
-	var _example2 = _interopRequireDefault(_example);
-	
-	var _faicon = __webpack_require__(447);
-	
-	var _faicon2 = _interopRequireDefault(_faicon);
-	
-	var _icon = __webpack_require__(448);
-	
-	var _icon2 = _interopRequireDefault(_icon);
-	
-	// the demo app
-	
-	var Application = (function (_Component) {
-	  _inherits(Application, _Component);
-	
-	  function Application() {
-	    _classCallCheck(this, Application);
-	
-	    _get(Object.getPrototypeOf(Application.prototype), 'constructor', this).apply(this, arguments);
-	
-	    this.state = {
-	      screen: {},
-	      sidenavOpen: false,
-	      showMoreMenu: false,
-	      email: '',
-	      password: '',
-	      selectOpen: false,
-	      selectSuccessOpen: false,
-	      selectErrorOpen: false,
-	      selected: null,
-	      largeSelectOpen: false,
-	      largeSelectedValue: 0,
-	      checked: false,
-	      showDialog: false,
-	      showSimpleMenu: false,
-	      showMenu: false,
-	      selectedOption: 1,
-	      isLoading: false,
-	      calendar: {
-	        year: 2015,
-	        month: 10
-	      },
-	      selectedDate: new Date(2015, 10, 20),
-	      showDatePicker: false,
-	      pickedDate: null,
-	      pickingDate: null,
-	      pickedCalendar: {
-	        year: 2015,
-	        month: 10
-	      }
-	    };
-	  }
-	
-	  _createClass(Application, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      var _this = this;
-	
-	      _lib.events.responsive.addListener(function (screen) {
-	        return _this.setState({ screen: screen });
-	      });
-	    }
-	  }, {
-	    key: 'getChildContext',
-	    value: function getChildContext() {
-	      return {
-	        componentStyle: {
-	          primaryColor: '#FFC107',
-	          primaryFontColor: 'rgba(0, 0, 0, 0.7)',
-	          secondaryColor: '#009688',
-	          secondaryFontColor: 'rgba(255, 255, 255, 0.9)',
-	          errorColor: '#C00',
-	          successColor: '#090',
-	          typographyColor: '#212121'
-	        }
-	      };
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _this2 = this;
-	
-	      return _react2['default'].createElement(
-	        'div',
-	        null,
-	        _react2['default'].createElement(
-	          _lib.Sidenav,
-	          { isOpen: this.state.sidenavOpen, onDone: function () {
-	              return _this2.setState({ sidenavOpen: false });
-	            } },
-	          _react2['default'].createElement(
-	            _lib.Sidenav.Title,
-	            { showCloseButton: true },
-	            'Menu'
-	          ),
-	          _react2['default'].createElement(
-	            _lib.Sidenav.Item,
-	            { showIcon: true, icon: _react2['default'].createElement(_faicon2['default'], { name: 'user' }) },
-	            'Option A'
-	          ),
-	          _react2['default'].createElement(
-	            _lib.Sidenav.Item,
-	            { showIcon: true, icon: _react2['default'].createElement(_faicon2['default'], { name: 'dashboard' }), selected: true },
-	            'Option B'
-	          ),
-	          _react2['default'].createElement(_lib.Sidenav.Seperator, null),
-	          _react2['default'].createElement(
-	            _lib.Sidenav.Item,
-	            { showIcon: true, icon: _react2['default'].createElement(_faicon2['default'], { name: 'cog' }) },
-	            'Settings'
-	          )
-	        ),
-	        _react2['default'].createElement(
-	          _lib.Appbar,
-	          { fixed: true },
-	          _react2['default'].createElement(
-	            _lib.Appbar.Button,
-	            { style: { float: 'left' }, onTouchTap: function () {
-	                return _this2.setState({ sidenavOpen: true });
-	              } },
-	            _react2['default'].createElement(_icon2['default'], { name: 'menu' })
-	          ),
-	          _react2['default'].createElement(
-	            _lib.Appbar.Title,
-	            null,
-	            this.state.screen.type === 'xs' ? 'Demo' : 'Material Components'
-	          ),
-	          _react2['default'].createElement(
-	            'div',
-	            { style: { float: 'right' } },
-	            _react2['default'].createElement(
-	              _lib.Appbar.Button,
-	              {
-	                onTouchTap: function () {
-	                  return location.href = 'https://github.com/garth/material-components';
-	                } },
-	              _react2['default'].createElement(_faicon2['default'], { name: 'github' })
-	            ),
-	            _react2['default'].createElement(
-	              _lib.Appbar.Button,
-	              { onTouchTap: function () {
-	                  return _this2.setState({ showMoreMenu: true });
-	                } },
-	              _react2['default'].createElement(_icon2['default'], { name: 'more_vert' })
-	            ),
-	            _react2['default'].createElement(
-	              _lib.Menu,
-	              { rightAlign: true, isOpen: this.state.showMoreMenu, onDone: function () {
-	                  return _this2.setState({ showMoreMenu: false });
-	                } },
-	              _react2['default'].createElement(
-	                _lib.Menu.Item,
-	                null,
-	                'Option A'
-	              ),
-	              _react2['default'].createElement(
-	                _lib.Menu.Item,
-	                null,
-	                'Option B'
-	              )
-	            )
-	          )
-	        ),
-	        _react2['default'].createElement(
-	          'div',
-	          { style: { padding: '24px', maxWidth: '950px' } },
-	          _react2['default'].createElement(
-	            'section',
-	            null,
-	            _react2['default'].createElement(
-	              _lib.Typ,
-	              { secondary: true, display1: true },
-	              'Introduction'
-	            ),
-	            _react2['default'].createElement(
-	              'p',
-	              null,
-	              'material-components is a library of ',
-	              _react2['default'].createElement(
-	                'a',
-	                { href: 'https://facebook.github.io/react/' },
-	                'React'
-	              ),
-	              ' (0.14.0) user interface components based on ',
-	              _react2['default'].createElement(
-	                'a',
-	                { href: 'https://www.google.com/design/spec/' },
-	                'material design'
-	              ),
-	              '.'
-	            ),
-	            _react2['default'].createElement(
-	              'p',
-	              null,
-	              'Unlike some other React based component libraries, material-components are completely stateless making them an ideal companion to libraries such as ',
-	              _react2['default'].createElement(
-	                'a',
-	                { href: 'http://christianalfoni.com/cerebral/' },
-	                'Cerebral'
-	              ),
-	              ' or ',
-	              _react2['default'].createElement(
-	                'a',
-	                { href: 'http://rackt.github.io/redux/' },
-	                'Redux'
-	              ),
-	              '. But they can also be used with other flux based frameworks or even without a framework at all.'
-	            ),
-	            _react2['default'].createElement(
-	              'p',
-	              null,
-	              'For source code, installation and configuration info please see the ',
-	              _react2['default'].createElement(
-	                'a',
-	                { href: 'https://github.com/garth/material-components' },
-	                'GitHub Repository'
-	              ),
-	              '.'
-	            ),
-	            _react2['default'].createElement(
-	              'p',
-	              null,
-	              'The development of material-components has been sponsored by ',
-	              _react2['default'].createElement(
-	                'a',
-	                { href: 'http://www.elastictime.com/' },
-	                'Elastic Time'
-	              ),
-	              '.'
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            'section',
-	            null,
-	            _react2['default'].createElement(
-	              _lib.Typ,
-	              { secondary: true, display1: true },
-	              'Import Components'
-	            ),
-	            _react2['default'].createElement(_example2['default'], { code: '\nimport {\n  Appbar,\n  Button,\n  Calendar,\n  Checkbox\n  Col,\n  DatePicker,\n  Dialog,\n  Divider,\n  Form,\n  Input,\n  Menu,\n  Row,\n  Select,\n  Sidenav,\n  Spinner,\n  Table,\n  Typ,\n  events\n} from \'material-components\';\n            ' })
-	          ),
-	          _react2['default'].createElement(
-	            'section',
-	            null,
-	            _react2['default'].createElement(
-	              _lib.Typ,
-	              { secondary: true, display1: true },
-	              'Paper and Divider'
-	            ),
-	            _react2['default'].createElement(
-	              'p',
-	              null,
-	              'Add a paper class to an element to lift it from the page. The optional ',
-	              _react2['default'].createElement(
-	                'code',
-	                null,
-	                'padded'
-	              ),
-	              ' class gives the paper a default padding. A divider component provides seperation.'
-	            ),
-	            _react2['default'].createElement(_example2['default'], { code: '\n<div className="paper1 padded">Paper 1</div>\n<div className="paper2 padded">Paper 2</div>\n<div className="paper3 padded">Paper 3</div>\n<div className="paper4 padded">Paper 4</div>\n<div className="paper5 padded">Paper 5</div>\n<Divider/>\n            ' }),
-	            _react2['default'].createElement(
-	              'div',
-	              { style: { margin: '16px 0' } },
-	              _react2['default'].createElement(
-	                _lib.Row,
-	                null,
-	                _react2['default'].createElement(
-	                  _lib.Col,
-	                  { type: 'sm-offset-1 sm-2' },
-	                  _react2['default'].createElement(
-	                    'div',
-	                    { className: 'paper1 padded', style: { margin: '16px 0' } },
-	                    'Paper 1'
-	                  )
-	                ),
-	                _react2['default'].createElement(
-	                  _lib.Col,
-	                  { type: 'sm-2' },
-	                  _react2['default'].createElement(
-	                    'div',
-	                    { className: 'paper2 padded', style: { margin: '16px 0' } },
-	                    'Paper 2'
-	                  )
-	                ),
-	                _react2['default'].createElement(
-	                  _lib.Col,
-	                  { type: 'sm-2' },
-	                  _react2['default'].createElement(
-	                    'div',
-	                    { className: 'paper3 padded', style: { margin: '16px 0' } },
-	                    'Paper 3'
-	                  )
-	                ),
-	                _react2['default'].createElement(
-	                  _lib.Col,
-	                  { type: 'sm-2' },
-	                  _react2['default'].createElement(
-	                    'div',
-	                    { className: 'paper4 padded', style: { margin: '16px 0' } },
-	                    'Paper 4'
-	                  )
-	                ),
-	                _react2['default'].createElement(
-	                  _lib.Col,
-	                  { type: 'sm-2' },
-	                  _react2['default'].createElement(
-	                    'div',
-	                    { className: 'paper5 padded', style: { margin: '16px 0' } },
-	                    'Paper 5'
-	                  )
-	                )
-	              ),
-	              _react2['default'].createElement(
-	                'div',
-	                { className: 'paper1 padded', style: { margin: '16px 0' } },
-	                'Before divider',
-	                _react2['default'].createElement(_lib.Divider, null),
-	                'After divider'
-	              )
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            'section',
-	            null,
-	            _react2['default'].createElement(
-	              _lib.Typ,
-	              { secondary: true, display1: true },
-	              'Typography'
-	            ),
-	            _react2['default'].createElement(
-	              _lib.Row,
-	              null,
-	              _react2['default'].createElement(
-	                _lib.Col,
-	                { type: 'sm-5' },
-	                _react2['default'].createElement(_example2['default'], { code: '\n<Typ display3>Display 3</Typ>\n                ' })
-	              ),
-	              _react2['default'].createElement(
-	                _lib.Col,
-	                { type: 'sm-7' },
-	                _react2['default'].createElement(
-	                  _lib.Typ,
-	                  { display3: true },
-	                  'Display 3'
-	                )
-	              )
-	            ),
-	            _react2['default'].createElement(
-	              _lib.Row,
-	              null,
-	              _react2['default'].createElement(
-	                _lib.Col,
-	                { type: 'sm-5' },
-	                _react2['default'].createElement(_example2['default'], { code: '\n<Typ display3>Display 2</Typ>\n                ' })
-	              ),
-	              _react2['default'].createElement(
-	                _lib.Col,
-	                { type: 'sm-7' },
-	                _react2['default'].createElement(
-	                  _lib.Typ,
-	                  { display2: true },
-	                  'Display 2'
-	                )
-	              )
-	            ),
-	            _react2['default'].createElement(
-	              _lib.Row,
-	              null,
-	              _react2['default'].createElement(
-	                _lib.Col,
-	                { type: 'sm-5' },
-	                _react2['default'].createElement(_example2['default'], { code: '\n<Typ display1>Display 1</Typ>\n                ' })
-	              ),
-	              _react2['default'].createElement(
-	                _lib.Col,
-	                { type: 'sm-7' },
-	                _react2['default'].createElement(
-	                  _lib.Typ,
-	                  { display1: true },
-	                  'Display 1'
-	                )
-	              )
-	            ),
-	            _react2['default'].createElement(
-	              _lib.Row,
-	              null,
-	              _react2['default'].createElement(
-	                _lib.Col,
-	                { type: 'sm-5' },
-	                _react2['default'].createElement(_example2['default'], { code: '\n<Typ headline>Headline</Typ>\n                ' })
-	              ),
-	              _react2['default'].createElement(
-	                _lib.Col,
-	                { type: 'sm-7' },
-	                _react2['default'].createElement(
-	                  _lib.Typ,
-	                  { headline: true },
-	                  'Headline'
-	                )
-	              )
-	            ),
-	            _react2['default'].createElement(
-	              _lib.Row,
-	              null,
-	              _react2['default'].createElement(
-	                _lib.Col,
-	                { type: 'sm-5' },
-	                _react2['default'].createElement(_example2['default'], { code: '\n<Typ title>Title</Typ>\n                ' })
-	              ),
-	              _react2['default'].createElement(
-	                _lib.Col,
-	                { type: 'sm-7' },
-	                _react2['default'].createElement(
-	                  _lib.Typ,
-	                  { title: true },
-	                  'Title'
-	                )
-	              )
-	            ),
-	            _react2['default'].createElement(
-	              _lib.Row,
-	              null,
-	              _react2['default'].createElement(
-	                _lib.Col,
-	                { type: 'sm-5' },
-	                _react2['default'].createElement(_example2['default'], { code: '\n<Typ subheading>Subheading</Typ>\n                ' })
-	              ),
-	              _react2['default'].createElement(
-	                _lib.Col,
-	                { type: 'sm-7' },
-	                _react2['default'].createElement(
-	                  _lib.Typ,
-	                  { subheading: true },
-	                  'Subheading'
-	                )
-	              )
-	            ),
-	            _react2['default'].createElement(
-	              'p',
-	              null,
-	              'By adding an optional ',
-	              _react2['default'].createElement(
-	                'code',
-	                null,
-	                'primary'
-	              ),
-	              ' or ',
-	              _react2['default'].createElement(
-	                'code',
-	                null,
-	                'secondary'
-	              ),
-	              ' flag to any ',
-	              _react2['default'].createElement(
-	                'code',
-	                null,
-	                '<Typ>'
-	              ),
-	              ' the color is set to the primary or secondary colors.'
-	            ),
-	            _react2['default'].createElement(
-	              _lib.Row,
-	              null,
-	              _react2['default'].createElement(
-	                _lib.Col,
-	                { type: 'sm-5' },
-	                _react2['default'].createElement(_example2['default'], { code: '\n<Typ primary display2>Primary</Typ>\n                ' })
-	              ),
-	              _react2['default'].createElement(
-	                _lib.Col,
-	                { type: 'sm-7' },
-	                _react2['default'].createElement(
-	                  _lib.Typ,
-	                  { primary: true, display2: true },
-	                  'Primay'
-	                )
-	              )
-	            ),
-	            _react2['default'].createElement(
-	              _lib.Row,
-	              null,
-	              _react2['default'].createElement(
-	                _lib.Col,
-	                { type: 'sm-5' },
-	                _react2['default'].createElement(_example2['default'], { code: '\n<Typ secondary display2>Secondary</Typ>\n                ' })
-	              ),
-	              _react2['default'].createElement(
-	                _lib.Col,
-	                { type: 'sm-7' },
-	                _react2['default'].createElement(
-	                  _lib.Typ,
-	                  { secondary: true, display2: true },
-	                  'Secondary'
-	                )
-	              )
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            'section',
-	            null,
-	            _react2['default'].createElement(
-	              _lib.Typ,
-	              { secondary: true, display1: true },
-	              'Appbar, Appbar.Title and Appbar.Button'
-	            ),
-	            _react2['default'].createElement(_example2['default'], { code: '\n<Appbar fixed>\n  <Appbar.Button style={{ float: \'left\' }}><Icon name="menu"/></Appbar.Button>\n  <Appbar.Title>Material Components</Appbar.Title>\n  <div style={{ float: \'right\' }}>\n    <Appbar.Button\n      onTouchTap={() => location.href=\'https://github.com/garth/material-components\'}>\n      <FaIcon name="github"/>\n    </Appbar.Button>\n    <Appbar.Button><Icon name="more_vert"/></Appbar.Button>\n    <Menu rightAlign isOpen={showMoreMenu} onDone={hideMoreMenuFunc}>\n      <Menu.Item>Option A</Menu.Item>\n      <Menu.Item>Option B</Menu.Item>\n    </Menu>\n  </div>\n</Appbar>\n            ' }),
-	            _react2['default'].createElement(
-	              'p',
-	              null,
-	              'See the appbar above.'
-	            ),
-	            _react2['default'].createElement(
-	              'p',
-	              null,
-	              'When using a darker primary color, try using ',
-	              _react2['default'].createElement(
-	                'code',
-	                null,
-	                '<Appbar.Button lightWaves>X</Appbar.Button>'
-	              )
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            'section',
-	            null,
-	            _react2['default'].createElement(
-	              _lib.Typ,
-	              { secondary: true, display1: true },
-	              'Sidenav'
-	            ),
-	            _react2['default'].createElement(_example2['default'], { code: '\n<Sidenav isOpen={sidenavOpen} onDone={closeSidenavFunc}>\n  <Sidenav.Title showCloseButton>Menu</Sidenav.Title>\n  <Sidenav.Item showIcon icon={<Icon name="user"/>} onTouchTap={itemSelected}>Option A</Sidenav.Item>\n  <Sidenav.Item showIcon icon={<Icon name="dashboard"/>} onTouchTap={itemSelected} selected>Option B</Sidenav.Item>\n  <Sidenav.Seperator/>\n  <Sidenav.Item showIcon icon={<Icon name="cog"/>} onTouchTap={itemSelected}>Settings</Sidenav.Item>\n</Sidenav>\n            ' }),
-	            _react2['default'].createElement(
-	              'p',
-	              null,
-	              'See the sidenav above.'
-	            ),
-	            _react2['default'].createElement(
-	              'p',
-	              null,
-	              'It\'s also possible to have a mini sidenav that is always on display.'
-	            ),
-	            _react2['default'].createElement(_example2['default'], { code: '\n<Sidenav mini>\n  <Sidenav.Item showIcon icon={<Icon name="user"/>} onTouchTap={itemSelected}/>\n  <Sidenav.Item showIcon icon={<Icon name="dashboard"/>} onTouchTap={itemSelected} selected/>\n  <Sidenav.Seperator/>\n  <Sidenav.Item showIcon icon={<Icon name="cog"/>} onTouchTap={itemSelected}/>\n</Sidenav>\n<div style={{ marginLeft: \'60px\' }}>\n  Page Content\n</div>\n            ' }),
-	            _react2['default'].createElement(
-	              'div',
-	              { className: 'paper1', style: {
-	                  height: '200px',
-	                  margin: '16px 0'
-	                } },
-	              _react2['default'].createElement(
-	                _lib.Sidenav,
-	                { mini: true, style: {
-	                    float: 'left',
-	                    position: 'relative',
-	                    top: '0',
-	                    height: '200px'
-	                  } },
-	                _react2['default'].createElement(_lib.Sidenav.Item, { showIcon: true, icon: _react2['default'].createElement(_faicon2['default'], { name: 'user' }) }),
-	                _react2['default'].createElement(_lib.Sidenav.Item, { showIcon: true, icon: _react2['default'].createElement(_faicon2['default'], { name: 'dashboard' }), selected: true }),
-	                _react2['default'].createElement(_lib.Sidenav.Seperator, null),
-	                _react2['default'].createElement(_lib.Sidenav.Item, { showIcon: true, icon: _react2['default'].createElement(_faicon2['default'], { name: 'cog' }) })
-	              ),
-	              _react2['default'].createElement(
-	                'div',
-	                { style: {
-	                    padding: '16px',
-	                    marginLeft: '60px'
-	                  } },
-	                'Page Content'
-	              )
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            'section',
-	            null,
-	            _react2['default'].createElement(
-	              _lib.Typ,
-	              { secondary: true, display1: true },
-	              'Form'
-	            ),
-	            _react2['default'].createElement(
-	              'p',
-	              null,
-	              'The ',
-	              _react2['default'].createElement(
-	                'code',
-	                null,
-	                'Form'
-	              ),
-	              ' component will prevent the default form submit behaviour and pass the submit event on to the given onSubmit handler.'
-	            ),
-	            _react2['default'].createElement(_example2['default'], { code: '\n<Form onSubmit={onSubmit}/>\n  <Button type="submit">Submit</Button>\n</Form>\n            ' })
-	          ),
-	          _react2['default'].createElement(
-	            'section',
-	            null,
-	            _react2['default'].createElement(
-	              _lib.Typ,
-	              { secondary: true, display1: true },
-	              'Buttons'
-	            ),
-	            _react2['default'].createElement(_example2['default'], { code: '\n// enabled buttons\n<Button onTouchTap={onClick}>Normal</Button>\n<Button onTouchTap={onClick} primary>Primary</Button>\n<Button onTouchTap={onClick} flat>Flat</Button>\n<Button onTouchTap={onClick} primary flat>Primary Flat</Button>\n            ' }),
-	            _react2['default'].createElement(
-	              'p',
-	              null,
-	              _react2['default'].createElement(
-	                _lib.Button,
-	                { onTouchTap: function (e) {} },
-	                'Normal'
-	              ),
-	              _react2['default'].createElement(
-	                _lib.Button,
-	                { onTouchTap: function (e) {}, primary: true },
-	                'Primary'
-	              ),
-	              _react2['default'].createElement(
-	                _lib.Button,
-	                { onTouchTap: function (e) {}, flat: true },
-	                'Flat'
-	              ),
-	              _react2['default'].createElement(
-	                _lib.Button,
-	                { onTouchTap: function (e) {}, primary: true, flat: true },
-	                'Primary Flat'
-	              )
-	            ),
-	            _react2['default'].createElement(_example2['default'], { code: '\n// disabled buttons\n<Button>Normal</Button>\n<Button primary>Primary</Button>\n<Button flat>Flat</Button>\n<Button primary flat>Primary Flat</Button>\n            ' }),
-	            _react2['default'].createElement(
-	              'p',
-	              null,
-	              _react2['default'].createElement(
-	                _lib.Button,
-	                null,
-	                'Normal'
-	              ),
-	              _react2['default'].createElement(
-	                _lib.Button,
-	                { primary: true },
-	                'Primary'
-	              ),
-	              _react2['default'].createElement(
-	                _lib.Button,
-	                { flat: true },
-	                'Flat'
-	              ),
-	              _react2['default'].createElement(
-	                _lib.Button,
-	                { primary: true, flat: true },
-	                'Primary Flat'
-	              )
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            'section',
-	            null,
-	            _react2['default'].createElement(
-	              _lib.Typ,
-	              { secondary: true, display1: true },
-	              'Inputs'
-	            ),
-	            _react2['default'].createElement(_example2['default'], { code: '\n<Input label="Email" value={email} onChange={onEmailChange}/>\n<Input label="Password" type="password" value={password} onChange={onPasswordChange}/>\n<Input label="Success" value={email} isSuccess onChange={onEmailChange}/>\n<Input label="Error" value={email} isError message="fix me" onChange={onEmailChange}/>\n            ' }),
-	            _react2['default'].createElement(
-	              'div',
-	              { style: { margin: '16px 0' } },
-	              _react2['default'].createElement(
-	                _lib.Row,
-	                null,
-	                _react2['default'].createElement(
-	                  _lib.Col,
-	                  { type: 'md-6' },
-	                  _react2['default'].createElement(_lib.Input, {
-	                    label: 'Email',
-	                    value: this.state.email,
-	                    onChange: function (e) {
-	                      return _this2.setState({ email: e.target.value });
-	                    } })
-	                ),
-	                _react2['default'].createElement(
-	                  _lib.Col,
-	                  { type: 'md-6' },
-	                  _react2['default'].createElement(_lib.Input, {
-	                    label: 'Password',
-	                    type: 'password',
-	                    value: this.state.password,
-	                    onChange: function (e) {
-	                      return _this2.setState({ password: e.target.value });
-	                    } })
-	                )
-	              ),
-	              _react2['default'].createElement(
-	                _lib.Row,
-	                null,
-	                _react2['default'].createElement(
-	                  _lib.Col,
-	                  { type: 'md-6' },
-	                  _react2['default'].createElement(_lib.Input, {
-	                    label: 'Success',
-	                    value: this.state.email,
-	                    isSuccess: true,
-	                    onChange: function (e) {
-	                      return _this2.setState({ email: e.target.value });
-	                    } })
-	                ),
-	                _react2['default'].createElement(
-	                  _lib.Col,
-	                  { type: 'md-6' },
-	                  _react2['default'].createElement(_lib.Input, {
-	                    label: 'Error',
-	                    value: this.state.email,
-	                    isError: true,
-	                    message: 'fix me',
-	                    onChange: function (e) {
-	                      return _this2.setState({ email: e.target.value });
-	                    } })
-	                )
-	              )
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            'section',
-	            null,
-	            _react2['default'].createElement(
-	              _lib.Typ,
-	              { secondary: true, display1: true },
-	              'Select'
-	            ),
-	            _react2['default'].createElement(_example2['default'], { code: '\nlet options = [\n  { value: 0, label: \'Option 1\' },\n  { value: 1, label: \'Option 2\' },\n  { value: 2, label: \'Option 3\' }\n];\n\n<Select\n  label="option"\n  selected={selectedObject}\n  options={options}\n  isOpen={isSelectOpen}\n  onOpen={setOpenState}\n  onChange={optionSelected}\n  onDone={setClosedState}/>\n\n<Select\n  label="Success option"\n  selected={selectedObject}\n  options={options}\n  isSuccess\n  isOpen={isSelectOpen}\n  onOpen={setOpenState}\n  onChange={optionSelected}\n  onDone={setClosedState}/>\n\n// note that this version uses value instead of a selected object\n<Select\n  label="Error option"\n  value={selectedObject.value}\n  options={options}\n  isError\n  message="fix me"\n  isOpen={isSelectOpen}\n  onOpen={setOpenState}\n  onChange={optionSelected}\n  onDone={setClosedState}/>\n            ' }),
-	            _react2['default'].createElement(
-	              'div',
-	              { style: { margin: '16px 0' } },
-	              _react2['default'].createElement(
-	                _lib.Row,
-	                null,
-	                _react2['default'].createElement(
-	                  _lib.Col,
-	                  { type: 'md-4' },
-	                  _react2['default'].createElement(_lib.Select, {
-	                    label: 'option',
-	                    selected: this.state.selected,
-	                    options: [{ value: 0, label: 'Option 1' }, { value: 1, label: 'Option 2' }, { value: 2, label: 'Option 3' }, { value: 3, label: 'Option 4' }],
-	                    isOpen: this.state.selectOpen,
-	                    onOpen: function (e) {
-	                      return _this2.setState({ selectOpen: true });
-	                    },
-	                    onChange: function (e) {
-	                      return _this2.setState({ selected: e.target });
-	                    },
-	                    onDone: function (e) {
-	                      return _this2.setState({ selectOpen: false });
-	                    } })
-	                ),
-	                _react2['default'].createElement(
-	                  _lib.Col,
-	                  { type: 'md-4' },
-	                  _react2['default'].createElement(_lib.Select, {
-	                    label: 'Success option',
-	                    selected: this.state.selected,
-	                    options: [{ value: 0, label: 'Option 1' }, { value: 1, label: 'Option 2' }, { value: 2, label: 'Option 3' }, { value: 3, label: 'Option 4' }],
-	                    isSuccess: true,
-	                    isOpen: this.state.selectSuccessOpen,
-	                    onOpen: function (e) {
-	                      return _this2.setState({ selectSuccessOpen: true });
-	                    },
-	                    onChange: function (e) {
-	                      return _this2.setState({ selected: e.target });
-	                    },
-	                    onDone: function (e) {
-	                      return _this2.setState({ selectSuccessOpen: false });
-	                    } })
-	                ),
-	                _react2['default'].createElement(
-	                  _lib.Col,
-	                  { type: 'md-4' },
-	                  _react2['default'].createElement(_lib.Select, {
-	                    label: 'Error option',
-	                    value: this.state.selected && this.state.selected.value,
-	                    options: [{ value: 0, label: 'Option 1' }, { value: 1, label: 'Option 2' }, { value: 2, label: 'Option 3' }, { value: 3, label: 'Option 4' }],
-	                    isError: true,
-	                    message: 'fix me',
-	                    isOpen: this.state.selectErrorOpen,
-	                    onOpen: function (e) {
-	                      return _this2.setState({ selectErrorOpen: true });
-	                    },
-	                    onChange: function (e) {
-	                      return _this2.setState({ selected: e.target });
-	                    },
-	                    onDone: function (e) {
-	                      return _this2.setState({ selectErrorOpen: false });
-	                    } })
-	                )
-	              ),
-	              _react2['default'].createElement(
-	                _lib.Row,
-	                null,
-	                _react2['default'].createElement(
-	                  _lib.Col,
-	                  { type: 'md-4 md-offset-4' },
-	                  _react2['default'].createElement(_lib.Select, {
-	                    label: 'large list of items',
-	                    value: this.state.largeSelectedValue,
-	                    options: (function () {
-	                      var options = [];
-	                      for (var i = 0; i < 100; i++) {
-	                        options.push({ value: i, label: 'Option ' + (i + 1) });
-	                      }
-	                      return options;
-	                    })(),
-	                    isOpen: this.state.largeSelectOpen,
-	                    onOpen: function (e) {
-	                      return _this2.setState({ largeSelectOpen: true });
-	                    },
-	                    onChange: function (e) {
-	                      return _this2.setState({ largeSelectedValue: e.target.value });
-	                    },
-	                    onDone: function (e) {
-	                      return _this2.setState({ largeSelectOpen: false });
-	                    } })
-	                )
-	              )
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            'section',
-	            null,
-	            _react2['default'].createElement(
-	              _lib.Typ,
-	              { secondary: true, display1: true },
-	              'Checkbox'
-	            ),
-	            _react2['default'].createElement(_example2['default'], { code: '\n<Checkbox label="Checkbox" value={checked} onChange={setChecked}/>\n            ' }),
-	            _react2['default'].createElement(
-	              'div',
-	              null,
-	              _react2['default'].createElement(_lib.Checkbox, { label: 'Checkbox', value: this.state.checked, onChange: function (e) {
-	                  return _this2.setState({ checked: e.target.value });
-	                } })
-	            ),
-	            _react2['default'].createElement(
-	              'div',
-	              null,
-	              _react2['default'].createElement(_lib.Checkbox, { label: 'Opposite', value: !this.state.checked, onChange: function (e) {
-	                  return _this2.setState({ checked: !e.target.value });
-	                } })
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            'section',
-	            null,
-	            _react2['default'].createElement(
-	              _lib.Typ,
-	              { secondary: true, display1: true },
-	              'Grid System'
-	            ),
-	            _react2['default'].createElement(
-	              'p',
-	              null,
-	              'material-components borrows the reponsive ',
-	              _react2['default'].createElement(
-	                'a',
-	                { href: 'http://getbootstrap.com/css/#grid' },
-	                'grid system from bootstrap'
-	              ),
-	              '. Simply omit the ',
-	              _react2['default'].createElement(
-	                'code',
-	                null,
-	                'col-'
-	              ),
-	              ' class name prefix and pass all parameters via the ',
-	              _react2['default'].createElement(
-	                'code',
-	                null,
-	                'type'
-	              ),
-	              ' attribute.'
-	            ),
-	            _react2['default'].createElement(_example2['default'], { code: '\n<Row>\n  <Col type="md-5 md-offset-1"></Col>\n  <Col type="md-5"></Col>\n</Row>\n            ' }),
-	            _react2['default'].createElement(
-	              'div',
-	              { style: { padding: '16px 0' } },
-	              _react2['default'].createElement(
-	                _lib.Row,
-	                null,
-	                _react2['default'].createElement(
-	                  _lib.Col,
-	                  { type: 'md-5 md-offset-1' },
-	                  _react2['default'].createElement(
-	                    'div',
-	                    { className: 'paper1 padded' },
-	                    'md-5 md-offset-1'
-	                  )
-	                ),
-	                _react2['default'].createElement(
-	                  _lib.Col,
-	                  { type: 'md-5' },
-	                  _react2['default'].createElement(
-	                    'div',
-	                    { className: 'paper1 padded' },
-	                    'md-5'
-	                  )
-	                )
-	              )
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            'section',
-	            null,
-	            _react2['default'].createElement(
-	              _lib.Typ,
-	              { secondary: true, display1: true },
-	              'Menu'
-	            ),
-	            _react2['default'].createElement(_example2['default'], { code: '\n<Menu isOpen={showSimpleMenuProp onDone={hideSimpleMenuFunc}>\n  <Menu.Item onTouchTap={itemClicked}>Simple Menu Item</Menu.Item>\n  <Menu.Item onTouchTap={itemClicked}>Other Option</Menu.Item>\n</Menu>\n\n<Menu rightAlign isOpen={showMenuProp} onDone={hideMenuFunc}>\n  <Menu.Item showIcon icon={<Icon name="settings"/>} onTouchTap={itemClicked}>Settings</Menu.Item>\n  <Menu.Item showIcon onTouchTap={itemClicked}>No Icon</Menu.Item>\n  <Menu.Seperator/>\n  <Menu.Item showIcon selected={selectedOption===1} onTouchTap={() => setSelectedOption(1)}>Option 1</Menu.Item>\n  <Menu.Item showIcon selected={selectedOption===2} onTouchTap={() => setSelectedOption(2)}>Option 2</Menu.Item>\n</Menu>\n            ' }),
-	            _react2['default'].createElement(
-	              'div',
-	              { style: { margin: '24px 0' } },
-	              _react2['default'].createElement(
-	                _lib.Menu,
-	                { isOpen: this.state.showSimpleMenu, onDone: function () {
-	                    return _this2.setState({ showSimpleMenu: false });
-	                  } },
-	                _react2['default'].createElement(
-	                  _lib.Menu.Item,
-	                  null,
-	                  'Simple Menu Item'
-	                ),
-	                _react2['default'].createElement(
-	                  _lib.Menu.Item,
-	                  null,
-	                  'Other Option'
-	                )
-	              ),
-	              _react2['default'].createElement(
-	                _lib.Button,
-	                { style: { margin: '0' }, primary: true, onTouchTap: function () {
-	                    return _this2.setState({ showSimpleMenu: true });
-	                  } },
-	                'Simple Menu'
-	              ),
-	              _react2['default'].createElement(
-	                _lib.Button,
-	                { style: { margin: '0 16px' }, primary: true, onTouchTap: function () {
-	                    return _this2.setState({ showMenu: true });
-	                  } },
-	                'Menu'
-	              ),
-	              _react2['default'].createElement(
-	                _lib.Menu,
-	                { rightAlign: true, isOpen: this.state.showMenu, onDone: function () {
-	                    return _this2.setState({ showMenu: false });
-	                  } },
-	                _react2['default'].createElement(
-	                  _lib.Menu.Item,
-	                  { showIcon: true, icon: _react2['default'].createElement(_faicon2['default'], { name: 'cog' }) },
-	                  'Settings'
-	                ),
-	                _react2['default'].createElement(
-	                  _lib.Menu.Item,
-	                  { showIcon: true },
-	                  'No Icon'
-	                ),
-	                _react2['default'].createElement(_lib.Menu.Seperator, null),
-	                _react2['default'].createElement(
-	                  _lib.Menu.Item,
-	                  { showIcon: true, selected: this.state.selectedOption === 1, onTouchTap: function () {
-	                      return _this2.setState({ selectedOption: 1 });
-	                    } },
-	                  'Option 1'
-	                ),
-	                _react2['default'].createElement(
-	                  _lib.Menu.Item,
-	                  { showIcon: true, selected: this.state.selectedOption === 2, onTouchTap: function () {
-	                      return _this2.setState({ selectedOption: 2 });
-	                    } },
-	                  'Option 2'
-	                )
-	              )
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            'section',
-	            null,
-	            _react2['default'].createElement(
-	              _lib.Typ,
-	              { secondary: true, display1: true },
-	              'Dialog'
-	            ),
-	            _react2['default'].createElement(_example2['default'], { code: '\n<Dialog\n  isOpen={showDialog}\n  width={400}\n  height={172}\n  title="Question?"\n  okLabel="OK"\n  onOk={onOk}\n  cancelLabel="Cancel"\n  onCancel={onCancel}>\n</Dialog>\n            ' }),
-	            _react2['default'].createElement(
-	              _lib.Button,
-	              { style: { margin: '24px 0' }, primary: true, onTouchTap: function () {
-	                  return _this2.setState({ showDialog: true });
-	                } },
-	              'Show Dialog'
-	            ),
-	            _react2['default'].createElement(
-	              _lib.Dialog,
-	              {
-	                isOpen: this.state.showDialog,
-	                width: 400,
-	                height: 172,
-	                title: 'Do you confirm or deny?',
-	                okLabel: 'Confirm',
-	                onOk: function () {
-	                  return _this2.setState({ showDialog: false });
-	                },
-	                cancelLabel: 'Deny',
-	                onCancel: function () {
-	                  return _this2.setState({ showDialog: false });
-	                } },
-	              'the details of allogation'
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            'section',
-	            null,
-	            _react2['default'].createElement(
-	              _lib.Typ,
-	              { secondary: true, display1: true },
-	              'Date Picker'
-	            ),
-	            _react2['default'].createElement(_example2['default'], { code: '\n<DatePicker\n  isOpen={showDatePicker}\n  year={year}\n  month={month}\n  pickingValue={pickingDate}\n  onChange={onChange}\n  onNavigate={onNavigate}\n  onOk={onOk}\n  onCancel={onCancel}/>\n            ' }),
-	            _react2['default'].createElement(
-	              _lib.Button,
-	              { primary: true, onTouchTap: function (e) {
-	                  _this2.setState({ pickingDate: _this2.state.pickedDate });
-	                  _this2.setState({ showDatePicker: true });
-	                } },
-	              'Pick Date'
-	            ),
-	            'Picked Date: ',
-	            this.state.pickedDate ? this.state.pickedDate.toDateString() : 'none',
-	            _react2['default'].createElement(_lib.DatePicker, {
-	              isOpen: this.state.showDatePicker,
-	              year: this.state.pickedCalendar.year,
-	              month: this.state.pickedCalendar.month,
-	              pickingValue: this.state.pickingDate,
-	              onChange: function (e) {
-	                return _this2.setState({ pickingDate: e.target.value });
-	              },
-	              onNavigate: function (e) {
-	                return _this2.setState({ pickedCalendar: e.target.value });
-	              },
-	              onOk: function (e) {
-	                _this2.setState({ showDatePicker: false });
-	                _this2.setState({ pickedDate: e.target.value });
-	              },
-	              onCancel: function (e) {
-	                _this2.setState({ showDatePicker: false });
-	                _this2.setState({ pickingDate: null });
-	              } })
-	          ),
-	          _react2['default'].createElement(
-	            'section',
-	            null,
-	            _react2['default'].createElement(
-	              _lib.Typ,
-	              { secondary: true, display1: true },
-	              'Table'
-	            ),
-	            _react2['default'].createElement(
-	              'p',
-	              null,
-	              'Only ',
-	              _react2['default'].createElement(
-	                'code',
-	                null,
-	                'Table'
-	              ),
-	              ', ',
-	              _react2['default'].createElement(
-	                'code',
-	                null,
-	                'Table.Toolbar'
-	              ),
-	              ' and ',
-	              _react2['default'].createElement(
-	                'code',
-	                null,
-	                'Table.Row'
-	              ),
-	              ' are necessary, for other element types use the default html elements ',
-	              _react2['default'].createElement(
-	                'code',
-	                null,
-	                'thead'
-	              ),
-	              ', ',
-	              _react2['default'].createElement(
-	                'code',
-	                null,
-	                'tbody'
-	              ),
-	              ', ',
-	              _react2['default'].createElement(
-	                'code',
-	                null,
-	                'th'
-	              ),
-	              ' and ',
-	              _react2['default'].createElement(
-	                'code',
-	                null,
-	                'td'
-	              ),
-	              '.'
-	            ),
-	            _react2['default'].createElement(_example2['default'], { code: '\n<Table className="paper1">\n  <thead>\n    <Table.Toolbar colSpan={3}>\n      <Button style={{ margin: \'0 8px\', padding: \'0 8px\' }} primary flat>Add</Button>\n    </Table.Toolbar>\n    <Table.Row>\n      <th>First Name</th>\n      <th>Last Name</th>\n      <th>Role</th>\n    </Table.Row>\n  </thead>\n  <tbody>\n    {[\n      { firstName: \'Brian\', lastName: \'Wilson\', role: \'user\' },\n      { firstName: \'Geoff\', lastName: \'Hayes\', role: \'user\' },\n      { firstName: \'John\', lastName: \'Doe\', role: \'admin\' }\n    ].map((user, index) => (\n      <Table.Row key={index} onTouchTap={select(user)}>\n        <td>{user.firstName}</td>\n        <td>{user.lastName}</td>\n        <td>{user.role}</td>\n      </Table.Row>\n    ))}\n  </tbody>\n</Table>\n            ' }),
-	            _react2['default'].createElement(
-	              _lib.Table,
-	              { style: { margin: '24px 0' }, className: 'paper1' },
-	              _react2['default'].createElement(
-	                'thead',
-	                null,
-	                _react2['default'].createElement(
-	                  _lib.Table.Toolbar,
-	                  { colSpan: 3 },
-	                  _react2['default'].createElement(
-	                    _lib.Button,
-	                    { style: { margin: '0 8px', padding: '0 8px' }, primary: true, flat: true },
-	                    'Add'
-	                  )
-	                ),
-	                _react2['default'].createElement(
-	                  _lib.Table.Row,
-	                  null,
-	                  _react2['default'].createElement(
-	                    'th',
-	                    null,
-	                    'First Name'
-	                  ),
-	                  _react2['default'].createElement(
-	                    'th',
-	                    null,
-	                    'Last Name'
-	                  ),
-	                  _react2['default'].createElement(
-	                    'th',
-	                    null,
-	                    'Role'
-	                  )
-	                )
-	              ),
-	              _react2['default'].createElement(
-	                'tbody',
-	                null,
-	                [{ firstName: 'Brian', lastName: 'Wilson', role: 'user' }, { firstName: 'Geoff', lastName: 'Hayes', role: 'user' }, { firstName: 'John', lastName: 'Doe', role: 'admin' }].map(function (user, index) {
-	                  return _react2['default'].createElement(
-	                    _lib.Table.Row,
-	                    { key: index, onTouchTap: function () {
-	                        return console.log('clicked', user);
-	                      } },
-	                    _react2['default'].createElement(
-	                      'td',
-	                      null,
-	                      user.firstName
-	                    ),
-	                    _react2['default'].createElement(
-	                      'td',
-	                      null,
-	                      user.lastName
-	                    ),
-	                    _react2['default'].createElement(
-	                      'td',
-	                      null,
-	                      user.role
-	                    )
-	                  );
-	                })
-	              )
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            'section',
-	            null,
-	            _react2['default'].createElement(
-	              _lib.Typ,
-	              { secondary: true, display1: true },
-	              'Spinner'
-	            ),
-	            _react2['default'].createElement(_example2['default'], { code: '\n// inline spinners\n<Spinner size={25} inline/>\n<Spinner size={50} inline primary/>\n<Spinner size={75} inline secondary/>\n\n// page spinner\n<Spinner isOpen={isLoading}/>\n            ' }),
-	            _react2['default'].createElement(
-	              'div',
-	              { style: { margin: '24px 0' }, className: 'paper1 padded' },
-	              _react2['default'].createElement(
-	                _lib.Row,
-	                null,
-	                _react2['default'].createElement(
-	                  _lib.Col,
-	                  { type: 'sm-4' },
-	                  _react2['default'].createElement(_lib.Spinner, { style: { margin: '10px auto' }, size: 25, inline: true })
-	                ),
-	                _react2['default'].createElement(
-	                  _lib.Col,
-	                  { type: 'sm-4' },
-	                  _react2['default'].createElement(_lib.Spinner, { style: { margin: '10px auto' }, size: 25, inline: true, primary: true })
-	                ),
-	                _react2['default'].createElement(
-	                  _lib.Col,
-	                  { type: 'sm-4' },
-	                  _react2['default'].createElement(_lib.Spinner, { style: { margin: '10px auto' }, size: 25, inline: true, secondary: true })
-	                )
-	              ),
-	              _react2['default'].createElement(
-	                _lib.Row,
-	                null,
-	                _react2['default'].createElement(
-	                  _lib.Col,
-	                  { type: 'sm-4' },
-	                  _react2['default'].createElement(_lib.Spinner, { style: { margin: '10px auto' }, size: 50, inline: true })
-	                ),
-	                _react2['default'].createElement(
-	                  _lib.Col,
-	                  { type: 'sm-4' },
-	                  _react2['default'].createElement(_lib.Spinner, { style: { margin: '10px auto' }, size: 50, inline: true, primary: true })
-	                ),
-	                _react2['default'].createElement(
-	                  _lib.Col,
-	                  { type: 'sm-4' },
-	                  _react2['default'].createElement(_lib.Spinner, { style: { margin: '10px auto' }, size: 50, inline: true, secondary: true })
-	                )
-	              ),
-	              _react2['default'].createElement(
-	                _lib.Row,
-	                null,
-	                _react2['default'].createElement(
-	                  _lib.Col,
-	                  { type: 'sm-4' },
-	                  _react2['default'].createElement(_lib.Spinner, { style: { margin: '10px auto' }, size: 75, inline: true })
-	                ),
-	                _react2['default'].createElement(
-	                  _lib.Col,
-	                  { type: 'sm-4' },
-	                  _react2['default'].createElement(_lib.Spinner, { style: { margin: '10px auto' }, size: 75, inline: true, primary: true })
-	                ),
-	                _react2['default'].createElement(
-	                  _lib.Col,
-	                  { type: 'sm-4' },
-	                  _react2['default'].createElement(_lib.Spinner, { style: { margin: '10px auto' }, size: 75, inline: true, secondary: true })
-	                )
-	              )
-	            ),
-	            _react2['default'].createElement(
-	              'div',
-	              { style: { margin: '24px 0' } },
-	              _react2['default'].createElement(_lib.Checkbox, { label: 'Page is loading', value: this.state.isLoading, onChange: function (e) {
-	                  return _this2.setState({ isLoading: e.target.value });
-	                } })
-	            ),
-	            _react2['default'].createElement(_lib.Spinner, { isOpen: this.state.isLoading })
-	          ),
-	          _react2['default'].createElement(
-	            'section',
-	            null,
-	            _react2['default'].createElement(
-	              _lib.Typ,
-	              { secondary: true, display1: true },
-	              'Responsive Events'
-	            ),
-	            _react2['default'].createElement(
-	              'p',
-	              null,
-	              'Responsive Events are emitted whenever the screen type or orientation changes. This can be used to modify the UI to suite the device. Unlike CSS media queries which change the style of always present elements, this feature can be used to completely change what application renders. Meaning that your app should only render the elements needed on mobile and not just hide the desktop elements.'
-	            ),
-	            _react2['default'].createElement(
-	              'p',
-	              null,
-	              'How you use this feature depends on what framework you use for your application. With Cerebral you would send a signal, with a flux framework you would call an action. In both cases you would then apply the screen data to your central store which would cause your application components which observe the screen object in your store to re-render.'
-	            ),
-	            _react2['default'].createElement(_example2['default'], { code: '\n// how you apply the change to your store depends on your framework choice\nevents.responsive.addListener(screen => store.set(\'screen\', screen));\n            ' }),
-	            _react2['default'].createElement(
-	              'p',
-	              null,
-	              'Event listeners receive a screen object which looks like:'
-	            ),
-	            _react2['default'].createElement(_example2['default'], { code: '\n{\n  type: \'xs\',\n  size: 1,\n  isLandscape: true,\n  isPortrait: false\n}\n            ' }),
-	            _react2['default'].createElement(
-	              'p',
-	              null,
-	              'following the same reponsive configuration as bootstrap, ',
-	              _react2['default'].createElement(
-	                'code',
-	                null,
-	                'type'
-	              ),
-	              ' can be one of ',
-	              _react2['default'].createElement(
-	                'code',
-	                null,
-	                '\'xs\''
-	              ),
-	              ', ',
-	              _react2['default'].createElement(
-	                'code',
-	                null,
-	                '\'sm\''
-	              ),
-	              ', ',
-	              _react2['default'].createElement(
-	                'code',
-	                null,
-	                '\'md\''
-	              ),
-	              ' or ',
-	              _react2['default'].createElement(
-	                'code',
-	                null,
-	                '\'lg\''
-	              ),
-	              '. ',
-	              _react2['default'].createElement(
-	                'code',
-	                null,
-	                'size'
-	              ),
-	              ' is the same as ',
-	              _react2['default'].createElement(
-	                'code',
-	                null,
-	                'type'
-	              ),
-	              ' (',
-	              _react2['default'].createElement(
-	                'code',
-	                null,
-	                'xs=1, sm=2, md=3, lg=4'
-	              ),
-	              '), but allows you to filter by range (',
-	              _react2['default'].createElement(
-	                'code',
-	                null,
-	                'if (screen.size > 2) '
-	              ),
-	              ').'
-	            ),
-	            _react2['default'].createElement(
-	              'div',
-	              { className: 'paper' + this.state.screen.size + ' padded' },
-	              'As the screen gets larger this paper will rise.',
-	              _react2['default'].createElement('br', null),
-	              'The screen is ',
-	              this.state.screen.type,
-	              '.'
-	            ),
-	            _react2['default'].createElement(
-	              'p',
-	              null,
-	              'The event is only triggered when these values change and not on every window resize event, so updating the UI every time this event is triggered should be ok.'
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            'section',
-	            null,
-	            _react2['default'].createElement(
-	              _lib.Typ,
-	              { secondary: true, display1: true },
-	              'Calendar'
-	            ),
-	            _react2['default'].createElement(
-	              'p',
-	              null,
-	              'The ',
-	              _react2['default'].createElement(
-	                'code',
-	                null,
-	                'Calendar'
-	              ),
-	              ' component uses the internationalisation from moment.js, to change the locale settings ',
-	              _react2['default'].createElement(
-	                'a',
-	                { href: 'http://momentjs.com/docs/#/i18n/' },
-	                'configure moment'
-	              ),
-	              ' with your desired locale.'
-	            ),
-	            _react2['default'].createElement(_example2['default'], { code: '\n// Non interactive calendar of the current month\n<Calendar/>\n\n// Non interactive calendar of given month\n<Calendar titleFormat="MMM" year={2010} month={0} value={new Date(2010, 0, 5)}/>\n            ' }),
-	            _react2['default'].createElement(
-	              _lib.Row,
-	              null,
-	              _react2['default'].createElement(
-	                _lib.Col,
-	                { type: 'sm-6' },
-	                _react2['default'].createElement(_lib.Calendar, { className: 'paper1', style: { margin: '24px auto', padding: '12px' } })
-	              ),
-	              _react2['default'].createElement(
-	                _lib.Col,
-	                { type: 'sm-6' },
-	                _react2['default'].createElement(_lib.Calendar, { titleFormat: 'MMM', year: 2010, month: 0, value: new Date(2010, 0, 5), className: 'paper1', style: { margin: '24px auto', padding: '12px' } })
-	              )
-	            ),
-	            _react2['default'].createElement(_example2['default'], { code: '\n// Interactive calendar\n<Calendar\n  year={year}\n  month={month}\n  value={selectedDate}\n  onChange={setDate}\n  onNavigate={updateCalendar}/>\n            ' }),
-	            _react2['default'].createElement(_lib.Calendar, {
-	              year: this.state.calendar.year,
-	              month: this.state.calendar.month,
-	              value: this.state.selectedDate,
-	              onChange: function (e) {
-	                return _this2.setState({ selectedDate: e.target.value });
-	              },
-	              onNavigate: function (e) {
-	                return _this2.setState({ calendar: e.target.value });
-	              },
-	              className: 'paper1',
-	              style: { margin: '24px auto', padding: '12px' } })
-	          )
-	        )
-	      );
-	    }
-	  }], [{
-	    key: 'displayName',
-	    value: 'Application',
-	    enumerable: true
-	  }, {
-	    key: 'childContextTypes',
-	    value: {
-	      componentStyle: _react.PropTypes.object
-	    },
-	    enumerable: true
-	  }]);
-	
-	  return Application;
-	})(_react.Component);
-	
-	exports['default'] = Application;
-	module.exports = exports['default'];
-
-/***/ },
-/* 404 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	module.exports = {
-	  Appbar: __webpack_require__(405),
-	  Button: __webpack_require__(412),
-	  Calendar: __webpack_require__(413),
-	  Checkbox: __webpack_require__(416),
-	  Col: __webpack_require__(417),
-	  DatePicker: __webpack_require__(418),
-	  Dialog: __webpack_require__(419),
-	  Divider: __webpack_require__(428),
-	  Form: __webpack_require__(430),
-	  Input: __webpack_require__(431),
-	  Mask: __webpack_require__(427),
-	  Menu: __webpack_require__(432),
-	  Row: __webpack_require__(435),
-	  Select: __webpack_require__(436),
-	  Sidenav: __webpack_require__(437),
-	  Spinner: __webpack_require__(440),
-	  Table: __webpack_require__(441),
-	  Typ: __webpack_require__(444),
-	
-	  events: {
-	    responsive: __webpack_require__(445)
-	  }
-	};
-
-/***/ },
-/* 405 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
@@ -37245,143 +31468,15 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _button = __webpack_require__(406);
-	
-	var _button2 = _interopRequireDefault(_button);
-	
-	var _title = __webpack_require__(411);
-	
-	var _title2 = _interopRequireDefault(_title);
-	
-	var Appbar = (function (_Component) {
-	  _inherits(Appbar, _Component);
-	
-	  function Appbar() {
-	    _classCallCheck(this, Appbar);
-	
-	    _get(Object.getPrototypeOf(Appbar.prototype), 'constructor', this).apply(this, arguments);
-	  }
-	
-	  _createClass(Appbar, [{
-	    key: 'render',
-	    value: function render() {
-	      var _context$componentStyle = this.context.componentStyle;
-	      var primaryColor = _context$componentStyle.primaryColor;
-	      var primaryFontColor = _context$componentStyle.primaryFontColor;
-	      var _props = this.props;
-	      var children = _props.children;
-	      var fixed = _props.fixed;
-	      var style = _props.style;
-	
-	      return _react2['default'].createElement('div', { style: { height: '64px' } }, _react2['default'].createElement('div', { className: 'paper1', style: Object.assign({
-	          position: fixed ? 'fixed' : 'inherit',
-	          width: '100%',
-	          zIndex: '1',
-	          height: '64px',
-	          lineHeight: '32px',
-	          padding: '16px 8px',
-	          backgroundColor: primaryColor,
-	          color: primaryFontColor
-	        }, style) }, children));
-	    }
-	  }], [{
-	    key: 'displayName',
-	    value: 'Appbar',
-	    enumerable: true
-	  }, {
-	    key: 'contextTypes',
-	    value: {
-	      componentStyle: _react2['default'].PropTypes.object
-	    },
-	    enumerable: true
-	  }, {
-	    key: 'propTypes',
-	    value: {
-	      children: _react.PropTypes.node,
-	      fixed: _react.PropTypes.bool,
-	      style: _react.PropTypes.object
-	    },
-	    enumerable: true
-	  }]);
-	
-	  return Appbar;
-	})(_react.Component);
-	
-	Appbar.Button = _button2['default'];
-	Appbar.Title = _title2['default'];
-	
-	exports['default'] = Appbar;
-	module.exports = exports['default'];
-
-/***/ },
-/* 406 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	
-	var _createClass = (function () {
-	  function defineProperties(target, props) {
-	    for (var i = 0; i < props.length; i++) {
-	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ('value' in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-	    }
-	  }return function (Constructor, protoProps, staticProps) {
-	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-	  };
-	})();
-	
-	var _get = function get(_x, _x2, _x3) {
-	  var _again = true;_function: while (_again) {
-	    var object = _x,
-	        property = _x2,
-	        receiver = _x3;_again = false;if (object === null) object = Function.prototype;var desc = Object.getOwnPropertyDescriptor(object, property);if (desc === undefined) {
-	      var parent = Object.getPrototypeOf(object);if (parent === null) {
-	        return undefined;
-	      } else {
-	        _x = parent;_x2 = property;_x3 = receiver;_again = true;desc = parent = undefined;continue _function;
-	      }
-	    } else if ('value' in desc) {
-	      return desc.value;
-	    } else {
-	      var getter = desc.get;if (getter === undefined) {
-	        return undefined;
-	      }return getter.call(receiver);
-	    }
-	  }
-	};
-	
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { 'default': obj };
-	}
-	
-	function _classCallCheck(instance, Constructor) {
-	  if (!(instance instanceof Constructor)) {
-	    throw new TypeError('Cannot call a class as a function');
-	  }
-	}
-	
-	function _inherits(subClass, superClass) {
-	  if (typeof superClass !== 'function' && superClass !== null) {
-	    throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass);
-	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-	}
-	
-	var _react = __webpack_require__(256);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactDom = __webpack_require__(394);
+	var _reactDom = __webpack_require__(395);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _classnames = __webpack_require__(407);
+	var _classnames = __webpack_require__(396);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _helpersWaves = __webpack_require__(408);
+	var _helpersWaves = __webpack_require__(397);
 	
 	var _helpersWaves2 = _interopRequireDefault(_helpersWaves);
 	
@@ -37457,7 +31552,15 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 407 */
+/* 395 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	module.exports = __webpack_require__(258);
+
+/***/ },
+/* 396 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -37512,7 +31615,7 @@
 	})();
 
 /***/ },
-/* 408 */
+/* 397 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37521,12 +31624,12 @@
 	  value: true
 	});
 	
-	var _exenv = __webpack_require__(409);
+	var _exenv = __webpack_require__(398);
 	
 	var Waves = undefined;
 	
 	if (_exenv.canUseDOM) {
-	  Waves = __webpack_require__(410);
+	  Waves = __webpack_require__(399);
 	
 	  Waves.init({
 	    // How long Waves effect duration
@@ -37548,7 +31651,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 409 */
+/* 398 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -37588,7 +31691,7 @@
 	})();
 
 /***/ },
-/* 410 */
+/* 399 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(global) {/*!
@@ -38171,7 +32274,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 411 */
+/* 400 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38210,7 +32313,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 412 */
+/* 401 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38269,15 +32372,15 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(394);
+	var _reactDom = __webpack_require__(395);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _classnames = __webpack_require__(407);
+	var _classnames = __webpack_require__(396);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _helpersWaves = __webpack_require__(408);
+	var _helpersWaves = __webpack_require__(397);
 	
 	var _helpersWaves2 = _interopRequireDefault(_helpersWaves);
 	
@@ -38386,7 +32489,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 413 */
+/* 402 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38453,15 +32556,15 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(394);
+	var _reactDom = __webpack_require__(395);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _helpersWaves = __webpack_require__(408);
+	var _helpersWaves = __webpack_require__(397);
 	
 	var _helpersWaves2 = _interopRequireDefault(_helpersWaves);
 	
-	var _moment = __webpack_require__(414);
+	var _moment = __webpack_require__(403);
 	
 	var _moment2 = _interopRequireDefault(_moment);
 	
@@ -38674,7 +32777,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 414 */
+/* 403 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {//! moment.js
@@ -38966,10 +33069,27 @@
 	addFormatToken('X',0,0,'unix');addFormatToken('x',0,0,'valueOf'); // PARSING
 	addRegexToken('x',matchSigned);addRegexToken('X',matchTimestamp);addParseToken('X',function(input,array,config){config._d = new Date(parseFloat(input,10) * 1000);});addParseToken('x',function(input,array,config){config._d = new Date(toInt(input));}); // Side effect imports
 	utils_hooks__hooks.version = '2.10.6';setHookCallback(local__createLocal);utils_hooks__hooks.fn = momentPrototype;utils_hooks__hooks.min = min;utils_hooks__hooks.max = max;utils_hooks__hooks.utc = create_utc__createUTC;utils_hooks__hooks.unix = moment__createUnix;utils_hooks__hooks.months = lists__listMonths;utils_hooks__hooks.isDate = isDate;utils_hooks__hooks.locale = locale_locales__getSetGlobalLocale;utils_hooks__hooks.invalid = valid__createInvalid;utils_hooks__hooks.duration = create__createDuration;utils_hooks__hooks.isMoment = isMoment;utils_hooks__hooks.weekdays = lists__listWeekdays;utils_hooks__hooks.parseZone = moment__createInZone;utils_hooks__hooks.localeData = locale_locales__getLocale;utils_hooks__hooks.isDuration = isDuration;utils_hooks__hooks.monthsShort = lists__listMonthsShort;utils_hooks__hooks.weekdaysMin = lists__listWeekdaysMin;utils_hooks__hooks.defineLocale = defineLocale;utils_hooks__hooks.weekdaysShort = lists__listWeekdaysShort;utils_hooks__hooks.normalizeUnits = normalizeUnits;utils_hooks__hooks.relativeTimeThreshold = duration_humanize__getSetRelativeTimeThreshold;var _moment=utils_hooks__hooks;return _moment;}); //! momentjs.com
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(253)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(404)(module)))
 
 /***/ },
-/* 415 */
+/* 404 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	module.exports = function (module) {
+		if (!module.webpackPolyfill) {
+			module.deprecate = function () {};
+			module.paths = [];
+			// module.parent = undefined by default
+			module.children = [];
+			module.webpackPolyfill = 1;
+		}
+		return module;
+	};
+
+/***/ },
+/* 405 */
 /***/ function(module, exports) {
 
 	function webpackContext(req) {
@@ -38978,11 +33098,11 @@
 	webpackContext.keys = function() { return []; };
 	webpackContext.resolve = webpackContext;
 	module.exports = webpackContext;
-	webpackContext.id = 415;
+	webpackContext.id = 405;
 
 
 /***/ },
-/* 416 */
+/* 406 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -39041,11 +33161,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(394);
+	var _reactDom = __webpack_require__(395);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _helpersWaves = __webpack_require__(408);
+	var _helpersWaves = __webpack_require__(397);
 	
 	var _helpersWaves2 = _interopRequireDefault(_helpersWaves);
 	
@@ -39139,7 +33259,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 417 */
+/* 407 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -39170,7 +33290,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 418 */
+/* 408 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -39229,19 +33349,19 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _moment = __webpack_require__(414);
+	var _moment = __webpack_require__(403);
 	
 	var _moment2 = _interopRequireDefault(_moment);
 	
-	var _dialog = __webpack_require__(419);
+	var _dialog = __webpack_require__(409);
 	
 	var _dialog2 = _interopRequireDefault(_dialog);
 	
-	var _calendar = __webpack_require__(413);
+	var _calendar = __webpack_require__(402);
 	
 	var _calendar2 = _interopRequireDefault(_calendar);
 	
-	var _helpersScreen = __webpack_require__(429);
+	var _helpersScreen = __webpack_require__(419);
 	
 	var _helpersScreen2 = _interopRequireDefault(_helpersScreen);
 	
@@ -39367,7 +33487,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 419 */
+/* 409 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -39426,23 +33546,23 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactAddonsCssTransitionGroup = __webpack_require__(420);
+	var _reactAddonsCssTransitionGroup = __webpack_require__(410);
 	
 	var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
 	
-	var _mask = __webpack_require__(427);
+	var _mask = __webpack_require__(417);
 	
 	var _mask2 = _interopRequireDefault(_mask);
 	
-	var _divider = __webpack_require__(428);
+	var _divider = __webpack_require__(418);
 	
 	var _divider2 = _interopRequireDefault(_divider);
 	
-	var _button = __webpack_require__(412);
+	var _button = __webpack_require__(401);
 	
 	var _button2 = _interopRequireDefault(_button);
 	
-	var _helpersScreen = __webpack_require__(429);
+	var _helpersScreen = __webpack_require__(419);
 	
 	var _helpersScreen2 = _interopRequireDefault(_helpersScreen);
 	
@@ -39593,15 +33713,15 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 420 */
+/* 410 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	module.exports = __webpack_require__(421);
+	module.exports = __webpack_require__(411);
 
 /***/ },
-/* 421 */
+/* 411 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -39622,8 +33742,8 @@
 	
 	var assign = __webpack_require__(210);
 	
-	var ReactTransitionGroup = __webpack_require__(422);
-	var ReactCSSTransitionGroupChild = __webpack_require__(424);
+	var ReactTransitionGroup = __webpack_require__(412);
+	var ReactCSSTransitionGroupChild = __webpack_require__(414);
 	
 	function createTransitionTimeoutPropValidator(transitionType) {
 	  var timeoutPropName = 'transition' + transitionType + 'Timeout';
@@ -39689,7 +33809,7 @@
 	module.exports = ReactCSSTransitionGroup;
 
 /***/ },
-/* 422 */
+/* 412 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -39706,7 +33826,7 @@
 	'use strict';
 	
 	var React = __webpack_require__(257);
-	var ReactTransitionChildMapping = __webpack_require__(423);
+	var ReactTransitionChildMapping = __webpack_require__(413);
 	
 	var assign = __webpack_require__(210);
 	var emptyFunction = __webpack_require__(202);
@@ -39899,7 +34019,7 @@
 	module.exports = ReactTransitionGroup;
 
 /***/ },
-/* 423 */
+/* 413 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -40002,7 +34122,7 @@
 	module.exports = ReactTransitionChildMapping;
 
 /***/ },
-/* 424 */
+/* 414 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -40022,8 +34142,8 @@
 	var React = __webpack_require__(257);
 	var ReactDOM = __webpack_require__(258);
 	
-	var CSSCore = __webpack_require__(425);
-	var ReactTransitionEvents = __webpack_require__(426);
+	var CSSCore = __webpack_require__(415);
+	var ReactTransitionEvents = __webpack_require__(416);
 	
 	var onlyChild = __webpack_require__(392);
 	
@@ -40167,7 +34287,7 @@
 	module.exports = ReactCSSTransitionGroupChild;
 
 /***/ },
-/* 425 */
+/* 415 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -40270,7 +34390,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(192)))
 
 /***/ },
-/* 426 */
+/* 416 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -40384,7 +34504,7 @@
 	module.exports = ReactTransitionEvents;
 
 /***/ },
-/* 427 */
+/* 417 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40402,7 +34522,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _classnames = __webpack_require__(407);
+	var _classnames = __webpack_require__(396);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
@@ -40433,7 +34553,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 428 */
+/* 418 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40467,7 +34587,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 429 */
+/* 419 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40476,7 +34596,7 @@
 	  value: true
 	});
 	
-	var _exenv = __webpack_require__(409);
+	var _exenv = __webpack_require__(398);
 	
 	exports['default'] = {
 	  getSize: function getSize() {
@@ -40489,7 +34609,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 430 */
+/* 420 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40531,7 +34651,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 431 */
+/* 421 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40590,11 +34710,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(394);
+	var _reactDom = __webpack_require__(395);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _classnames = __webpack_require__(407);
+	var _classnames = __webpack_require__(396);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
@@ -40702,7 +34822,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 432 */
+/* 422 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40761,27 +34881,27 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(394);
+	var _reactDom = __webpack_require__(395);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _reactAddonsCssTransitionGroup = __webpack_require__(420);
+	var _reactAddonsCssTransitionGroup = __webpack_require__(410);
 	
 	var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
 	
-	var _mask = __webpack_require__(427);
+	var _mask = __webpack_require__(417);
 	
 	var _mask2 = _interopRequireDefault(_mask);
 	
-	var _item = __webpack_require__(433);
+	var _item = __webpack_require__(423);
 	
 	var _item2 = _interopRequireDefault(_item);
 	
-	var _seperator = __webpack_require__(434);
+	var _seperator = __webpack_require__(424);
 	
 	var _seperator2 = _interopRequireDefault(_seperator);
 	
-	var _helpersScreen = __webpack_require__(429);
+	var _helpersScreen = __webpack_require__(419);
 	
 	var _helpersScreen2 = _interopRequireDefault(_helpersScreen);
 	
@@ -40947,7 +35067,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 433 */
+/* 423 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -41006,15 +35126,15 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(394);
+	var _reactDom = __webpack_require__(395);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _classnames = __webpack_require__(407);
+	var _classnames = __webpack_require__(396);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _helpersWaves = __webpack_require__(408);
+	var _helpersWaves = __webpack_require__(397);
 	
 	var _helpersWaves2 = _interopRequireDefault(_helpersWaves);
 	
@@ -41123,7 +35243,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 434 */
+/* 424 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -41141,7 +35261,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _divider = __webpack_require__(428);
+	var _divider = __webpack_require__(418);
 	
 	var _divider2 = _interopRequireDefault(_divider);
 	
@@ -41160,7 +35280,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 435 */
+/* 425 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -41187,7 +35307,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 436 */
+/* 426 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -41246,15 +35366,15 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _classnames = __webpack_require__(407);
+	var _classnames = __webpack_require__(396);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _input = __webpack_require__(431);
+	var _input = __webpack_require__(421);
 	
 	var _input2 = _interopRequireDefault(_input);
 	
-	var _menu = __webpack_require__(432);
+	var _menu = __webpack_require__(422);
 	
 	var _menu2 = _interopRequireDefault(_menu);
 	
@@ -41375,7 +35495,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 437 */
+/* 427 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -41434,23 +35554,23 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactAddonsCssTransitionGroup = __webpack_require__(420);
+	var _reactAddonsCssTransitionGroup = __webpack_require__(410);
 	
 	var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
 	
-	var _mask = __webpack_require__(427);
+	var _mask = __webpack_require__(417);
 	
 	var _mask2 = _interopRequireDefault(_mask);
 	
-	var _item = __webpack_require__(438);
+	var _item = __webpack_require__(428);
 	
 	var _item2 = _interopRequireDefault(_item);
 	
-	var _title = __webpack_require__(439);
+	var _title = __webpack_require__(429);
 	
 	var _title2 = _interopRequireDefault(_title);
 	
-	var _menuSeperator = __webpack_require__(434);
+	var _menuSeperator = __webpack_require__(424);
 	
 	var _menuSeperator2 = _interopRequireDefault(_menuSeperator);
 	
@@ -41513,6 +35633,7 @@
 	          position: 'fixed',
 	          top: 0,
 	          bottom: 0,
+	          overflow: 'auto',
 	          width: '280px',
 	          zIndex: 1001
 	        }, style) }, children)) : null);
@@ -41557,7 +35678,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 438 */
+/* 428 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -41616,7 +35737,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _menuItem = __webpack_require__(433);
+	var _menuItem = __webpack_require__(423);
 	
 	var _menuItem2 = _interopRequireDefault(_menuItem);
 	
@@ -41650,6 +35771,7 @@
 	        showIcon: showIcon,
 	        style: Object.assign({
 	          padding: '8px 40px 8px 24px',
+	          position: 'realative',
 	          color: selected ? primaryColor : typographyColor
 	        }, style) }, children);
 	    }
@@ -41689,7 +35811,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 439 */
+/* 429 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -41748,7 +35870,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _appbarButton = __webpack_require__(406);
+	var _appbarButton = __webpack_require__(394);
 	
 	var _appbarButton2 = _interopRequireDefault(_appbarButton);
 	
@@ -41830,7 +35952,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 440 */
+/* 430 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -41889,7 +36011,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactAddonsCssTransitionGroup = __webpack_require__(420);
+	var _reactAddonsCssTransitionGroup = __webpack_require__(410);
 	
 	var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
 	
@@ -42001,7 +36123,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 441 */
+/* 431 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42018,15 +36140,15 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _classnames = __webpack_require__(407);
+	var _classnames = __webpack_require__(396);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _toolbar = __webpack_require__(442);
+	var _toolbar = __webpack_require__(432);
 	
 	var _toolbar2 = _interopRequireDefault(_toolbar);
 	
-	var _row = __webpack_require__(443);
+	var _row = __webpack_require__(433);
 	
 	var _row2 = _interopRequireDefault(_row);
 	
@@ -42052,7 +36174,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 442 */
+/* 432 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -42088,7 +36210,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 443 */
+/* 433 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42106,7 +36228,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _classnames = __webpack_require__(407);
+	var _classnames = __webpack_require__(396);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
@@ -42129,7 +36251,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 444 */
+/* 434 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42188,7 +36310,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _classnames = __webpack_require__(407);
+	var _classnames = __webpack_require__(396);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
@@ -42268,7 +36390,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 445 */
+/* 435 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -42331,7 +36453,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 446 */
+/* 436 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42339,117 +36461,5147 @@
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
-	exports['default'] = Example;
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _react = __webpack_require__(256);
+	var _cerebralRouter = __webpack_require__(437);
 	
-	var _react2 = _interopRequireDefault(_react);
+	var _cerebralRouter2 = _interopRequireDefault(_cerebralRouter);
 	
-	function Example(_ref) {
-	  var code = _ref.code;
+	var _controller = __webpack_require__(216);
 	
-	  return _react2['default'].createElement(
-	    'div',
-	    {
-	      style: {
-	        padding: '8px 0'
-	      } },
-	    _react2['default'].createElement(
-	      'pre',
-	      {
-	        className: 'prettyprint lang-js linenums',
-	        style: {
-	          fontFamily: 'Ubuntu Mono',
-	          padding: '8px 0',
-	          margin: '0',
-	          borderRadius: '0',
-	          width: '100%'
-	        } },
-	      code.trim()
-	    )
-	  );
+	var _controller2 = _interopRequireDefault(_controller);
+	
+	exports['default'] = (0, _cerebralRouter2['default'])(_controller2['default'], {
+	  '/': 'introductionPageOpened',
+	  '/gettingStarted': 'gettingStartedPageOpened',
+	  '/paper': 'paperPageOpened',
+	  '/typography': 'typographyPageOpened',
+	  '/appbar': 'appbarPageOpened',
+	  '/sidenav': 'sidenavPageOpened',
+	  '/form': 'formPageOpened',
+	  '/button': 'buttonPageOpened',
+	  '/input': 'inputPageOpened',
+	  '/select': 'selectPageOpened',
+	  '/checkbox': 'checkboxPageOpened',
+	  '/gridSystem': 'gridSystemPageOpened',
+	  '/menu': 'menuPageOpened',
+	  '/dialog': 'dialogPageOpened',
+	  '/datePicker': 'datePickerPageOpened',
+	  '/table': 'tablePageOpened',
+	  '/spinner': 'spinnerPageOpened',
+	  '/calendar': 'calendarPageOpened',
+	  '/responsiveEvents': 'responsiveEventsPageOpened',
+	  '*': 'notFoundPageOpened'
+	}, {
+	  onlyHash: true,
+	  urlStorePath: ['route', 'url']
+	});
+	module.exports = exports['default'];
+
+/***/ },
+/* 437 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var urlMapper = __webpack_require__(438);
+	var addressbar = __webpack_require__(445);
+	var pathToRegexp = __webpack_require__(443);
+	
+	var wrappedRoutes = null;
+	
+	function router(controller, routes, options) {
+	
+	  options = options || {};
+	
+	  if (!routes) {
+	    throw new Error('Cerebral router - Routes configuration wasn\'t provided.');
+	  }
+	
+	  if (!options.baseUrl && options.onlyHash) {
+	    // autodetect baseUrl
+	    options.baseUrl = addressbar.pathname;
+	  }
+	  options.baseUrl = (options.baseUrl || '') + (options.onlyHash ? '#' : '');
+	
+	  var urlStorePath = options.urlStorePath || 'url';
+	
+	  // action to inject
+	  function setUrl(input, state, output) {
+	    state.set(urlStorePath, input.route.url);
+	  }
+	
+	  // Create url based on direct signal input
+	  function getUrl(route, input) {
+	    return pathToRegexp.compile(route)(input);
+	  }
+	
+	  wrappedRoutes = Object.keys(routes).reduce(function (wrappedRoutes, route) {
+	
+	    var signalPath = routes[route].split('.');
+	    var signalParent = controller.signals;
+	    var signal;
+	    while (signalPath.length - 1) {
+	      signalParent = signalParent[signalPath.shift()];
+	    }
+	    signal = signalParent[signalPath];
+	    if (!signal) {
+	      throw new Error('Cerebral router - The signal "' + routes[route] + '" for the route "' + route + '" does not exist.');
+	    }
+	
+	    if (typeof signal.getUrl === "function") {
+	      throw new Error('Cerebral router - The signal "' + routes[route] + '" has already been bound to route. Create a new signal and reuse actions instead if needed.');
+	    } else {
+	      signal.chain = [setUrl].concat(signal.chain);
+	    }
+	
+	    function wrappedSignal() {
+	
+	      var hasSync = arguments[0] === true;
+	      var input = hasSync ? arguments[1] || {} : arguments[0] || {};
+	
+	      if (!input.route) {
+	        input.route = {
+	          url: getUrl(route, input)
+	        };
+	      } else {
+	        // If called from a url change, add params to input
+	        var params = pathToRegexp(route).keys;
+	
+	        input = params.reduce(function (input, param) {
+	          input[param.name] = input.route.params[param.name];
+	          return input;
+	        }, input);
+	      }
+	
+	      // Should always run sync
+	      signal.apply(null, hasSync ? [arguments[0], input, arguments[2]] : [true, input, arguments[1]]);
+	    }
+	
+	    // callback for urlMapper
+	    wrappedRoutes[route] = function (payload) {
+	      wrappedSignal({ route: payload });
+	    };
+	
+	    signalParent[signalPath[0]] = wrappedSignal;
+	
+	    wrappedSignal.sync = function (payload) {
+	      wrappedSignal(true, payload);
+	    };
+	
+	    wrappedSignal.getUrl = function (payload) {
+	      var url = getUrl(route, payload);
+	      return options.baseUrl + url;
+	    };
+	
+	    return wrappedRoutes;
+	  }, {});
+	
+	  function onAddressbarChange(event) {
+	
+	    var matchedRoute;
+	    var url = event.target.value.replace(addressbar.origin, '');
+	
+	    if (options.onlyHash && ! ~url.indexOf('#')) {
+	      // treat hash absense as root route
+	      url = url + '#/';
+	    }
+	
+	    if (controller.store.isRemembering()) {
+	      return;
+	    }
+	
+	    // check if url should be routed
+	    if (url.indexOf(options.baseUrl) === 0) {
+	      event.preventDefault();
+	      matchedRoute = urlMapper(url.replace(options.baseUrl, ''), wrappedRoutes);
+	
+	      if (!matchedRoute) {
+	        console.warn('Cerebral router - No route matched "' + url + '" url, navigation was prevented. ' + 'Please verify url or catch unmatched routes with a "/*" route.');
+	      }
+	    }
+	  }
+	
+	  function onControllerChange() {
+	
+	    var url = controller.get(urlStorePath);
+	    if (url) addressbar.value = options.baseUrl + url;
+	  }
+	
+	  addressbar.on('change', onAddressbarChange);
+	  controller.on('change', onControllerChange);
+	
+	  return controller.services.router = {
+	    trigger: function trigger() {
+	
+	      // If developing, remember signals before
+	      // route trigger
+	      if (controller.store.getSignals().length) {
+	        controller.store.rememberInitial(controller.store.getSignals().length - 1);
+	      }
+	
+	      onAddressbarChange({
+	        preventDefault: function preventDefault() {},
+	        target: { value: addressbar.value }
+	      });
+	    },
+	
+	    detach: function detach() {
+	      addressbar.removeListener('change', onAddressbarChange);
+	      controller.removeListener('change', onControllerChange);
+	    },
+	
+	    redirect: function redirect(url, params) {
+	
+	      params = params || {};
+	      params.replace = typeof params.replace === "undefined" ? true : params.replace;
+	
+	      addressbar.value = {
+	        value: options.baseUrl + url,
+	        replace: params.replace
+	      };
+	
+	      urlMapper(url, wrappedRoutes);
+	    }
+	  };
 	}
 	
-	module.exports = exports['default'];
+	router.redirect = function (url, params) {
+	
+	  function action(input, state, output, services) {
+	    return services.router.redirect(url, params);
+	  }
+	
+	  action.displayName = 'redirect(' + url + ')';
+	
+	  return action;
+	};
+	
+	module.exports = router;
+
+/***/ },
+/* 438 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var qs = __webpack_require__(439);
+	var pathtoRegexp = __webpack_require__(443);
+	var cache = {};
+	
+	function isMatch(re, path, keys) {
+	  var match = re.exec(decodeURIComponent(path));
+	  if (!match) {
+	    return null;
+	  }
+	
+	  var params = {};
+	
+	  for (var i = 1; i < match.length; ++i) {
+	    var key = keys[i - 1];
+	    var value = decodeURIComponent(match[i].replace(/\+/g, ' '));
+	    if (value !== undefined || !hasOwnProperty.call(params, key.name)) {
+	      params[key.name] = value;
+	    }
+	  }
+	
+	  return params;
+	}
+	
+	module.exports = function (url, routes) {
+	
+	  var path = url;
+	
+	  var params = {};
+	  var route = {};
+	  var hash = null;
+	  var queryString = null;
+	  var matchedRoute;
+	
+	  if (~path.indexOf('#')) {
+	    hash = path.split(/#(.+)/)[1];
+	    path = path.split('#')[0];
+	  }
+	
+	  if (~path.indexOf('?')) {
+	    queryString = path.split(/\?(.+)/)[1];
+	    path = path.split('?')[0];
+	  }
+	
+	  for (route in routes) {
+	    if (!cache[route]) {
+	      var keys = [];
+	      var re = pathtoRegexp(route, keys);
+	      cache[route] = {
+	        keys: keys,
+	        re: re
+	      };
+	    }
+	    params = isMatch(cache[route].re, path, cache[route].keys);
+	    if (params) {
+	      var query = queryString ? qs.parse(queryString) : {};
+	
+	      routes[route]({
+	        url: url,
+	        path: path,
+	        hash: hash || '',
+	        params: params,
+	        query: query
+	      });
+	
+	      matchedRoute = route;
+	      break;
+	    }
+	  }
+	
+	  return matchedRoute;
+	};
+
+/***/ },
+/* 439 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// Load modules
+	
+	'use strict';
+	
+	var Stringify = __webpack_require__(440);
+	var Parse = __webpack_require__(442);
+	
+	// Declare internals
+	
+	var internals = {};
+	
+	module.exports = {
+	    stringify: Stringify,
+	    parse: Parse
+	};
+
+/***/ },
+/* 440 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// Load modules
+	
+	'use strict';
+	
+	var Utils = __webpack_require__(441);
+	
+	// Declare internals
+	
+	var internals = {
+	    delimiter: '&',
+	    arrayPrefixGenerators: {
+	        brackets: function brackets(prefix, key) {
+	
+	            return prefix + '[]';
+	        },
+	        indices: function indices(prefix, key) {
+	
+	            return prefix + '[' + key + ']';
+	        },
+	        repeat: function repeat(prefix, key) {
+	
+	            return prefix;
+	        }
+	    },
+	    strictNullHandling: false
+	};
+	
+	internals.stringify = function (obj, prefix, generateArrayPrefix, strictNullHandling, filter) {
+	
+	    if (typeof filter === 'function') {
+	        obj = filter(prefix, obj);
+	    } else if (Utils.isBuffer(obj)) {
+	        obj = obj.toString();
+	    } else if (obj instanceof Date) {
+	        obj = obj.toISOString();
+	    } else if (obj === null) {
+	        if (strictNullHandling) {
+	            return Utils.encode(prefix);
+	        }
+	
+	        obj = '';
+	    }
+	
+	    if (typeof obj === 'string' || typeof obj === 'number' || typeof obj === 'boolean') {
+	
+	        return [Utils.encode(prefix) + '=' + Utils.encode(obj)];
+	    }
+	
+	    var values = [];
+	
+	    if (typeof obj === 'undefined') {
+	        return values;
+	    }
+	
+	    var objKeys = Array.isArray(filter) ? filter : Object.keys(obj);
+	    for (var i = 0, il = objKeys.length; i < il; ++i) {
+	        var key = objKeys[i];
+	
+	        if (Array.isArray(obj)) {
+	            values = values.concat(internals.stringify(obj[key], generateArrayPrefix(prefix, key), generateArrayPrefix, strictNullHandling, filter));
+	        } else {
+	            values = values.concat(internals.stringify(obj[key], prefix + '[' + key + ']', generateArrayPrefix, strictNullHandling, filter));
+	        }
+	    }
+	
+	    return values;
+	};
+	
+	module.exports = function (obj, options) {
+	
+	    options = options || {};
+	    var delimiter = typeof options.delimiter === 'undefined' ? internals.delimiter : options.delimiter;
+	    var strictNullHandling = typeof options.strictNullHandling === 'boolean' ? options.strictNullHandling : internals.strictNullHandling;
+	    var objKeys;
+	    var filter;
+	    if (typeof options.filter === 'function') {
+	        filter = options.filter;
+	        obj = filter('', obj);
+	    } else if (Array.isArray(options.filter)) {
+	        objKeys = filter = options.filter;
+	    }
+	
+	    var keys = [];
+	
+	    if (typeof obj !== 'object' || obj === null) {
+	
+	        return '';
+	    }
+	
+	    var arrayFormat;
+	    if (options.arrayFormat in internals.arrayPrefixGenerators) {
+	        arrayFormat = options.arrayFormat;
+	    } else if ('indices' in options) {
+	        arrayFormat = options.indices ? 'indices' : 'repeat';
+	    } else {
+	        arrayFormat = 'indices';
+	    }
+	
+	    var generateArrayPrefix = internals.arrayPrefixGenerators[arrayFormat];
+	
+	    if (!objKeys) {
+	        objKeys = Object.keys(obj);
+	    }
+	    for (var i = 0, il = objKeys.length; i < il; ++i) {
+	        var key = objKeys[i];
+	        keys = keys.concat(internals.stringify(obj[key], key, generateArrayPrefix, strictNullHandling, filter));
+	    }
+	
+	    return keys.join(delimiter);
+	};
+
+/***/ },
+/* 441 */
+/***/ function(module, exports) {
+
+	// Load modules
+	
+	// Declare internals
+	
+	'use strict';
+	
+	var internals = {};
+	internals.hexTable = new Array(256);
+	for (var h = 0; h < 256; ++h) {
+	    internals.hexTable[h] = '%' + ((h < 16 ? '0' : '') + h.toString(16)).toUpperCase();
+	}
+	
+	exports.arrayToObject = function (source, options) {
+	
+	    var obj = options.plainObjects ? Object.create(null) : {};
+	    for (var i = 0, il = source.length; i < il; ++i) {
+	        if (typeof source[i] !== 'undefined') {
+	
+	            obj[i] = source[i];
+	        }
+	    }
+	
+	    return obj;
+	};
+	
+	exports.merge = function (target, source, options) {
+	
+	    if (!source) {
+	        return target;
+	    }
+	
+	    if (typeof source !== 'object') {
+	        if (Array.isArray(target)) {
+	            target.push(source);
+	        } else if (typeof target === 'object') {
+	            target[source] = true;
+	        } else {
+	            target = [target, source];
+	        }
+	
+	        return target;
+	    }
+	
+	    if (typeof target !== 'object') {
+	        target = [target].concat(source);
+	        return target;
+	    }
+	
+	    if (Array.isArray(target) && !Array.isArray(source)) {
+	
+	        target = exports.arrayToObject(target, options);
+	    }
+	
+	    var keys = Object.keys(source);
+	    for (var k = 0, kl = keys.length; k < kl; ++k) {
+	        var key = keys[k];
+	        var value = source[key];
+	
+	        if (!Object.prototype.hasOwnProperty.call(target, key)) {
+	            target[key] = value;
+	        } else {
+	            target[key] = exports.merge(target[key], value, options);
+	        }
+	    }
+	
+	    return target;
+	};
+	
+	exports.decode = function (str) {
+	
+	    try {
+	        return decodeURIComponent(str.replace(/\+/g, ' '));
+	    } catch (e) {
+	        return str;
+	    }
+	};
+	
+	exports.encode = function (str) {
+	
+	    // This code was originally written by Brian White (mscdex) for the io.js core querystring library.
+	    // It has been adapted here for stricter adherence to RFC 3986
+	    if (str.length === 0) {
+	        return str;
+	    }
+	
+	    if (typeof str !== 'string') {
+	        str = '' + str;
+	    }
+	
+	    var out = '';
+	    for (var i = 0, il = str.length; i < il; ++i) {
+	        var c = str.charCodeAt(i);
+	
+	        if (c === 0x2D || // -
+	        c === 0x2E || // .
+	        c === 0x5F || // _
+	        c === 0x7E || // ~
+	        c >= 0x30 && c <= 0x39 || // 0-9
+	        c >= 0x41 && c <= 0x5A || // a-z
+	        c >= 0x61 && c <= 0x7A) {
+	            // A-Z
+	
+	            out += str[i];
+	            continue;
+	        }
+	
+	        if (c < 0x80) {
+	            out += internals.hexTable[c];
+	            continue;
+	        }
+	
+	        if (c < 0x800) {
+	            out += internals.hexTable[0xC0 | c >> 6] + internals.hexTable[0x80 | c & 0x3F];
+	            continue;
+	        }
+	
+	        if (c < 0xD800 || c >= 0xE000) {
+	            out += internals.hexTable[0xE0 | c >> 12] + internals.hexTable[0x80 | c >> 6 & 0x3F] + internals.hexTable[0x80 | c & 0x3F];
+	            continue;
+	        }
+	
+	        ++i;
+	        c = 0x10000 + ((c & 0x3FF) << 10 | str.charCodeAt(i) & 0x3FF);
+	        out += internals.hexTable[0xF0 | c >> 18] + internals.hexTable[0x80 | c >> 12 & 0x3F] + internals.hexTable[0x80 | c >> 6 & 0x3F] + internals.hexTable[0x80 | c & 0x3F];
+	    }
+	
+	    return out;
+	};
+	
+	exports.compact = function (obj, refs) {
+	
+	    if (typeof obj !== 'object' || obj === null) {
+	
+	        return obj;
+	    }
+	
+	    refs = refs || [];
+	    var lookup = refs.indexOf(obj);
+	    if (lookup !== -1) {
+	        return refs[lookup];
+	    }
+	
+	    refs.push(obj);
+	
+	    if (Array.isArray(obj)) {
+	        var compacted = [];
+	
+	        for (var i = 0, il = obj.length; i < il; ++i) {
+	            if (typeof obj[i] !== 'undefined') {
+	                compacted.push(obj[i]);
+	            }
+	        }
+	
+	        return compacted;
+	    }
+	
+	    var keys = Object.keys(obj);
+	    for (i = 0, il = keys.length; i < il; ++i) {
+	        var key = keys[i];
+	        obj[key] = exports.compact(obj[key], refs);
+	    }
+	
+	    return obj;
+	};
+	
+	exports.isRegExp = function (obj) {
+	
+	    return Object.prototype.toString.call(obj) === '[object RegExp]';
+	};
+	
+	exports.isBuffer = function (obj) {
+	
+	    if (obj === null || typeof obj === 'undefined') {
+	
+	        return false;
+	    }
+	
+	    return !!(obj.constructor && obj.constructor.isBuffer && obj.constructor.isBuffer(obj));
+	};
+
+/***/ },
+/* 442 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// Load modules
+	
+	'use strict';
+	
+	var Utils = __webpack_require__(441);
+	
+	// Declare internals
+	
+	var internals = {
+	    delimiter: '&',
+	    depth: 5,
+	    arrayLimit: 20,
+	    parameterLimit: 1000,
+	    strictNullHandling: false,
+	    plainObjects: false,
+	    allowPrototypes: false
+	};
+	
+	internals.parseValues = function (str, options) {
+	
+	    var obj = {};
+	    var parts = str.split(options.delimiter, options.parameterLimit === Infinity ? undefined : options.parameterLimit);
+	
+	    for (var i = 0, il = parts.length; i < il; ++i) {
+	        var part = parts[i];
+	        var pos = part.indexOf(']=') === -1 ? part.indexOf('=') : part.indexOf(']=') + 1;
+	
+	        if (pos === -1) {
+	            obj[Utils.decode(part)] = '';
+	
+	            if (options.strictNullHandling) {
+	                obj[Utils.decode(part)] = null;
+	            }
+	        } else {
+	            var key = Utils.decode(part.slice(0, pos));
+	            var val = Utils.decode(part.slice(pos + 1));
+	
+	            if (!Object.prototype.hasOwnProperty.call(obj, key)) {
+	                obj[key] = val;
+	            } else {
+	                obj[key] = [].concat(obj[key]).concat(val);
+	            }
+	        }
+	    }
+	
+	    return obj;
+	};
+	
+	internals.parseObject = function (chain, val, options) {
+	
+	    if (!chain.length) {
+	        return val;
+	    }
+	
+	    var root = chain.shift();
+	
+	    var obj;
+	    if (root === '[]') {
+	        obj = [];
+	        obj = obj.concat(internals.parseObject(chain, val, options));
+	    } else {
+	        obj = options.plainObjects ? Object.create(null) : {};
+	        var cleanRoot = root[0] === '[' && root[root.length - 1] === ']' ? root.slice(1, root.length - 1) : root;
+	        var index = parseInt(cleanRoot, 10);
+	        var indexString = '' + index;
+	        if (!isNaN(index) && root !== cleanRoot && indexString === cleanRoot && index >= 0 && options.parseArrays && index <= options.arrayLimit) {
+	
+	            obj = [];
+	            obj[index] = internals.parseObject(chain, val, options);
+	        } else {
+	            obj[cleanRoot] = internals.parseObject(chain, val, options);
+	        }
+	    }
+	
+	    return obj;
+	};
+	
+	internals.parseKeys = function (key, val, options) {
+	
+	    if (!key) {
+	        return;
+	    }
+	
+	    // Transform dot notation to bracket notation
+	
+	    if (options.allowDots) {
+	        key = key.replace(/\.([^\.\[]+)/g, '[$1]');
+	    }
+	
+	    // The regex chunks
+	
+	    var parent = /^([^\[\]]*)/;
+	    var child = /(\[[^\[\]]*\])/g;
+	
+	    // Get the parent
+	
+	    var segment = parent.exec(key);
+	
+	    // Stash the parent if it exists
+	
+	    var keys = [];
+	    if (segment[1]) {
+	        // If we aren't using plain objects, optionally prefix keys
+	        // that would overwrite object prototype properties
+	        if (!options.plainObjects && Object.prototype.hasOwnProperty(segment[1])) {
+	
+	            if (!options.allowPrototypes) {
+	                return;
+	            }
+	        }
+	
+	        keys.push(segment[1]);
+	    }
+	
+	    // Loop through children appending to the array until we hit depth
+	
+	    var i = 0;
+	    while ((segment = child.exec(key)) !== null && i < options.depth) {
+	
+	        ++i;
+	        if (!options.plainObjects && Object.prototype.hasOwnProperty(segment[1].replace(/\[|\]/g, ''))) {
+	
+	            if (!options.allowPrototypes) {
+	                continue;
+	            }
+	        }
+	        keys.push(segment[1]);
+	    }
+	
+	    // If there's a remainder, just add whatever is left
+	
+	    if (segment) {
+	        keys.push('[' + key.slice(segment.index) + ']');
+	    }
+	
+	    return internals.parseObject(keys, val, options);
+	};
+	
+	module.exports = function (str, options) {
+	
+	    options = options || {};
+	    options.delimiter = typeof options.delimiter === 'string' || Utils.isRegExp(options.delimiter) ? options.delimiter : internals.delimiter;
+	    options.depth = typeof options.depth === 'number' ? options.depth : internals.depth;
+	    options.arrayLimit = typeof options.arrayLimit === 'number' ? options.arrayLimit : internals.arrayLimit;
+	    options.parseArrays = options.parseArrays !== false;
+	    options.allowDots = options.allowDots !== false;
+	    options.plainObjects = typeof options.plainObjects === 'boolean' ? options.plainObjects : internals.plainObjects;
+	    options.allowPrototypes = typeof options.allowPrototypes === 'boolean' ? options.allowPrototypes : internals.allowPrototypes;
+	    options.parameterLimit = typeof options.parameterLimit === 'number' ? options.parameterLimit : internals.parameterLimit;
+	    options.strictNullHandling = typeof options.strictNullHandling === 'boolean' ? options.strictNullHandling : internals.strictNullHandling;
+	
+	    if (str === '' || str === null || typeof str === 'undefined') {
+	
+	        return options.plainObjects ? Object.create(null) : {};
+	    }
+	
+	    var tempObj = typeof str === 'string' ? internals.parseValues(str, options) : str;
+	    var obj = options.plainObjects ? Object.create(null) : {};
+	
+	    // Iterate over the keys and setup the new object
+	
+	    var keys = Object.keys(tempObj);
+	    for (var i = 0, il = keys.length; i < il; ++i) {
+	        var key = keys[i];
+	        var newObj = internals.parseKeys(key, tempObj[key], options);
+	        obj = Utils.merge(obj, newObj, options);
+	    }
+	
+	    return Utils.compact(obj);
+	};
+
+/***/ },
+/* 443 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var isarray = __webpack_require__(444);
+	
+	/**
+	 * Expose `pathToRegexp`.
+	 */
+	module.exports = pathToRegexp;
+	module.exports.parse = parse;
+	module.exports.compile = compile;
+	module.exports.tokensToFunction = tokensToFunction;
+	module.exports.tokensToRegExp = tokensToRegExp;
+	
+	/**
+	 * The main path matching regexp utility.
+	 *
+	 * @type {RegExp}
+	 */
+	var PATH_REGEXP = new RegExp([
+	// Match escaped characters that would otherwise appear in future matches.
+	// This allows the user to escape special characters that won't transform.
+	'(\\\\.)',
+	// Match Express-style parameters and un-named parameters with a prefix
+	// and optional suffixes. Matches appear as:
+	//
+	// "/:test(\\d+)?" => ["/", "test", "\d+", undefined, "?", undefined]
+	// "/route(\\d+)"  => [undefined, undefined, undefined, "\d+", undefined, undefined]
+	// "/*"            => ["/", undefined, undefined, undefined, undefined, "*"]
+	'([\\/.])?(?:(?:\\:(\\w+)(?:\\(((?:\\\\.|[^()])+)\\))?|\\(((?:\\\\.|[^()])+)\\))([+*?])?|(\\*))'].join('|'), 'g');
+	
+	/**
+	 * Parse a string for the raw tokens.
+	 *
+	 * @param  {String} str
+	 * @return {Array}
+	 */
+	function parse(str) {
+	  var tokens = [];
+	  var key = 0;
+	  var index = 0;
+	  var path = '';
+	  var res;
+	
+	  while ((res = PATH_REGEXP.exec(str)) != null) {
+	    var m = res[0];
+	    var escaped = res[1];
+	    var offset = res.index;
+	    path += str.slice(index, offset);
+	    index = offset + m.length;
+	
+	    // Ignore already escaped sequences.
+	    if (escaped) {
+	      path += escaped[1];
+	      continue;
+	    }
+	
+	    // Push the current path onto the tokens.
+	    if (path) {
+	      tokens.push(path);
+	      path = '';
+	    }
+	
+	    var prefix = res[2];
+	    var name = res[3];
+	    var capture = res[4];
+	    var group = res[5];
+	    var suffix = res[6];
+	    var asterisk = res[7];
+	
+	    var repeat = suffix === '+' || suffix === '*';
+	    var optional = suffix === '?' || suffix === '*';
+	    var delimiter = prefix || '/';
+	    var pattern = capture || group || (asterisk ? '.*' : '[^' + delimiter + ']+?');
+	
+	    tokens.push({
+	      name: name || key++,
+	      prefix: prefix || '',
+	      delimiter: delimiter,
+	      optional: optional,
+	      repeat: repeat,
+	      pattern: escapeGroup(pattern)
+	    });
+	  }
+	
+	  // Match any characters still remaining.
+	  if (index < str.length) {
+	    path += str.substr(index);
+	  }
+	
+	  // If the path exists, push it onto the end.
+	  if (path) {
+	    tokens.push(path);
+	  }
+	
+	  return tokens;
+	}
+	
+	/**
+	 * Compile a string to a template function for the path.
+	 *
+	 * @param  {String}   str
+	 * @return {Function}
+	 */
+	function compile(str) {
+	  return tokensToFunction(parse(str));
+	}
+	
+	/**
+	 * Expose a method for transforming tokens into the path function.
+	 */
+	function tokensToFunction(tokens) {
+	  // Compile all the tokens into regexps.
+	  var matches = new Array(tokens.length);
+	
+	  // Compile all the patterns before compilation.
+	  for (var i = 0; i < tokens.length; i++) {
+	    if (typeof tokens[i] === 'object') {
+	      matches[i] = new RegExp('^' + tokens[i].pattern + '$');
+	    }
+	  }
+	
+	  return function (obj) {
+	    var path = '';
+	    var data = obj || {};
+	
+	    for (var i = 0; i < tokens.length; i++) {
+	      var token = tokens[i];
+	
+	      if (typeof token === 'string') {
+	        path += token;
+	
+	        continue;
+	      }
+	
+	      var value = data[token.name];
+	      var segment;
+	
+	      if (value == null) {
+	        if (token.optional) {
+	          continue;
+	        } else {
+	          throw new TypeError('Expected "' + token.name + '" to be defined');
+	        }
+	      }
+	
+	      if (isarray(value)) {
+	        if (!token.repeat) {
+	          throw new TypeError('Expected "' + token.name + '" to not repeat, but received "' + value + '"');
+	        }
+	
+	        if (value.length === 0) {
+	          if (token.optional) {
+	            continue;
+	          } else {
+	            throw new TypeError('Expected "' + token.name + '" to not be empty');
+	          }
+	        }
+	
+	        for (var j = 0; j < value.length; j++) {
+	          segment = encodeURIComponent(value[j]);
+	
+	          if (!matches[i].test(segment)) {
+	            throw new TypeError('Expected all "' + token.name + '" to match "' + token.pattern + '", but received "' + segment + '"');
+	          }
+	
+	          path += (j === 0 ? token.prefix : token.delimiter) + segment;
+	        }
+	
+	        continue;
+	      }
+	
+	      segment = encodeURIComponent(value);
+	
+	      if (!matches[i].test(segment)) {
+	        throw new TypeError('Expected "' + token.name + '" to match "' + token.pattern + '", but received "' + segment + '"');
+	      }
+	
+	      path += token.prefix + segment;
+	    }
+	
+	    return path;
+	  };
+	}
+	
+	/**
+	 * Escape a regular expression string.
+	 *
+	 * @param  {String} str
+	 * @return {String}
+	 */
+	function escapeString(str) {
+	  return str.replace(/([.+*?=^!:${}()[\]|\/])/g, '\\$1');
+	}
+	
+	/**
+	 * Escape the capturing group by escaping special characters and meaning.
+	 *
+	 * @param  {String} group
+	 * @return {String}
+	 */
+	function escapeGroup(group) {
+	  return group.replace(/([=!:$\/()])/g, '\\$1');
+	}
+	
+	/**
+	 * Attach the keys as a property of the regexp.
+	 *
+	 * @param  {RegExp} re
+	 * @param  {Array}  keys
+	 * @return {RegExp}
+	 */
+	function attachKeys(re, keys) {
+	  re.keys = keys;
+	  return re;
+	}
+	
+	/**
+	 * Get the flags for a regexp from the options.
+	 *
+	 * @param  {Object} options
+	 * @return {String}
+	 */
+	function flags(options) {
+	  return options.sensitive ? '' : 'i';
+	}
+	
+	/**
+	 * Pull out keys from a regexp.
+	 *
+	 * @param  {RegExp} path
+	 * @param  {Array}  keys
+	 * @return {RegExp}
+	 */
+	function regexpToRegexp(path, keys) {
+	  // Use a negative lookahead to match only capturing groups.
+	  var groups = path.source.match(/\((?!\?)/g);
+	
+	  if (groups) {
+	    for (var i = 0; i < groups.length; i++) {
+	      keys.push({
+	        name: i,
+	        prefix: null,
+	        delimiter: null,
+	        optional: false,
+	        repeat: false,
+	        pattern: null
+	      });
+	    }
+	  }
+	
+	  return attachKeys(path, keys);
+	}
+	
+	/**
+	 * Transform an array into a regexp.
+	 *
+	 * @param  {Array}  path
+	 * @param  {Array}  keys
+	 * @param  {Object} options
+	 * @return {RegExp}
+	 */
+	function arrayToRegexp(path, keys, options) {
+	  var parts = [];
+	
+	  for (var i = 0; i < path.length; i++) {
+	    parts.push(pathToRegexp(path[i], keys, options).source);
+	  }
+	
+	  var regexp = new RegExp('(?:' + parts.join('|') + ')', flags(options));
+	
+	  return attachKeys(regexp, keys);
+	}
+	
+	/**
+	 * Create a path regexp from string input.
+	 *
+	 * @param  {String} path
+	 * @param  {Array}  keys
+	 * @param  {Object} options
+	 * @return {RegExp}
+	 */
+	function stringToRegexp(path, keys, options) {
+	  var tokens = parse(path);
+	  var re = tokensToRegExp(tokens, options);
+	
+	  // Attach keys back to the regexp.
+	  for (var i = 0; i < tokens.length; i++) {
+	    if (typeof tokens[i] !== 'string') {
+	      keys.push(tokens[i]);
+	    }
+	  }
+	
+	  return attachKeys(re, keys);
+	}
+	
+	/**
+	 * Expose a function for taking tokens and returning a RegExp.
+	 *
+	 * @param  {Array}  tokens
+	 * @param  {Array}  keys
+	 * @param  {Object} options
+	 * @return {RegExp}
+	 */
+	function tokensToRegExp(tokens, options) {
+	  options = options || {};
+	
+	  var strict = options.strict;
+	  var end = options.end !== false;
+	  var route = '';
+	  var lastToken = tokens[tokens.length - 1];
+	  var endsWithSlash = typeof lastToken === 'string' && /\/$/.test(lastToken);
+	
+	  // Iterate over the tokens and create our regexp string.
+	  for (var i = 0; i < tokens.length; i++) {
+	    var token = tokens[i];
+	
+	    if (typeof token === 'string') {
+	      route += escapeString(token);
+	    } else {
+	      var prefix = escapeString(token.prefix);
+	      var capture = token.pattern;
+	
+	      if (token.repeat) {
+	        capture += '(?:' + prefix + capture + ')*';
+	      }
+	
+	      if (token.optional) {
+	        if (prefix) {
+	          capture = '(?:' + prefix + '(' + capture + '))?';
+	        } else {
+	          capture = '(' + capture + ')?';
+	        }
+	      } else {
+	        capture = prefix + '(' + capture + ')';
+	      }
+	
+	      route += capture;
+	    }
+	  }
+	
+	  // In non-strict mode we allow a slash at the end of match. If the path to
+	  // match already ends with a slash, we remove it for consistency. The slash
+	  // is valid at the end of a path match, not in the middle. This is important
+	  // in non-ending mode, where "/test/" shouldn't match "/test//route".
+	  if (!strict) {
+	    route = (endsWithSlash ? route.slice(0, -2) : route) + '(?:\\/(?=$))?';
+	  }
+	
+	  if (end) {
+	    route += '$';
+	  } else {
+	    // In non-ending mode, we need the capturing groups to match as much as
+	    // possible by using a positive lookahead to the end or next path segment.
+	    route += strict && endsWithSlash ? '' : '(?=\\/|$)';
+	  }
+	
+	  return new RegExp('^' + route, flags(options));
+	}
+	
+	/**
+	 * Normalize the given path string, returning a regular expression.
+	 *
+	 * An empty array can be passed in for the keys, which will hold the
+	 * placeholder key descriptions. For example, using `/user/:id`, `keys` will
+	 * contain `[{ name: 'id', delimiter: '/', optional: false, repeat: false }]`.
+	 *
+	 * @param  {(String|RegExp|Array)} path
+	 * @param  {Array}                 [keys]
+	 * @param  {Object}                [options]
+	 * @return {RegExp}
+	 */
+	function pathToRegexp(path, keys, options) {
+	  keys = keys || [];
+	
+	  if (!isarray(keys)) {
+	    options = keys;
+	    keys = [];
+	  } else if (!options) {
+	    options = {};
+	  }
+	
+	  if (path instanceof RegExp) {
+	    return regexpToRegexp(path, keys, options);
+	  }
+	
+	  if (isarray(path)) {
+	    return arrayToRegexp(path, keys, options);
+	  }
+	
+	  return stringToRegexp(path, keys, options);
+	}
+
+/***/ },
+/* 444 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	module.exports = Array.isArray || function (arr) {
+	  return Object.prototype.toString.call(arr) == '[object Array]';
+	};
+
+/***/ },
+/* 445 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
+	
+	var URI = __webpack_require__(446);
+	var EventEmitter = __webpack_require__(229).EventEmitter;
+	var instance = null;
+	
+	var location = window.location;
+	
+	module.exports = (function () {
+	
+	  if (instance) {
+	    return instance;
+	  }
+	
+	  var eventEmitter = new EventEmitter();
+	
+	  eventEmitter.addEventListener = eventEmitter.addListener;
+	  eventEmitter.removeEventListener = eventEmitter.removeListener;
+	
+	  var initialUrl = location.href;
+	  var origin = URI(initialUrl).protocol() + '://' + URI(initialUrl).host();
+	  var isPreventingDefault = false;
+	  var doReplace = false;
+	  var prevUrl = '';
+	  var linkClicked = false;
+	  var isEmitting = false;
+	  var setSyncUrl = false;
+	
+	  var emitChange = function emitChange(url, event) {
+	    eventEmitter.emit('change', {
+	      preventDefault: function preventDefault() {
+	        event && event.preventDefault();
+	        isPreventingDefault = true;
+	      },
+	      target: {
+	        value: url ? origin + url : location.href
+	      }
+	    });
+	  };
+	
+	  var onUrlChange = function onUrlChange(type) {
+	    return function (event) {
+	
+	      if (location.href === prevUrl) {
+	        return;
+	      }
+	
+	      // Fixes bug where trailing slash is converted to normal url
+	      if (location.href[location.href.length - 1] === '/') {
+	        doReplace = true;
+	      }
+	
+	      isEmitting = true;
+	      emitChange();
+	      isEmitting = false;
+	
+	      if (!setSyncUrl && isPreventingDefault) {
+	        history.replaceState({}, '', (prevUrl || initialUrl).replace(origin, ''));
+	      }
+	
+	      prevUrl = location.href;
+	      isPreventingDefault = false;
+	      setSyncUrl = false;
+	      doReplace = false;
+	    };
+	  };
+	
+	  global.addEventListener('popstate', onUrlChange('pop'));
+	
+	  Object.defineProperty(eventEmitter, 'value', {
+	    get: function get() {
+	      return location.href;
+	    },
+	    set: function set(value) {
+	
+	      if (typeof value !== 'string') {
+	        doReplace = Boolean(value.replace);
+	        value = value.value;
+	      }
+	
+	      // If emitting a change we flag that we are setting
+	      // a url based on the event being emitted
+	      if (isEmitting) {
+	        setSyncUrl = true;
+	      }
+	
+	      // Ensure full url
+	      if (value.indexOf(origin) === -1) {
+	        value = origin + value;
+	      }
+	
+	      // If it is same url, forget about it
+	      if (value === location.href) {
+	        return;
+	      }
+	
+	      // We might need to replace the url if we are fixing
+	      // for example trailing slash issue
+	      if (doReplace) {
+	        history.replaceState({}, '', value.replace(origin, ''));
+	        doReplace = false;
+	      } else {
+	        history.pushState({}, '', value.replace(origin, ''));
+	      }
+	
+	      prevUrl = location.href;
+	      isPreventingDefault = false;
+	    }
+	  });
+	
+	  // expose URLUtils like API https://developer.mozilla.org/en-US/docs/Web/API/URLUtils
+	  // thanks https://github.com/cofounders/urlutils for reference
+	  Object.defineProperty(eventEmitter, 'origin', {
+	    get: function get() {
+	      var uri = URI(location.href);
+	      return uri.protocol() + '://' + uri.host();
+	    }
+	  });
+	
+	  Object.defineProperty(eventEmitter, 'protocol', {
+	    get: function get() {
+	      return URI(location.href).protocol() + ':';
+	    }
+	  });
+	
+	  Object.defineProperty(eventEmitter, 'port', {
+	    get: function get() {
+	      return URI(location.href).port();
+	    }
+	  });
+	
+	  Object.defineProperty(eventEmitter, 'hostname', {
+	    get: function get() {
+	      return URI(location.href).hostname();
+	    }
+	  });
+	
+	  Object.defineProperty(eventEmitter, 'pathname', {
+	    get: function get() {
+	      return URI(location.href).pathname();
+	    }
+	  });
+	
+	  Object.defineProperty(eventEmitter, 'hash', {
+	    get: function get() {
+	      return URI(location.href).hash();
+	    }
+	  });
+	
+	  /*
+	    This code is from the Page JS source code. Amazing work on handling all
+	    kinds of scenarios with hyperlinks, thanks!
+	   */
+	
+	  var isSameOrigin = function isSameOrigin(href) {
+	    return href && 0 === href.indexOf(origin);
+	  };
+	
+	  var getClickedHref = function getClickedHref(event) {
+	    // check which button
+	    if (1 !== (null === event.which ? event.button : event.which)) {
+	      return false;
+	    };
+	
+	    // check for modifiers
+	    if (event.metaKey || event.ctrlKey || event.shiftKey) {
+	      return false;
+	    };
+	    if (event.defaultPrevented) {
+	      return false;
+	    };
+	
+	    // ensure link
+	    var element = event.target;
+	    while (element && 'A' !== element.nodeName) {
+	      element = element.parentNode;
+	    };
+	    if (!element || 'A' !== element.nodeName) {
+	      return false;
+	    };
+	
+	    // Ignore if tag has
+	    // 1. "download" attribute
+	    // 2. rel="external" attribute
+	    if (element.hasAttribute('download') || element.getAttribute('rel') === 'external') {
+	      return false;
+	    };
+	
+	    // Check for mailto: in the href
+	    var href = element.getAttribute('href');
+	    if (href && href.indexOf('mailto:') > -1) {
+	      return false;
+	    };
+	
+	    // check target
+	    if (element.target) {
+	      return false;
+	    };
+	
+	    // x-origin
+	    if (!isSameOrigin(element.href)) {
+	      return false;
+	    };
+	
+	    return href;
+	  };
+	
+	  global.addEventListener(document.ontouchstart ? 'touchstart' : 'click', function (event) {
+	    var href = getClickedHref(event);
+	    if (href) {
+	      linkClicked = true;
+	      isEmitting = true;
+	      emitChange(href, event);
+	      isEmitting = false;
+	      if (isPreventingDefault) {
+	        linkClicked = false;
+	      }
+	      prevUrl = href;
+	      isPreventingDefault = false;
+	    }
+	  });
+	
+	  instance = eventEmitter;
+	
+	  return eventEmitter;
+	})();
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+/* 446 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*!
+	 * URI.js - Mutating URLs
+	 *
+	 * Version: 1.16.1
+	 *
+	 * Author: Rodney Rehm
+	 * Web: http://medialize.github.io/URI.js/
+	 *
+	 * Licensed under
+	 *   MIT License http://www.opensource.org/licenses/mit-license
+	 *   GPL v3 http://opensource.org/licenses/GPL-3.0
+	 *
+	 */
+	'use strict';
+	
+	(function (root, factory) {
+	  'use strict';
+	  // https://github.com/umdjs/umd/blob/master/returnExports.js
+	  if (true) {
+	    // Node
+	    module.exports = factory(__webpack_require__(447), __webpack_require__(448), __webpack_require__(449));
+	  } else if (typeof define === 'function' && define.amd) {
+	    // AMD. Register as an anonymous module.
+	    define(['./punycode', './IPv6', './SecondLevelDomains'], factory);
+	  } else {
+	    // Browser globals (root is window)
+	    root.URI = factory(root.punycode, root.IPv6, root.SecondLevelDomains, root);
+	  }
+	})(undefined, function (punycode, IPv6, SLD, root) {
+	  'use strict';
+	  /*global location, escape, unescape */
+	  // FIXME: v2.0.0 renamce non-camelCase properties to uppercase
+	  /*jshint camelcase: false */
+	
+	  // save current URI variable, if any
+	  var _URI = root && root.URI;
+	
+	  function URI(url, base) {
+	    var _urlSupplied = arguments.length >= 1;
+	    var _baseSupplied = arguments.length >= 2;
+	
+	    // Allow instantiation without the 'new' keyword
+	    if (!(this instanceof URI)) {
+	      if (_urlSupplied) {
+	        if (_baseSupplied) {
+	          return new URI(url, base);
+	        }
+	
+	        return new URI(url);
+	      }
+	
+	      return new URI();
+	    }
+	
+	    if (url === undefined) {
+	      if (_urlSupplied) {
+	        throw new TypeError('undefined is not a valid argument for URI');
+	      }
+	
+	      if (typeof location !== 'undefined') {
+	        url = location.href + '';
+	      } else {
+	        url = '';
+	      }
+	    }
+	
+	    this.href(url);
+	
+	    // resolve to base according to http://dvcs.w3.org/hg/url/raw-file/tip/Overview.html#constructor
+	    if (base !== undefined) {
+	      return this.absoluteTo(base);
+	    }
+	
+	    return this;
+	  }
+	
+	  URI.version = '1.16.1';
+	
+	  var p = URI.prototype;
+	  var hasOwn = Object.prototype.hasOwnProperty;
+	
+	  function escapeRegEx(string) {
+	    // https://github.com/medialize/URI.js/commit/85ac21783c11f8ccab06106dba9735a31a86924d#commitcomment-821963
+	    return string.replace(/([.*+?^=!:${}()|[\]\/\\])/g, '\\$1');
+	  }
+	
+	  function getType(value) {
+	    // IE8 doesn't return [Object Undefined] but [Object Object] for undefined value
+	    if (value === undefined) {
+	      return 'Undefined';
+	    }
+	
+	    return String(Object.prototype.toString.call(value)).slice(8, -1);
+	  }
+	
+	  function isArray(obj) {
+	    return getType(obj) === 'Array';
+	  }
+	
+	  function filterArrayValues(data, value) {
+	    var lookup = {};
+	    var i, length;
+	
+	    if (getType(value) === 'RegExp') {
+	      lookup = null;
+	    } else if (isArray(value)) {
+	      for (i = 0, length = value.length; i < length; i++) {
+	        lookup[value[i]] = true;
+	      }
+	    } else {
+	      lookup[value] = true;
+	    }
+	
+	    for (i = 0, length = data.length; i < length; i++) {
+	      /*jshint laxbreak: true */
+	      var _match = lookup && lookup[data[i]] !== undefined || !lookup && value.test(data[i]);
+	      /*jshint laxbreak: false */
+	      if (_match) {
+	        data.splice(i, 1);
+	        length--;
+	        i--;
+	      }
+	    }
+	
+	    return data;
+	  }
+	
+	  function arrayContains(list, value) {
+	    var i, length;
+	
+	    // value may be string, number, array, regexp
+	    if (isArray(value)) {
+	      // Note: this can be optimized to O(n) (instead of current O(m * n))
+	      for (i = 0, length = value.length; i < length; i++) {
+	        if (!arrayContains(list, value[i])) {
+	          return false;
+	        }
+	      }
+	
+	      return true;
+	    }
+	
+	    var _type = getType(value);
+	    for (i = 0, length = list.length; i < length; i++) {
+	      if (_type === 'RegExp') {
+	        if (typeof list[i] === 'string' && list[i].match(value)) {
+	          return true;
+	        }
+	      } else if (list[i] === value) {
+	        return true;
+	      }
+	    }
+	
+	    return false;
+	  }
+	
+	  function arraysEqual(one, two) {
+	    if (!isArray(one) || !isArray(two)) {
+	      return false;
+	    }
+	
+	    // arrays can't be equal if they have different amount of content
+	    if (one.length !== two.length) {
+	      return false;
+	    }
+	
+	    one.sort();
+	    two.sort();
+	
+	    for (var i = 0, l = one.length; i < l; i++) {
+	      if (one[i] !== two[i]) {
+	        return false;
+	      }
+	    }
+	
+	    return true;
+	  }
+	
+	  URI._parts = function () {
+	    return {
+	      protocol: null,
+	      username: null,
+	      password: null,
+	      hostname: null,
+	      urn: null,
+	      port: null,
+	      path: null,
+	      query: null,
+	      fragment: null,
+	      // state
+	      duplicateQueryParameters: URI.duplicateQueryParameters,
+	      escapeQuerySpace: URI.escapeQuerySpace
+	    };
+	  };
+	  // state: allow duplicate query parameters (a=1&a=1)
+	  URI.duplicateQueryParameters = false;
+	  // state: replaces + with %20 (space in query strings)
+	  URI.escapeQuerySpace = true;
+	  // static properties
+	  URI.protocol_expression = /^[a-z][a-z0-9.+-]*$/i;
+	  URI.idn_expression = /[^a-z0-9\.-]/i;
+	  URI.punycode_expression = /(xn--)/i;
+	  // well, 333.444.555.666 matches, but it sure ain't no IPv4 - do we care?
+	  URI.ip4_expression = /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/;
+	  // credits to Rich Brown
+	  // source: http://forums.intermapper.com/viewtopic.php?p=1096#1096
+	  // specification: http://www.ietf.org/rfc/rfc4291.txt
+	  URI.ip6_expression = /^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/;
+	  // expression used is "gruber revised" (@gruber v2) determined to be the
+	  // best solution in a regex-golf we did a couple of ages ago at
+	  // * http://mathiasbynens.be/demo/url-regex
+	  // * http://rodneyrehm.de/t/url-regex.html
+	  URI.find_uri_expression = /\b((?:[a-z][\w-]+:(?:\/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/ig;
+	  URI.findUri = {
+	    // valid "scheme://" or "www."
+	    start: /\b(?:([a-z][a-z0-9.+-]*:\/\/)|www\.)/gi,
+	    // everything up to the next whitespace
+	    end: /[\s\r\n]|$/,
+	    // trim trailing punctuation captured by end RegExp
+	    trim: /[`!()\[\]{};:'".,<>?«»“”„‘’]+$/
+	  };
+	  // http://www.iana.org/assignments/uri-schemes.html
+	  // http://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers#Well-known_ports
+	  URI.defaultPorts = {
+	    http: '80',
+	    https: '443',
+	    ftp: '21',
+	    gopher: '70',
+	    ws: '80',
+	    wss: '443'
+	  };
+	  // allowed hostname characters according to RFC 3986
+	  // ALPHA DIGIT "-" "." "_" "~" "!" "$" "&" "'" "(" ")" "*" "+" "," ";" "=" %encoded
+	  // I've never seen a (non-IDN) hostname other than: ALPHA DIGIT . -
+	  URI.invalid_hostname_characters = /[^a-zA-Z0-9\.-]/;
+	  // map DOM Elements to their URI attribute
+	  URI.domAttributes = {
+	    'a': 'href',
+	    'blockquote': 'cite',
+	    'link': 'href',
+	    'base': 'href',
+	    'script': 'src',
+	    'form': 'action',
+	    'img': 'src',
+	    'area': 'href',
+	    'iframe': 'src',
+	    'embed': 'src',
+	    'source': 'src',
+	    'track': 'src',
+	    'input': 'src', // but only if type="image"
+	    'audio': 'src',
+	    'video': 'src'
+	  };
+	  URI.getDomAttribute = function (node) {
+	    if (!node || !node.nodeName) {
+	      return undefined;
+	    }
+	
+	    var nodeName = node.nodeName.toLowerCase();
+	    // <input> should only expose src for type="image"
+	    if (nodeName === 'input' && node.type !== 'image') {
+	      return undefined;
+	    }
+	
+	    return URI.domAttributes[nodeName];
+	  };
+	
+	  function escapeForDumbFirefox36(value) {
+	    // https://github.com/medialize/URI.js/issues/91
+	    return escape(value);
+	  }
+	
+	  // encoding / decoding according to RFC3986
+	  function strictEncodeURIComponent(string) {
+	    // see https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/encodeURIComponent
+	    return encodeURIComponent(string).replace(/[!'()*]/g, escapeForDumbFirefox36).replace(/\*/g, '%2A');
+	  }
+	  URI.encode = strictEncodeURIComponent;
+	  URI.decode = decodeURIComponent;
+	  URI.iso8859 = function () {
+	    URI.encode = escape;
+	    URI.decode = unescape;
+	  };
+	  URI.unicode = function () {
+	    URI.encode = strictEncodeURIComponent;
+	    URI.decode = decodeURIComponent;
+	  };
+	  URI.characters = {
+	    pathname: {
+	      encode: {
+	        // RFC3986 2.1: For consistency, URI producers and normalizers should
+	        // use uppercase hexadecimal digits for all percent-encodings.
+	        expression: /%(24|26|2B|2C|3B|3D|3A|40)/ig,
+	        map: {
+	          // -._~!'()*
+	          '%24': '$',
+	          '%26': '&',
+	          '%2B': '+',
+	          '%2C': ',',
+	          '%3B': ';',
+	          '%3D': '=',
+	          '%3A': ':',
+	          '%40': '@'
+	        }
+	      },
+	      decode: {
+	        expression: /[\/\?#]/g,
+	        map: {
+	          '/': '%2F',
+	          '?': '%3F',
+	          '#': '%23'
+	        }
+	      }
+	    },
+	    reserved: {
+	      encode: {
+	        // RFC3986 2.1: For consistency, URI producers and normalizers should
+	        // use uppercase hexadecimal digits for all percent-encodings.
+	        expression: /%(21|23|24|26|27|28|29|2A|2B|2C|2F|3A|3B|3D|3F|40|5B|5D)/ig,
+	        map: {
+	          // gen-delims
+	          '%3A': ':',
+	          '%2F': '/',
+	          '%3F': '?',
+	          '%23': '#',
+	          '%5B': '[',
+	          '%5D': ']',
+	          '%40': '@',
+	          // sub-delims
+	          '%21': '!',
+	          '%24': '$',
+	          '%26': '&',
+	          '%27': '\'',
+	          '%28': '(',
+	          '%29': ')',
+	          '%2A': '*',
+	          '%2B': '+',
+	          '%2C': ',',
+	          '%3B': ';',
+	          '%3D': '='
+	        }
+	      }
+	    },
+	    urnpath: {
+	      // The characters under `encode` are the characters called out by RFC 2141 as being acceptable
+	      // for usage in a URN. RFC2141 also calls out "-", ".", and "_" as acceptable characters, but
+	      // these aren't encoded by encodeURIComponent, so we don't have to call them out here. Also
+	      // note that the colon character is not featured in the encoding map; this is because URI.js
+	      // gives the colons in URNs semantic meaning as the delimiters of path segements, and so it
+	      // should not appear unencoded in a segment itself.
+	      // See also the note above about RFC3986 and capitalalized hex digits.
+	      encode: {
+	        expression: /%(21|24|27|28|29|2A|2B|2C|3B|3D|40)/ig,
+	        map: {
+	          '%21': '!',
+	          '%24': '$',
+	          '%27': '\'',
+	          '%28': '(',
+	          '%29': ')',
+	          '%2A': '*',
+	          '%2B': '+',
+	          '%2C': ',',
+	          '%3B': ';',
+	          '%3D': '=',
+	          '%40': '@'
+	        }
+	      },
+	      // These characters are the characters called out by RFC2141 as "reserved" characters that
+	      // should never appear in a URN, plus the colon character (see note above).
+	      decode: {
+	        expression: /[\/\?#:]/g,
+	        map: {
+	          '/': '%2F',
+	          '?': '%3F',
+	          '#': '%23',
+	          ':': '%3A'
+	        }
+	      }
+	    }
+	  };
+	  URI.encodeQuery = function (string, escapeQuerySpace) {
+	    var escaped = URI.encode(string + '');
+	    if (escapeQuerySpace === undefined) {
+	      escapeQuerySpace = URI.escapeQuerySpace;
+	    }
+	
+	    return escapeQuerySpace ? escaped.replace(/%20/g, '+') : escaped;
+	  };
+	  URI.decodeQuery = function (string, escapeQuerySpace) {
+	    string += '';
+	    if (escapeQuerySpace === undefined) {
+	      escapeQuerySpace = URI.escapeQuerySpace;
+	    }
+	
+	    try {
+	      return URI.decode(escapeQuerySpace ? string.replace(/\+/g, '%20') : string);
+	    } catch (e) {
+	      // we're not going to mess with weird encodings,
+	      // give up and return the undecoded original string
+	      // see https://github.com/medialize/URI.js/issues/87
+	      // see https://github.com/medialize/URI.js/issues/92
+	      return string;
+	    }
+	  };
+	  // generate encode/decode path functions
+	  var _parts = { 'encode': 'encode', 'decode': 'decode' };
+	  var _part;
+	  var generateAccessor = function generateAccessor(_group, _part) {
+	    return function (string) {
+	      try {
+	        return URI[_part](string + '').replace(URI.characters[_group][_part].expression, function (c) {
+	          return URI.characters[_group][_part].map[c];
+	        });
+	      } catch (e) {
+	        // we're not going to mess with weird encodings,
+	        // give up and return the undecoded original string
+	        // see https://github.com/medialize/URI.js/issues/87
+	        // see https://github.com/medialize/URI.js/issues/92
+	        return string;
+	      }
+	    };
+	  };
+	
+	  for (_part in _parts) {
+	    URI[_part + 'PathSegment'] = generateAccessor('pathname', _parts[_part]);
+	    URI[_part + 'UrnPathSegment'] = generateAccessor('urnpath', _parts[_part]);
+	  }
+	
+	  var generateSegmentedPathFunction = function generateSegmentedPathFunction(_sep, _codingFuncName, _innerCodingFuncName) {
+	    return function (string) {
+	      // Why pass in names of functions, rather than the function objects themselves? The
+	      // definitions of some functions (but in particular, URI.decode) will occasionally change due
+	      // to URI.js having ISO8859 and Unicode modes. Passing in the name and getting it will ensure
+	      // that the functions we use here are "fresh".
+	      var actualCodingFunc;
+	      if (!_innerCodingFuncName) {
+	        actualCodingFunc = URI[_codingFuncName];
+	      } else {
+	        actualCodingFunc = function (string) {
+	          return URI[_codingFuncName](URI[_innerCodingFuncName](string));
+	        };
+	      }
+	
+	      var segments = (string + '').split(_sep);
+	
+	      for (var i = 0, length = segments.length; i < length; i++) {
+	        segments[i] = actualCodingFunc(segments[i]);
+	      }
+	
+	      return segments.join(_sep);
+	    };
+	  };
+	
+	  // This takes place outside the above loop because we don't want, e.g., encodeUrnPath functions.
+	  URI.decodePath = generateSegmentedPathFunction('/', 'decodePathSegment');
+	  URI.decodeUrnPath = generateSegmentedPathFunction(':', 'decodeUrnPathSegment');
+	  URI.recodePath = generateSegmentedPathFunction('/', 'encodePathSegment', 'decode');
+	  URI.recodeUrnPath = generateSegmentedPathFunction(':', 'encodeUrnPathSegment', 'decode');
+	
+	  URI.encodeReserved = generateAccessor('reserved', 'encode');
+	
+	  URI.parse = function (string, parts) {
+	    var pos;
+	    if (!parts) {
+	      parts = {};
+	    }
+	    // [protocol"://"[username[":"password]"@"]hostname[":"port]"/"?][path]["?"querystring]["#"fragment]
+	
+	    // extract fragment
+	    pos = string.indexOf('#');
+	    if (pos > -1) {
+	      // escaping?
+	      parts.fragment = string.substring(pos + 1) || null;
+	      string = string.substring(0, pos);
+	    }
+	
+	    // extract query
+	    pos = string.indexOf('?');
+	    if (pos > -1) {
+	      // escaping?
+	      parts.query = string.substring(pos + 1) || null;
+	      string = string.substring(0, pos);
+	    }
+	
+	    // extract protocol
+	    if (string.substring(0, 2) === '//') {
+	      // relative-scheme
+	      parts.protocol = null;
+	      string = string.substring(2);
+	      // extract "user:pass@host:port"
+	      string = URI.parseAuthority(string, parts);
+	    } else {
+	      pos = string.indexOf(':');
+	      if (pos > -1) {
+	        parts.protocol = string.substring(0, pos) || null;
+	        if (parts.protocol && !parts.protocol.match(URI.protocol_expression)) {
+	          // : may be within the path
+	          parts.protocol = undefined;
+	        } else if (string.substring(pos + 1, pos + 3) === '//') {
+	          string = string.substring(pos + 3);
+	
+	          // extract "user:pass@host:port"
+	          string = URI.parseAuthority(string, parts);
+	        } else {
+	          string = string.substring(pos + 1);
+	          parts.urn = true;
+	        }
+	      }
+	    }
+	
+	    // what's left must be the path
+	    parts.path = string;
+	
+	    // and we're done
+	    return parts;
+	  };
+	  URI.parseHost = function (string, parts) {
+	    // Copy chrome, IE, opera backslash-handling behavior.
+	    // Back slashes before the query string get converted to forward slashes
+	    // See: https://github.com/joyent/node/blob/386fd24f49b0e9d1a8a076592a404168faeecc34/lib/url.js#L115-L124
+	    // See: https://code.google.com/p/chromium/issues/detail?id=25916
+	    // https://github.com/medialize/URI.js/pull/233
+	    string = string.replace(/\\/g, '/');
+	
+	    // extract host:port
+	    var pos = string.indexOf('/');
+	    var bracketPos;
+	    var t;
+	
+	    if (pos === -1) {
+	      pos = string.length;
+	    }
+	
+	    if (string.charAt(0) === '[') {
+	      // IPv6 host - http://tools.ietf.org/html/draft-ietf-6man-text-addr-representation-04#section-6
+	      // I claim most client software breaks on IPv6 anyways. To simplify things, URI only accepts
+	      // IPv6+port in the format [2001:db8::1]:80 (for the time being)
+	      bracketPos = string.indexOf(']');
+	      parts.hostname = string.substring(1, bracketPos) || null;
+	      parts.port = string.substring(bracketPos + 2, pos) || null;
+	      if (parts.port === '/') {
+	        parts.port = null;
+	      }
+	    } else {
+	      var firstColon = string.indexOf(':');
+	      var firstSlash = string.indexOf('/');
+	      var nextColon = string.indexOf(':', firstColon + 1);
+	      if (nextColon !== -1 && (firstSlash === -1 || nextColon < firstSlash)) {
+	        // IPv6 host contains multiple colons - but no port
+	        // this notation is actually not allowed by RFC 3986, but we're a liberal parser
+	        parts.hostname = string.substring(0, pos) || null;
+	        parts.port = null;
+	      } else {
+	        t = string.substring(0, pos).split(':');
+	        parts.hostname = t[0] || null;
+	        parts.port = t[1] || null;
+	      }
+	    }
+	
+	    if (parts.hostname && string.substring(pos).charAt(0) !== '/') {
+	      pos++;
+	      string = '/' + string;
+	    }
+	
+	    return string.substring(pos) || '/';
+	  };
+	  URI.parseAuthority = function (string, parts) {
+	    string = URI.parseUserinfo(string, parts);
+	    return URI.parseHost(string, parts);
+	  };
+	  URI.parseUserinfo = function (string, parts) {
+	    // extract username:password
+	    var firstSlash = string.indexOf('/');
+	    var pos = string.lastIndexOf('@', firstSlash > -1 ? firstSlash : string.length - 1);
+	    var t;
+	
+	    // authority@ must come before /path
+	    if (pos > -1 && (firstSlash === -1 || pos < firstSlash)) {
+	      t = string.substring(0, pos).split(':');
+	      parts.username = t[0] ? URI.decode(t[0]) : null;
+	      t.shift();
+	      parts.password = t[0] ? URI.decode(t.join(':')) : null;
+	      string = string.substring(pos + 1);
+	    } else {
+	      parts.username = null;
+	      parts.password = null;
+	    }
+	
+	    return string;
+	  };
+	  URI.parseQuery = function (string, escapeQuerySpace) {
+	    if (!string) {
+	      return {};
+	    }
+	
+	    // throw out the funky business - "?"[name"="value"&"]+
+	    string = string.replace(/&+/g, '&').replace(/^\?*&*|&+$/g, '');
+	
+	    if (!string) {
+	      return {};
+	    }
+	
+	    var items = {};
+	    var splits = string.split('&');
+	    var length = splits.length;
+	    var v, name, value;
+	
+	    for (var i = 0; i < length; i++) {
+	      v = splits[i].split('=');
+	      name = URI.decodeQuery(v.shift(), escapeQuerySpace);
+	      // no "=" is null according to http://dvcs.w3.org/hg/url/raw-file/tip/Overview.html#collect-url-parameters
+	      value = v.length ? URI.decodeQuery(v.join('='), escapeQuerySpace) : null;
+	
+	      if (hasOwn.call(items, name)) {
+	        if (typeof items[name] === 'string' || items[name] === null) {
+	          items[name] = [items[name]];
+	        }
+	
+	        items[name].push(value);
+	      } else {
+	        items[name] = value;
+	      }
+	    }
+	
+	    return items;
+	  };
+	
+	  URI.build = function (parts) {
+	    var t = '';
+	
+	    if (parts.protocol) {
+	      t += parts.protocol + ':';
+	    }
+	
+	    if (!parts.urn && (t || parts.hostname)) {
+	      t += '//';
+	    }
+	
+	    t += URI.buildAuthority(parts) || '';
+	
+	    if (typeof parts.path === 'string') {
+	      if (parts.path.charAt(0) !== '/' && typeof parts.hostname === 'string') {
+	        t += '/';
+	      }
+	
+	      t += parts.path;
+	    }
+	
+	    if (typeof parts.query === 'string' && parts.query) {
+	      t += '?' + parts.query;
+	    }
+	
+	    if (typeof parts.fragment === 'string' && parts.fragment) {
+	      t += '#' + parts.fragment;
+	    }
+	    return t;
+	  };
+	  URI.buildHost = function (parts) {
+	    var t = '';
+	
+	    if (!parts.hostname) {
+	      return '';
+	    } else if (URI.ip6_expression.test(parts.hostname)) {
+	      t += '[' + parts.hostname + ']';
+	    } else {
+	      t += parts.hostname;
+	    }
+	
+	    if (parts.port) {
+	      t += ':' + parts.port;
+	    }
+	
+	    return t;
+	  };
+	  URI.buildAuthority = function (parts) {
+	    return URI.buildUserinfo(parts) + URI.buildHost(parts);
+	  };
+	  URI.buildUserinfo = function (parts) {
+	    var t = '';
+	
+	    if (parts.username) {
+	      t += URI.encode(parts.username);
+	
+	      if (parts.password) {
+	        t += ':' + URI.encode(parts.password);
+	      }
+	
+	      t += '@';
+	    }
+	
+	    return t;
+	  };
+	  URI.buildQuery = function (data, duplicateQueryParameters, escapeQuerySpace) {
+	    // according to http://tools.ietf.org/html/rfc3986 or http://labs.apache.org/webarch/uri/rfc/rfc3986.html
+	    // being »-._~!$&'()*+,;=:@/?« %HEX and alnum are allowed
+	    // the RFC explicitly states ?/foo being a valid use case, no mention of parameter syntax!
+	    // URI.js treats the query string as being application/x-www-form-urlencoded
+	    // see http://www.w3.org/TR/REC-html40/interact/forms.html#form-content-type
+	
+	    var t = '';
+	    var unique, key, i, length;
+	    for (key in data) {
+	      if (hasOwn.call(data, key) && key) {
+	        if (isArray(data[key])) {
+	          unique = {};
+	          for (i = 0, length = data[key].length; i < length; i++) {
+	            if (data[key][i] !== undefined && unique[data[key][i] + ''] === undefined) {
+	              t += '&' + URI.buildQueryParameter(key, data[key][i], escapeQuerySpace);
+	              if (duplicateQueryParameters !== true) {
+	                unique[data[key][i] + ''] = true;
+	              }
+	            }
+	          }
+	        } else if (data[key] !== undefined) {
+	          t += '&' + URI.buildQueryParameter(key, data[key], escapeQuerySpace);
+	        }
+	      }
+	    }
+	
+	    return t.substring(1);
+	  };
+	  URI.buildQueryParameter = function (name, value, escapeQuerySpace) {
+	    // http://www.w3.org/TR/REC-html40/interact/forms.html#form-content-type -- application/x-www-form-urlencoded
+	    // don't append "=" for null values, according to http://dvcs.w3.org/hg/url/raw-file/tip/Overview.html#url-parameter-serialization
+	    return URI.encodeQuery(name, escapeQuerySpace) + (value !== null ? '=' + URI.encodeQuery(value, escapeQuerySpace) : '');
+	  };
+	
+	  URI.addQuery = function (data, name, value) {
+	    if (typeof name === 'object') {
+	      for (var key in name) {
+	        if (hasOwn.call(name, key)) {
+	          URI.addQuery(data, key, name[key]);
+	        }
+	      }
+	    } else if (typeof name === 'string') {
+	      if (data[name] === undefined) {
+	        data[name] = value;
+	        return;
+	      } else if (typeof data[name] === 'string') {
+	        data[name] = [data[name]];
+	      }
+	
+	      if (!isArray(value)) {
+	        value = [value];
+	      }
+	
+	      data[name] = (data[name] || []).concat(value);
+	    } else {
+	      throw new TypeError('URI.addQuery() accepts an object, string as the name parameter');
+	    }
+	  };
+	  URI.removeQuery = function (data, name, value) {
+	    var i, length, key;
+	
+	    if (isArray(name)) {
+	      for (i = 0, length = name.length; i < length; i++) {
+	        data[name[i]] = undefined;
+	      }
+	    } else if (getType(name) === 'RegExp') {
+	      for (key in data) {
+	        if (name.test(key)) {
+	          data[key] = undefined;
+	        }
+	      }
+	    } else if (typeof name === 'object') {
+	      for (key in name) {
+	        if (hasOwn.call(name, key)) {
+	          URI.removeQuery(data, key, name[key]);
+	        }
+	      }
+	    } else if (typeof name === 'string') {
+	      if (value !== undefined) {
+	        if (getType(value) === 'RegExp') {
+	          if (!isArray(data[name]) && value.test(data[name])) {
+	            data[name] = undefined;
+	          } else {
+	            data[name] = filterArrayValues(data[name], value);
+	          }
+	        } else if (data[name] === value) {
+	          data[name] = undefined;
+	        } else if (isArray(data[name])) {
+	          data[name] = filterArrayValues(data[name], value);
+	        }
+	      } else {
+	        data[name] = undefined;
+	      }
+	    } else {
+	      throw new TypeError('URI.removeQuery() accepts an object, string, RegExp as the first parameter');
+	    }
+	  };
+	  URI.hasQuery = function (data, name, value, withinArray) {
+	    if (typeof name === 'object') {
+	      for (var key in name) {
+	        if (hasOwn.call(name, key)) {
+	          if (!URI.hasQuery(data, key, name[key])) {
+	            return false;
+	          }
+	        }
+	      }
+	
+	      return true;
+	    } else if (typeof name !== 'string') {
+	      throw new TypeError('URI.hasQuery() accepts an object, string as the name parameter');
+	    }
+	
+	    switch (getType(value)) {
+	      case 'Undefined':
+	        // true if exists (but may be empty)
+	        return name in data; // data[name] !== undefined;
+	
+	      case 'Boolean':
+	        // true if exists and non-empty
+	        var _booly = Boolean(isArray(data[name]) ? data[name].length : data[name]);
+	        return value === _booly;
+	
+	      case 'Function':
+	        // allow complex comparison
+	        return !!value(data[name], name, data);
+	
+	      case 'Array':
+	        if (!isArray(data[name])) {
+	          return false;
+	        }
+	
+	        var op = withinArray ? arrayContains : arraysEqual;
+	        return op(data[name], value);
+	
+	      case 'RegExp':
+	        if (!isArray(data[name])) {
+	          return Boolean(data[name] && data[name].match(value));
+	        }
+	
+	        if (!withinArray) {
+	          return false;
+	        }
+	
+	        return arrayContains(data[name], value);
+	
+	      case 'Number':
+	        value = String(value);
+	      /* falls through */
+	      case 'String':
+	        if (!isArray(data[name])) {
+	          return data[name] === value;
+	        }
+	
+	        if (!withinArray) {
+	          return false;
+	        }
+	
+	        return arrayContains(data[name], value);
+	
+	      default:
+	        throw new TypeError('URI.hasQuery() accepts undefined, boolean, string, number, RegExp, Function as the value parameter');
+	    }
+	  };
+	
+	  URI.commonPath = function (one, two) {
+	    var length = Math.min(one.length, two.length);
+	    var pos;
+	
+	    // find first non-matching character
+	    for (pos = 0; pos < length; pos++) {
+	      if (one.charAt(pos) !== two.charAt(pos)) {
+	        pos--;
+	        break;
+	      }
+	    }
+	
+	    if (pos < 1) {
+	      return one.charAt(0) === two.charAt(0) && one.charAt(0) === '/' ? '/' : '';
+	    }
+	
+	    // revert to last /
+	    if (one.charAt(pos) !== '/' || two.charAt(pos) !== '/') {
+	      pos = one.substring(0, pos).lastIndexOf('/');
+	    }
+	
+	    return one.substring(0, pos + 1);
+	  };
+	
+	  URI.withinString = function (string, callback, options) {
+	    options || (options = {});
+	    var _start = options.start || URI.findUri.start;
+	    var _end = options.end || URI.findUri.end;
+	    var _trim = options.trim || URI.findUri.trim;
+	    var _attributeOpen = /[a-z0-9-]=["']?$/i;
+	
+	    _start.lastIndex = 0;
+	    while (true) {
+	      var match = _start.exec(string);
+	      if (!match) {
+	        break;
+	      }
+	
+	      var start = match.index;
+	      if (options.ignoreHtml) {
+	        // attribut(e=["']?$)
+	        var attributeOpen = string.slice(Math.max(start - 3, 0), start);
+	        if (attributeOpen && _attributeOpen.test(attributeOpen)) {
+	          continue;
+	        }
+	      }
+	
+	      var end = start + string.slice(start).search(_end);
+	      var slice = string.slice(start, end).replace(_trim, '');
+	      if (options.ignore && options.ignore.test(slice)) {
+	        continue;
+	      }
+	
+	      end = start + slice.length;
+	      var result = callback(slice, start, end, string);
+	      string = string.slice(0, start) + result + string.slice(end);
+	      _start.lastIndex = start + result.length;
+	    }
+	
+	    _start.lastIndex = 0;
+	    return string;
+	  };
+	
+	  URI.ensureValidHostname = function (v) {
+	    // Theoretically URIs allow percent-encoding in Hostnames (according to RFC 3986)
+	    // they are not part of DNS and therefore ignored by URI.js
+	
+	    if (v.match(URI.invalid_hostname_characters)) {
+	      // test punycode
+	      if (!punycode) {
+	        throw new TypeError('Hostname "' + v + '" contains characters other than [A-Z0-9.-] and Punycode.js is not available');
+	      }
+	
+	      if (punycode.toASCII(v).match(URI.invalid_hostname_characters)) {
+	        throw new TypeError('Hostname "' + v + '" contains characters other than [A-Z0-9.-]');
+	      }
+	    }
+	  };
+	
+	  // noConflict
+	  URI.noConflict = function (removeAll) {
+	    if (removeAll) {
+	      var unconflicted = {
+	        URI: this.noConflict()
+	      };
+	
+	      if (root.URITemplate && typeof root.URITemplate.noConflict === 'function') {
+	        unconflicted.URITemplate = root.URITemplate.noConflict();
+	      }
+	
+	      if (root.IPv6 && typeof root.IPv6.noConflict === 'function') {
+	        unconflicted.IPv6 = root.IPv6.noConflict();
+	      }
+	
+	      if (root.SecondLevelDomains && typeof root.SecondLevelDomains.noConflict === 'function') {
+	        unconflicted.SecondLevelDomains = root.SecondLevelDomains.noConflict();
+	      }
+	
+	      return unconflicted;
+	    } else if (root.URI === this) {
+	      root.URI = _URI;
+	    }
+	
+	    return this;
+	  };
+	
+	  p.build = function (deferBuild) {
+	    if (deferBuild === true) {
+	      this._deferred_build = true;
+	    } else if (deferBuild === undefined || this._deferred_build) {
+	      this._string = URI.build(this._parts);
+	      this._deferred_build = false;
+	    }
+	
+	    return this;
+	  };
+	
+	  p.clone = function () {
+	    return new URI(this);
+	  };
+	
+	  p.valueOf = p.toString = function () {
+	    return this.build(false)._string;
+	  };
+	
+	  function generateSimpleAccessor(_part) {
+	    return function (v, build) {
+	      if (v === undefined) {
+	        return this._parts[_part] || '';
+	      } else {
+	        this._parts[_part] = v || null;
+	        this.build(!build);
+	        return this;
+	      }
+	    };
+	  }
+	
+	  function generatePrefixAccessor(_part, _key) {
+	    return function (v, build) {
+	      if (v === undefined) {
+	        return this._parts[_part] || '';
+	      } else {
+	        if (v !== null) {
+	          v = v + '';
+	          if (v.charAt(0) === _key) {
+	            v = v.substring(1);
+	          }
+	        }
+	
+	        this._parts[_part] = v;
+	        this.build(!build);
+	        return this;
+	      }
+	    };
+	  }
+	
+	  p.protocol = generateSimpleAccessor('protocol');
+	  p.username = generateSimpleAccessor('username');
+	  p.password = generateSimpleAccessor('password');
+	  p.hostname = generateSimpleAccessor('hostname');
+	  p.port = generateSimpleAccessor('port');
+	  p.query = generatePrefixAccessor('query', '?');
+	  p.fragment = generatePrefixAccessor('fragment', '#');
+	
+	  p.search = function (v, build) {
+	    var t = this.query(v, build);
+	    return typeof t === 'string' && t.length ? '?' + t : t;
+	  };
+	  p.hash = function (v, build) {
+	    var t = this.fragment(v, build);
+	    return typeof t === 'string' && t.length ? '#' + t : t;
+	  };
+	
+	  p.pathname = function (v, build) {
+	    if (v === undefined || v === true) {
+	      var res = this._parts.path || (this._parts.hostname ? '/' : '');
+	      return v ? (this._parts.urn ? URI.decodeUrnPath : URI.decodePath)(res) : res;
+	    } else {
+	      if (this._parts.urn) {
+	        this._parts.path = v ? URI.recodeUrnPath(v) : '';
+	      } else {
+	        this._parts.path = v ? URI.recodePath(v) : '/';
+	      }
+	      this.build(!build);
+	      return this;
+	    }
+	  };
+	  p.path = p.pathname;
+	  p.href = function (href, build) {
+	    var key;
+	
+	    if (href === undefined) {
+	      return this.toString();
+	    }
+	
+	    this._string = '';
+	    this._parts = URI._parts();
+	
+	    var _URI = href instanceof URI;
+	    var _object = typeof href === 'object' && (href.hostname || href.path || href.pathname);
+	    if (href.nodeName) {
+	      var attribute = URI.getDomAttribute(href);
+	      href = href[attribute] || '';
+	      _object = false;
+	    }
+	
+	    // window.location is reported to be an object, but it's not the sort
+	    // of object we're looking for:
+	    // * location.protocol ends with a colon
+	    // * location.query != object.search
+	    // * location.hash != object.fragment
+	    // simply serializing the unknown object should do the trick
+	    // (for location, not for everything...)
+	    if (!_URI && _object && href.pathname !== undefined) {
+	      href = href.toString();
+	    }
+	
+	    if (typeof href === 'string' || href instanceof String) {
+	      this._parts = URI.parse(String(href), this._parts);
+	    } else if (_URI || _object) {
+	      var src = _URI ? href._parts : href;
+	      for (key in src) {
+	        if (hasOwn.call(this._parts, key)) {
+	          this._parts[key] = src[key];
+	        }
+	      }
+	    } else {
+	      throw new TypeError('invalid input');
+	    }
+	
+	    this.build(!build);
+	    return this;
+	  };
+	
+	  // identification accessors
+	  p.is = function (what) {
+	    var ip = false;
+	    var ip4 = false;
+	    var ip6 = false;
+	    var name = false;
+	    var sld = false;
+	    var idn = false;
+	    var punycode = false;
+	    var relative = !this._parts.urn;
+	
+	    if (this._parts.hostname) {
+	      relative = false;
+	      ip4 = URI.ip4_expression.test(this._parts.hostname);
+	      ip6 = URI.ip6_expression.test(this._parts.hostname);
+	      ip = ip4 || ip6;
+	      name = !ip;
+	      sld = name && SLD && SLD.has(this._parts.hostname);
+	      idn = name && URI.idn_expression.test(this._parts.hostname);
+	      punycode = name && URI.punycode_expression.test(this._parts.hostname);
+	    }
+	
+	    switch (what.toLowerCase()) {
+	      case 'relative':
+	        return relative;
+	
+	      case 'absolute':
+	        return !relative;
+	
+	      // hostname identification
+	      case 'domain':
+	      case 'name':
+	        return name;
+	
+	      case 'sld':
+	        return sld;
+	
+	      case 'ip':
+	        return ip;
+	
+	      case 'ip4':
+	      case 'ipv4':
+	      case 'inet4':
+	        return ip4;
+	
+	      case 'ip6':
+	      case 'ipv6':
+	      case 'inet6':
+	        return ip6;
+	
+	      case 'idn':
+	        return idn;
+	
+	      case 'url':
+	        return !this._parts.urn;
+	
+	      case 'urn':
+	        return !!this._parts.urn;
+	
+	      case 'punycode':
+	        return punycode;
+	    }
+	
+	    return null;
+	  };
+	
+	  // component specific input validation
+	  var _protocol = p.protocol;
+	  var _port = p.port;
+	  var _hostname = p.hostname;
+	
+	  p.protocol = function (v, build) {
+	    if (v !== undefined) {
+	      if (v) {
+	        // accept trailing ://
+	        v = v.replace(/:(\/\/)?$/, '');
+	
+	        if (!v.match(URI.protocol_expression)) {
+	          throw new TypeError('Protocol "' + v + '" contains characters other than [A-Z0-9.+-] or doesn\'t start with [A-Z]');
+	        }
+	      }
+	    }
+	    return _protocol.call(this, v, build);
+	  };
+	  p.scheme = p.protocol;
+	  p.port = function (v, build) {
+	    if (this._parts.urn) {
+	      return v === undefined ? '' : this;
+	    }
+	
+	    if (v !== undefined) {
+	      if (v === 0) {
+	        v = null;
+	      }
+	
+	      if (v) {
+	        v += '';
+	        if (v.charAt(0) === ':') {
+	          v = v.substring(1);
+	        }
+	
+	        if (v.match(/[^0-9]/)) {
+	          throw new TypeError('Port "' + v + '" contains characters other than [0-9]');
+	        }
+	      }
+	    }
+	    return _port.call(this, v, build);
+	  };
+	  p.hostname = function (v, build) {
+	    if (this._parts.urn) {
+	      return v === undefined ? '' : this;
+	    }
+	
+	    if (v !== undefined) {
+	      var x = {};
+	      var res = URI.parseHost(v, x);
+	      if (res !== '/') {
+	        throw new TypeError('Hostname "' + v + '" contains characters other than [A-Z0-9.-]');
+	      }
+	
+	      v = x.hostname;
+	    }
+	    return _hostname.call(this, v, build);
+	  };
+	
+	  // compound accessors
+	  p.host = function (v, build) {
+	    if (this._parts.urn) {
+	      return v === undefined ? '' : this;
+	    }
+	
+	    if (v === undefined) {
+	      return this._parts.hostname ? URI.buildHost(this._parts) : '';
+	    } else {
+	      var res = URI.parseHost(v, this._parts);
+	      if (res !== '/') {
+	        throw new TypeError('Hostname "' + v + '" contains characters other than [A-Z0-9.-]');
+	      }
+	
+	      this.build(!build);
+	      return this;
+	    }
+	  };
+	  p.authority = function (v, build) {
+	    if (this._parts.urn) {
+	      return v === undefined ? '' : this;
+	    }
+	
+	    if (v === undefined) {
+	      return this._parts.hostname ? URI.buildAuthority(this._parts) : '';
+	    } else {
+	      var res = URI.parseAuthority(v, this._parts);
+	      if (res !== '/') {
+	        throw new TypeError('Hostname "' + v + '" contains characters other than [A-Z0-9.-]');
+	      }
+	
+	      this.build(!build);
+	      return this;
+	    }
+	  };
+	  p.userinfo = function (v, build) {
+	    if (this._parts.urn) {
+	      return v === undefined ? '' : this;
+	    }
+	
+	    if (v === undefined) {
+	      if (!this._parts.username) {
+	        return '';
+	      }
+	
+	      var t = URI.buildUserinfo(this._parts);
+	      return t.substring(0, t.length - 1);
+	    } else {
+	      if (v[v.length - 1] !== '@') {
+	        v += '@';
+	      }
+	
+	      URI.parseUserinfo(v, this._parts);
+	      this.build(!build);
+	      return this;
+	    }
+	  };
+	  p.resource = function (v, build) {
+	    var parts;
+	
+	    if (v === undefined) {
+	      return this.path() + this.search() + this.hash();
+	    }
+	
+	    parts = URI.parse(v);
+	    this._parts.path = parts.path;
+	    this._parts.query = parts.query;
+	    this._parts.fragment = parts.fragment;
+	    this.build(!build);
+	    return this;
+	  };
+	
+	  // fraction accessors
+	  p.subdomain = function (v, build) {
+	    if (this._parts.urn) {
+	      return v === undefined ? '' : this;
+	    }
+	
+	    // convenience, return "www" from "www.example.org"
+	    if (v === undefined) {
+	      if (!this._parts.hostname || this.is('IP')) {
+	        return '';
+	      }
+	
+	      // grab domain and add another segment
+	      var end = this._parts.hostname.length - this.domain().length - 1;
+	      return this._parts.hostname.substring(0, end) || '';
+	    } else {
+	      var e = this._parts.hostname.length - this.domain().length;
+	      var sub = this._parts.hostname.substring(0, e);
+	      var replace = new RegExp('^' + escapeRegEx(sub));
+	
+	      if (v && v.charAt(v.length - 1) !== '.') {
+	        v += '.';
+	      }
+	
+	      if (v) {
+	        URI.ensureValidHostname(v);
+	      }
+	
+	      this._parts.hostname = this._parts.hostname.replace(replace, v);
+	      this.build(!build);
+	      return this;
+	    }
+	  };
+	  p.domain = function (v, build) {
+	    if (this._parts.urn) {
+	      return v === undefined ? '' : this;
+	    }
+	
+	    if (typeof v === 'boolean') {
+	      build = v;
+	      v = undefined;
+	    }
+	
+	    // convenience, return "example.org" from "www.example.org"
+	    if (v === undefined) {
+	      if (!this._parts.hostname || this.is('IP')) {
+	        return '';
+	      }
+	
+	      // if hostname consists of 1 or 2 segments, it must be the domain
+	      var t = this._parts.hostname.match(/\./g);
+	      if (t && t.length < 2) {
+	        return this._parts.hostname;
+	      }
+	
+	      // grab tld and add another segment
+	      var end = this._parts.hostname.length - this.tld(build).length - 1;
+	      end = this._parts.hostname.lastIndexOf('.', end - 1) + 1;
+	      return this._parts.hostname.substring(end) || '';
+	    } else {
+	      if (!v) {
+	        throw new TypeError('cannot set domain empty');
+	      }
+	
+	      URI.ensureValidHostname(v);
+	
+	      if (!this._parts.hostname || this.is('IP')) {
+	        this._parts.hostname = v;
+	      } else {
+	        var replace = new RegExp(escapeRegEx(this.domain()) + '$');
+	        this._parts.hostname = this._parts.hostname.replace(replace, v);
+	      }
+	
+	      this.build(!build);
+	      return this;
+	    }
+	  };
+	  p.tld = function (v, build) {
+	    if (this._parts.urn) {
+	      return v === undefined ? '' : this;
+	    }
+	
+	    if (typeof v === 'boolean') {
+	      build = v;
+	      v = undefined;
+	    }
+	
+	    // return "org" from "www.example.org"
+	    if (v === undefined) {
+	      if (!this._parts.hostname || this.is('IP')) {
+	        return '';
+	      }
+	
+	      var pos = this._parts.hostname.lastIndexOf('.');
+	      var tld = this._parts.hostname.substring(pos + 1);
+	
+	      if (build !== true && SLD && SLD.list[tld.toLowerCase()]) {
+	        return SLD.get(this._parts.hostname) || tld;
+	      }
+	
+	      return tld;
+	    } else {
+	      var replace;
+	
+	      if (!v) {
+	        throw new TypeError('cannot set TLD empty');
+	      } else if (v.match(/[^a-zA-Z0-9-]/)) {
+	        if (SLD && SLD.is(v)) {
+	          replace = new RegExp(escapeRegEx(this.tld()) + '$');
+	          this._parts.hostname = this._parts.hostname.replace(replace, v);
+	        } else {
+	          throw new TypeError('TLD "' + v + '" contains characters other than [A-Z0-9]');
+	        }
+	      } else if (!this._parts.hostname || this.is('IP')) {
+	        throw new ReferenceError('cannot set TLD on non-domain host');
+	      } else {
+	        replace = new RegExp(escapeRegEx(this.tld()) + '$');
+	        this._parts.hostname = this._parts.hostname.replace(replace, v);
+	      }
+	
+	      this.build(!build);
+	      return this;
+	    }
+	  };
+	  p.directory = function (v, build) {
+	    if (this._parts.urn) {
+	      return v === undefined ? '' : this;
+	    }
+	
+	    if (v === undefined || v === true) {
+	      if (!this._parts.path && !this._parts.hostname) {
+	        return '';
+	      }
+	
+	      if (this._parts.path === '/') {
+	        return '/';
+	      }
+	
+	      var end = this._parts.path.length - this.filename().length - 1;
+	      var res = this._parts.path.substring(0, end) || (this._parts.hostname ? '/' : '');
+	
+	      return v ? URI.decodePath(res) : res;
+	    } else {
+	      var e = this._parts.path.length - this.filename().length;
+	      var directory = this._parts.path.substring(0, e);
+	      var replace = new RegExp('^' + escapeRegEx(directory));
+	
+	      // fully qualifier directories begin with a slash
+	      if (!this.is('relative')) {
+	        if (!v) {
+	          v = '/';
+	        }
+	
+	        if (v.charAt(0) !== '/') {
+	          v = '/' + v;
+	        }
+	      }
+	
+	      // directories always end with a slash
+	      if (v && v.charAt(v.length - 1) !== '/') {
+	        v += '/';
+	      }
+	
+	      v = URI.recodePath(v);
+	      this._parts.path = this._parts.path.replace(replace, v);
+	      this.build(!build);
+	      return this;
+	    }
+	  };
+	  p.filename = function (v, build) {
+	    if (this._parts.urn) {
+	      return v === undefined ? '' : this;
+	    }
+	
+	    if (v === undefined || v === true) {
+	      if (!this._parts.path || this._parts.path === '/') {
+	        return '';
+	      }
+	
+	      var pos = this._parts.path.lastIndexOf('/');
+	      var res = this._parts.path.substring(pos + 1);
+	
+	      return v ? URI.decodePathSegment(res) : res;
+	    } else {
+	      var mutatedDirectory = false;
+	
+	      if (v.charAt(0) === '/') {
+	        v = v.substring(1);
+	      }
+	
+	      if (v.match(/\.?\//)) {
+	        mutatedDirectory = true;
+	      }
+	
+	      var replace = new RegExp(escapeRegEx(this.filename()) + '$');
+	      v = URI.recodePath(v);
+	      this._parts.path = this._parts.path.replace(replace, v);
+	
+	      if (mutatedDirectory) {
+	        this.normalizePath(build);
+	      } else {
+	        this.build(!build);
+	      }
+	
+	      return this;
+	    }
+	  };
+	  p.suffix = function (v, build) {
+	    if (this._parts.urn) {
+	      return v === undefined ? '' : this;
+	    }
+	
+	    if (v === undefined || v === true) {
+	      if (!this._parts.path || this._parts.path === '/') {
+	        return '';
+	      }
+	
+	      var filename = this.filename();
+	      var pos = filename.lastIndexOf('.');
+	      var s, res;
+	
+	      if (pos === -1) {
+	        return '';
+	      }
+	
+	      // suffix may only contain alnum characters (yup, I made this up.)
+	      s = filename.substring(pos + 1);
+	      res = /^[a-z0-9%]+$/i.test(s) ? s : '';
+	      return v ? URI.decodePathSegment(res) : res;
+	    } else {
+	      if (v.charAt(0) === '.') {
+	        v = v.substring(1);
+	      }
+	
+	      var suffix = this.suffix();
+	      var replace;
+	
+	      if (!suffix) {
+	        if (!v) {
+	          return this;
+	        }
+	
+	        this._parts.path += '.' + URI.recodePath(v);
+	      } else if (!v) {
+	        replace = new RegExp(escapeRegEx('.' + suffix) + '$');
+	      } else {
+	        replace = new RegExp(escapeRegEx(suffix) + '$');
+	      }
+	
+	      if (replace) {
+	        v = URI.recodePath(v);
+	        this._parts.path = this._parts.path.replace(replace, v);
+	      }
+	
+	      this.build(!build);
+	      return this;
+	    }
+	  };
+	  p.segment = function (segment, v, build) {
+	    var separator = this._parts.urn ? ':' : '/';
+	    var path = this.path();
+	    var absolute = path.substring(0, 1) === '/';
+	    var segments = path.split(separator);
+	
+	    if (segment !== undefined && typeof segment !== 'number') {
+	      build = v;
+	      v = segment;
+	      segment = undefined;
+	    }
+	
+	    if (segment !== undefined && typeof segment !== 'number') {
+	      throw new Error('Bad segment "' + segment + '", must be 0-based integer');
+	    }
+	
+	    if (absolute) {
+	      segments.shift();
+	    }
+	
+	    if (segment < 0) {
+	      // allow negative indexes to address from the end
+	      segment = Math.max(segments.length + segment, 0);
+	    }
+	
+	    if (v === undefined) {
+	      /*jshint laxbreak: true */
+	      return segment === undefined ? segments : segments[segment];
+	      /*jshint laxbreak: false */
+	    } else if (segment === null || segments[segment] === undefined) {
+	        if (isArray(v)) {
+	          segments = [];
+	          // collapse empty elements within array
+	          for (var i = 0, l = v.length; i < l; i++) {
+	            if (!v[i].length && (!segments.length || !segments[segments.length - 1].length)) {
+	              continue;
+	            }
+	
+	            if (segments.length && !segments[segments.length - 1].length) {
+	              segments.pop();
+	            }
+	
+	            segments.push(v[i]);
+	          }
+	        } else if (v || typeof v === 'string') {
+	          if (segments[segments.length - 1] === '') {
+	            // empty trailing elements have to be overwritten
+	            // to prevent results such as /foo//bar
+	            segments[segments.length - 1] = v;
+	          } else {
+	            segments.push(v);
+	          }
+	        }
+	      } else {
+	        if (v) {
+	          segments[segment] = v;
+	        } else {
+	          segments.splice(segment, 1);
+	        }
+	      }
+	
+	    if (absolute) {
+	      segments.unshift('');
+	    }
+	
+	    return this.path(segments.join(separator), build);
+	  };
+	  p.segmentCoded = function (segment, v, build) {
+	    var segments, i, l;
+	
+	    if (typeof segment !== 'number') {
+	      build = v;
+	      v = segment;
+	      segment = undefined;
+	    }
+	
+	    if (v === undefined) {
+	      segments = this.segment(segment, v, build);
+	      if (!isArray(segments)) {
+	        segments = segments !== undefined ? URI.decode(segments) : undefined;
+	      } else {
+	        for (i = 0, l = segments.length; i < l; i++) {
+	          segments[i] = URI.decode(segments[i]);
+	        }
+	      }
+	
+	      return segments;
+	    }
+	
+	    if (!isArray(v)) {
+	      v = typeof v === 'string' || v instanceof String ? URI.encode(v) : v;
+	    } else {
+	      for (i = 0, l = v.length; i < l; i++) {
+	        v[i] = URI.encode(v[i]);
+	      }
+	    }
+	
+	    return this.segment(segment, v, build);
+	  };
+	
+	  // mutating query string
+	  var q = p.query;
+	  p.query = function (v, build) {
+	    if (v === true) {
+	      return URI.parseQuery(this._parts.query, this._parts.escapeQuerySpace);
+	    } else if (typeof v === 'function') {
+	      var data = URI.parseQuery(this._parts.query, this._parts.escapeQuerySpace);
+	      var result = v.call(this, data);
+	      this._parts.query = URI.buildQuery(result || data, this._parts.duplicateQueryParameters, this._parts.escapeQuerySpace);
+	      this.build(!build);
+	      return this;
+	    } else if (v !== undefined && typeof v !== 'string') {
+	      this._parts.query = URI.buildQuery(v, this._parts.duplicateQueryParameters, this._parts.escapeQuerySpace);
+	      this.build(!build);
+	      return this;
+	    } else {
+	      return q.call(this, v, build);
+	    }
+	  };
+	  p.setQuery = function (name, value, build) {
+	    var data = URI.parseQuery(this._parts.query, this._parts.escapeQuerySpace);
+	
+	    if (typeof name === 'string' || name instanceof String) {
+	      data[name] = value !== undefined ? value : null;
+	    } else if (typeof name === 'object') {
+	      for (var key in name) {
+	        if (hasOwn.call(name, key)) {
+	          data[key] = name[key];
+	        }
+	      }
+	    } else {
+	      throw new TypeError('URI.addQuery() accepts an object, string as the name parameter');
+	    }
+	
+	    this._parts.query = URI.buildQuery(data, this._parts.duplicateQueryParameters, this._parts.escapeQuerySpace);
+	    if (typeof name !== 'string') {
+	      build = value;
+	    }
+	
+	    this.build(!build);
+	    return this;
+	  };
+	  p.addQuery = function (name, value, build) {
+	    var data = URI.parseQuery(this._parts.query, this._parts.escapeQuerySpace);
+	    URI.addQuery(data, name, value === undefined ? null : value);
+	    this._parts.query = URI.buildQuery(data, this._parts.duplicateQueryParameters, this._parts.escapeQuerySpace);
+	    if (typeof name !== 'string') {
+	      build = value;
+	    }
+	
+	    this.build(!build);
+	    return this;
+	  };
+	  p.removeQuery = function (name, value, build) {
+	    var data = URI.parseQuery(this._parts.query, this._parts.escapeQuerySpace);
+	    URI.removeQuery(data, name, value);
+	    this._parts.query = URI.buildQuery(data, this._parts.duplicateQueryParameters, this._parts.escapeQuerySpace);
+	    if (typeof name !== 'string') {
+	      build = value;
+	    }
+	
+	    this.build(!build);
+	    return this;
+	  };
+	  p.hasQuery = function (name, value, withinArray) {
+	    var data = URI.parseQuery(this._parts.query, this._parts.escapeQuerySpace);
+	    return URI.hasQuery(data, name, value, withinArray);
+	  };
+	  p.setSearch = p.setQuery;
+	  p.addSearch = p.addQuery;
+	  p.removeSearch = p.removeQuery;
+	  p.hasSearch = p.hasQuery;
+	
+	  // sanitizing URLs
+	  p.normalize = function () {
+	    if (this._parts.urn) {
+	      return this.normalizeProtocol(false).normalizePath(false).normalizeQuery(false).normalizeFragment(false).build();
+	    }
+	
+	    return this.normalizeProtocol(false).normalizeHostname(false).normalizePort(false).normalizePath(false).normalizeQuery(false).normalizeFragment(false).build();
+	  };
+	  p.normalizeProtocol = function (build) {
+	    if (typeof this._parts.protocol === 'string') {
+	      this._parts.protocol = this._parts.protocol.toLowerCase();
+	      this.build(!build);
+	    }
+	
+	    return this;
+	  };
+	  p.normalizeHostname = function (build) {
+	    if (this._parts.hostname) {
+	      if (this.is('IDN') && punycode) {
+	        this._parts.hostname = punycode.toASCII(this._parts.hostname);
+	      } else if (this.is('IPv6') && IPv6) {
+	        this._parts.hostname = IPv6.best(this._parts.hostname);
+	      }
+	
+	      this._parts.hostname = this._parts.hostname.toLowerCase();
+	      this.build(!build);
+	    }
+	
+	    return this;
+	  };
+	  p.normalizePort = function (build) {
+	    // remove port of it's the protocol's default
+	    if (typeof this._parts.protocol === 'string' && this._parts.port === URI.defaultPorts[this._parts.protocol]) {
+	      this._parts.port = null;
+	      this.build(!build);
+	    }
+	
+	    return this;
+	  };
+	  p.normalizePath = function (build) {
+	    var _path = this._parts.path;
+	    if (!_path) {
+	      return this;
+	    }
+	
+	    if (this._parts.urn) {
+	      this._parts.path = URI.recodeUrnPath(this._parts.path);
+	      this.build(!build);
+	      return this;
+	    }
+	
+	    if (this._parts.path === '/') {
+	      return this;
+	    }
+	
+	    var _was_relative;
+	    var _leadingParents = '';
+	    var _parent, _pos;
+	
+	    // handle relative paths
+	    if (_path.charAt(0) !== '/') {
+	      _was_relative = true;
+	      _path = '/' + _path;
+	    }
+	
+	    // handle relative files (as opposed to directories)
+	    if (_path.slice(-3) === '/..' || _path.slice(-2) === '/.') {
+	      _path += '/';
+	    }
+	
+	    // resolve simples
+	    _path = _path.replace(/(\/(\.\/)+)|(\/\.$)/g, '/').replace(/\/{2,}/g, '/');
+	
+	    // remember leading parents
+	    if (_was_relative) {
+	      _leadingParents = _path.substring(1).match(/^(\.\.\/)+/) || '';
+	      if (_leadingParents) {
+	        _leadingParents = _leadingParents[0];
+	      }
+	    }
+	
+	    // resolve parents
+	    while (true) {
+	      _parent = _path.indexOf('/..');
+	      if (_parent === -1) {
+	        // no more ../ to resolve
+	        break;
+	      } else if (_parent === 0) {
+	        // top level cannot be relative, skip it
+	        _path = _path.substring(3);
+	        continue;
+	      }
+	
+	      _pos = _path.substring(0, _parent).lastIndexOf('/');
+	      if (_pos === -1) {
+	        _pos = _parent;
+	      }
+	      _path = _path.substring(0, _pos) + _path.substring(_parent + 3);
+	    }
+	
+	    // revert to relative
+	    if (_was_relative && this.is('relative')) {
+	      _path = _leadingParents + _path.substring(1);
+	    }
+	
+	    _path = URI.recodePath(_path);
+	    this._parts.path = _path;
+	    this.build(!build);
+	    return this;
+	  };
+	  p.normalizePathname = p.normalizePath;
+	  p.normalizeQuery = function (build) {
+	    if (typeof this._parts.query === 'string') {
+	      if (!this._parts.query.length) {
+	        this._parts.query = null;
+	      } else {
+	        this.query(URI.parseQuery(this._parts.query, this._parts.escapeQuerySpace));
+	      }
+	
+	      this.build(!build);
+	    }
+	
+	    return this;
+	  };
+	  p.normalizeFragment = function (build) {
+	    if (!this._parts.fragment) {
+	      this._parts.fragment = null;
+	      this.build(!build);
+	    }
+	
+	    return this;
+	  };
+	  p.normalizeSearch = p.normalizeQuery;
+	  p.normalizeHash = p.normalizeFragment;
+	
+	  p.iso8859 = function () {
+	    // expect unicode input, iso8859 output
+	    var e = URI.encode;
+	    var d = URI.decode;
+	
+	    URI.encode = escape;
+	    URI.decode = decodeURIComponent;
+	    try {
+	      this.normalize();
+	    } finally {
+	      URI.encode = e;
+	      URI.decode = d;
+	    }
+	    return this;
+	  };
+	
+	  p.unicode = function () {
+	    // expect iso8859 input, unicode output
+	    var e = URI.encode;
+	    var d = URI.decode;
+	
+	    URI.encode = strictEncodeURIComponent;
+	    URI.decode = unescape;
+	    try {
+	      this.normalize();
+	    } finally {
+	      URI.encode = e;
+	      URI.decode = d;
+	    }
+	    return this;
+	  };
+	
+	  p.readable = function () {
+	    var uri = this.clone();
+	    // removing username, password, because they shouldn't be displayed according to RFC 3986
+	    uri.username('').password('').normalize();
+	    var t = '';
+	    if (uri._parts.protocol) {
+	      t += uri._parts.protocol + '://';
+	    }
+	
+	    if (uri._parts.hostname) {
+	      if (uri.is('punycode') && punycode) {
+	        t += punycode.toUnicode(uri._parts.hostname);
+	        if (uri._parts.port) {
+	          t += ':' + uri._parts.port;
+	        }
+	      } else {
+	        t += uri.host();
+	      }
+	    }
+	
+	    if (uri._parts.hostname && uri._parts.path && uri._parts.path.charAt(0) !== '/') {
+	      t += '/';
+	    }
+	
+	    t += uri.path(true);
+	    if (uri._parts.query) {
+	      var q = '';
+	      for (var i = 0, qp = uri._parts.query.split('&'), l = qp.length; i < l; i++) {
+	        var kv = (qp[i] || '').split('=');
+	        q += '&' + URI.decodeQuery(kv[0], this._parts.escapeQuerySpace).replace(/&/g, '%26');
+	
+	        if (kv[1] !== undefined) {
+	          q += '=' + URI.decodeQuery(kv[1], this._parts.escapeQuerySpace).replace(/&/g, '%26');
+	        }
+	      }
+	      t += '?' + q.substring(1);
+	    }
+	
+	    t += URI.decodeQuery(uri.hash(), true);
+	    return t;
+	  };
+	
+	  // resolving relative and absolute URLs
+	  p.absoluteTo = function (base) {
+	    var resolved = this.clone();
+	    var properties = ['protocol', 'username', 'password', 'hostname', 'port'];
+	    var basedir, i, p;
+	
+	    if (this._parts.urn) {
+	      throw new Error('URNs do not have any generally defined hierarchical components');
+	    }
+	
+	    if (!(base instanceof URI)) {
+	      base = new URI(base);
+	    }
+	
+	    if (!resolved._parts.protocol) {
+	      resolved._parts.protocol = base._parts.protocol;
+	    }
+	
+	    if (this._parts.hostname) {
+	      return resolved;
+	    }
+	
+	    for (i = 0; p = properties[i]; i++) {
+	      resolved._parts[p] = base._parts[p];
+	    }
+	
+	    if (!resolved._parts.path) {
+	      resolved._parts.path = base._parts.path;
+	      if (!resolved._parts.query) {
+	        resolved._parts.query = base._parts.query;
+	      }
+	    } else if (resolved._parts.path.substring(-2) === '..') {
+	      resolved._parts.path += '/';
+	    }
+	
+	    if (resolved.path().charAt(0) !== '/') {
+	      basedir = base.directory();
+	      basedir = basedir ? basedir : base.path().indexOf('/') === 0 ? '/' : '';
+	      resolved._parts.path = (basedir ? basedir + '/' : '') + resolved._parts.path;
+	      resolved.normalizePath();
+	    }
+	
+	    resolved.build();
+	    return resolved;
+	  };
+	  p.relativeTo = function (base) {
+	    var relative = this.clone().normalize();
+	    var relativeParts, baseParts, common, relativePath, basePath;
+	
+	    if (relative._parts.urn) {
+	      throw new Error('URNs do not have any generally defined hierarchical components');
+	    }
+	
+	    base = new URI(base).normalize();
+	    relativeParts = relative._parts;
+	    baseParts = base._parts;
+	    relativePath = relative.path();
+	    basePath = base.path();
+	
+	    if (relativePath.charAt(0) !== '/') {
+	      throw new Error('URI is already relative');
+	    }
+	
+	    if (basePath.charAt(0) !== '/') {
+	      throw new Error('Cannot calculate a URI relative to another relative URI');
+	    }
+	
+	    if (relativeParts.protocol === baseParts.protocol) {
+	      relativeParts.protocol = null;
+	    }
+	
+	    if (relativeParts.username !== baseParts.username || relativeParts.password !== baseParts.password) {
+	      return relative.build();
+	    }
+	
+	    if (relativeParts.protocol !== null || relativeParts.username !== null || relativeParts.password !== null) {
+	      return relative.build();
+	    }
+	
+	    if (relativeParts.hostname === baseParts.hostname && relativeParts.port === baseParts.port) {
+	      relativeParts.hostname = null;
+	      relativeParts.port = null;
+	    } else {
+	      return relative.build();
+	    }
+	
+	    if (relativePath === basePath) {
+	      relativeParts.path = '';
+	      return relative.build();
+	    }
+	
+	    // determine common sub path
+	    common = URI.commonPath(relativePath, basePath);
+	
+	    // If the paths have nothing in common, return a relative URL with the absolute path.
+	    if (!common) {
+	      return relative.build();
+	    }
+	
+	    var parents = baseParts.path.substring(common.length).replace(/[^\/]*$/, '').replace(/.*?\//g, '../');
+	
+	    relativeParts.path = parents + relativeParts.path.substring(common.length) || './';
+	
+	    return relative.build();
+	  };
+	
+	  // comparing URIs
+	  p.equals = function (uri) {
+	    var one = this.clone();
+	    var two = new URI(uri);
+	    var one_map = {};
+	    var two_map = {};
+	    var checked = {};
+	    var one_query, two_query, key;
+	
+	    one.normalize();
+	    two.normalize();
+	
+	    // exact match
+	    if (one.toString() === two.toString()) {
+	      return true;
+	    }
+	
+	    // extract query string
+	    one_query = one.query();
+	    two_query = two.query();
+	    one.query('');
+	    two.query('');
+	
+	    // definitely not equal if not even non-query parts match
+	    if (one.toString() !== two.toString()) {
+	      return false;
+	    }
+	
+	    // query parameters have the same length, even if they're permuted
+	    if (one_query.length !== two_query.length) {
+	      return false;
+	    }
+	
+	    one_map = URI.parseQuery(one_query, this._parts.escapeQuerySpace);
+	    two_map = URI.parseQuery(two_query, this._parts.escapeQuerySpace);
+	
+	    for (key in one_map) {
+	      if (hasOwn.call(one_map, key)) {
+	        if (!isArray(one_map[key])) {
+	          if (one_map[key] !== two_map[key]) {
+	            return false;
+	          }
+	        } else if (!arraysEqual(one_map[key], two_map[key])) {
+	          return false;
+	        }
+	
+	        checked[key] = true;
+	      }
+	    }
+	
+	    for (key in two_map) {
+	      if (hasOwn.call(two_map, key)) {
+	        if (!checked[key]) {
+	          // two contains a parameter not present in one
+	          return false;
+	        }
+	      }
+	    }
+	
+	    return true;
+	  };
+	
+	  // state
+	  p.duplicateQueryParameters = function (v) {
+	    this._parts.duplicateQueryParameters = !!v;
+	    return this;
+	  };
+	
+	  p.escapeQuerySpace = function (v) {
+	    this._parts.escapeQuerySpace = !!v;
+	    return this;
+	  };
+	
+	  return URI;
+	});
 
 /***/ },
 /* 447 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/*! http://mths.be/punycode v1.2.3 by @mathias */
 	'use strict';
 	
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	exports['default'] = FaIcon;
+	;(function (root) {
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+		/** Detect free variables */
+		var freeExports = typeof exports == 'object' && exports;
+		var freeModule = typeof module == 'object' && module && module.exports == freeExports && module;
+		var freeGlobal = typeof global == 'object' && global;
+		if (freeGlobal.global === freeGlobal || freeGlobal.window === freeGlobal) {
+			root = freeGlobal;
+		}
 	
-	var _react = __webpack_require__(256);
+		/**
+	  * The `punycode` object.
+	  * @name punycode
+	  * @type Object
+	  */
+		var punycode,
+		   
 	
-	var _react2 = _interopRequireDefault(_react);
+		/** Highest positive signed 32-bit float value */
+		maxInt = 2147483647,
+		    // aka. 0x7FFFFFFF or 2^31-1
 	
-	function FaIcon(_ref) {
-	  var name = _ref.name;
+		/** Bootstring parameters */
+		base = 36,
+		    tMin = 1,
+		    tMax = 26,
+		    skew = 38,
+		    damp = 700,
+		    initialBias = 72,
+		    initialN = 128,
+		    // 0x80
+		delimiter = '-',
+		    // '\x2D'
 	
-	  return _react2['default'].createElement('i', { className: 'fa fa-' + name });
-	}
+		/** Regular expressions */
+		regexPunycode = /^xn--/,
+		    regexNonASCII = /[^ -~]/,
+		    // unprintable ASCII chars + non-ASCII chars
+		regexSeparators = /\x2E|\u3002|\uFF0E|\uFF61/g,
+		    // RFC 3490 separators
 	
-	module.exports = exports['default'];
+		/** Error messages */
+		errors = {
+			'overflow': 'Overflow: input needs wider integers to process',
+			'not-basic': 'Illegal input >= 0x80 (not a basic code point)',
+			'invalid-input': 'Invalid input'
+		},
+		   
+	
+		/** Convenience shortcuts */
+		baseMinusTMin = base - tMin,
+		    floor = Math.floor,
+		    stringFromCharCode = String.fromCharCode,
+		   
+	
+		/** Temporary variable */
+		key;
+	
+		/*--------------------------------------------------------------------------*/
+	
+		/**
+	  * A generic error utility function.
+	  * @private
+	  * @param {String} type The error type.
+	  * @returns {Error} Throws a `RangeError` with the applicable error message.
+	  */
+		function error(type) {
+			throw RangeError(errors[type]);
+		}
+	
+		/**
+	  * A generic `Array#map` utility function.
+	  * @private
+	  * @param {Array} array The array to iterate over.
+	  * @param {Function} callback The function that gets called for every array
+	  * item.
+	  * @returns {Array} A new array of values returned by the callback function.
+	  */
+		function map(array, fn) {
+			var length = array.length;
+			while (length--) {
+				array[length] = fn(array[length]);
+			}
+			return array;
+		}
+	
+		/**
+	  * A simple `Array#map`-like wrapper to work with domain name strings.
+	  * @private
+	  * @param {String} domain The domain name.
+	  * @param {Function} callback The function that gets called for every
+	  * character.
+	  * @returns {Array} A new string of characters returned by the callback
+	  * function.
+	  */
+		function mapDomain(string, fn) {
+			return map(string.split(regexSeparators), fn).join('.');
+		}
+	
+		/**
+	  * Creates an array containing the numeric code points of each Unicode
+	  * character in the string. While JavaScript uses UCS-2 internally,
+	  * this function will convert a pair of surrogate halves (each of which
+	  * UCS-2 exposes as separate characters) into a single code point,
+	  * matching UTF-16.
+	  * @see `punycode.ucs2.encode`
+	  * @see <http://mathiasbynens.be/notes/javascript-encoding>
+	  * @memberOf punycode.ucs2
+	  * @name decode
+	  * @param {String} string The Unicode input string (UCS-2).
+	  * @returns {Array} The new array of code points.
+	  */
+		function ucs2decode(string) {
+			var output = [],
+			    counter = 0,
+			    length = string.length,
+			    value,
+			    extra;
+			while (counter < length) {
+				value = string.charCodeAt(counter++);
+				if (value >= 0xD800 && value <= 0xDBFF && counter < length) {
+					// high surrogate, and there is a next character
+					extra = string.charCodeAt(counter++);
+					if ((extra & 0xFC00) == 0xDC00) {
+						// low surrogate
+						output.push(((value & 0x3FF) << 10) + (extra & 0x3FF) + 0x10000);
+					} else {
+						// unmatched surrogate; only append this code unit, in case the next
+						// code unit is the high surrogate of a surrogate pair
+						output.push(value);
+						counter--;
+					}
+				} else {
+					output.push(value);
+				}
+			}
+			return output;
+		}
+	
+		/**
+	  * Creates a string based on an array of numeric code points.
+	  * @see `punycode.ucs2.decode`
+	  * @memberOf punycode.ucs2
+	  * @name encode
+	  * @param {Array} codePoints The array of numeric code points.
+	  * @returns {String} The new Unicode string (UCS-2).
+	  */
+		function ucs2encode(array) {
+			return map(array, function (value) {
+				var output = '';
+				if (value > 0xFFFF) {
+					value -= 0x10000;
+					output += stringFromCharCode(value >>> 10 & 0x3FF | 0xD800);
+					value = 0xDC00 | value & 0x3FF;
+				}
+				output += stringFromCharCode(value);
+				return output;
+			}).join('');
+		}
+	
+		/**
+	  * Converts a basic code point into a digit/integer.
+	  * @see `digitToBasic()`
+	  * @private
+	  * @param {Number} codePoint The basic numeric code point value.
+	  * @returns {Number} The numeric value of a basic code point (for use in
+	  * representing integers) in the range `0` to `base - 1`, or `base` if
+	  * the code point does not represent a value.
+	  */
+		function basicToDigit(codePoint) {
+			if (codePoint - 48 < 10) {
+				return codePoint - 22;
+			}
+			if (codePoint - 65 < 26) {
+				return codePoint - 65;
+			}
+			if (codePoint - 97 < 26) {
+				return codePoint - 97;
+			}
+			return base;
+		}
+	
+		/**
+	  * Converts a digit/integer into a basic code point.
+	  * @see `basicToDigit()`
+	  * @private
+	  * @param {Number} digit The numeric value of a basic code point.
+	  * @returns {Number} The basic code point whose value (when used for
+	  * representing integers) is `digit`, which needs to be in the range
+	  * `0` to `base - 1`. If `flag` is non-zero, the uppercase form is
+	  * used; else, the lowercase form is used. The behavior is undefined
+	  * if `flag` is non-zero and `digit` has no uppercase form.
+	  */
+		function digitToBasic(digit, flag) {
+			//  0..25 map to ASCII a..z or A..Z
+			// 26..35 map to ASCII 0..9
+			return digit + 22 + 75 * (digit < 26) - ((flag != 0) << 5);
+		}
+	
+		/**
+	  * Bias adaptation function as per section 3.4 of RFC 3492.
+	  * http://tools.ietf.org/html/rfc3492#section-3.4
+	  * @private
+	  */
+		function adapt(delta, numPoints, firstTime) {
+			var k = 0;
+			delta = firstTime ? floor(delta / damp) : delta >> 1;
+			delta += floor(delta / numPoints);
+			for (; /* no initialization */delta > baseMinusTMin * tMax >> 1; k += base) {
+				delta = floor(delta / baseMinusTMin);
+			}
+			return floor(k + (baseMinusTMin + 1) * delta / (delta + skew));
+		}
+	
+		/**
+	  * Converts a Punycode string of ASCII-only symbols to a string of Unicode
+	  * symbols.
+	  * @memberOf punycode
+	  * @param {String} input The Punycode string of ASCII-only symbols.
+	  * @returns {String} The resulting string of Unicode symbols.
+	  */
+		function decode(input) {
+			// Don't use UCS-2
+			var output = [],
+			    inputLength = input.length,
+			    out,
+			    i = 0,
+			    n = initialN,
+			    bias = initialBias,
+			    basic,
+			    j,
+			    index,
+			    oldi,
+			    w,
+			    k,
+			    digit,
+			    t,
+			    length,
+			   
+			/** Cached calculation results */
+			baseMinusT;
+	
+			// Handle the basic code points: let `basic` be the number of input code
+			// points before the last delimiter, or `0` if there is none, then copy
+			// the first basic code points to the output.
+	
+			basic = input.lastIndexOf(delimiter);
+			if (basic < 0) {
+				basic = 0;
+			}
+	
+			for (j = 0; j < basic; ++j) {
+				// if it's not a basic code point
+				if (input.charCodeAt(j) >= 0x80) {
+					error('not-basic');
+				}
+				output.push(input.charCodeAt(j));
+			}
+	
+			// Main decoding loop: start just after the last delimiter if any basic code
+			// points were copied; start at the beginning otherwise.
+	
+			for (index = basic > 0 ? basic + 1 : 0; index < inputLength;) /* no final expression */{
+	
+				// `index` is the index of the next character to be consumed.
+				// Decode a generalized variable-length integer into `delta`,
+				// which gets added to `i`. The overflow checking is easier
+				// if we increase `i` as we go, then subtract off its starting
+				// value at the end to obtain `delta`.
+				for (oldi = i, w = 1, k = base;; /* no condition */k += base) {
+	
+					if (index >= inputLength) {
+						error('invalid-input');
+					}
+	
+					digit = basicToDigit(input.charCodeAt(index++));
+	
+					if (digit >= base || digit > floor((maxInt - i) / w)) {
+						error('overflow');
+					}
+	
+					i += digit * w;
+					t = k <= bias ? tMin : k >= bias + tMax ? tMax : k - bias;
+	
+					if (digit < t) {
+						break;
+					}
+	
+					baseMinusT = base - t;
+					if (w > floor(maxInt / baseMinusT)) {
+						error('overflow');
+					}
+	
+					w *= baseMinusT;
+				}
+	
+				out = output.length + 1;
+				bias = adapt(i - oldi, out, oldi == 0);
+	
+				// `i` was supposed to wrap around from `out` to `0`,
+				// incrementing `n` each time, so we'll fix that now:
+				if (floor(i / out) > maxInt - n) {
+					error('overflow');
+				}
+	
+				n += floor(i / out);
+				i %= out;
+	
+				// Insert `n` at position `i` of the output
+				output.splice(i++, 0, n);
+			}
+	
+			return ucs2encode(output);
+		}
+	
+		/**
+	  * Converts a string of Unicode symbols to a Punycode string of ASCII-only
+	  * symbols.
+	  * @memberOf punycode
+	  * @param {String} input The string of Unicode symbols.
+	  * @returns {String} The resulting Punycode string of ASCII-only symbols.
+	  */
+		function encode(input) {
+			var n,
+			    delta,
+			    handledCPCount,
+			    basicLength,
+			    bias,
+			    j,
+			    m,
+			    q,
+			    k,
+			    t,
+			    currentValue,
+			    output = [],
+			   
+			/** `inputLength` will hold the number of code points in `input`. */
+			inputLength,
+			   
+			/** Cached calculation results */
+			handledCPCountPlusOne,
+			    baseMinusT,
+			    qMinusT;
+	
+			// Convert the input in UCS-2 to Unicode
+			input = ucs2decode(input);
+	
+			// Cache the length
+			inputLength = input.length;
+	
+			// Initialize the state
+			n = initialN;
+			delta = 0;
+			bias = initialBias;
+	
+			// Handle the basic code points
+			for (j = 0; j < inputLength; ++j) {
+				currentValue = input[j];
+				if (currentValue < 0x80) {
+					output.push(stringFromCharCode(currentValue));
+				}
+			}
+	
+			handledCPCount = basicLength = output.length;
+	
+			// `handledCPCount` is the number of code points that have been handled;
+			// `basicLength` is the number of basic code points.
+	
+			// Finish the basic string - if it is not empty - with a delimiter
+			if (basicLength) {
+				output.push(delimiter);
+			}
+	
+			// Main encoding loop:
+			while (handledCPCount < inputLength) {
+	
+				// All non-basic code points < n have been handled already. Find the next
+				// larger one:
+				for (m = maxInt, j = 0; j < inputLength; ++j) {
+					currentValue = input[j];
+					if (currentValue >= n && currentValue < m) {
+						m = currentValue;
+					}
+				}
+	
+				// Increase `delta` enough to advance the decoder's <n,i> state to <m,0>,
+				// but guard against overflow
+				handledCPCountPlusOne = handledCPCount + 1;
+				if (m - n > floor((maxInt - delta) / handledCPCountPlusOne)) {
+					error('overflow');
+				}
+	
+				delta += (m - n) * handledCPCountPlusOne;
+				n = m;
+	
+				for (j = 0; j < inputLength; ++j) {
+					currentValue = input[j];
+	
+					if (currentValue < n && ++delta > maxInt) {
+						error('overflow');
+					}
+	
+					if (currentValue == n) {
+						// Represent delta as a generalized variable-length integer
+						for (q = delta, k = base;; /* no condition */k += base) {
+							t = k <= bias ? tMin : k >= bias + tMax ? tMax : k - bias;
+							if (q < t) {
+								break;
+							}
+							qMinusT = q - t;
+							baseMinusT = base - t;
+							output.push(stringFromCharCode(digitToBasic(t + qMinusT % baseMinusT, 0)));
+							q = floor(qMinusT / baseMinusT);
+						}
+	
+						output.push(stringFromCharCode(digitToBasic(q, 0)));
+						bias = adapt(delta, handledCPCountPlusOne, handledCPCount == basicLength);
+						delta = 0;
+						++handledCPCount;
+					}
+				}
+	
+				++delta;
+				++n;
+			}
+			return output.join('');
+		}
+	
+		/**
+	  * Converts a Punycode string representing a domain name to Unicode. Only the
+	  * Punycoded parts of the domain name will be converted, i.e. it doesn't
+	  * matter if you call it on a string that has already been converted to
+	  * Unicode.
+	  * @memberOf punycode
+	  * @param {String} domain The Punycode domain name to convert to Unicode.
+	  * @returns {String} The Unicode representation of the given Punycode
+	  * string.
+	  */
+		function toUnicode(domain) {
+			return mapDomain(domain, function (string) {
+				return regexPunycode.test(string) ? decode(string.slice(4).toLowerCase()) : string;
+			});
+		}
+	
+		/**
+	  * Converts a Unicode string representing a domain name to Punycode. Only the
+	  * non-ASCII parts of the domain name will be converted, i.e. it doesn't
+	  * matter if you call it with a domain that's already in ASCII.
+	  * @memberOf punycode
+	  * @param {String} domain The domain name to convert, as a Unicode string.
+	  * @returns {String} The Punycode representation of the given domain name.
+	  */
+		function toASCII(domain) {
+			return mapDomain(domain, function (string) {
+				return regexNonASCII.test(string) ? 'xn--' + encode(string) : string;
+			});
+		}
+	
+		/*--------------------------------------------------------------------------*/
+	
+		/** Define the public API */
+		punycode = {
+			/**
+	   * A string representing the current Punycode.js version number.
+	   * @memberOf punycode
+	   * @type String
+	   */
+			'version': '1.2.3',
+			/**
+	   * An object of methods to convert from JavaScript's internal character
+	   * representation (UCS-2) to Unicode code points, and back.
+	   * @see <http://mathiasbynens.be/notes/javascript-encoding>
+	   * @memberOf punycode
+	   * @type Object
+	   */
+			'ucs2': {
+				'decode': ucs2decode,
+				'encode': ucs2encode
+			},
+			'decode': decode,
+			'encode': encode,
+			'toASCII': toASCII,
+			'toUnicode': toUnicode
+		};
+	
+		/** Expose `punycode` */
+		// Some AMD build optimizers, like r.js, check for specific condition patterns
+		// like the following:
+		if (true) {
+			!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
+				return punycode;
+			}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else if (freeExports && !freeExports.nodeType) {
+			if (freeModule) {
+				// in Node.js or RingoJS v0.8.0+
+				freeModule.exports = punycode;
+			} else {
+				// in Narwhal or RingoJS v0.7.0-
+				for (key in punycode) {
+					punycode.hasOwnProperty(key) && (freeExports[key] = punycode[key]);
+				}
+			}
+		} else {
+			// in Rhino or a web browser
+			root.punycode = punycode;
+		}
+	})(undefined);
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(404)(module), (function() { return this; }())))
 
 /***/ },
 /* 448 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/*!
+	 * URI.js - Mutating URLs
+	 * IPv6 Support
+	 *
+	 * Version: 1.16.1
+	 *
+	 * Author: Rodney Rehm
+	 * Web: http://medialize.github.io/URI.js/
+	 *
+	 * Licensed under
+	 *   MIT License http://www.opensource.org/licenses/mit-license
+	 *   GPL v3 http://opensource.org/licenses/GPL-3.0
+	 *
+	 */
+	
 	'use strict';
 	
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
+	(function (root, factory) {
+	  'use strict';
+	  // https://github.com/umdjs/umd/blob/master/returnExports.js
+	  if (true) {
+	    // Node
+	    module.exports = factory();
+	  } else if (typeof define === 'function' && define.amd) {
+	    // AMD. Register as an anonymous module.
+	    define(factory);
+	  } else {
+	    // Browser globals (root is window)
+	    root.IPv6 = factory(root);
+	  }
+	})(undefined, function (root) {
+	  'use strict';
+	
+	  /*
+	  var _in = "fe80:0000:0000:0000:0204:61ff:fe9d:f156";
+	  var _out = IPv6.best(_in);
+	  var _expected = "fe80::204:61ff:fe9d:f156";
+	   console.log(_in, _out, _expected, _out === _expected);
+	  */
+	
+	  // save current IPv6 variable, if any
+	  var _IPv6 = root && root.IPv6;
+	
+	  function bestPresentation(address) {
+	    // based on:
+	    // Javascript to test an IPv6 address for proper format, and to
+	    // present the "best text representation" according to IETF Draft RFC at
+	    // http://tools.ietf.org/html/draft-ietf-6man-text-addr-representation-04
+	    // 8 Feb 2010 Rich Brown, Dartware, LLC
+	    // Please feel free to use this code as long as you provide a link to
+	    // http://www.intermapper.com
+	    // http://intermapper.com/support/tools/IPV6-Validator.aspx
+	    // http://download.dartware.com/thirdparty/ipv6validator.js
+	
+	    var _address = address.toLowerCase();
+	    var segments = _address.split(':');
+	    var length = segments.length;
+	    var total = 8;
+	
+	    // trim colons (:: or ::a:b:c… or …a:b:c::)
+	    if (segments[0] === '' && segments[1] === '' && segments[2] === '') {
+	      // must have been ::
+	      // remove first two items
+	      segments.shift();
+	      segments.shift();
+	    } else if (segments[0] === '' && segments[1] === '') {
+	      // must have been ::xxxx
+	      // remove the first item
+	      segments.shift();
+	    } else if (segments[length - 1] === '' && segments[length - 2] === '') {
+	      // must have been xxxx::
+	      segments.pop();
+	    }
+	
+	    length = segments.length;
+	
+	    // adjust total segments for IPv4 trailer
+	    if (segments[length - 1].indexOf('.') !== -1) {
+	      // found a "." which means IPv4
+	      total = 7;
+	    }
+	
+	    // fill empty segments them with "0000"
+	    var pos;
+	    for (pos = 0; pos < length; pos++) {
+	      if (segments[pos] === '') {
+	        break;
+	      }
+	    }
+	
+	    if (pos < total) {
+	      segments.splice(pos, 1, '0000');
+	      while (segments.length < total) {
+	        segments.splice(pos, 0, '0000');
+	      }
+	
+	      length = segments.length;
+	    }
+	
+	    // strip leading zeros
+	    var _segments;
+	    for (var i = 0; i < total; i++) {
+	      _segments = segments[i].split('');
+	      for (var j = 0; j < 3; j++) {
+	        if (_segments[0] === '0' && _segments.length > 1) {
+	          _segments.splice(0, 1);
+	        } else {
+	          break;
+	        }
+	      }
+	
+	      segments[i] = _segments.join('');
+	    }
+	
+	    // find longest sequence of zeroes and coalesce them into one segment
+	    var best = -1;
+	    var _best = 0;
+	    var _current = 0;
+	    var current = -1;
+	    var inzeroes = false;
+	    // i; already declared
+	
+	    for (i = 0; i < total; i++) {
+	      if (inzeroes) {
+	        if (segments[i] === '0') {
+	          _current += 1;
+	        } else {
+	          inzeroes = false;
+	          if (_current > _best) {
+	            best = current;
+	            _best = _current;
+	          }
+	        }
+	      } else {
+	        if (segments[i] === '0') {
+	          inzeroes = true;
+	          current = i;
+	          _current = 1;
+	        }
+	      }
+	    }
+	
+	    if (_current > _best) {
+	      best = current;
+	      _best = _current;
+	    }
+	
+	    if (_best > 1) {
+	      segments.splice(best, _best, '');
+	    }
+	
+	    length = segments.length;
+	
+	    // assemble remaining segments
+	    var result = '';
+	    if (segments[0] === '') {
+	      result = ':';
+	    }
+	
+	    for (i = 0; i < length; i++) {
+	      result += segments[i];
+	      if (i === length - 1) {
+	        break;
+	      }
+	
+	      result += ':';
+	    }
+	
+	    if (segments[length - 1] === '') {
+	      result += ':';
+	    }
+	
+	    return result;
+	  }
+	
+	  function noConflict() {
+	    /*jshint validthis: true */
+	    if (root.IPv6 === this) {
+	      root.IPv6 = _IPv6;
+	    }
+	
+	    return this;
+	  }
+	
+	  return {
+	    best: bestPresentation,
+	    noConflict: noConflict
+	  };
 	});
-	exports['default'] = Icon;
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
-	var _react = __webpack_require__(256);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function Icon(_ref) {
-	  var name = _ref.name;
-	
-	  return _react2['default'].createElement(
-	    'i',
-	    {
-	      className: 'material-icons md-36',
-	      style: {
-	        lineHeight: 'inherit'
-	      } },
-	    name
-	  );
-	}
-	
-	module.exports = exports['default'];
 
 /***/ },
 /* 449 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/*!
+	 * URI.js - Mutating URLs
+	 * Second Level Domain (SLD) Support
+	 *
+	 * Version: 1.16.1
+	 *
+	 * Author: Rodney Rehm
+	 * Web: http://medialize.github.io/URI.js/
+	 *
+	 * Licensed under
+	 *   MIT License http://www.opensource.org/licenses/mit-license
+	 *   GPL v3 http://opensource.org/licenses/GPL-3.0
+	 *
+	 */
+	
+	'use strict';
+	
+	(function (root, factory) {
+	  'use strict';
+	  // https://github.com/umdjs/umd/blob/master/returnExports.js
+	  if (true) {
+	    // Node
+	    module.exports = factory();
+	  } else if (typeof define === 'function' && define.amd) {
+	    // AMD. Register as an anonymous module.
+	    define(factory);
+	  } else {
+	    // Browser globals (root is window)
+	    root.SecondLevelDomains = factory(root);
+	  }
+	})(undefined, function (root) {
+	  'use strict';
+	
+	  // save current SecondLevelDomains variable, if any
+	  var _SecondLevelDomains = root && root.SecondLevelDomains;
+	
+	  var SLD = {
+	    // list of known Second Level Domains
+	    // converted list of SLDs from https://github.com/gavingmiller/second-level-domains
+	    // ----
+	    // publicsuffix.org is more current and actually used by a couple of browsers internally.
+	    // downside is it also contains domains like "dyndns.org" - which is fine for the security
+	    // issues browser have to deal with (SOP for cookies, etc) - but is way overboard for URI.js
+	    // ----
+	    list: {
+	      'ac': ' com gov mil net org ',
+	      'ae': ' ac co gov mil name net org pro sch ',
+	      'af': ' com edu gov net org ',
+	      'al': ' com edu gov mil net org ',
+	      'ao': ' co ed gv it og pb ',
+	      'ar': ' com edu gob gov int mil net org tur ',
+	      'at': ' ac co gv or ',
+	      'au': ' asn com csiro edu gov id net org ',
+	      'ba': ' co com edu gov mil net org rs unbi unmo unsa untz unze ',
+	      'bb': ' biz co com edu gov info net org store tv ',
+	      'bh': ' biz cc com edu gov info net org ',
+	      'bn': ' com edu gov net org ',
+	      'bo': ' com edu gob gov int mil net org tv ',
+	      'br': ' adm adv agr am arq art ato b bio blog bmd cim cng cnt com coop ecn edu eng esp etc eti far flog fm fnd fot fst g12 ggf gov imb ind inf jor jus lel mat med mil mus net nom not ntr odo org ppg pro psc psi qsl rec slg srv tmp trd tur tv vet vlog wiki zlg ',
+	      'bs': ' com edu gov net org ',
+	      'bz': ' du et om ov rg ',
+	      'ca': ' ab bc mb nb nf nl ns nt nu on pe qc sk yk ',
+	      'ck': ' biz co edu gen gov info net org ',
+	      'cn': ' ac ah bj com cq edu fj gd gov gs gx gz ha hb he hi hl hn jl js jx ln mil net nm nx org qh sc sd sh sn sx tj tw xj xz yn zj ',
+	      'co': ' com edu gov mil net nom org ',
+	      'cr': ' ac c co ed fi go or sa ',
+	      'cy': ' ac biz com ekloges gov ltd name net org parliament press pro tm ',
+	      'do': ' art com edu gob gov mil net org sld web ',
+	      'dz': ' art asso com edu gov net org pol ',
+	      'ec': ' com edu fin gov info med mil net org pro ',
+	      'eg': ' com edu eun gov mil name net org sci ',
+	      'er': ' com edu gov ind mil net org rochest w ',
+	      'es': ' com edu gob nom org ',
+	      'et': ' biz com edu gov info name net org ',
+	      'fj': ' ac biz com info mil name net org pro ',
+	      'fk': ' ac co gov net nom org ',
+	      'fr': ' asso com f gouv nom prd presse tm ',
+	      'gg': ' co net org ',
+	      'gh': ' com edu gov mil org ',
+	      'gn': ' ac com gov net org ',
+	      'gr': ' com edu gov mil net org ',
+	      'gt': ' com edu gob ind mil net org ',
+	      'gu': ' com edu gov net org ',
+	      'hk': ' com edu gov idv net org ',
+	      'hu': ' 2000 agrar bolt casino city co erotica erotika film forum games hotel info ingatlan jogasz konyvelo lakas media news org priv reklam sex shop sport suli szex tm tozsde utazas video ',
+	      'id': ' ac co go mil net or sch web ',
+	      'il': ' ac co gov idf k12 muni net org ',
+	      'in': ' ac co edu ernet firm gen gov i ind mil net nic org res ',
+	      'iq': ' com edu gov i mil net org ',
+	      'ir': ' ac co dnssec gov i id net org sch ',
+	      'it': ' edu gov ',
+	      'je': ' co net org ',
+	      'jo': ' com edu gov mil name net org sch ',
+	      'jp': ' ac ad co ed go gr lg ne or ',
+	      'ke': ' ac co go info me mobi ne or sc ',
+	      'kh': ' com edu gov mil net org per ',
+	      'ki': ' biz com de edu gov info mob net org tel ',
+	      'km': ' asso com coop edu gouv k medecin mil nom notaires pharmaciens presse tm veterinaire ',
+	      'kn': ' edu gov net org ',
+	      'kr': ' ac busan chungbuk chungnam co daegu daejeon es gangwon go gwangju gyeongbuk gyeonggi gyeongnam hs incheon jeju jeonbuk jeonnam k kg mil ms ne or pe re sc seoul ulsan ',
+	      'kw': ' com edu gov net org ',
+	      'ky': ' com edu gov net org ',
+	      'kz': ' com edu gov mil net org ',
+	      'lb': ' com edu gov net org ',
+	      'lk': ' assn com edu gov grp hotel int ltd net ngo org sch soc web ',
+	      'lr': ' com edu gov net org ',
+	      'lv': ' asn com conf edu gov id mil net org ',
+	      'ly': ' com edu gov id med net org plc sch ',
+	      'ma': ' ac co gov m net org press ',
+	      'mc': ' asso tm ',
+	      'me': ' ac co edu gov its net org priv ',
+	      'mg': ' com edu gov mil nom org prd tm ',
+	      'mk': ' com edu gov inf name net org pro ',
+	      'ml': ' com edu gov net org presse ',
+	      'mn': ' edu gov org ',
+	      'mo': ' com edu gov net org ',
+	      'mt': ' com edu gov net org ',
+	      'mv': ' aero biz com coop edu gov info int mil museum name net org pro ',
+	      'mw': ' ac co com coop edu gov int museum net org ',
+	      'mx': ' com edu gob net org ',
+	      'my': ' com edu gov mil name net org sch ',
+	      'nf': ' arts com firm info net other per rec store web ',
+	      'ng': ' biz com edu gov mil mobi name net org sch ',
+	      'ni': ' ac co com edu gob mil net nom org ',
+	      'np': ' com edu gov mil net org ',
+	      'nr': ' biz com edu gov info net org ',
+	      'om': ' ac biz co com edu gov med mil museum net org pro sch ',
+	      'pe': ' com edu gob mil net nom org sld ',
+	      'ph': ' com edu gov i mil net ngo org ',
+	      'pk': ' biz com edu fam gob gok gon gop gos gov net org web ',
+	      'pl': ' art bialystok biz com edu gda gdansk gorzow gov info katowice krakow lodz lublin mil net ngo olsztyn org poznan pwr radom slupsk szczecin torun warszawa waw wroc wroclaw zgora ',
+	      'pr': ' ac biz com edu est gov info isla name net org pro prof ',
+	      'ps': ' com edu gov net org plo sec ',
+	      'pw': ' belau co ed go ne or ',
+	      'ro': ' arts com firm info nom nt org rec store tm www ',
+	      'rs': ' ac co edu gov in org ',
+	      'sb': ' com edu gov net org ',
+	      'sc': ' com edu gov net org ',
+	      'sh': ' co com edu gov net nom org ',
+	      'sl': ' com edu gov net org ',
+	      'st': ' co com consulado edu embaixada gov mil net org principe saotome store ',
+	      'sv': ' com edu gob org red ',
+	      'sz': ' ac co org ',
+	      'tr': ' av bbs bel biz com dr edu gen gov info k12 name net org pol tel tsk tv web ',
+	      'tt': ' aero biz cat co com coop edu gov info int jobs mil mobi museum name net org pro tel travel ',
+	      'tw': ' club com ebiz edu game gov idv mil net org ',
+	      'mu': ' ac co com gov net or org ',
+	      'mz': ' ac co edu gov org ',
+	      'na': ' co com ',
+	      'nz': ' ac co cri geek gen govt health iwi maori mil net org parliament school ',
+	      'pa': ' abo ac com edu gob ing med net nom org sld ',
+	      'pt': ' com edu gov int net nome org publ ',
+	      'py': ' com edu gov mil net org ',
+	      'qa': ' com edu gov mil net org ',
+	      're': ' asso com nom ',
+	      'ru': ' ac adygeya altai amur arkhangelsk astrakhan bashkiria belgorod bir bryansk buryatia cbg chel chelyabinsk chita chukotka chuvashia com dagestan e-burg edu gov grozny int irkutsk ivanovo izhevsk jar joshkar-ola kalmykia kaluga kamchatka karelia kazan kchr kemerovo khabarovsk khakassia khv kirov koenig komi kostroma kranoyarsk kuban kurgan kursk lipetsk magadan mari mari-el marine mil mordovia mosreg msk murmansk nalchik net nnov nov novosibirsk nsk omsk orenburg org oryol penza perm pp pskov ptz rnd ryazan sakhalin samara saratov simbirsk smolensk spb stavropol stv surgut tambov tatarstan tom tomsk tsaritsyn tsk tula tuva tver tyumen udm udmurtia ulan-ude vladikavkaz vladimir vladivostok volgograd vologda voronezh vrn vyatka yakutia yamal yekaterinburg yuzhno-sakhalinsk ',
+	      'rw': ' ac co com edu gouv gov int mil net ',
+	      'sa': ' com edu gov med net org pub sch ',
+	      'sd': ' com edu gov info med net org tv ',
+	      'se': ' a ac b bd c d e f g h i k l m n o org p parti pp press r s t tm u w x y z ',
+	      'sg': ' com edu gov idn net org per ',
+	      'sn': ' art com edu gouv org perso univ ',
+	      'sy': ' com edu gov mil net news org ',
+	      'th': ' ac co go in mi net or ',
+	      'tj': ' ac biz co com edu go gov info int mil name net nic org test web ',
+	      'tn': ' agrinet com defense edunet ens fin gov ind info intl mincom nat net org perso rnrt rns rnu tourism ',
+	      'tz': ' ac co go ne or ',
+	      'ua': ' biz cherkassy chernigov chernovtsy ck cn co com crimea cv dn dnepropetrovsk donetsk dp edu gov if in ivano-frankivsk kh kharkov kherson khmelnitskiy kiev kirovograd km kr ks kv lg lugansk lutsk lviv me mk net nikolaev od odessa org pl poltava pp rovno rv sebastopol sumy te ternopil uzhgorod vinnica vn zaporizhzhe zhitomir zp zt ',
+	      'ug': ' ac co go ne or org sc ',
+	      'uk': ' ac bl british-library co cym gov govt icnet jet lea ltd me mil mod national-library-scotland nel net nhs nic nls org orgn parliament plc police sch scot soc ',
+	      'us': ' dni fed isa kids nsn ',
+	      'uy': ' com edu gub mil net org ',
+	      've': ' co com edu gob info mil net org web ',
+	      'vi': ' co com k12 net org ',
+	      'vn': ' ac biz com edu gov health info int name net org pro ',
+	      'ye': ' co com gov ltd me net org plc ',
+	      'yu': ' ac co edu gov org ',
+	      'za': ' ac agric alt bourse city co cybernet db edu gov grondar iaccess imt inca landesign law mil net ngo nis nom olivetti org pix school tm web ',
+	      'zm': ' ac co com edu gov net org sch '
+	    },
+	    // gorhill 2013-10-25: Using indexOf() instead Regexp(). Significant boost
+	    // in both performance and memory footprint. No initialization required.
+	    // http://jsperf.com/uri-js-sld-regex-vs-binary-search/4
+	    // Following methods use lastIndexOf() rather than array.split() in order
+	    // to avoid any memory allocations.
+	    has: function has(domain) {
+	      var tldOffset = domain.lastIndexOf('.');
+	      if (tldOffset <= 0 || tldOffset >= domain.length - 1) {
+	        return false;
+	      }
+	      var sldOffset = domain.lastIndexOf('.', tldOffset - 1);
+	      if (sldOffset <= 0 || sldOffset >= tldOffset - 1) {
+	        return false;
+	      }
+	      var sldList = SLD.list[domain.slice(tldOffset + 1)];
+	      if (!sldList) {
+	        return false;
+	      }
+	      return sldList.indexOf(' ' + domain.slice(sldOffset + 1, tldOffset) + ' ') >= 0;
+	    },
+	    is: function is(domain) {
+	      var tldOffset = domain.lastIndexOf('.');
+	      if (tldOffset <= 0 || tldOffset >= domain.length - 1) {
+	        return false;
+	      }
+	      var sldOffset = domain.lastIndexOf('.', tldOffset - 1);
+	      if (sldOffset >= 0) {
+	        return false;
+	      }
+	      var sldList = SLD.list[domain.slice(tldOffset + 1)];
+	      if (!sldList) {
+	        return false;
+	      }
+	      return sldList.indexOf(' ' + domain.slice(0, tldOffset) + ' ') >= 0;
+	    },
+	    get: function get(domain) {
+	      var tldOffset = domain.lastIndexOf('.');
+	      if (tldOffset <= 0 || tldOffset >= domain.length - 1) {
+	        return null;
+	      }
+	      var sldOffset = domain.lastIndexOf('.', tldOffset - 1);
+	      if (sldOffset <= 0 || sldOffset >= tldOffset - 1) {
+	        return null;
+	      }
+	      var sldList = SLD.list[domain.slice(tldOffset + 1)];
+	      if (!sldList) {
+	        return null;
+	      }
+	      if (sldList.indexOf(' ' + domain.slice(sldOffset + 1, tldOffset) + ' ') < 0) {
+	        return null;
+	      }
+	      return domain.slice(sldOffset + 1);
+	    },
+	    noConflict: function noConflict() {
+	      if (root.SecondLevelDomains === this) {
+	        root.SecondLevelDomains = _SecondLevelDomains;
+	      }
+	      return this;
+	    }
+	  };
+	
+	  return SLD;
+	});
+
+/***/ },
+/* 450 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var mixin = __webpack_require__(451);
+	var decorator = __webpack_require__(452);
+	var hoc = __webpack_require__(454);
+	var container = __webpack_require__(455);
+	var component = __webpack_require__(456);
+	var link = __webpack_require__(457);
+	
+	module.exports = {
+	  Mixin: mixin,
+	  Decorator: decorator,
+	  HOC: hoc,
+	  Container: container,
+	  Component: component,
+	  Link: link
+	};
+
+/***/ },
+/* 451 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(256);
+	var callbacks = [];
+	var listener = false;
+	
+	module.exports = {
+	  contextTypes: {
+	    controller: React.PropTypes.object
+	  },
+	  componentWillMount: function componentWillMount() {
+	    this.signals = this.context.controller.signals;
+	
+	    if (!this.getStatePaths) {
+	      return;
+	    }
+	
+	    if (!listener) {
+	      listener = true;
+	      this.context.controller.on('change', function () {
+	        callbacks.forEach(function (cb) {
+	          cb();
+	        });
+	      });
+	    }
+	    callbacks.push(this._update);
+	    this._update();
+	  },
+	  componentWillUnmount: function componentWillUnmount() {
+	    this._isUmounting = true;
+	    if (this.getStatePaths || this.getComputedPaths) {
+	      callbacks.splice(callbacks.indexOf(this._update), 1);
+	    }
+	  },
+	  shouldComponentUpdate: function shouldComponentUpdate(nextProps, nextState) {
+	    var propKeys = Object.keys(nextProps);
+	    var stateKeys = Object.keys(nextState);
+	
+	    // props
+	    for (var x = 0; x < propKeys.length; x++) {
+	      var key = propKeys[x];
+	      if (this.props[key] !== nextProps[key]) {
+	        return true;
+	      }
+	    }
+	
+	    // State
+	    for (var x = 0; x < stateKeys.length; x++) {
+	      var key = stateKeys[x];
+	      if (this.state[key] !== nextState[key]) {
+	        return true;
+	      }
+	    }
+	
+	    return false;
+	  },
+	  _update: function _update() {
+	    if (this._isUmounting) {
+	      return;
+	    }
+	    var statePaths = this.getStatePaths ? this.getStatePaths() : {};
+	    var computedPaths = this.getComputedPaths ? this.getComputedPaths() : {};
+	    var controller = this.context.controller;
+	    var newState = {};
+	
+	    newState = Object.keys(statePaths).reduce(function (newState, key) {
+	      if (!Array.isArray(statePaths[key])) {
+	        throw new Error('Cerebral-React - You have to pass an array as state path ' + statePaths[key] + ' is not valid');
+	      }
+	      var value = controller.get(statePaths[key]);
+	      if (value !== undefined) {
+	        newState[key] = value;
+	      }
+	      return newState;
+	    }, newState);
+	
+	    newState = Object.keys(computedPaths).reduce(function (newState, key) {
+	      if (!Array.isArray(computedPaths[key])) {
+	        throw new Error('Cerebral-React - You have to pass an array as a computed path ' + computedPaths[key] + ' is not valid');
+	      }
+	      newState[key] = controller.getComputedValue(computedPaths[key]);;
+	      return newState;
+	    }, newState);
+	
+	    this.setState(newState);
+	  }
+	};
+
+/***/ },
+/* 452 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(256);
+	var mixin = __webpack_require__(451);
+	var render = __webpack_require__(453);
+	
+	module.exports = function (paths, computedPaths) {
+	  return function (Component) {
+	    return React.createClass({
+	      displayName: Component.name + 'Container',
+	      mixins: [mixin],
+	      getStatePaths: function getStatePaths() {
+	        if (!paths) {
+	          return {};
+	        }
+	        return typeof paths === 'function' ? paths(this.props) : paths;
+	      },
+	      getComputedPaths: function getComputedPaths() {
+	        if (!computedPaths) {
+	          return {};
+	        }
+	        return typeof computedPaths === 'function' ? computedPaths(this.props) : computedPaths;
+	      },
+	      render: render(Component)
+	    });
+	  };
+	};
+
+/***/ },
+/* 453 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(256);
+	
+	module.exports = function (Component) {
+	  return function () {
+	    var state = this.state || {};
+	    var props = this.props || {};
+	
+	    var propsToPass = Object.keys(state).reduce(function (props, key) {
+	      props[key] = state[key];
+	      return props;
+	    }, {});
+	
+	    propsToPass = Object.keys(props).reduce(function (propsToPass, key) {
+	      propsToPass[key] = props[key];
+	      return propsToPass;
+	    }, propsToPass);
+	
+	    propsToPass.signals = this.signals;
+	    propsToPass.get = this.get;
+	
+	    return React.createElement(Component, propsToPass);
+	  };
+	};
+
+/***/ },
+/* 454 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(256);
+	var mixin = __webpack_require__(451);
+	var render = __webpack_require__(453);
+	
+	module.exports = function (Component, paths, computedPaths) {
+	  return React.createClass({
+	    displayName: Component.name + 'Container',
+	    mixins: [mixin],
+	    getStatePaths: function getStatePaths() {
+	      if (!paths) {
+	        return {};
+	      }
+	      return typeof paths === 'function' ? paths(this.props) : paths;
+	    },
+	    getComputedPaths: function getComputedPaths() {
+	      if (!computedPaths) {
+	        return {};
+	      }
+	      return typeof computedPaths === 'function' ? computedPaths(this.props) : computedPaths;
+	    },
+	    render: render(Component)
+	  });
+	};
+
+/***/ },
+/* 455 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(256);
+	
+	module.exports = React.createClass({
+	  displayName: 'CerebralContainer',
+	  childContextTypes: {
+	    controller: React.PropTypes.object.isRequired
+	  },
+	  componentWillMount: function componentWillMount() {
+	    this.props.controller.devtools.start();
+	  },
+	  getChildContext: function getChildContext() {
+	    return {
+	      controller: this.props.controller
+	    };
+	  },
+	  render: function render() {
+	    return this.props.app ? React.createElement(this.props.app) : this.props.children;
+	  }
+	});
+
+/***/ },
+/* 456 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(256);
+	var mixin = __webpack_require__(451);
+	var render = __webpack_require__(453);
+	
+	module.exports = function () {
+	
+	  var paths;
+	  var componentDefinition;
+	  var Component = null;
+	
+	  if (arguments.length === 2) {
+	    paths = arguments[0];
+	    componentDefinition = arguments[1];
+	  } else {
+	    paths = {};
+	    componentDefinition = arguments[0];
+	  }
+	
+	  if (typeof componentDefinition === 'function') {
+	    Component = componentDefinition;
+	  } else {
+	    Component = React.createClass(componentDefinition);
+	  }
+	
+	  return React.createClass({
+	    mixins: [mixin],
+	    getStatePaths: function getStatePaths() {
+	      if (!paths) {
+	        return {};
+	      }
+	      return typeof paths === 'function' ? paths(this.props) : paths;
+	    },
+	    render: render(Component)
+	  });
+	};
+
+/***/ },
+/* 457 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(256);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  render: function render() {
+	
+	    if (typeof this.props.signal !== 'function') {
+	      throw new Error('Cerebral React - You have to pass a signal to the LINK component');
+	    }
+	
+	    if (typeof this.props.signal.getUrl !== 'function') {
+	      throw new Error('Cerebral React - The signal passed is not bound to a route');
+	    }
+	
+	    var passedProps = this.props;
+	    var props = Object.keys(passedProps).reduce(function (props, key) {
+	      props[key] = passedProps[key];
+	      return props;
+	    }, {});
+	
+	    props.href = this.props.signal.getUrl(this.props.params || {});
+	
+	    return React.DOM.a(props, this.props.children);
+	  }
+	});
+
+/***/ },
+/* 458 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(256);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _cerebralReact = __webpack_require__(450);
+	
+	// import the material-components
+	
+	var _lib = __webpack_require__(254);
+	
+	var _example = __webpack_require__(459);
+	
+	var _example2 = _interopRequireDefault(_example);
+	
+	var _faicon = __webpack_require__(465);
+	
+	var _faicon2 = _interopRequireDefault(_faicon);
+	
+	var _icon = __webpack_require__(466);
+	
+	var _icon2 = _interopRequireDefault(_icon);
+	
+	var _routeComponent = __webpack_require__(467);
+	
+	var _routeComponent2 = _interopRequireDefault(_routeComponent);
+	
+	var Application = (function (_Component) {
+	  _inherits(Application, _Component);
+	
+	  function Application() {
+	    _classCallCheck(this, _Application);
+	
+	    _get(Object.getPrototypeOf(_Application.prototype), 'constructor', this).apply(this, arguments);
+	
+	    this.state = {
+	      screen: {},
+	      sidenavOpen: false,
+	      showMoreMenu: false,
+	      email: '',
+	      password: '',
+	      selectOpen: false,
+	      selectSuccessOpen: false,
+	      selectErrorOpen: false,
+	      selected: null,
+	      largeSelectOpen: false,
+	      largeSelectedValue: 0,
+	      checked: false,
+	      showDialog: false,
+	      showSimpleMenu: false,
+	      showMenu: false,
+	      selectedOption: 1,
+	      isLoading: false,
+	      calendar: {
+	        year: 2015,
+	        month: 10
+	      },
+	      selectedDate: new Date(2015, 10, 20),
+	      showDatePicker: false,
+	      pickedDate: null,
+	      pickingDate: null,
+	      pickedCalendar: {
+	        year: 2015,
+	        month: 10
+	      }
+	    };
+	  }
+	
+	  _createClass(Application, [{
+	    key: 'getChildContext',
+	    value: function getChildContext() {
+	      return {
+	        componentStyle: {
+	          primaryColor: '#FFC107',
+	          primaryFontColor: 'rgba(0, 0, 0, 0.7)',
+	          secondaryColor: '#009688',
+	          secondaryFontColor: 'rgba(255, 255, 255, 0.9)',
+	          errorColor: '#C00',
+	          successColor: '#090',
+	          typographyColor: '#212121'
+	        }
+	      };
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props;
+	      var currentPage = _props.currentPage;
+	      var signals = _props.signals;
+	      var sidenavOpen = _props.sidenavOpen;
+	      var showMoreMenu = _props.showMoreMenu;
+	      var title = _props.title;
+	
+	      var RouteComponent = (0, _routeComponent2['default'])(currentPage);
+	
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(
+	          _lib.Sidenav,
+	          { isOpen: sidenavOpen, onDone: function () {
+	              return signals.sidenavClosed();
+	            } },
+	          _react2['default'].createElement(
+	            _lib.Sidenav.Title,
+	            { showCloseButton: true },
+	            'Material Components'
+	          ),
+	          [{ icon: 'directions', page: 'introduction', title: 'Introduction', signal: signals.introductionPageOpened }, { icon: 'tune', page: 'gettingStarted', title: 'Getting Started', signal: signals.gettingStartedPageOpened }, { seperator: true }, { icon: 'layers', page: 'paper', title: 'Paper', signal: signals.paperPageOpened }, { icon: 'format_size', page: 'typography', title: 'Typography', signal: signals.typographyPageOpened }, { icon: 'border_top', page: 'appbar', title: 'Appbar', signal: signals.appbarPageOpened }, { icon: 'menu', page: 'sidenav', title: 'Sidenav', signal: signals.sidenavPageOpened }, { icon: 'content_paste', page: 'form', title: 'Form', signal: signals.formPageOpened }, { icon: 'crop_7_5', page: 'button', title: 'Button', signal: signals.buttonPageOpened }, { icon: 'edit', page: 'input', title: 'Input', signal: signals.inputPageOpened }, { icon: 'arrow_drop_down', page: 'select', title: 'Select', signal: signals.selectPageOpened }, { icon: 'check_box', page: 'checkbox', title: 'Checkbox', signal: signals.checkboxPageOpened }, { icon: 'view_compact', page: 'gridSystem', title: 'Grid System', signal: signals.gridSystemPageOpened }, { icon: 'more_vert', page: 'menu', title: 'Menu', signal: signals.menuPageOpened }, { icon: 'picture_in_picture', page: 'dialog', title: 'Dialog', signal: signals.dialogPageOpened }, { icon: 'event_available', page: 'datePicker', title: 'Date Picker', signal: signals.datePickerPageOpened }, { icon: 'reorder', page: 'table', title: 'Table', signal: signals.tablePageOpened }, { icon: 'sync', page: 'spinner', title: 'Spinner', signal: signals.spinnerPageOpened }, { icon: 'event', page: 'calendar', title: 'Calendar', signal: signals.calendarPageOpened }, { seperator: true }, { icon: 'devices', page: 'responsiveEvents', title: 'Responsive Events', signal: signals.responsiveEventsPageOpened }].map(function (menu, i) {
+	            return menu.seperator ? _react2['default'].createElement(_lib.Sidenav.Seperator, { key: i }) : _react2['default'].createElement(
+	              _lib.Sidenav.Item,
+	              {
+	                key: i,
+	                showIcon: true,
+	                icon: _react2['default'].createElement(_icon2['default'], { name: menu.icon }),
+	                selected: menu.page === currentPage,
+	                onTouchTap: function () {
+	                  return menu.signal();
+	                } },
+	              menu.title
+	            );
+	          })
+	        ),
+	        _react2['default'].createElement(
+	          _lib.Appbar,
+	          { fixed: true },
+	          _react2['default'].createElement(
+	            _lib.Appbar.Button,
+	            { style: { float: 'left' }, onTouchTap: function () {
+	                return signals.sidenavOpened();
+	              } },
+	            _react2['default'].createElement(_icon2['default'], { name: 'menu' })
+	          ),
+	          _react2['default'].createElement(
+	            _lib.Appbar.Title,
+	            null,
+	            title
+	          ),
+	          _react2['default'].createElement(
+	            'div',
+	            { style: { float: 'right' } },
+	            _react2['default'].createElement(
+	              _lib.Appbar.Button,
+	              {
+	                onTouchTap: function () {
+	                  return location.href = 'https://github.com/garth/material-components';
+	                } },
+	              _react2['default'].createElement(_faicon2['default'], { name: 'github' })
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Appbar.Button,
+	              { onTouchTap: function () {
+	                  return signals.moreMenuOpened();
+	                } },
+	              _react2['default'].createElement(_icon2['default'], { name: 'more_vert' })
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Menu,
+	              { rightAlign: true, isOpen: showMoreMenu, onDone: function () {
+	                  return signals.moreMenuClosed();
+	                } },
+	              _react2['default'].createElement(
+	                _lib.Menu.Item,
+	                null,
+	                'Option A'
+	              ),
+	              _react2['default'].createElement(
+	                _lib.Menu.Item,
+	                null,
+	                'Option B'
+	              )
+	            )
+	          )
+	        ),
+	        _react2['default'].createElement(
+	          'div',
+	          { style: { padding: '24px', maxWidth: '950px' } },
+	          _react2['default'].createElement(RouteComponent, null)
+	        )
+	      );
+	    }
+	  }], [{
+	    key: 'displayName',
+	    value: 'Application',
+	    enumerable: true
+	  }, {
+	    key: 'childContextTypes',
+	    value: {
+	      componentStyle: _react.PropTypes.object
+	    },
+	    enumerable: true
+	  }, {
+	    key: 'propTypes',
+	    value: {
+	      signals: _react.PropTypes.object,
+	      screen: _react.PropTypes.object,
+	      sidenavOpen: _react.PropTypes.bool,
+	      showMoreMenu: _react.PropTypes.bool,
+	      currentPage: _react.PropTypes.string,
+	      title: _react.PropTypes.string
+	    },
+	    enumerable: true
+	  }]);
+	
+	  var _Application = Application;
+	  Application = (0, _cerebralReact.Decorator)({
+	    screen: ['screen'],
+	    sidenavOpen: ['sidenavOpen'],
+	    showMoreMenu: ['showMoreMenu'],
+	    currentPage: ['route', 'page'],
+	    title: ['route', 'title']
+	  })(Application) || Application;
+	  return Application;
+	})(_react.Component);
+	
+	exports['default'] = Application;
+	module.exports = exports['default'];
+
+/***/ },
+/* 459 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(256);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(395);
+	
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+	
+	__webpack_require__(460);
+	
+	__webpack_require__(464);
+	
+	var Example = (function (_Component) {
+	  _inherits(Example, _Component);
+	
+	  function Example() {
+	    _classCallCheck(this, Example);
+	
+	    _get(Object.getPrototypeOf(Example.prototype), 'constructor', this).apply(this, arguments);
+	  }
+	
+	  _createClass(Example, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      window.Prism.highlightElement(_reactDom2['default'].findDOMNode(this.refs.code), false);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var code = this.props.code;
+	
+	      return _react2['default'].createElement(
+	        'pre',
+	        null,
+	        _react2['default'].createElement(
+	          'code',
+	          { ref: 'code', className: 'language-jsx' },
+	          code.trim()
+	        )
+	      );
+	    }
+	  }], [{
+	    key: 'displayName',
+	    value: 'Example',
+	    enumerable: true
+	  }, {
+	    key: 'propTypes',
+	    value: {
+	      code: _react.PropTypes.string
+	    },
+	    enumerable: true
+	  }]);
+	
+	  return Example;
+	})(_react.Component);
+	
+	exports['default'] = Example;
+	module.exports = exports['default'];
+
+/***/ },
+/* 460 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(450);
+	var content = __webpack_require__(461);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(452)(content, {});
+	var update = __webpack_require__(463)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../css-loader/index.js!./normalize.css", function() {
-				var newContent = require("!!./../css-loader/index.js!./normalize.css");
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./prism.css", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./prism.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -42459,21 +41611,21 @@
 	}
 
 /***/ },
-/* 450 */
+/* 461 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(451)();
+	exports = module.exports = __webpack_require__(462)();
 	// imports
 	
 	
 	// module
-	exports.push([module.id, "/*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */\n\n/**\n * 1. Set default font family to sans-serif.\n * 2. Prevent iOS and IE text size adjust after device orientation change,\n *    without disabling user zoom.\n */\n\nhtml {\n  font-family: sans-serif; /* 1 */\n  -ms-text-size-adjust: 100%; /* 2 */\n  -webkit-text-size-adjust: 100%; /* 2 */\n}\n\n/**\n * Remove default margin.\n */\n\nbody {\n  margin: 0;\n}\n\n/* HTML5 display definitions\n   ========================================================================== */\n\n/**\n * Correct `block` display not defined for any HTML5 element in IE 8/9.\n * Correct `block` display not defined for `details` or `summary` in IE 10/11\n * and Firefox.\n * Correct `block` display not defined for `main` in IE 11.\n */\n\narticle,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nhgroup,\nmain,\nmenu,\nnav,\nsection,\nsummary {\n  display: block;\n}\n\n/**\n * 1. Correct `inline-block` display not defined in IE 8/9.\n * 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.\n */\n\naudio,\ncanvas,\nprogress,\nvideo {\n  display: inline-block; /* 1 */\n  vertical-align: baseline; /* 2 */\n}\n\n/**\n * Prevent modern browsers from displaying `audio` without controls.\n * Remove excess height in iOS 5 devices.\n */\n\naudio:not([controls]) {\n  display: none;\n  height: 0;\n}\n\n/**\n * Address `[hidden]` styling not present in IE 8/9/10.\n * Hide the `template` element in IE 8/9/10/11, Safari, and Firefox < 22.\n */\n\n[hidden],\ntemplate {\n  display: none;\n}\n\n/* Links\n   ========================================================================== */\n\n/**\n * Remove the gray background color from active links in IE 10.\n */\n\na {\n  background-color: transparent;\n}\n\n/**\n * Improve readability of focused elements when they are also in an\n * active/hover state.\n */\n\na:active,\na:hover {\n  outline: 0;\n}\n\n/* Text-level semantics\n   ========================================================================== */\n\n/**\n * Address styling not present in IE 8/9/10/11, Safari, and Chrome.\n */\n\nabbr[title] {\n  border-bottom: 1px dotted;\n}\n\n/**\n * Address style set to `bolder` in Firefox 4+, Safari, and Chrome.\n */\n\nb,\nstrong {\n  font-weight: bold;\n}\n\n/**\n * Address styling not present in Safari and Chrome.\n */\n\ndfn {\n  font-style: italic;\n}\n\n/**\n * Address variable `h1` font-size and margin within `section` and `article`\n * contexts in Firefox 4+, Safari, and Chrome.\n */\n\nh1 {\n  font-size: 2em;\n  margin: 0.67em 0;\n}\n\n/**\n * Address styling not present in IE 8/9.\n */\n\nmark {\n  background: #ff0;\n  color: #000;\n}\n\n/**\n * Address inconsistent and variable font size in all browsers.\n */\n\nsmall {\n  font-size: 80%;\n}\n\n/**\n * Prevent `sub` and `sup` affecting `line-height` in all browsers.\n */\n\nsub,\nsup {\n  font-size: 75%;\n  line-height: 0;\n  position: relative;\n  vertical-align: baseline;\n}\n\nsup {\n  top: -0.5em;\n}\n\nsub {\n  bottom: -0.25em;\n}\n\n/* Embedded content\n   ========================================================================== */\n\n/**\n * Remove border when inside `a` element in IE 8/9/10.\n */\n\nimg {\n  border: 0;\n}\n\n/**\n * Correct overflow not hidden in IE 9/10/11.\n */\n\nsvg:not(:root) {\n  overflow: hidden;\n}\n\n/* Grouping content\n   ========================================================================== */\n\n/**\n * Address margin not present in IE 8/9 and Safari.\n */\n\nfigure {\n  margin: 1em 40px;\n}\n\n/**\n * Address differences between Firefox and other browsers.\n */\n\nhr {\n  box-sizing: content-box;\n  height: 0;\n}\n\n/**\n * Contain overflow in all browsers.\n */\n\npre {\n  overflow: auto;\n}\n\n/**\n * Address odd `em`-unit font size rendering in all browsers.\n */\n\ncode,\nkbd,\npre,\nsamp {\n  font-family: monospace, monospace;\n  font-size: 1em;\n}\n\n/* Forms\n   ========================================================================== */\n\n/**\n * Known limitation: by default, Chrome and Safari on OS X allow very limited\n * styling of `select`, unless a `border` property is set.\n */\n\n/**\n * 1. Correct color not being inherited.\n *    Known issue: affects color of disabled elements.\n * 2. Correct font properties not being inherited.\n * 3. Address margins set differently in Firefox 4+, Safari, and Chrome.\n */\n\nbutton,\ninput,\noptgroup,\nselect,\ntextarea {\n  color: inherit; /* 1 */\n  font: inherit; /* 2 */\n  margin: 0; /* 3 */\n}\n\n/**\n * Address `overflow` set to `hidden` in IE 8/9/10/11.\n */\n\nbutton {\n  overflow: visible;\n}\n\n/**\n * Address inconsistent `text-transform` inheritance for `button` and `select`.\n * All other form control elements do not inherit `text-transform` values.\n * Correct `button` style inheritance in Firefox, IE 8/9/10/11, and Opera.\n * Correct `select` style inheritance in Firefox.\n */\n\nbutton,\nselect {\n  text-transform: none;\n}\n\n/**\n * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`\n *    and `video` controls.\n * 2. Correct inability to style clickable `input` types in iOS.\n * 3. Improve usability and consistency of cursor style between image-type\n *    `input` and others.\n */\n\nbutton,\nhtml input[type=\"button\"], /* 1 */\ninput[type=\"reset\"],\ninput[type=\"submit\"] {\n  -webkit-appearance: button; /* 2 */\n  cursor: pointer; /* 3 */\n}\n\n/**\n * Re-set default cursor for disabled elements.\n */\n\nbutton[disabled],\nhtml input[disabled] {\n  cursor: default;\n}\n\n/**\n * Remove inner padding and border in Firefox 4+.\n */\n\nbutton::-moz-focus-inner,\ninput::-moz-focus-inner {\n  border: 0;\n  padding: 0;\n}\n\n/**\n * Address Firefox 4+ setting `line-height` on `input` using `!important` in\n * the UA stylesheet.\n */\n\ninput {\n  line-height: normal;\n}\n\n/**\n * It's recommended that you don't attempt to style these elements.\n * Firefox's implementation doesn't respect box-sizing, padding, or width.\n *\n * 1. Address box sizing set to `content-box` in IE 8/9/10.\n * 2. Remove excess padding in IE 8/9/10.\n */\n\ninput[type=\"checkbox\"],\ninput[type=\"radio\"] {\n  box-sizing: border-box; /* 1 */\n  padding: 0; /* 2 */\n}\n\n/**\n * Fix the cursor style for Chrome's increment/decrement buttons. For certain\n * `font-size` values of the `input`, it causes the cursor style of the\n * decrement button to change from `default` to `text`.\n */\n\ninput[type=\"number\"]::-webkit-inner-spin-button,\ninput[type=\"number\"]::-webkit-outer-spin-button {\n  height: auto;\n}\n\n/**\n * 1. Address `appearance` set to `searchfield` in Safari and Chrome.\n * 2. Address `box-sizing` set to `border-box` in Safari and Chrome.\n */\n\ninput[type=\"search\"] {\n  -webkit-appearance: textfield; /* 1 */\n  box-sizing: content-box; /* 2 */\n}\n\n/**\n * Remove inner padding and search cancel button in Safari and Chrome on OS X.\n * Safari (but not Chrome) clips the cancel button when the search input has\n * padding (and `textfield` appearance).\n */\n\ninput[type=\"search\"]::-webkit-search-cancel-button,\ninput[type=\"search\"]::-webkit-search-decoration {\n  -webkit-appearance: none;\n}\n\n/**\n * Define consistent border, margin, and padding.\n */\n\nfieldset {\n  border: 1px solid #c0c0c0;\n  margin: 0 2px;\n  padding: 0.35em 0.625em 0.75em;\n}\n\n/**\n * 1. Correct `color` not being inherited in IE 8/9/10/11.\n * 2. Remove padding so people aren't caught out if they zero out fieldsets.\n */\n\nlegend {\n  border: 0; /* 1 */\n  padding: 0; /* 2 */\n}\n\n/**\n * Remove default vertical scrollbar in IE 8/9/10/11.\n */\n\ntextarea {\n  overflow: auto;\n}\n\n/**\n * Don't inherit the `font-weight` (applied by a rule above).\n * NOTE: the default cannot safely be changed in Chrome and Safari on OS X.\n */\n\noptgroup {\n  font-weight: bold;\n}\n\n/* Tables\n   ========================================================================== */\n\n/**\n * Remove most spacing between table cells.\n */\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\n\ntd,\nth {\n  padding: 0;\n}\n", ""]);
+	exports.push([module.id, "/* http://prismjs.com/download.html?themes=prism-okaidia&languages=markup+clike+javascript+jsx */\n/**\n * okaidia theme for JavaScript, CSS and HTML\n * Loosely based on Monokai textmate theme by http://www.monokai.nl/\n * @author ocodia\n */\n\ncode[class*=\"language-\"],\npre[class*=\"language-\"] {\n\tcolor: #f8f8f2;\n\ttext-shadow: 0 1px rgba(0, 0, 0, 0.3);\n\tfont-family: 'Ubuntu Mono', monospace;\n  font-size: 16px;\n\tdirection: ltr;\n\ttext-align: left;\n\twhite-space: pre;\n\tword-spacing: normal;\n\tword-break: normal;\n\tword-wrap: normal;\n\tline-height: 1.3;\n\n\t-moz-tab-size: 4;\n\t-o-tab-size: 4;\n\ttab-size: 4;\n\n\t-webkit-hyphens: none;\n\t-moz-hyphens: none;\n\t-ms-hyphens: none;\n\thyphens: none;\n}\n\n/* Code blocks */\npre[class*=\"language-\"] {\n\tpadding: 1em;\n\tmargin: .5em 0;\n\toverflow: auto;\n\tborder-radius: 0.3em;\n}\n\n:not(pre) > code[class*=\"language-\"],\npre[class*=\"language-\"] {\n\tbackground: #000;\n}\n\n/* Inline code */\n:not(pre) > code[class*=\"language-\"] {\n\tpadding: .1em;\n\tborder-radius: .3em;\n\twhite-space: normal;\n}\n\n.token.comment,\n.token.prolog,\n.token.doctype,\n.token.cdata {\n\tcolor: slategray;\n}\n\n.token.punctuation {\n\tcolor: #f8f8f2;\n}\n\n.namespace {\n\topacity: .7;\n}\n\n.token.property,\n.token.tag,\n.token.constant,\n.token.symbol,\n.token.deleted {\n\tcolor: #f92672;\n}\n\n.token.boolean,\n.token.number {\n\tcolor: #ae81ff;\n}\n\n.token.selector,\n.token.attr-name,\n.token.string,\n.token.char,\n.token.builtin,\n.token.inserted {\n\tcolor: #a6e22e;\n}\n\n.token.operator,\n.token.entity,\n.token.url,\n.language-css .token.string,\n.style .token.string,\n.token.variable {\n\tcolor: #f8f8f2;\n}\n\n.token.atrule,\n.token.attr-value,\n.token.function {\n\tcolor: #e6db74;\n}\n\n.token.keyword {\n\tcolor: #66d9ef;\n}\n\n.token.regex,\n.token.important {\n\tcolor: #fd971f;\n}\n\n.token.important,\n.token.bold {\n\tfont-weight: bold;\n}\n.token.italic {\n\tfont-style: italic;\n}\n\n.token.entity {\n\tcursor: help;\n}\n", ""]);
 	
 	// exports
 
 
 /***/ },
-/* 451 */
+/* 462 */
 /***/ function(module, exports) {
 
 	/*
@@ -42528,7 +41680,7 @@
 	};
 
 /***/ },
-/* 452 */
+/* 463 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -42782,16 +41934,3309 @@
 
 
 /***/ },
-/* 453 */
+/* 464 */
+/***/ function(module, exports) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {/* http://prismjs.com/download.html?themes=prism-okaidia&languages=markup+clike+javascript+jsx */
+	'use strict';
+	
+	var _self = typeof window !== 'undefined' ? window // if in browser
+	: typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope ? self // if in worker
+	: {} // if in node js
+	;
+	
+	/**
+	 * Prism: Lightweight, robust, elegant syntax highlighting
+	 * MIT license http://www.opensource.org/licenses/mit-license.php/
+	 * @author Lea Verou http://lea.verou.me
+	 */
+	
+	var Prism = (function () {
+	
+		// Private helper vars
+		var lang = /\blang(?:uage)?-(?!\*)(\w+)\b/i;
+	
+		var _ = _self.Prism = {
+			util: {
+				encode: function encode(tokens) {
+					if (tokens instanceof Token) {
+						return new Token(tokens.type, _.util.encode(tokens.content), tokens.alias);
+					} else if (_.util.type(tokens) === 'Array') {
+						return tokens.map(_.util.encode);
+					} else {
+						return tokens.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/\u00a0/g, ' ');
+					}
+				},
+	
+				type: function type(o) {
+					return Object.prototype.toString.call(o).match(/\[object (\w+)\]/)[1];
+				},
+	
+				// Deep clone a language definition (e.g. to extend it)
+				clone: function clone(o) {
+					var type = _.util.type(o);
+	
+					switch (type) {
+						case 'Object':
+							var clone = {};
+	
+							for (var key in o) {
+								if (o.hasOwnProperty(key)) {
+									clone[key] = _.util.clone(o[key]);
+								}
+							}
+	
+							return clone;
+	
+						case 'Array':
+							// Check for existence for IE8
+							return o.map && o.map(function (v) {
+								return _.util.clone(v);
+							});
+					}
+	
+					return o;
+				}
+			},
+	
+			languages: {
+				extend: function extend(id, redef) {
+					var lang = _.util.clone(_.languages[id]);
+	
+					for (var key in redef) {
+						lang[key] = redef[key];
+					}
+	
+					return lang;
+				},
+	
+				/**
+	    * Insert a token before another token in a language literal
+	    * As this needs to recreate the object (we cannot actually insert before keys in object literals),
+	    * we cannot just provide an object, we need anobject and a key.
+	    * @param inside The key (or language id) of the parent
+	    * @param before The key to insert before. If not provided, the function appends instead.
+	    * @param insert Object with the key/value pairs to insert
+	    * @param root The object that contains `inside`. If equal to Prism.languages, it can be omitted.
+	    */
+				insertBefore: function insertBefore(inside, before, insert, root) {
+					root = root || _.languages;
+					var grammar = root[inside];
+	
+					if (arguments.length == 2) {
+						insert = arguments[1];
+	
+						for (var newToken in insert) {
+							if (insert.hasOwnProperty(newToken)) {
+								grammar[newToken] = insert[newToken];
+							}
+						}
+	
+						return grammar;
+					}
+	
+					var ret = {};
+	
+					for (var token in grammar) {
+	
+						if (grammar.hasOwnProperty(token)) {
+	
+							if (token == before) {
+	
+								for (var newToken in insert) {
+	
+									if (insert.hasOwnProperty(newToken)) {
+										ret[newToken] = insert[newToken];
+									}
+								}
+							}
+	
+							ret[token] = grammar[token];
+						}
+					}
+	
+					// Update references in other language definitions
+					_.languages.DFS(_.languages, function (key, value) {
+						if (value === root[inside] && key != inside) {
+							this[key] = ret;
+						}
+					});
+	
+					return root[inside] = ret;
+				},
+	
+				// Traverse a language definition with Depth First Search
+				DFS: function DFS(o, callback, type) {
+					for (var i in o) {
+						if (o.hasOwnProperty(i)) {
+							callback.call(o, i, o[i], type || i);
+	
+							if (_.util.type(o[i]) === 'Object') {
+								_.languages.DFS(o[i], callback);
+							} else if (_.util.type(o[i]) === 'Array') {
+								_.languages.DFS(o[i], callback, i);
+							}
+						}
+					}
+				}
+			},
+			plugins: {},
+	
+			highlightAll: function highlightAll(async, callback) {
+				var elements = document.querySelectorAll('code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code');
+	
+				for (var i = 0, element; element = elements[i++];) {
+					_.highlightElement(element, async === true, callback);
+				}
+			},
+	
+			highlightElement: function highlightElement(element, async, callback) {
+				// Find language
+				var language,
+				    grammar,
+				    parent = element;
+	
+				while (parent && !lang.test(parent.className)) {
+					parent = parent.parentNode;
+				}
+	
+				if (parent) {
+					language = (parent.className.match(lang) || [, ''])[1];
+					grammar = _.languages[language];
+				}
+	
+				// Set language on the element, if not present
+				element.className = element.className.replace(lang, '').replace(/\s+/g, ' ') + ' language-' + language;
+	
+				// Set language on the parent, for styling
+				parent = element.parentNode;
+	
+				if (/pre/i.test(parent.nodeName)) {
+					parent.className = parent.className.replace(lang, '').replace(/\s+/g, ' ') + ' language-' + language;
+				}
+	
+				var code = element.textContent;
+	
+				var env = {
+					element: element,
+					language: language,
+					grammar: grammar,
+					code: code
+				};
+	
+				if (!code || !grammar) {
+					_.hooks.run('complete', env);
+					return;
+				}
+	
+				_.hooks.run('before-highlight', env);
+	
+				if (async && _self.Worker) {
+					var worker = new Worker(_.filename);
+	
+					worker.onmessage = function (evt) {
+						env.highlightedCode = evt.data;
+	
+						_.hooks.run('before-insert', env);
+	
+						env.element.innerHTML = env.highlightedCode;
+	
+						callback && callback.call(env.element);
+						_.hooks.run('after-highlight', env);
+						_.hooks.run('complete', env);
+					};
+	
+					worker.postMessage(JSON.stringify({
+						language: env.language,
+						code: env.code,
+						immediateClose: true
+					}));
+				} else {
+					env.highlightedCode = _.highlight(env.code, env.grammar, env.language);
+	
+					_.hooks.run('before-insert', env);
+	
+					env.element.innerHTML = env.highlightedCode;
+	
+					callback && callback.call(element);
+	
+					_.hooks.run('after-highlight', env);
+					_.hooks.run('complete', env);
+				}
+			},
+	
+			highlight: function highlight(text, grammar, language) {
+				var tokens = _.tokenize(text, grammar);
+				return Token.stringify(_.util.encode(tokens), language);
+			},
+	
+			tokenize: function tokenize(text, grammar, language) {
+				var Token = _.Token;
+	
+				var strarr = [text];
+	
+				var rest = grammar.rest;
+	
+				if (rest) {
+					for (var token in rest) {
+						grammar[token] = rest[token];
+					}
+	
+					delete grammar.rest;
+				}
+	
+				tokenloop: for (var token in grammar) {
+					if (!grammar.hasOwnProperty(token) || !grammar[token]) {
+						continue;
+					}
+	
+					var patterns = grammar[token];
+					patterns = _.util.type(patterns) === "Array" ? patterns : [patterns];
+	
+					for (var j = 0; j < patterns.length; ++j) {
+						var pattern = patterns[j],
+						    inside = pattern.inside,
+						    lookbehind = !!pattern.lookbehind,
+						    lookbehindLength = 0,
+						    alias = pattern.alias;
+	
+						pattern = pattern.pattern || pattern;
+	
+						for (var i = 0; i < strarr.length; i++) {
+							// Don’t cache length as it changes during the loop
+	
+							var str = strarr[i];
+	
+							if (strarr.length > text.length) {
+								// Something went terribly wrong, ABORT, ABORT!
+								break tokenloop;
+							}
+	
+							if (str instanceof Token) {
+								continue;
+							}
+	
+							pattern.lastIndex = 0;
+	
+							var match = pattern.exec(str);
+	
+							if (match) {
+								if (lookbehind) {
+									lookbehindLength = match[1].length;
+								}
+	
+								var from = match.index - 1 + lookbehindLength,
+								    match = match[0].slice(lookbehindLength),
+								    len = match.length,
+								    to = from + len,
+								    before = str.slice(0, from + 1),
+								    after = str.slice(to + 1);
+	
+								var args = [i, 1];
+	
+								if (before) {
+									args.push(before);
+								}
+	
+								var wrapped = new Token(token, inside ? _.tokenize(match, inside) : match, alias);
+	
+								args.push(wrapped);
+	
+								if (after) {
+									args.push(after);
+								}
+	
+								Array.prototype.splice.apply(strarr, args);
+							}
+						}
+					}
+				}
+	
+				return strarr;
+			},
+	
+			hooks: {
+				all: {},
+	
+				add: function add(name, callback) {
+					var hooks = _.hooks.all;
+	
+					hooks[name] = hooks[name] || [];
+	
+					hooks[name].push(callback);
+				},
+	
+				run: function run(name, env) {
+					var callbacks = _.hooks.all[name];
+	
+					if (!callbacks || !callbacks.length) {
+						return;
+					}
+	
+					for (var i = 0, callback; callback = callbacks[i++];) {
+						callback(env);
+					}
+				}
+			}
+		};
+	
+		var Token = _.Token = function (type, content, alias) {
+			this.type = type;
+			this.content = content;
+			this.alias = alias;
+		};
+	
+		Token.stringify = function (o, language, parent) {
+			if (typeof o == 'string') {
+				return o;
+			}
+	
+			if (_.util.type(o) === 'Array') {
+				return o.map(function (element) {
+					return Token.stringify(element, language, o);
+				}).join('');
+			}
+	
+			var env = {
+				type: o.type,
+				content: Token.stringify(o.content, language, parent),
+				tag: 'span',
+				classes: ['token', o.type],
+				attributes: {},
+				language: language,
+				parent: parent
+			};
+	
+			if (env.type == 'comment') {
+				env.attributes['spellcheck'] = 'true';
+			}
+	
+			if (o.alias) {
+				var aliases = _.util.type(o.alias) === 'Array' ? o.alias : [o.alias];
+				Array.prototype.push.apply(env.classes, aliases);
+			}
+	
+			_.hooks.run('wrap', env);
+	
+			var attributes = '';
+	
+			for (var name in env.attributes) {
+				attributes += (attributes ? ' ' : '') + name + '="' + (env.attributes[name] || '') + '"';
+			}
+	
+			return '<' + env.tag + ' class="' + env.classes.join(' ') + '" ' + attributes + '>' + env.content + '</' + env.tag + '>';
+		};
+	
+		if (!_self.document) {
+			if (!_self.addEventListener) {
+				// in Node.js
+				return _self.Prism;
+			}
+			// In worker
+			_self.addEventListener('message', function (evt) {
+				var message = JSON.parse(evt.data),
+				    lang = message.language,
+				    code = message.code,
+				    immediateClose = message.immediateClose;
+	
+				_self.postMessage(_.highlight(code, _.languages[lang], lang));
+				if (immediateClose) {
+					_self.close();
+				}
+			}, false);
+	
+			return _self.Prism;
+		}
+	
+		// Get current script and highlight
+		var script = document.getElementsByTagName('script');
+	
+		script = script[script.length - 1];
+	
+		if (script) {
+			_.filename = script.src;
+	
+			if (document.addEventListener && !script.hasAttribute('data-manual')) {
+				document.addEventListener('DOMContentLoaded', _.highlightAll);
+			}
+		}
+	
+		return _self.Prism;
+	})();
+	
+	if (typeof module !== 'undefined' && module.exports) {
+		module.exports = Prism;
+	}
+	
+	// hack for components to work correctly in node.js
+	if (typeof global !== 'undefined') {
+		global.Prism = Prism;
+	}
+	;
+	Prism.languages.markup = {
+		'comment': /<!--[\w\W]*?-->/,
+		'prolog': /<\?[\w\W]+?\?>/,
+		'doctype': /<!DOCTYPE[\w\W]+?>/,
+		'cdata': /<!\[CDATA\[[\w\W]*?]]>/i,
+		'tag': {
+			pattern: /<\/?(?!\d)[^\s>\/=.$<]+(?:\s+[^\s>\/=]+(?:=(?:("|')(?:\\\1|\\?(?!\1)[\w\W])*\1|[^\s'">=]+))?)*\s*\/?>/i,
+			inside: {
+				'tag': {
+					pattern: /^<\/?[^\s>\/]+/i,
+					inside: {
+						'punctuation': /^<\/?/,
+						'namespace': /^[^\s>\/:]+:/
+					}
+				},
+				'attr-value': {
+					pattern: /=(?:('|")[\w\W]*?(\1)|[^\s>]+)/i,
+					inside: {
+						'punctuation': /[=>"']/
+					}
+				},
+				'punctuation': /\/?>/,
+				'attr-name': {
+					pattern: /[^\s>\/]+/,
+					inside: {
+						'namespace': /^[^\s>\/:]+:/
+					}
+				}
+	
+			}
+		},
+		'entity': /&#?[\da-z]{1,8};/i
+	};
+	
+	// Plugin to make entity title show the real entity, idea by Roman Komarov
+	Prism.hooks.add('wrap', function (env) {
+	
+		if (env.type === 'entity') {
+			env.attributes['title'] = env.content.replace(/&amp;/, '&');
+		}
+	});
+	
+	Prism.languages.xml = Prism.languages.markup;
+	Prism.languages.html = Prism.languages.markup;
+	Prism.languages.mathml = Prism.languages.markup;
+	Prism.languages.svg = Prism.languages.markup;
+	
+	Prism.languages.clike = {
+		'comment': [{
+			pattern: /(^|[^\\])\/\*[\w\W]*?\*\//,
+			lookbehind: true
+		}, {
+			pattern: /(^|[^\\:])\/\/.*/,
+			lookbehind: true
+		}],
+		'string': /(["'])(\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,
+		'class-name': {
+			pattern: /((?:\b(?:class|interface|extends|implements|trait|instanceof|new)\s+)|(?:catch\s+\())[a-z0-9_\.\\]+/i,
+			lookbehind: true,
+			inside: {
+				punctuation: /(\.|\\)/
+			}
+		},
+		'keyword': /\b(if|else|while|do|for|return|in|instanceof|function|new|try|throw|catch|finally|null|break|continue)\b/,
+		'boolean': /\b(true|false)\b/,
+		'function': /[a-z0-9_]+(?=\()/i,
+		'number': /\b-?(?:0x[\da-f]+|\d*\.?\d+(?:e[+-]?\d+)?)\b/i,
+		'operator': /--?|\+\+?|!=?=?|<=?|>=?|==?=?|&&?|\|\|?|\?|\*|\/|~|\^|%/,
+		'punctuation': /[{}[\];(),.:]/
+	};
+	
+	Prism.languages.javascript = Prism.languages.extend('clike', {
+		'keyword': /\b(as|async|await|break|case|catch|class|const|continue|debugger|default|delete|do|else|enum|export|extends|finally|for|from|function|get|if|implements|import|in|instanceof|interface|let|new|null|of|package|private|protected|public|return|set|static|super|switch|this|throw|try|typeof|var|void|while|with|yield)\b/,
+		'number': /\b-?(0x[\dA-Fa-f]+|0b[01]+|0o[0-7]+|\d*\.?\d+([Ee][+-]?\d+)?|NaN|Infinity)\b/,
+		// Allow for all non-ASCII characters (See http://stackoverflow.com/a/2008444)
+		'function': /[_$a-zA-Z\xA0-\uFFFF][_$a-zA-Z0-9\xA0-\uFFFF]*(?=\()/i
+	});
+	
+	Prism.languages.insertBefore('javascript', 'keyword', {
+		'regex': {
+			pattern: /(^|[^/])\/(?!\/)(\[.+?]|\\.|[^/\\\r\n])+\/[gimyu]{0,5}(?=\s*($|[\r\n,.;})]))/,
+			lookbehind: true
+		}
+	});
+	
+	Prism.languages.insertBefore('javascript', 'class-name', {
+		'template-string': {
+			pattern: /`(?:\\`|\\?[^`])*`/,
+			inside: {
+				'interpolation': {
+					pattern: /\$\{[^}]+\}/,
+					inside: {
+						'interpolation-punctuation': {
+							pattern: /^\$\{|\}$/,
+							alias: 'punctuation'
+						},
+						rest: Prism.languages.javascript
+					}
+				},
+				'string': /[\s\S]+/
+			}
+		}
+	});
+	
+	if (Prism.languages.markup) {
+		Prism.languages.insertBefore('markup', 'tag', {
+			'script': {
+				pattern: /(<script[\w\W]*?>)[\w\W]*?(?=<\/script>)/i,
+				lookbehind: true,
+				inside: Prism.languages.javascript,
+				alias: 'language-javascript'
+			}
+		});
+	}
+	
+	Prism.languages.js = Prism.languages.javascript;
+	(function (Prism) {
+	
+		var javascript = Prism.util.clone(Prism.languages.javascript);
+	
+		Prism.languages.jsx = Prism.languages.extend('markup', javascript);
+		Prism.languages.jsx.tag.pattern = /<\/?[\w:-]+\s*(?:\s+[\w:-]+(?:=(?:("|')(\\?[\w\W])*?\1|[^\s'">=]+|(\{[\w\W]*?\})))?\s*)*\/?>/i;
+	
+		Prism.languages.jsx.tag.inside['attr-value'].pattern = /=[^\{](?:('|")[\w\W]*?(\1)|[^\s>]+)/i;
+	
+		Prism.languages.insertBefore('inside', 'attr-value', {
+			'script': {
+				// Allow for one level of nesting
+				pattern: /=(\{(?:\{[^}]*\}|[^}])+\})/i,
+				inside: {
+					'function': Prism.languages.javascript['function'],
+					'punctuation': /[={}[\];(),.:]/,
+					'keyword': Prism.languages.javascript.keyword,
+					'boolean': Prism.languages.javascript.boolean
+				},
+				'alias': 'language-javascript'
+			}
+		}, Prism.languages.jsx.tag);
+	})(Prism);
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+/* 465 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	exports['default'] = FaIcon;
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _react = __webpack_require__(256);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function FaIcon(_ref) {
+	  var name = _ref.name;
+	
+	  return _react2['default'].createElement('i', { className: 'fa fa-' + name });
+	}
+	
+	module.exports = exports['default'];
+
+/***/ },
+/* 466 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	exports['default'] = Icon;
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _react = __webpack_require__(256);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function Icon(_ref) {
+	  var name = _ref.name;
+	
+	  return _react2['default'].createElement(
+	    'i',
+	    {
+	      className: 'material-icons md-36',
+	      style: {
+	        lineHeight: 'inherit'
+	      } },
+	    name
+	  );
+	}
+	
+	module.exports = exports['default'];
+
+/***/ },
+/* 467 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _gettingStarted = __webpack_require__(468);
+	
+	var _gettingStarted2 = _interopRequireDefault(_gettingStarted);
+	
+	var _introduction = __webpack_require__(469);
+	
+	var _introduction2 = _interopRequireDefault(_introduction);
+	
+	var _paper = __webpack_require__(470);
+	
+	var _paper2 = _interopRequireDefault(_paper);
+	
+	var _typography = __webpack_require__(471);
+	
+	var _typography2 = _interopRequireDefault(_typography);
+	
+	var _appbar = __webpack_require__(472);
+	
+	var _appbar2 = _interopRequireDefault(_appbar);
+	
+	var _sidenav = __webpack_require__(473);
+	
+	var _sidenav2 = _interopRequireDefault(_sidenav);
+	
+	var _form = __webpack_require__(474);
+	
+	var _form2 = _interopRequireDefault(_form);
+	
+	var _button = __webpack_require__(475);
+	
+	var _button2 = _interopRequireDefault(_button);
+	
+	var _input = __webpack_require__(476);
+	
+	var _input2 = _interopRequireDefault(_input);
+	
+	var _select = __webpack_require__(477);
+	
+	var _select2 = _interopRequireDefault(_select);
+	
+	var _checkbox = __webpack_require__(478);
+	
+	var _checkbox2 = _interopRequireDefault(_checkbox);
+	
+	var _gridSystem = __webpack_require__(479);
+	
+	var _gridSystem2 = _interopRequireDefault(_gridSystem);
+	
+	var _menu = __webpack_require__(480);
+	
+	var _menu2 = _interopRequireDefault(_menu);
+	
+	var _dialog = __webpack_require__(481);
+	
+	var _dialog2 = _interopRequireDefault(_dialog);
+	
+	var _datePicker = __webpack_require__(482);
+	
+	var _datePicker2 = _interopRequireDefault(_datePicker);
+	
+	var _table = __webpack_require__(483);
+	
+	var _table2 = _interopRequireDefault(_table);
+	
+	var _spinner = __webpack_require__(484);
+	
+	var _spinner2 = _interopRequireDefault(_spinner);
+	
+	var _calendar = __webpack_require__(485);
+	
+	var _calendar2 = _interopRequireDefault(_calendar);
+	
+	var _responsiveEvents = __webpack_require__(486);
+	
+	var _responsiveEvents2 = _interopRequireDefault(_responsiveEvents);
+	
+	var _notFound = __webpack_require__(487);
+	
+	var _notFound2 = _interopRequireDefault(_notFound);
+	
+	exports['default'] = function (page) {
+	  switch (page) {
+	    case 'introduction':
+	      return _introduction2['default'];
+	    case 'gettingStarted':
+	      return _gettingStarted2['default'];
+	    case 'paper':
+	      return _paper2['default'];
+	    case 'typography':
+	      return _typography2['default'];
+	    case 'appbar':
+	      return _appbar2['default'];
+	    case 'sidenav':
+	      return _sidenav2['default'];
+	    case 'form':
+	      return _form2['default'];
+	    case 'button':
+	      return _button2['default'];
+	    case 'input':
+	      return _input2['default'];
+	    case 'select':
+	      return _select2['default'];
+	    case 'checkbox':
+	      return _checkbox2['default'];
+	    case 'gridSystem':
+	      return _gridSystem2['default'];
+	    case 'menu':
+	      return _menu2['default'];
+	    case 'dialog':
+	      return _dialog2['default'];
+	    case 'datePicker':
+	      return _datePicker2['default'];
+	    case 'table':
+	      return _table2['default'];
+	    case 'spinner':
+	      return _spinner2['default'];
+	    case 'calendar':
+	      return _calendar2['default'];
+	    case 'responsiveEvents':
+	      return _responsiveEvents2['default'];
+	    default:
+	      return _notFound2['default'];
+	  }
+	};
+	
+	module.exports = exports['default'];
+
+/***/ },
+/* 468 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(256);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _example = __webpack_require__(459);
+	
+	var _example2 = _interopRequireDefault(_example);
+	
+	var GettingStarted = (function (_Component) {
+	  _inherits(GettingStarted, _Component);
+	
+	  function GettingStarted() {
+	    _classCallCheck(this, GettingStarted);
+	
+	    _get(Object.getPrototypeOf(GettingStarted.prototype), 'constructor', this).apply(this, arguments);
+	  }
+	
+	  _createClass(GettingStarted, [{
+	    key: 'render',
+	    value: function render() {
+	
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(
+	          'p',
+	          null,
+	          'material-components is dependent on the ',
+	          _react2['default'].createElement(
+	            'code',
+	            null,
+	            'react-tap-event-plugin'
+	          ),
+	          ', so be sure to add the following in your main.js:'
+	        ),
+	        _react2['default'].createElement(_example2['default'], { code: '\n// support tap events\nimport injectTapEventPlugin from \'react-tap-event-plugin\';\ninjectTapEventPlugin();\n        ' }),
+	        _react2['default'].createElement(
+	          'p',
+	          null,
+	          'Some styles and transitions are defined in css and must be included in your project. With webpack simply use the ',
+	          _react2['default'].createElement(
+	            'code',
+	            null,
+	            'css-loader'
+	          ),
+	          ' plugin and include the following line in your main.js:'
+	        ),
+	        _react2['default'].createElement(_example2['default'], { code: '\nrequire(\'material-components/lib/index.css\');\n        ' }),
+	        _react2['default'].createElement(
+	          'p',
+	          null,
+	          'In the root component you need to define the styles for material-components. These only need to be defined once and should then work wherever material-components are used in your app. For color choices please see ',
+	          _react2['default'].createElement(
+	            'a',
+	            { href: 'https://www.google.com/design/spec/style/color.html#color-color-palette' },
+	            'https://www.google.com/design/spec/style/color.html#color-color-palette'
+	          )
+	        ),
+	        _react2['default'].createElement(_example2['default'], { code: '\nimport React, { Component, PropTypes } from \'react\';\n\nexport default class Application extends Component {\n\n  static displayName = \'Application\';\n\n  static childContextTypes = {\n    componentStyle: React.PropTypes.object\n  };\n\n  getChildContext() {\n    return {\n      componentStyle: {\n        primaryColor: \'#FFC107\',\n        primaryFontColor: \'rgba(0, 0, 0, 0.7)\',\n        secondaryColor: \'#009688\',\n        secondaryFontColor: \'rgba(255, 255, 255, 0.9)\',\n        errorColor: \'#C00\',\n        successColor: \'#090\',\n        typographyColor: \'#212121\'\n      }\n    };\n  }\n\n  render() {\n    return (\n      <div>\n        The app goes here\n      </div>\n    );\n  }\n}\n        ' })
+	      );
+	    }
+	  }], [{
+	    key: 'displayName',
+	    value: 'GettingStarted',
+	    enumerable: true
+	  }, {
+	    key: 'propTypes',
+	    value: {},
+	    enumerable: true
+	  }]);
+	
+	  return GettingStarted;
+	})(_react.Component);
+	
+	exports['default'] = GettingStarted;
+	module.exports = exports['default'];
+
+/***/ },
+/* 469 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(256);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var Introduction = (function (_Component) {
+	  _inherits(Introduction, _Component);
+	
+	  function Introduction() {
+	    _classCallCheck(this, Introduction);
+	
+	    _get(Object.getPrototypeOf(Introduction.prototype), 'constructor', this).apply(this, arguments);
+	  }
+	
+	  _createClass(Introduction, [{
+	    key: 'render',
+	    value: function render() {
+	
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(
+	          'p',
+	          null,
+	          'material-components is a library of ',
+	          _react2['default'].createElement(
+	            'a',
+	            { href: 'https://facebook.github.io/react/' },
+	            'React'
+	          ),
+	          ' (0.14.0) user interface components based on ',
+	          _react2['default'].createElement(
+	            'a',
+	            { href: 'https://www.google.com/design/spec/' },
+	            'material design'
+	          ),
+	          '.'
+	        ),
+	        _react2['default'].createElement(
+	          'p',
+	          null,
+	          'Unlike some other React based component libraries, material-components are completely stateless making them an ideal companion to libraries such as ',
+	          _react2['default'].createElement(
+	            'a',
+	            { href: 'http://christianalfoni.com/cerebral/' },
+	            'Cerebral'
+	          ),
+	          ' or ',
+	          _react2['default'].createElement(
+	            'a',
+	            { href: 'http://rackt.github.io/redux/' },
+	            'Redux'
+	          ),
+	          '. But they can also be used with other flux based frameworks or even without a framework at all.'
+	        ),
+	        _react2['default'].createElement(
+	          'p',
+	          null,
+	          'For source code, installation and configuration info please see the ',
+	          _react2['default'].createElement(
+	            'a',
+	            { href: 'https://github.com/garth/material-components' },
+	            'GitHub Repository'
+	          ),
+	          '.'
+	        ),
+	        _react2['default'].createElement(
+	          'p',
+	          null,
+	          'The development of material-components has been sponsored by ',
+	          _react2['default'].createElement(
+	            'a',
+	            { href: 'http://www.elastictime.com/' },
+	            'Elastic Time'
+	          ),
+	          '.'
+	        )
+	      );
+	    }
+	  }], [{
+	    key: 'displayName',
+	    value: 'Introduction',
+	    enumerable: true
+	  }, {
+	    key: 'propTypes',
+	    value: {},
+	    enumerable: true
+	  }]);
+	
+	  return Introduction;
+	})(_react.Component);
+	
+	exports['default'] = Introduction;
+	module.exports = exports['default'];
+
+/***/ },
+/* 470 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(256);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _example = __webpack_require__(459);
+	
+	var _example2 = _interopRequireDefault(_example);
+	
+	var _lib = __webpack_require__(254);
+	
+	var Paper = (function (_Component) {
+	  _inherits(Paper, _Component);
+	
+	  function Paper() {
+	    _classCallCheck(this, Paper);
+	
+	    _get(Object.getPrototypeOf(Paper.prototype), 'constructor', this).apply(this, arguments);
+	  }
+	
+	  _createClass(Paper, [{
+	    key: 'render',
+	    value: function render() {
+	
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(_example2['default'], { code: '\nimport { Divider } from \'material-components\';\n        ' }),
+	        _react2['default'].createElement(
+	          'p',
+	          null,
+	          'Add a paper class to an element to lift it from the page. The optional ',
+	          _react2['default'].createElement(
+	            'code',
+	            null,
+	            'padded'
+	          ),
+	          ' class gives the paper a default padding. A divider component provides seperation.'
+	        ),
+	        _react2['default'].createElement(_example2['default'], { code: '\n<div className="paper1 padded">Paper 1</div>\n<div className="paper2 padded">Paper 2</div>\n<div className="paper3 padded">Paper 3</div>\n<div className="paper4 padded">Paper 4</div>\n<div className="paper5 padded">Paper 5</div>\n<Divider/>\n        ' }),
+	        _react2['default'].createElement(
+	          'div',
+	          { style: { margin: '16px 0' } },
+	          _react2['default'].createElement(
+	            _lib.Row,
+	            null,
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'sm-offset-1 sm-2' },
+	              _react2['default'].createElement(
+	                'div',
+	                { className: 'paper1 padded', style: { margin: '16px 0' } },
+	                'Paper 1'
+	              )
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'sm-2' },
+	              _react2['default'].createElement(
+	                'div',
+	                { className: 'paper2 padded', style: { margin: '16px 0' } },
+	                'Paper 2'
+	              )
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'sm-2' },
+	              _react2['default'].createElement(
+	                'div',
+	                { className: 'paper3 padded', style: { margin: '16px 0' } },
+	                'Paper 3'
+	              )
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'sm-2' },
+	              _react2['default'].createElement(
+	                'div',
+	                { className: 'paper4 padded', style: { margin: '16px 0' } },
+	                'Paper 4'
+	              )
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'sm-2' },
+	              _react2['default'].createElement(
+	                'div',
+	                { className: 'paper5 padded', style: { margin: '16px 0' } },
+	                'Paper 5'
+	              )
+	            )
+	          ),
+	          _react2['default'].createElement(
+	            'div',
+	            { className: 'paper1 padded', style: { margin: '16px 0' } },
+	            'Before divider',
+	            _react2['default'].createElement(_lib.Divider, null),
+	            'After divider'
+	          )
+	        )
+	      );
+	    }
+	  }], [{
+	    key: 'displayName',
+	    value: 'Paper',
+	    enumerable: true
+	  }, {
+	    key: 'propTypes',
+	    value: {},
+	    enumerable: true
+	  }]);
+	
+	  return Paper;
+	})(_react.Component);
+	
+	exports['default'] = Paper;
+	module.exports = exports['default'];
+
+/***/ },
+/* 471 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(256);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _example = __webpack_require__(459);
+	
+	var _example2 = _interopRequireDefault(_example);
+	
+	var _lib = __webpack_require__(254);
+	
+	var Typography = (function (_Component) {
+	  _inherits(Typography, _Component);
+	
+	  function Typography() {
+	    _classCallCheck(this, Typography);
+	
+	    _get(Object.getPrototypeOf(Typography.prototype), 'constructor', this).apply(this, arguments);
+	  }
+	
+	  _createClass(Typography, [{
+	    key: 'render',
+	    value: function render() {
+	
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(_example2['default'], { code: '\nimport { Typ } from \'material-components\';\n        ' }),
+	        _react2['default'].createElement(
+	          _lib.Row,
+	          null,
+	          _react2['default'].createElement(
+	            _lib.Col,
+	            { type: 'sm-5' },
+	            _react2['default'].createElement(_example2['default'], { code: '\n<Typ display3>Display 3</Typ>\n            ' })
+	          ),
+	          _react2['default'].createElement(
+	            _lib.Col,
+	            { type: 'sm-7' },
+	            _react2['default'].createElement(
+	              _lib.Typ,
+	              { display3: true },
+	              'Display 3'
+	            )
+	          )
+	        ),
+	        _react2['default'].createElement(
+	          _lib.Row,
+	          null,
+	          _react2['default'].createElement(
+	            _lib.Col,
+	            { type: 'sm-5' },
+	            _react2['default'].createElement(_example2['default'], { code: '\n<Typ display3>Display 2</Typ>\n            ' })
+	          ),
+	          _react2['default'].createElement(
+	            _lib.Col,
+	            { type: 'sm-7' },
+	            _react2['default'].createElement(
+	              _lib.Typ,
+	              { display2: true },
+	              'Display 2'
+	            )
+	          )
+	        ),
+	        _react2['default'].createElement(
+	          _lib.Row,
+	          null,
+	          _react2['default'].createElement(
+	            _lib.Col,
+	            { type: 'sm-5' },
+	            _react2['default'].createElement(_example2['default'], { code: '\n<Typ display1>Display 1</Typ>\n            ' })
+	          ),
+	          _react2['default'].createElement(
+	            _lib.Col,
+	            { type: 'sm-7' },
+	            _react2['default'].createElement(
+	              _lib.Typ,
+	              { display1: true },
+	              'Display 1'
+	            )
+	          )
+	        ),
+	        _react2['default'].createElement(
+	          _lib.Row,
+	          null,
+	          _react2['default'].createElement(
+	            _lib.Col,
+	            { type: 'sm-5' },
+	            _react2['default'].createElement(_example2['default'], { code: '\n<Typ headline>Headline</Typ>\n            ' })
+	          ),
+	          _react2['default'].createElement(
+	            _lib.Col,
+	            { type: 'sm-7' },
+	            _react2['default'].createElement(
+	              _lib.Typ,
+	              { headline: true },
+	              'Headline'
+	            )
+	          )
+	        ),
+	        _react2['default'].createElement(
+	          _lib.Row,
+	          null,
+	          _react2['default'].createElement(
+	            _lib.Col,
+	            { type: 'sm-5' },
+	            _react2['default'].createElement(_example2['default'], { code: '\n<Typ title>Title</Typ>\n            ' })
+	          ),
+	          _react2['default'].createElement(
+	            _lib.Col,
+	            { type: 'sm-7' },
+	            _react2['default'].createElement(
+	              _lib.Typ,
+	              { title: true },
+	              'Title'
+	            )
+	          )
+	        ),
+	        _react2['default'].createElement(
+	          _lib.Row,
+	          null,
+	          _react2['default'].createElement(
+	            _lib.Col,
+	            { type: 'sm-5' },
+	            _react2['default'].createElement(_example2['default'], { code: '\n<Typ subheading>Subheading</Typ>\n            ' })
+	          ),
+	          _react2['default'].createElement(
+	            _lib.Col,
+	            { type: 'sm-7' },
+	            _react2['default'].createElement(
+	              _lib.Typ,
+	              { subheading: true },
+	              'Subheading'
+	            )
+	          )
+	        ),
+	        _react2['default'].createElement(
+	          'p',
+	          null,
+	          'By adding an optional ',
+	          _react2['default'].createElement(
+	            'code',
+	            null,
+	            'primary'
+	          ),
+	          ' or ',
+	          _react2['default'].createElement(
+	            'code',
+	            null,
+	            'secondary'
+	          ),
+	          ' flag to any ',
+	          _react2['default'].createElement(
+	            'code',
+	            null,
+	            '<Typ>'
+	          ),
+	          ' the color is set to the primary or secondary colors.'
+	        ),
+	        _react2['default'].createElement(
+	          _lib.Row,
+	          null,
+	          _react2['default'].createElement(
+	            _lib.Col,
+	            { type: 'sm-5' },
+	            _react2['default'].createElement(_example2['default'], { code: '\n<Typ primary display2>Primary</Typ>\n            ' })
+	          ),
+	          _react2['default'].createElement(
+	            _lib.Col,
+	            { type: 'sm-7' },
+	            _react2['default'].createElement(
+	              _lib.Typ,
+	              { primary: true, display2: true },
+	              'Primay'
+	            )
+	          )
+	        ),
+	        _react2['default'].createElement(
+	          _lib.Row,
+	          null,
+	          _react2['default'].createElement(
+	            _lib.Col,
+	            { type: 'sm-5' },
+	            _react2['default'].createElement(_example2['default'], { code: '\n<Typ secondary display2>Secondary</Typ>\n            ' })
+	          ),
+	          _react2['default'].createElement(
+	            _lib.Col,
+	            { type: 'sm-7' },
+	            _react2['default'].createElement(
+	              _lib.Typ,
+	              { secondary: true, display2: true },
+	              'Secondary'
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }], [{
+	    key: 'displayName',
+	    value: 'Typography',
+	    enumerable: true
+	  }, {
+	    key: 'propTypes',
+	    value: {},
+	    enumerable: true
+	  }]);
+	
+	  return Typography;
+	})(_react.Component);
+	
+	exports['default'] = Typography;
+	module.exports = exports['default'];
+
+/***/ },
+/* 472 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(256);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _example = __webpack_require__(459);
+	
+	var _example2 = _interopRequireDefault(_example);
+	
+	var Appbar = (function (_Component) {
+	  _inherits(Appbar, _Component);
+	
+	  function Appbar() {
+	    _classCallCheck(this, Appbar);
+	
+	    _get(Object.getPrototypeOf(Appbar.prototype), 'constructor', this).apply(this, arguments);
+	  }
+	
+	  _createClass(Appbar, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(_example2['default'], { code: '\nimport { Appbar } from \'material-components\';\n        ' }),
+	        _react2['default'].createElement(_example2['default'], { code: '\n<Appbar fixed>\n  <Appbar.Button style={{ float: \'left\' }}><Icon name="menu"/></Appbar.Button>\n  <Appbar.Title>Material Components</Appbar.Title>\n  <div style={{ float: \'right\' }}>\n    <Appbar.Button\n      onTouchTap={() => location.href=\'https://github.com/garth/material-components\'}>\n      <FaIcon name="github"/>\n    </Appbar.Button>\n    <Appbar.Button><Icon name="more_vert"/></Appbar.Button>\n    <Menu rightAlign isOpen={showMoreMenu} onDone={hideMoreMenuFunc}>\n      <Menu.Item>Option A</Menu.Item>\n      <Menu.Item>Option B</Menu.Item>\n    </Menu>\n  </div>\n</Appbar>\n        ' }),
+	        _react2['default'].createElement(
+	          'p',
+	          null,
+	          'See the appbar above.'
+	        ),
+	        _react2['default'].createElement(
+	          'p',
+	          null,
+	          'When using a darker primary color, try using ',
+	          _react2['default'].createElement(
+	            'code',
+	            null,
+	            '<Appbar.Button lightWaves>X</Appbar.Button>'
+	          )
+	        )
+	      );
+	    }
+	  }], [{
+	    key: 'displayName',
+	    value: 'Appbar',
+	    enumerable: true
+	  }]);
+	
+	  return Appbar;
+	})(_react.Component);
+	
+	exports['default'] = Appbar;
+	module.exports = exports['default'];
+
+/***/ },
+/* 473 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(256);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _example = __webpack_require__(459);
+	
+	var _example2 = _interopRequireDefault(_example);
+	
+	var _faicon = __webpack_require__(465);
+	
+	var _faicon2 = _interopRequireDefault(_faicon);
+	
+	var _lib = __webpack_require__(254);
+	
+	var SidenavDemo = (function (_Component) {
+	  _inherits(SidenavDemo, _Component);
+	
+	  function SidenavDemo() {
+	    _classCallCheck(this, SidenavDemo);
+	
+	    _get(Object.getPrototypeOf(SidenavDemo.prototype), 'constructor', this).apply(this, arguments);
+	  }
+	
+	  _createClass(SidenavDemo, [{
+	    key: 'render',
+	    value: function render() {
+	
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(_example2['default'], { code: '\nimport { Sidenav } from \'material-components\';\n        ' }),
+	        _react2['default'].createElement(_example2['default'], { code: '\n<Sidenav isOpen={sidenavOpen} onDone={closeSidenavFunc}>\n  <Sidenav.Title showCloseButton>Menu</Sidenav.Title>\n  <Sidenav.Item showIcon icon={<Icon name="user"/>} onTouchTap={itemSelected}>Option A</Sidenav.Item>\n  <Sidenav.Item showIcon icon={<Icon name="dashboard"/>} onTouchTap={itemSelected} selected>Option B</Sidenav.Item>\n  <Sidenav.Seperator/>\n  <Sidenav.Item showIcon icon={<Icon name="cog"/>} onTouchTap={itemSelected}>Settings</Sidenav.Item>\n</Sidenav>\n        ' }),
+	        _react2['default'].createElement(
+	          'p',
+	          null,
+	          'See the sidenav above.'
+	        ),
+	        _react2['default'].createElement(
+	          'p',
+	          null,
+	          'It\'s also possible to have a mini sidenav that is always on display.'
+	        ),
+	        _react2['default'].createElement(_example2['default'], { code: '\n<Sidenav mini>\n  <Sidenav.Item showIcon icon={<Icon name="user"/>} onTouchTap={itemSelected}/>\n  <Sidenav.Item showIcon icon={<Icon name="dashboard"/>} onTouchTap={itemSelected} selected/>\n  <Sidenav.Seperator/>\n  <Sidenav.Item showIcon icon={<Icon name="cog"/>} onTouchTap={itemSelected}/>\n</Sidenav>\n<div style={{ marginLeft: \'60px\' }}>\n  Page Content\n</div>\n        ' }),
+	        _react2['default'].createElement(
+	          'div',
+	          { className: 'paper1', style: {
+	              height: '200px',
+	              margin: '16px 0'
+	            } },
+	          _react2['default'].createElement(
+	            _lib.Sidenav,
+	            { mini: true, style: {
+	                float: 'left',
+	                position: 'relative',
+	                top: '0',
+	                height: '200px'
+	              } },
+	            _react2['default'].createElement(_lib.Sidenav.Item, { showIcon: true, icon: _react2['default'].createElement(_faicon2['default'], { name: 'user' }) }),
+	            _react2['default'].createElement(_lib.Sidenav.Item, { showIcon: true, icon: _react2['default'].createElement(_faicon2['default'], { name: 'dashboard' }), selected: true }),
+	            _react2['default'].createElement(_lib.Sidenav.Seperator, null),
+	            _react2['default'].createElement(_lib.Sidenav.Item, { showIcon: true, icon: _react2['default'].createElement(_faicon2['default'], { name: 'cog' }) })
+	          ),
+	          _react2['default'].createElement(
+	            'div',
+	            { style: {
+	                padding: '16px',
+	                marginLeft: '60px'
+	              } },
+	            'Page Content'
+	          )
+	        )
+	      );
+	    }
+	  }], [{
+	    key: 'displayName',
+	    value: 'Sidenav',
+	    enumerable: true
+	  }, {
+	    key: 'propTypes',
+	    value: {},
+	    enumerable: true
+	  }]);
+	
+	  return SidenavDemo;
+	})(_react.Component);
+	
+	exports['default'] = SidenavDemo;
+	module.exports = exports['default'];
+
+/***/ },
+/* 474 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(256);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _example = __webpack_require__(459);
+	
+	var _example2 = _interopRequireDefault(_example);
+	
+	var Form = (function (_Component) {
+	  _inherits(Form, _Component);
+	
+	  function Form() {
+	    _classCallCheck(this, Form);
+	
+	    _get(Object.getPrototypeOf(Form.prototype), 'constructor', this).apply(this, arguments);
+	  }
+	
+	  _createClass(Form, [{
+	    key: 'render',
+	    value: function render() {
+	
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(_example2['default'], { code: '\nimport { Form } from \'material-components\';\n        ' }),
+	        _react2['default'].createElement(
+	          'p',
+	          null,
+	          'The ',
+	          _react2['default'].createElement(
+	            'code',
+	            null,
+	            'Form'
+	          ),
+	          ' component will prevent the default form submit behaviour and pass the submit event on to the given onSubmit handler.'
+	        ),
+	        _react2['default'].createElement(_example2['default'], { code: '\n<Form onSubmit={onSubmit}/>\n  <Button type="submit">Submit</Button>\n</Form>\n        ' })
+	      );
+	    }
+	  }], [{
+	    key: 'displayName',
+	    value: 'Form',
+	    enumerable: true
+	  }, {
+	    key: 'propTypes',
+	    value: {},
+	    enumerable: true
+	  }]);
+	
+	  return Form;
+	})(_react.Component);
+	
+	exports['default'] = Form;
+	module.exports = exports['default'];
+
+/***/ },
+/* 475 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(256);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _example = __webpack_require__(459);
+	
+	var _example2 = _interopRequireDefault(_example);
+	
+	var _lib = __webpack_require__(254);
+	
+	var ButtonDemo = (function (_Component) {
+	  _inherits(ButtonDemo, _Component);
+	
+	  function ButtonDemo() {
+	    _classCallCheck(this, ButtonDemo);
+	
+	    _get(Object.getPrototypeOf(ButtonDemo.prototype), 'constructor', this).apply(this, arguments);
+	  }
+	
+	  _createClass(ButtonDemo, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(_example2['default'], { code: '\nimport { Button } from \'material-components\';\n        ' }),
+	        _react2['default'].createElement(_example2['default'], { code: '\n// enabled buttons\n<Button onTouchTap={onClick}>Normal</Button>\n<Button onTouchTap={onClick} primary>Primary</Button>\n<Button onTouchTap={onClick} flat>Flat</Button>\n<Button onTouchTap={onClick} primary flat>Primary Flat</Button>\n        ' }),
+	        _react2['default'].createElement(
+	          'p',
+	          null,
+	          _react2['default'].createElement(
+	            _lib.Button,
+	            { onTouchTap: function (e) {} },
+	            'Normal'
+	          ),
+	          _react2['default'].createElement(
+	            _lib.Button,
+	            { onTouchTap: function (e) {}, primary: true },
+	            'Primary'
+	          ),
+	          _react2['default'].createElement(
+	            _lib.Button,
+	            { onTouchTap: function (e) {}, flat: true },
+	            'Flat'
+	          ),
+	          _react2['default'].createElement(
+	            _lib.Button,
+	            { onTouchTap: function (e) {}, primary: true, flat: true },
+	            'Primary Flat'
+	          )
+	        ),
+	        _react2['default'].createElement(_example2['default'], { code: '\n// disabled buttons\n<Button>Normal</Button>\n<Button primary>Primary</Button>\n<Button flat>Flat</Button>\n<Button primary flat>Primary Flat</Button>\n        ' }),
+	        _react2['default'].createElement(
+	          'p',
+	          null,
+	          _react2['default'].createElement(
+	            _lib.Button,
+	            null,
+	            'Normal'
+	          ),
+	          _react2['default'].createElement(
+	            _lib.Button,
+	            { primary: true },
+	            'Primary'
+	          ),
+	          _react2['default'].createElement(
+	            _lib.Button,
+	            { flat: true },
+	            'Flat'
+	          ),
+	          _react2['default'].createElement(
+	            _lib.Button,
+	            { primary: true, flat: true },
+	            'Primary Flat'
+	          )
+	        )
+	      );
+	    }
+	  }], [{
+	    key: 'displayName',
+	    value: 'Button',
+	    enumerable: true
+	  }]);
+	
+	  return ButtonDemo;
+	})(_react.Component);
+	
+	exports['default'] = ButtonDemo;
+	module.exports = exports['default'];
+
+/***/ },
+/* 476 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(256);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _cerebralReact = __webpack_require__(450);
+	
+	var _example = __webpack_require__(459);
+	
+	var _example2 = _interopRequireDefault(_example);
+	
+	var _lib = __webpack_require__(254);
+	
+	var InputDemo = (function (_Component) {
+	  _inherits(InputDemo, _Component);
+	
+	  function InputDemo() {
+	    _classCallCheck(this, _InputDemo);
+	
+	    _get(Object.getPrototypeOf(_InputDemo.prototype), 'constructor', this).apply(this, arguments);
+	  }
+	
+	  _createClass(InputDemo, [{
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props;
+	      var signals = _props.signals;
+	      var input = _props.input;
+	
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(_example2['default'], { code: '\nimport { Input } from \'material-components\';\n        ' }),
+	        _react2['default'].createElement(_example2['default'], { code: '\n<Input label="Email" value={email} onChange={onEmailChange}/>\n<Input label="Password" type="password" value={password} onChange={onPasswordChange}/>\n<Input label="Success" value={email} isSuccess onChange={onEmailChange}/>\n<Input label="Error" value={email} isError message="fix me" onChange={onEmailChange}/>\n        ' }),
+	        _react2['default'].createElement(
+	          'div',
+	          { style: { margin: '16px 0' } },
+	          _react2['default'].createElement(
+	            _lib.Row,
+	            null,
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'md-6' },
+	              _react2['default'].createElement(_lib.Input, {
+	                label: 'Email',
+	                value: input.email,
+	                onChange: function (e) {
+	                  return signals.emailChanged.sync({ value: e.target.value });
+	                } })
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'md-6' },
+	              _react2['default'].createElement(_lib.Input, {
+	                label: 'Password',
+	                type: 'password',
+	                value: input.password,
+	                onChange: function (e) {
+	                  return signals.passwordChanged.sync({ value: e.target.value });
+	                } })
+	            )
+	          ),
+	          _react2['default'].createElement(
+	            _lib.Row,
+	            null,
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'md-6' },
+	              _react2['default'].createElement(_lib.Input, {
+	                label: 'Success',
+	                value: input.email,
+	                isSuccess: true,
+	                onChange: function (e) {
+	                  return signals.emailChanged.sync({ value: e.target.value });
+	                } })
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'md-6' },
+	              _react2['default'].createElement(_lib.Input, {
+	                label: 'Error',
+	                value: input.email,
+	                isError: true,
+	                message: 'fix me',
+	                onChange: function (e) {
+	                  return signals.emailChanged.sync({ value: e.target.value });
+	                } })
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }], [{
+	    key: 'displayName',
+	    value: 'Input',
+	    enumerable: true
+	  }, {
+	    key: 'propTypes',
+	    value: {
+	      signals: _react.PropTypes.object,
+	      input: _react.PropTypes.object
+	    },
+	    enumerable: true
+	  }]);
+	
+	  var _InputDemo = InputDemo;
+	  InputDemo = (0, _cerebralReact.Decorator)({
+	    input: ['demos', 'input']
+	  })(InputDemo) || InputDemo;
+	  return InputDemo;
+	})(_react.Component);
+	
+	exports['default'] = InputDemo;
+	module.exports = exports['default'];
+
+/***/ },
+/* 477 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(256);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _cerebralReact = __webpack_require__(450);
+	
+	var _example = __webpack_require__(459);
+	
+	var _example2 = _interopRequireDefault(_example);
+	
+	var _lib = __webpack_require__(254);
+	
+	var SelectDemo = (function (_Component) {
+	  _inherits(SelectDemo, _Component);
+	
+	  function SelectDemo() {
+	    _classCallCheck(this, _SelectDemo);
+	
+	    _get(Object.getPrototypeOf(_SelectDemo.prototype), 'constructor', this).apply(this, arguments);
+	  }
+	
+	  _createClass(SelectDemo, [{
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props;
+	      var signals = _props.signals;
+	      var select = _props.select;
+	
+	      var options = [{ value: 0, label: 'Option 1' }, { value: 1, label: 'Option 2' }, { value: 2, label: 'Option 3' }, { value: 3, label: 'Option 4' }];
+	
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(_example2['default'], { code: '\nimport { Select } from \'material-components\';\n        ' }),
+	        _react2['default'].createElement(_example2['default'], { code: '\nlet options = [\n  { value: 0, label: \'Option 1\' },\n  { value: 1, label: \'Option 2\' },\n  { value: 2, label: \'Option 3\' }\n];\n\n<Select\n  label="option"\n  selected={selectedObject}\n  options={options}\n  isOpen={isSelectOpen}\n  onOpen={setOpenState}\n  onChange={optionSelected}\n  onDone={setClosedState}/>\n\n<Select\n  label="Success option"\n  selected={selectedObject}\n  options={options}\n  isSuccess\n  isOpen={isSelectOpen}\n  onOpen={setOpenState}\n  onChange={optionSelected}\n  onDone={setClosedState}/>\n\n// note that this version uses value instead of a selected object\n<Select\n  label="Error option"\n  value={selectedObject.value}\n  options={options}\n  isError\n  message="fix me"\n  isOpen={isSelectOpen}\n  onOpen={setOpenState}\n  onChange={optionSelected}\n  onDone={setClosedState}/>\n        ' }),
+	        _react2['default'].createElement(
+	          'div',
+	          { style: { margin: '16px 0' } },
+	          _react2['default'].createElement(
+	            _lib.Row,
+	            null,
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'md-4' },
+	              _react2['default'].createElement(_lib.Select, {
+	                label: 'option',
+	                selected: select.selected,
+	                options: options,
+	                isOpen: select.selectOpen,
+	                onOpen: function (e) {
+	                  return signals.selectOpened();
+	                },
+	                onChange: function (e) {
+	                  return signals.selectChanged({ value: e.target });
+	                },
+	                onDone: function (e) {
+	                  return signals.selectClosed();
+	                } })
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'md-4' },
+	              _react2['default'].createElement(_lib.Select, {
+	                label: 'Success option',
+	                selected: select.selected,
+	                options: options,
+	                isSuccess: true,
+	                isOpen: select.selectSuccessOpen,
+	                onOpen: function (e) {
+	                  return signals.selectSuccessOpened();
+	                },
+	                onChange: function (e) {
+	                  return signals.selectChanged({ value: e.target });
+	                },
+	                onDone: function (e) {
+	                  return signals.selectSuccessClosed();
+	                } })
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'md-4' },
+	              _react2['default'].createElement(_lib.Select, {
+	                label: 'Error option',
+	                value: select.selected && select.selected.value,
+	                options: options,
+	                isError: true,
+	                message: 'fix me',
+	                isOpen: select.selectErrorOpen,
+	                onOpen: function (e) {
+	                  return signals.selectErrorOpened();
+	                },
+	                onChange: function (e) {
+	                  return signals.selectChanged({ value: e.target });
+	                },
+	                onDone: function (e) {
+	                  return signals.selectErrorClosed();
+	                } })
+	            )
+	          ),
+	          _react2['default'].createElement(
+	            _lib.Row,
+	            null,
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'md-4 md-offset-4' },
+	              _react2['default'].createElement(_lib.Select, {
+	                label: 'large list of items',
+	                value: select.largeSelectedValue,
+	                options: (function () {
+	                  var options = [];
+	                  for (var i = 0; i < 100; i++) {
+	                    options.push({ value: i, label: 'Option ' + (i + 1) });
+	                  }
+	                  return options;
+	                })(),
+	                isOpen: select.largeSelectOpen,
+	                onOpen: function (e) {
+	                  return signals.selectLargeOpened();
+	                },
+	                onChange: function (e) {
+	                  return signals.selectLargeChanged({ value: e.target.value });
+	                },
+	                onDone: function (e) {
+	                  return signals.selectLargeClosed();
+	                } })
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }], [{
+	    key: 'displayName',
+	    value: 'Select',
+	    enumerable: true
+	  }, {
+	    key: 'propTypes',
+	    value: {
+	      signals: _react.PropTypes.object,
+	      select: _react.PropTypes.object
+	    },
+	    enumerable: true
+	  }]);
+	
+	  var _SelectDemo = SelectDemo;
+	  SelectDemo = (0, _cerebralReact.Decorator)({
+	    select: ['demos', 'select']
+	  })(SelectDemo) || SelectDemo;
+	  return SelectDemo;
+	})(_react.Component);
+	
+	exports['default'] = SelectDemo;
+	module.exports = exports['default'];
+
+/***/ },
+/* 478 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(256);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _cerebralReact = __webpack_require__(450);
+	
+	var _example = __webpack_require__(459);
+	
+	var _example2 = _interopRequireDefault(_example);
+	
+	var _lib = __webpack_require__(254);
+	
+	var CheckboxDemo = (function (_Component) {
+	  _inherits(CheckboxDemo, _Component);
+	
+	  function CheckboxDemo() {
+	    _classCallCheck(this, _CheckboxDemo);
+	
+	    _get(Object.getPrototypeOf(_CheckboxDemo.prototype), 'constructor', this).apply(this, arguments);
+	  }
+	
+	  _createClass(CheckboxDemo, [{
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props;
+	      var signals = _props.signals;
+	      var checkbox = _props.checkbox;
+	
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(_example2['default'], { code: '\nimport { Checkbox } from \'material-components\';\n        ' }),
+	        _react2['default'].createElement(_example2['default'], { code: '\n<Checkbox label="Checkbox" value={checked} onChange={setChecked}/>\n        ' }),
+	        _react2['default'].createElement(
+	          'div',
+	          null,
+	          _react2['default'].createElement(_lib.Checkbox, { label: 'Checkbox', value: checkbox.checked, onChange: function (e) {
+	              return signals.checkboxChanged({ value: e.target.value });
+	            } })
+	        ),
+	        _react2['default'].createElement(
+	          'div',
+	          null,
+	          _react2['default'].createElement(_lib.Checkbox, { label: 'Opposite', value: !checkbox.checked, onChange: function (e) {
+	              return signals.checkboxChanged({ value: !e.target.value });
+	            } })
+	        )
+	      );
+	    }
+	  }], [{
+	    key: 'displayName',
+	    value: 'Checkbox',
+	    enumerable: true
+	  }, {
+	    key: 'propTypes',
+	    value: {
+	      signals: _react.PropTypes.object,
+	      checkbox: _react.PropTypes.object
+	    },
+	    enumerable: true
+	  }]);
+	
+	  var _CheckboxDemo = CheckboxDemo;
+	  CheckboxDemo = (0, _cerebralReact.Decorator)({
+	    checkbox: ['demos', 'checkbox']
+	  })(CheckboxDemo) || CheckboxDemo;
+	  return CheckboxDemo;
+	})(_react.Component);
+	
+	exports['default'] = CheckboxDemo;
+	module.exports = exports['default'];
+
+/***/ },
+/* 479 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(256);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _example = __webpack_require__(459);
+	
+	var _example2 = _interopRequireDefault(_example);
+	
+	var _lib = __webpack_require__(254);
+	
+	var GridSystem = (function (_Component) {
+	  _inherits(GridSystem, _Component);
+	
+	  function GridSystem() {
+	    _classCallCheck(this, GridSystem);
+	
+	    _get(Object.getPrototypeOf(GridSystem.prototype), 'constructor', this).apply(this, arguments);
+	  }
+	
+	  _createClass(GridSystem, [{
+	    key: 'render',
+	    value: function render() {
+	
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(_example2['default'], { code: '\nimport { Col, Row } from \'material-components\';\n        ' }),
+	        _react2['default'].createElement(
+	          'p',
+	          null,
+	          'material-components borrows the reponsive ',
+	          _react2['default'].createElement(
+	            'a',
+	            { href: 'http://getbootstrap.com/css/#grid' },
+	            'grid system from bootstrap'
+	          ),
+	          '. Simply omit the ',
+	          _react2['default'].createElement(
+	            'code',
+	            null,
+	            'col-'
+	          ),
+	          ' class name prefix and pass all parameters via the ',
+	          _react2['default'].createElement(
+	            'code',
+	            null,
+	            'type'
+	          ),
+	          ' attribute.'
+	        ),
+	        _react2['default'].createElement(_example2['default'], { code: '\n<Row>\n  <Col type="md-5 md-offset-1"></Col>\n  <Col type="md-5"></Col>\n</Row>\n        ' }),
+	        _react2['default'].createElement(
+	          'div',
+	          { style: { padding: '16px 0' } },
+	          _react2['default'].createElement(
+	            _lib.Row,
+	            null,
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'md-5 md-offset-1' },
+	              _react2['default'].createElement(
+	                'div',
+	                { className: 'paper1 padded' },
+	                'md-5 md-offset-1'
+	              )
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'md-5' },
+	              _react2['default'].createElement(
+	                'div',
+	                { className: 'paper1 padded' },
+	                'md-5'
+	              )
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }], [{
+	    key: 'displayName',
+	    value: 'GridSystem',
+	    enumerable: true
+	  }, {
+	    key: 'propTypes',
+	    value: {},
+	    enumerable: true
+	  }]);
+	
+	  return GridSystem;
+	})(_react.Component);
+	
+	exports['default'] = GridSystem;
+	module.exports = exports['default'];
+
+/***/ },
+/* 480 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(256);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _cerebralReact = __webpack_require__(450);
+	
+	var _example = __webpack_require__(459);
+	
+	var _example2 = _interopRequireDefault(_example);
+	
+	var _lib = __webpack_require__(254);
+	
+	var _faicon = __webpack_require__(465);
+	
+	var _faicon2 = _interopRequireDefault(_faicon);
+	
+	var MenuDemo = (function (_Component) {
+	  _inherits(MenuDemo, _Component);
+	
+	  function MenuDemo() {
+	    _classCallCheck(this, _MenuDemo);
+	
+	    _get(Object.getPrototypeOf(_MenuDemo.prototype), 'constructor', this).apply(this, arguments);
+	  }
+	
+	  _createClass(MenuDemo, [{
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props;
+	      var signals = _props.signals;
+	      var menu = _props.menu;
+	
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(_example2['default'], { code: '\nimport { Menu } from \'material-components\';\n        ' }),
+	        _react2['default'].createElement(_example2['default'], { code: '\n<Menu isOpen={showSimpleMenuProp} onDone={hideSimpleMenuFunc}>\n  <Menu.Item onTouchTap={itemClicked}>Simple Menu Item</Menu.Item>\n  <Menu.Item onTouchTap={itemClicked}>Other Option</Menu.Item>\n</Menu>\n\n<Menu rightAlign isOpen={showMenuProp} onDone={hideMenuFunc}>\n  <Menu.Item showIcon icon={<Icon name="settings"/>} onTouchTap={itemClicked}>Settings</Menu.Item>\n  <Menu.Item showIcon onTouchTap={itemClicked}>No Icon</Menu.Item>\n  <Menu.Seperator/>\n  <Menu.Item showIcon selected={selectedOption===1} onTouchTap={() => setSelectedOption(1)}>Option 1</Menu.Item>\n  <Menu.Item showIcon selected={selectedOption===2} onTouchTap={() => setSelectedOption(2)}>Option 2</Menu.Item>\n</Menu>\n        ' }),
+	        _react2['default'].createElement(
+	          'div',
+	          { style: { margin: '24px 0' } },
+	          _react2['default'].createElement(
+	            _lib.Menu,
+	            { isOpen: menu.showSimpleMenu, onDone: function () {
+	                return signals.simpleMenuClosed();
+	              } },
+	            _react2['default'].createElement(
+	              _lib.Menu.Item,
+	              null,
+	              'Simple Menu Item'
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Menu.Item,
+	              null,
+	              'Other Option'
+	            )
+	          ),
+	          _react2['default'].createElement(
+	            _lib.Button,
+	            { style: { margin: '0' }, primary: true, onTouchTap: function () {
+	                return signals.simpleMenuOpened();
+	              } },
+	            'Simple Menu'
+	          ),
+	          _react2['default'].createElement(
+	            _lib.Button,
+	            { style: { margin: '0 16px' }, primary: true, onTouchTap: function () {
+	                return signals.menuOpened();
+	              } },
+	            'Menu'
+	          ),
+	          _react2['default'].createElement(
+	            _lib.Menu,
+	            { rightAlign: true, isOpen: menu.showMenu, onDone: function () {
+	                return signals.menuClosed();
+	              } },
+	            _react2['default'].createElement(
+	              _lib.Menu.Item,
+	              { showIcon: true, icon: _react2['default'].createElement(_faicon2['default'], { name: 'cog' }) },
+	              'Settings'
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Menu.Item,
+	              { showIcon: true },
+	              'No Icon'
+	            ),
+	            _react2['default'].createElement(_lib.Menu.Seperator, null),
+	            _react2['default'].createElement(
+	              _lib.Menu.Item,
+	              { showIcon: true, selected: menu.selectedOption === 1, onTouchTap: function () {
+	                  return signals.selectMenuOption({ value: 1 });
+	                } },
+	              'Option 1'
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Menu.Item,
+	              { showIcon: true, selected: menu.selectedOption === 2, onTouchTap: function () {
+	                  return signals.selectMenuOption({ value: 2 });
+	                } },
+	              'Option 2'
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }], [{
+	    key: 'displayName',
+	    value: 'Menu',
+	    enumerable: true
+	  }, {
+	    key: 'propTypes',
+	    value: {
+	      signals: _react.PropTypes.object,
+	      menu: _react.PropTypes.object
+	    },
+	    enumerable: true
+	  }]);
+	
+	  var _MenuDemo = MenuDemo;
+	  MenuDemo = (0, _cerebralReact.Decorator)({
+	    menu: ['demos', 'menu']
+	  })(MenuDemo) || MenuDemo;
+	  return MenuDemo;
+	})(_react.Component);
+	
+	exports['default'] = MenuDemo;
+	module.exports = exports['default'];
+
+/***/ },
+/* 481 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(256);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _cerebralReact = __webpack_require__(450);
+	
+	var _example = __webpack_require__(459);
+	
+	var _example2 = _interopRequireDefault(_example);
+	
+	var _lib = __webpack_require__(254);
+	
+	var DialogDemo = (function (_Component) {
+	  _inherits(DialogDemo, _Component);
+	
+	  function DialogDemo() {
+	    _classCallCheck(this, _DialogDemo);
+	
+	    _get(Object.getPrototypeOf(_DialogDemo.prototype), 'constructor', this).apply(this, arguments);
+	  }
+	
+	  _createClass(DialogDemo, [{
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props;
+	      var signals = _props.signals;
+	      var dialog = _props.dialog;
+	
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(_example2['default'], { code: '\nimport { Dialog } from \'material-components\';\n        ' }),
+	        _react2['default'].createElement(_example2['default'], { code: '\n<Dialog\n  isOpen={showDialog}\n  width={400}\n  height={172}\n  title="Question?"\n  okLabel="OK"\n  onOk={onOk}\n  cancelLabel="Cancel"\n  onCancel={onCancel}>\n</Dialog>\n        ' }),
+	        _react2['default'].createElement(
+	          _lib.Button,
+	          { style: { margin: '24px 0' }, primary: true, onTouchTap: function () {
+	              return signals.dialogOpened();
+	            } },
+	          'Show Dialog'
+	        ),
+	        _react2['default'].createElement(
+	          _lib.Dialog,
+	          {
+	            isOpen: dialog.showDialog,
+	            width: 400,
+	            height: 172,
+	            title: 'Do you confirm or deny?',
+	            okLabel: 'Confirm',
+	            onOk: function () {
+	              return signals.dialogClosed();
+	            },
+	            cancelLabel: 'Deny',
+	            onCancel: function () {
+	              return signals.dialogClosed();
+	            } },
+	          'the details of allogation'
+	        )
+	      );
+	    }
+	  }], [{
+	    key: 'displayName',
+	    value: 'Dialog',
+	    enumerable: true
+	  }, {
+	    key: 'propTypes',
+	    value: {
+	      signals: _react.PropTypes.object,
+	      dialog: _react.PropTypes.object
+	    },
+	    enumerable: true
+	  }]);
+	
+	  var _DialogDemo = DialogDemo;
+	  DialogDemo = (0, _cerebralReact.Decorator)({
+	    dialog: ['demos', 'dialog']
+	  })(DialogDemo) || DialogDemo;
+	  return DialogDemo;
+	})(_react.Component);
+	
+	exports['default'] = DialogDemo;
+	module.exports = exports['default'];
+
+/***/ },
+/* 482 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(256);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _cerebralReact = __webpack_require__(450);
+	
+	var _example = __webpack_require__(459);
+	
+	var _example2 = _interopRequireDefault(_example);
+	
+	var _lib = __webpack_require__(254);
+	
+	var DatePickerDemo = (function (_Component) {
+	  _inherits(DatePickerDemo, _Component);
+	
+	  function DatePickerDemo() {
+	    _classCallCheck(this, _DatePickerDemo);
+	
+	    _get(Object.getPrototypeOf(_DatePickerDemo.prototype), 'constructor', this).apply(this, arguments);
+	  }
+	
+	  _createClass(DatePickerDemo, [{
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props;
+	      var signals = _props.signals;
+	      var datePicker = _props.datePicker;
+	
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(_example2['default'], { code: '\nimport { DatePicker } from \'material-components\';\n        ' }),
+	        _react2['default'].createElement(_example2['default'], { code: '\n<DatePicker\n  isOpen={showDatePicker}\n  year={year}\n  month={month}\n  pickingValue={pickingDate}\n  onChange={onChange}\n  onNavigate={onNavigate}\n  onOk={onOk}\n  onCancel={onCancel}/>\n        ' }),
+	        _react2['default'].createElement(
+	          _lib.Button,
+	          { primary: true, onTouchTap: function (e) {
+	              return signals.datePickerOpened({ value: datePicker.pickedDate });
+	            } },
+	          'Pick Date'
+	        ),
+	        'Picked Date: ',
+	        datePicker.pickedDate ? datePicker.pickedDate.toDateString() : 'none',
+	        _react2['default'].createElement(_lib.DatePicker, {
+	          isOpen: datePicker.showDatePicker,
+	          year: datePicker.pickedCalendar.year,
+	          month: datePicker.pickedCalendar.month,
+	          pickingValue: datePicker.pickingDate,
+	          onChange: function (e) {
+	            return signals.datePickerChanged({ value: e.target.value });
+	          },
+	          onNavigate: function (e) {
+	            return signals.datePickerNavigate({ value: e.target.value });
+	          },
+	          onOk: function (e) {
+	            return signals.datePickerSelected({ value: e.target.value });
+	          },
+	          onCancel: function (e) {
+	            return signals.datePickerCanceled();
+	          } })
+	      );
+	    }
+	  }], [{
+	    key: 'displayName',
+	    value: 'DatePicker',
+	    enumerable: true
+	  }, {
+	    key: 'propTypes',
+	    value: {
+	      signals: _react.PropTypes.object,
+	      datePicker: _react.PropTypes.object
+	    },
+	    enumerable: true
+	  }]);
+	
+	  var _DatePickerDemo = DatePickerDemo;
+	  DatePickerDemo = (0, _cerebralReact.Decorator)({
+	    datePicker: ['demos', 'datePicker']
+	  })(DatePickerDemo) || DatePickerDemo;
+	  return DatePickerDemo;
+	})(_react.Component);
+	
+	exports['default'] = DatePickerDemo;
+	module.exports = exports['default'];
+
+/***/ },
+/* 483 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(256);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _example = __webpack_require__(459);
+	
+	var _example2 = _interopRequireDefault(_example);
+	
+	var _lib = __webpack_require__(254);
+	
+	var TableDemo = (function (_Component) {
+	  _inherits(TableDemo, _Component);
+	
+	  function TableDemo() {
+	    _classCallCheck(this, TableDemo);
+	
+	    _get(Object.getPrototypeOf(TableDemo.prototype), 'constructor', this).apply(this, arguments);
+	  }
+	
+	  _createClass(TableDemo, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(_example2['default'], { code: '\nimport { Table } from \'material-components\';\n        ' }),
+	        _react2['default'].createElement(
+	          'p',
+	          null,
+	          'Only ',
+	          _react2['default'].createElement(
+	            'code',
+	            null,
+	            'Table'
+	          ),
+	          ', ',
+	          _react2['default'].createElement(
+	            'code',
+	            null,
+	            'Table.Toolbar'
+	          ),
+	          ' and ',
+	          _react2['default'].createElement(
+	            'code',
+	            null,
+	            'Table.Row'
+	          ),
+	          ' are necessary, for other element types use the default html elements ',
+	          _react2['default'].createElement(
+	            'code',
+	            null,
+	            'thead'
+	          ),
+	          ', ',
+	          _react2['default'].createElement(
+	            'code',
+	            null,
+	            'tbody'
+	          ),
+	          ', ',
+	          _react2['default'].createElement(
+	            'code',
+	            null,
+	            'th'
+	          ),
+	          ' and ',
+	          _react2['default'].createElement(
+	            'code',
+	            null,
+	            'td'
+	          ),
+	          '.'
+	        ),
+	        _react2['default'].createElement(_example2['default'], { code: '\n<Table className="paper1">\n  <thead>\n    <Table.Toolbar colSpan={3}>\n      <Button style={{ margin: \'0 8px\', padding: \'0 8px\' }} primary flat>Add</Button>\n    </Table.Toolbar>\n    <Table.Row>\n      <th>First Name</th>\n      <th>Last Name</th>\n      <th>Role</th>\n    </Table.Row>\n  </thead>\n  <tbody>\n    {[\n      { firstName: \'Brian\', lastName: \'Wilson\', role: \'user\' },\n      { firstName: \'Geoff\', lastName: \'Hayes\', role: \'user\' },\n      { firstName: \'John\', lastName: \'Doe\', role: \'admin\' }\n    ].map((user, index) => (\n      <Table.Row key={index} onTouchTap={select(user)}>\n        <td>{user.firstName}</td>\n        <td>{user.lastName}</td>\n        <td>{user.role}</td>\n      </Table.Row>\n    ))}\n  </tbody>\n</Table>\n        ' }),
+	        _react2['default'].createElement(
+	          _lib.Table,
+	          { style: { margin: '24px 0' }, className: 'paper1' },
+	          _react2['default'].createElement(
+	            'thead',
+	            null,
+	            _react2['default'].createElement(
+	              _lib.Table.Toolbar,
+	              { colSpan: 3 },
+	              _react2['default'].createElement(
+	                _lib.Button,
+	                { style: { margin: '0 8px', padding: '0 8px' }, primary: true, flat: true, onTouchTap: function () {} },
+	                'Add'
+	              )
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Table.Row,
+	              null,
+	              _react2['default'].createElement(
+	                'th',
+	                null,
+	                'First Name'
+	              ),
+	              _react2['default'].createElement(
+	                'th',
+	                null,
+	                'Last Name'
+	              ),
+	              _react2['default'].createElement(
+	                'th',
+	                null,
+	                'Role'
+	              )
+	            )
+	          ),
+	          _react2['default'].createElement(
+	            'tbody',
+	            null,
+	            [{ firstName: 'Brian', lastName: 'Wilson', role: 'user' }, { firstName: 'Geoff', lastName: 'Hayes', role: 'user' }, { firstName: 'John', lastName: 'Doe', role: 'admin' }].map(function (user, index) {
+	              return _react2['default'].createElement(
+	                _lib.Table.Row,
+	                { key: index, onTouchTap: function () {
+	                    return console.log('clicked', user);
+	                  } },
+	                _react2['default'].createElement(
+	                  'td',
+	                  null,
+	                  user.firstName
+	                ),
+	                _react2['default'].createElement(
+	                  'td',
+	                  null,
+	                  user.lastName
+	                ),
+	                _react2['default'].createElement(
+	                  'td',
+	                  null,
+	                  user.role
+	                )
+	              );
+	            })
+	          )
+	        )
+	      );
+	    }
+	  }], [{
+	    key: 'displayName',
+	    value: 'Table',
+	    enumerable: true
+	  }]);
+	
+	  return TableDemo;
+	})(_react.Component);
+	
+	exports['default'] = TableDemo;
+	module.exports = exports['default'];
+
+/***/ },
+/* 484 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(256);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _cerebralReact = __webpack_require__(450);
+	
+	var _example = __webpack_require__(459);
+	
+	var _example2 = _interopRequireDefault(_example);
+	
+	var _lib = __webpack_require__(254);
+	
+	var SpinnerDemo = (function (_Component) {
+	  _inherits(SpinnerDemo, _Component);
+	
+	  function SpinnerDemo() {
+	    _classCallCheck(this, _SpinnerDemo);
+	
+	    _get(Object.getPrototypeOf(_SpinnerDemo.prototype), 'constructor', this).apply(this, arguments);
+	  }
+	
+	  _createClass(SpinnerDemo, [{
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props;
+	      var signals = _props.signals;
+	      var spinner = _props.spinner;
+	
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(_example2['default'], { code: '\nimport { Spinner } from \'material-components\';\n        ' }),
+	        _react2['default'].createElement(_example2['default'], { code: '\n// inline spinners\n<Spinner size={25} inline/>\n<Spinner size={50} inline primary/>\n<Spinner size={75} inline secondary/>\n\n// page spinner\n<Spinner isOpen={isLoading}/>\n        ' }),
+	        _react2['default'].createElement(
+	          'div',
+	          { style: { margin: '24px 0' }, className: 'paper1 padded' },
+	          _react2['default'].createElement(
+	            _lib.Row,
+	            null,
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'sm-4' },
+	              _react2['default'].createElement(_lib.Spinner, { style: { margin: '10px auto' }, size: 25, inline: true })
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'sm-4' },
+	              _react2['default'].createElement(_lib.Spinner, { style: { margin: '10px auto' }, size: 25, inline: true, primary: true })
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'sm-4' },
+	              _react2['default'].createElement(_lib.Spinner, { style: { margin: '10px auto' }, size: 25, inline: true, secondary: true })
+	            )
+	          ),
+	          _react2['default'].createElement(
+	            _lib.Row,
+	            null,
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'sm-4' },
+	              _react2['default'].createElement(_lib.Spinner, { style: { margin: '10px auto' }, size: 50, inline: true })
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'sm-4' },
+	              _react2['default'].createElement(_lib.Spinner, { style: { margin: '10px auto' }, size: 50, inline: true, primary: true })
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'sm-4' },
+	              _react2['default'].createElement(_lib.Spinner, { style: { margin: '10px auto' }, size: 50, inline: true, secondary: true })
+	            )
+	          ),
+	          _react2['default'].createElement(
+	            _lib.Row,
+	            null,
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'sm-4' },
+	              _react2['default'].createElement(_lib.Spinner, { style: { margin: '10px auto' }, size: 75, inline: true })
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'sm-4' },
+	              _react2['default'].createElement(_lib.Spinner, { style: { margin: '10px auto' }, size: 75, inline: true, primary: true })
+	            ),
+	            _react2['default'].createElement(
+	              _lib.Col,
+	              { type: 'sm-4' },
+	              _react2['default'].createElement(_lib.Spinner, { style: { margin: '10px auto' }, size: 75, inline: true, secondary: true })
+	            )
+	          )
+	        ),
+	        _react2['default'].createElement(
+	          'div',
+	          { style: { margin: '24px 0' } },
+	          _react2['default'].createElement(_lib.Checkbox, { label: 'Page is loading', value: spinner.isLoading, onChange: function (e) {
+	              return signals.isLoadingChanged({ value: e.target.value });
+	            } })
+	        ),
+	        _react2['default'].createElement(_lib.Spinner, { isOpen: spinner.isLoading })
+	      );
+	    }
+	  }], [{
+	    key: 'displayName',
+	    value: 'Spinner',
+	    enumerable: true
+	  }, {
+	    key: 'propTypes',
+	    value: {
+	      signals: _react.PropTypes.object,
+	      spinner: _react.PropTypes.object
+	    },
+	    enumerable: true
+	  }]);
+	
+	  var _SpinnerDemo = SpinnerDemo;
+	  SpinnerDemo = (0, _cerebralReact.Decorator)({
+	    spinner: ['demos', 'spinner']
+	  })(SpinnerDemo) || SpinnerDemo;
+	  return SpinnerDemo;
+	})(_react.Component);
+	
+	exports['default'] = SpinnerDemo;
+	module.exports = exports['default'];
+
+/***/ },
+/* 485 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(256);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _cerebralReact = __webpack_require__(450);
+	
+	var _example = __webpack_require__(459);
+	
+	var _example2 = _interopRequireDefault(_example);
+	
+	var _lib = __webpack_require__(254);
+	
+	var CalendarDemo = (function (_Component) {
+	  _inherits(CalendarDemo, _Component);
+	
+	  function CalendarDemo() {
+	    _classCallCheck(this, _CalendarDemo);
+	
+	    _get(Object.getPrototypeOf(_CalendarDemo.prototype), 'constructor', this).apply(this, arguments);
+	  }
+	
+	  _createClass(CalendarDemo, [{
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props;
+	      var signals = _props.signals;
+	      var calendar = _props.calendar;
+	
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(_example2['default'], { code: '\nimport { Calendar } from \'material-components\';\n        ' }),
+	        _react2['default'].createElement(
+	          'p',
+	          null,
+	          'The ',
+	          _react2['default'].createElement(
+	            'code',
+	            null,
+	            'Calendar'
+	          ),
+	          ' component uses the internationalisation from moment.js, to change the locale settings ',
+	          _react2['default'].createElement(
+	            'a',
+	            { href: 'http://momentjs.com/docs/#/i18n/' },
+	            'configure moment'
+	          ),
+	          ' with your desired locale.'
+	        ),
+	        _react2['default'].createElement(_example2['default'], { code: '\n// Non interactive calendar of the current month\n<Calendar/>\n\n// Non interactive calendar of given month\n<Calendar titleFormat="MMM" year={2010} month={0} value={new Date(2010, 0, 5)}/>\n        ' }),
+	        _react2['default'].createElement(
+	          _lib.Row,
+	          null,
+	          _react2['default'].createElement(
+	            _lib.Col,
+	            { type: 'sm-6' },
+	            _react2['default'].createElement(_lib.Calendar, { className: 'paper1', style: { margin: '24px auto', padding: '12px' } })
+	          ),
+	          _react2['default'].createElement(
+	            _lib.Col,
+	            { type: 'sm-6' },
+	            _react2['default'].createElement(_lib.Calendar, { titleFormat: 'MMM', year: 2010, month: 0, value: new Date(2010, 0, 5), className: 'paper1', style: { margin: '24px auto', padding: '12px' } })
+	          )
+	        ),
+	        _react2['default'].createElement(_example2['default'], { code: '\n// Interactive calendar\n<Calendar\n  year={year}\n  month={month}\n  value={selectedDate}\n  onChange={setDate}\n  onNavigate={updateCalendar}/>\n        ' }),
+	        _react2['default'].createElement(_lib.Calendar, {
+	          year: calendar.calendar.year,
+	          month: calendar.calendar.month,
+	          value: calendar.selectedDate,
+	          onChange: function (e) {
+	            return signals.calendarChanged({ value: e.target.value });
+	          },
+	          onNavigate: function (e) {
+	            return signals.calendarNavigate({ value: e.target.value });
+	          },
+	          className: 'paper1',
+	          style: { margin: '24px auto', padding: '12px' } })
+	      );
+	    }
+	  }], [{
+	    key: 'displayName',
+	    value: 'Calendar',
+	    enumerable: true
+	  }, {
+	    key: 'propTypes',
+	    value: {
+	      signals: _react.PropTypes.object,
+	      calendar: _react.PropTypes.object
+	    },
+	    enumerable: true
+	  }]);
+	
+	  var _CalendarDemo = CalendarDemo;
+	  CalendarDemo = (0, _cerebralReact.Decorator)({
+	    calendar: ['demos', 'calendar']
+	  })(CalendarDemo) || CalendarDemo;
+	  return CalendarDemo;
+	})(_react.Component);
+	
+	exports['default'] = CalendarDemo;
+	module.exports = exports['default'];
+
+/***/ },
+/* 486 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(256);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _cerebralReact = __webpack_require__(450);
+	
+	var _example = __webpack_require__(459);
+	
+	var _example2 = _interopRequireDefault(_example);
+	
+	var ResponsiveEvents = (function (_Component) {
+	  _inherits(ResponsiveEvents, _Component);
+	
+	  function ResponsiveEvents() {
+	    _classCallCheck(this, _ResponsiveEvents);
+	
+	    _get(Object.getPrototypeOf(_ResponsiveEvents.prototype), 'constructor', this).apply(this, arguments);
+	  }
+	
+	  _createClass(ResponsiveEvents, [{
+	    key: 'render',
+	    value: function render() {
+	      var screen = this.props.screen;
+	
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(_example2['default'], { code: '\nimport { events } from \'material-components\';\n        ' }),
+	        _react2['default'].createElement(
+	          'p',
+	          null,
+	          'Responsive Events are emitted whenever the screen type or orientation changes. This can be used to modify the UI to suite the device. Unlike CSS media queries which change the style of always present elements, this feature can be used to completely change what application renders. Meaning that your app should only render the elements needed on mobile and not just hide the desktop elements.'
+	        ),
+	        _react2['default'].createElement(
+	          'p',
+	          null,
+	          'How you use this feature depends on what framework you use for your application. With Cerebral you would send a signal, with a flux framework you would call an action. In both cases you would then apply the screen data to your central store which would cause your application components which observe the screen object in your store to re-render.'
+	        ),
+	        _react2['default'].createElement(_example2['default'], { code: '\n// how you apply the change to your store depends on your framework choice\nevents.responsive.addListener(screen => store.set(\'screen\', screen));\n        ' }),
+	        _react2['default'].createElement(
+	          'p',
+	          null,
+	          'Event listeners receive a screen object which looks like:'
+	        ),
+	        _react2['default'].createElement(_example2['default'], { code: '\n{\n  type: \'xs\',\n  size: 1,\n  isLandscape: true,\n  isPortrait: false\n}\n        ' }),
+	        _react2['default'].createElement(
+	          'p',
+	          null,
+	          'following the same reponsive configuration as bootstrap, ',
+	          _react2['default'].createElement(
+	            'code',
+	            null,
+	            'type'
+	          ),
+	          ' can be one of ',
+	          _react2['default'].createElement(
+	            'code',
+	            null,
+	            '\'xs\''
+	          ),
+	          ', ',
+	          _react2['default'].createElement(
+	            'code',
+	            null,
+	            '\'sm\''
+	          ),
+	          ', ',
+	          _react2['default'].createElement(
+	            'code',
+	            null,
+	            '\'md\''
+	          ),
+	          ' or ',
+	          _react2['default'].createElement(
+	            'code',
+	            null,
+	            '\'lg\''
+	          ),
+	          '. ',
+	          _react2['default'].createElement(
+	            'code',
+	            null,
+	            'size'
+	          ),
+	          ' is the same as ',
+	          _react2['default'].createElement(
+	            'code',
+	            null,
+	            'type'
+	          ),
+	          ' (',
+	          _react2['default'].createElement(
+	            'code',
+	            null,
+	            'xs=1, sm=2, md=3, lg=4'
+	          ),
+	          '), but allows you to filter by range (',
+	          _react2['default'].createElement(
+	            'code',
+	            null,
+	            'if (screen.size > 2) '
+	          ),
+	          ').'
+	        ),
+	        _react2['default'].createElement(
+	          'div',
+	          { className: 'paper' + screen.size + ' padded' },
+	          'As the screen gets larger this paper will rise.',
+	          _react2['default'].createElement('br', null),
+	          'The screen is ',
+	          screen.type,
+	          '.'
+	        ),
+	        _react2['default'].createElement(
+	          'p',
+	          null,
+	          'The event is only triggered when these values change and not on every window resize event, so updating the UI every time this event is triggered should be ok.'
+	        )
+	      );
+	    }
+	  }], [{
+	    key: 'displayName',
+	    value: 'ResponsiveEvents',
+	    enumerable: true
+	  }, {
+	    key: 'propTypes',
+	    value: {
+	      screen: _react.PropTypes.object
+	    },
+	    enumerable: true
+	  }]);
+	
+	  var _ResponsiveEvents = ResponsiveEvents;
+	  ResponsiveEvents = (0, _cerebralReact.Decorator)({
+	    screen: ['screen']
+	  })(ResponsiveEvents) || ResponsiveEvents;
+	  return ResponsiveEvents;
+	})(_react.Component);
+	
+	exports['default'] = ResponsiveEvents;
+	module.exports = exports['default'];
+
+/***/ },
+/* 487 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(256);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var NotFound = (function (_Component) {
+	  _inherits(NotFound, _Component);
+	
+	  function NotFound() {
+	    _classCallCheck(this, NotFound);
+	
+	    _get(Object.getPrototypeOf(NotFound.prototype), 'constructor', this).apply(this, arguments);
+	  }
+	
+	  _createClass(NotFound, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2['default'].createElement(
+	        'p',
+	        null,
+	        'Page not found'
+	      );
+	    }
+	  }], [{
+	    key: 'displayName',
+	    value: 'NotFound',
+	    enumerable: true
+	  }, {
+	    key: 'propTypes',
+	    value: {},
+	    enumerable: true
+	  }]);
+	
+	  return NotFound;
+	})(_react.Component);
+	
+	exports['default'] = NotFound;
+	module.exports = exports['default'];
+
+/***/ },
+/* 488 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(454);
+	var content = __webpack_require__(489);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(452)(content, {});
+	var update = __webpack_require__(463)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../css-loader/index.js!./normalize.css", function() {
+				var newContent = require("!!./../css-loader/index.js!./normalize.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 489 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(462)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, "/*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */\n\n/**\n * 1. Set default font family to sans-serif.\n * 2. Prevent iOS and IE text size adjust after device orientation change,\n *    without disabling user zoom.\n */\n\nhtml {\n  font-family: sans-serif; /* 1 */\n  -ms-text-size-adjust: 100%; /* 2 */\n  -webkit-text-size-adjust: 100%; /* 2 */\n}\n\n/**\n * Remove default margin.\n */\n\nbody {\n  margin: 0;\n}\n\n/* HTML5 display definitions\n   ========================================================================== */\n\n/**\n * Correct `block` display not defined for any HTML5 element in IE 8/9.\n * Correct `block` display not defined for `details` or `summary` in IE 10/11\n * and Firefox.\n * Correct `block` display not defined for `main` in IE 11.\n */\n\narticle,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nhgroup,\nmain,\nmenu,\nnav,\nsection,\nsummary {\n  display: block;\n}\n\n/**\n * 1. Correct `inline-block` display not defined in IE 8/9.\n * 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.\n */\n\naudio,\ncanvas,\nprogress,\nvideo {\n  display: inline-block; /* 1 */\n  vertical-align: baseline; /* 2 */\n}\n\n/**\n * Prevent modern browsers from displaying `audio` without controls.\n * Remove excess height in iOS 5 devices.\n */\n\naudio:not([controls]) {\n  display: none;\n  height: 0;\n}\n\n/**\n * Address `[hidden]` styling not present in IE 8/9/10.\n * Hide the `template` element in IE 8/9/10/11, Safari, and Firefox < 22.\n */\n\n[hidden],\ntemplate {\n  display: none;\n}\n\n/* Links\n   ========================================================================== */\n\n/**\n * Remove the gray background color from active links in IE 10.\n */\n\na {\n  background-color: transparent;\n}\n\n/**\n * Improve readability of focused elements when they are also in an\n * active/hover state.\n */\n\na:active,\na:hover {\n  outline: 0;\n}\n\n/* Text-level semantics\n   ========================================================================== */\n\n/**\n * Address styling not present in IE 8/9/10/11, Safari, and Chrome.\n */\n\nabbr[title] {\n  border-bottom: 1px dotted;\n}\n\n/**\n * Address style set to `bolder` in Firefox 4+, Safari, and Chrome.\n */\n\nb,\nstrong {\n  font-weight: bold;\n}\n\n/**\n * Address styling not present in Safari and Chrome.\n */\n\ndfn {\n  font-style: italic;\n}\n\n/**\n * Address variable `h1` font-size and margin within `section` and `article`\n * contexts in Firefox 4+, Safari, and Chrome.\n */\n\nh1 {\n  font-size: 2em;\n  margin: 0.67em 0;\n}\n\n/**\n * Address styling not present in IE 8/9.\n */\n\nmark {\n  background: #ff0;\n  color: #000;\n}\n\n/**\n * Address inconsistent and variable font size in all browsers.\n */\n\nsmall {\n  font-size: 80%;\n}\n\n/**\n * Prevent `sub` and `sup` affecting `line-height` in all browsers.\n */\n\nsub,\nsup {\n  font-size: 75%;\n  line-height: 0;\n  position: relative;\n  vertical-align: baseline;\n}\n\nsup {\n  top: -0.5em;\n}\n\nsub {\n  bottom: -0.25em;\n}\n\n/* Embedded content\n   ========================================================================== */\n\n/**\n * Remove border when inside `a` element in IE 8/9/10.\n */\n\nimg {\n  border: 0;\n}\n\n/**\n * Correct overflow not hidden in IE 9/10/11.\n */\n\nsvg:not(:root) {\n  overflow: hidden;\n}\n\n/* Grouping content\n   ========================================================================== */\n\n/**\n * Address margin not present in IE 8/9 and Safari.\n */\n\nfigure {\n  margin: 1em 40px;\n}\n\n/**\n * Address differences between Firefox and other browsers.\n */\n\nhr {\n  box-sizing: content-box;\n  height: 0;\n}\n\n/**\n * Contain overflow in all browsers.\n */\n\npre {\n  overflow: auto;\n}\n\n/**\n * Address odd `em`-unit font size rendering in all browsers.\n */\n\ncode,\nkbd,\npre,\nsamp {\n  font-family: monospace, monospace;\n  font-size: 1em;\n}\n\n/* Forms\n   ========================================================================== */\n\n/**\n * Known limitation: by default, Chrome and Safari on OS X allow very limited\n * styling of `select`, unless a `border` property is set.\n */\n\n/**\n * 1. Correct color not being inherited.\n *    Known issue: affects color of disabled elements.\n * 2. Correct font properties not being inherited.\n * 3. Address margins set differently in Firefox 4+, Safari, and Chrome.\n */\n\nbutton,\ninput,\noptgroup,\nselect,\ntextarea {\n  color: inherit; /* 1 */\n  font: inherit; /* 2 */\n  margin: 0; /* 3 */\n}\n\n/**\n * Address `overflow` set to `hidden` in IE 8/9/10/11.\n */\n\nbutton {\n  overflow: visible;\n}\n\n/**\n * Address inconsistent `text-transform` inheritance for `button` and `select`.\n * All other form control elements do not inherit `text-transform` values.\n * Correct `button` style inheritance in Firefox, IE 8/9/10/11, and Opera.\n * Correct `select` style inheritance in Firefox.\n */\n\nbutton,\nselect {\n  text-transform: none;\n}\n\n/**\n * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`\n *    and `video` controls.\n * 2. Correct inability to style clickable `input` types in iOS.\n * 3. Improve usability and consistency of cursor style between image-type\n *    `input` and others.\n */\n\nbutton,\nhtml input[type=\"button\"], /* 1 */\ninput[type=\"reset\"],\ninput[type=\"submit\"] {\n  -webkit-appearance: button; /* 2 */\n  cursor: pointer; /* 3 */\n}\n\n/**\n * Re-set default cursor for disabled elements.\n */\n\nbutton[disabled],\nhtml input[disabled] {\n  cursor: default;\n}\n\n/**\n * Remove inner padding and border in Firefox 4+.\n */\n\nbutton::-moz-focus-inner,\ninput::-moz-focus-inner {\n  border: 0;\n  padding: 0;\n}\n\n/**\n * Address Firefox 4+ setting `line-height` on `input` using `!important` in\n * the UA stylesheet.\n */\n\ninput {\n  line-height: normal;\n}\n\n/**\n * It's recommended that you don't attempt to style these elements.\n * Firefox's implementation doesn't respect box-sizing, padding, or width.\n *\n * 1. Address box sizing set to `content-box` in IE 8/9/10.\n * 2. Remove excess padding in IE 8/9/10.\n */\n\ninput[type=\"checkbox\"],\ninput[type=\"radio\"] {\n  box-sizing: border-box; /* 1 */\n  padding: 0; /* 2 */\n}\n\n/**\n * Fix the cursor style for Chrome's increment/decrement buttons. For certain\n * `font-size` values of the `input`, it causes the cursor style of the\n * decrement button to change from `default` to `text`.\n */\n\ninput[type=\"number\"]::-webkit-inner-spin-button,\ninput[type=\"number\"]::-webkit-outer-spin-button {\n  height: auto;\n}\n\n/**\n * 1. Address `appearance` set to `searchfield` in Safari and Chrome.\n * 2. Address `box-sizing` set to `border-box` in Safari and Chrome.\n */\n\ninput[type=\"search\"] {\n  -webkit-appearance: textfield; /* 1 */\n  box-sizing: content-box; /* 2 */\n}\n\n/**\n * Remove inner padding and search cancel button in Safari and Chrome on OS X.\n * Safari (but not Chrome) clips the cancel button when the search input has\n * padding (and `textfield` appearance).\n */\n\ninput[type=\"search\"]::-webkit-search-cancel-button,\ninput[type=\"search\"]::-webkit-search-decoration {\n  -webkit-appearance: none;\n}\n\n/**\n * Define consistent border, margin, and padding.\n */\n\nfieldset {\n  border: 1px solid #c0c0c0;\n  margin: 0 2px;\n  padding: 0.35em 0.625em 0.75em;\n}\n\n/**\n * 1. Correct `color` not being inherited in IE 8/9/10/11.\n * 2. Remove padding so people aren't caught out if they zero out fieldsets.\n */\n\nlegend {\n  border: 0; /* 1 */\n  padding: 0; /* 2 */\n}\n\n/**\n * Remove default vertical scrollbar in IE 8/9/10/11.\n */\n\ntextarea {\n  overflow: auto;\n}\n\n/**\n * Don't inherit the `font-weight` (applied by a rule above).\n * NOTE: the default cannot safely be changed in Chrome and Safari on OS X.\n */\n\noptgroup {\n  font-weight: bold;\n}\n\n/* Tables\n   ========================================================================== */\n\n/**\n * Remove most spacing between table cells.\n */\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\n\ntd,\nth {\n  padding: 0;\n}\n", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 490 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(491);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(463)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -42808,10 +45253,10 @@
 	}
 
 /***/ },
-/* 454 */
+/* 491 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(451)();
+	exports = module.exports = __webpack_require__(462)();
 	// imports
 	
 	

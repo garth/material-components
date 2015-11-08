@@ -1,22 +1,31 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
+import ReactDOM from 'react-dom';
+import '../vendor/prism.css';
+import '../vendor/prism';
 
-export default function Example({ code }) {
-  return (
-    <div
-      style={{
-        padding: '8px 0'
-      }}>
-      <pre
-        className="prettyprint lang-js linenums"
-        style={{
-          fontFamily: 'Ubuntu Mono',
-          padding: '8px 0',
-          margin: '0',
-          borderRadius: '0',
-          width: '100%'
-        }}>
-        {code.trim()}
+export default class Example extends Component {
+
+  static displayName = 'Example';
+
+  static propTypes = {
+    code: PropTypes.string
+  };
+
+  componentDidMount() {
+    window.Prism.highlightElement(ReactDOM.findDOMNode(this.refs.code), false);
+  }
+
+  render() {
+    const {
+      code
+    } = this.props;
+
+    return (
+      <pre>
+        <code ref="code" className="language-jsx">
+          {code.trim()}
+        </code>
       </pre>
-    </div>
-  )
+    );
+  }
 }
