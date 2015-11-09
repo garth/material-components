@@ -14,6 +14,7 @@ export default class Dialog extends Component {
     children: PropTypes.node,
     height: PropTypes.number,
     hideDivider: PropTypes.bool,
+    ignoreResizeEvents: PropTypes.bool,
     isOpen: PropTypes.bool,
     noPadding: PropTypes.bool,
     okLabel: PropTypes.string,
@@ -27,6 +28,7 @@ export default class Dialog extends Component {
   static defaultProps = {
     height: 130,
     hideDivider: false,
+    ignoreResizeEvents: false,
     isOpen: false,
     noPadding: false,
     style: {},
@@ -34,11 +36,15 @@ export default class Dialog extends Component {
   };
 
   componentDidMount() {
-    window.addEventListener('resize', this._resize = () => this.forceUpdate());
+    if (!this.props.ignoreResizeEvents) {
+      window.addEventListener('resize', this._resize = () => this.forceUpdate());
+    }
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this._resize);
+    if (!this.props.ignoreResizeEvents) {
+      window.removeEventListener('resize', this._resize);
+    }
   }
 
   button(label, onTouchTap) {
