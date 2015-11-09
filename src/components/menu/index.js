@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Mask from '../mask';
 import Item from './item';
-import Seperator from './seperator';
+import Separator from './separator';
 import screen from '../helpers/screen';
 
 class Menu extends Component {
@@ -133,6 +133,6 @@ class Menu extends Component {
 }
 
 Menu.Item = Item;
-Menu.Seperator = Seperator;
+Menu.Separator = Separator;
 
 export default Menu;

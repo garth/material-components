@@ -18,7 +18,7 @@ import { Sidenav } from 'material-components';
   <Sidenav.Title showCloseButton>Menu</Sidenav.Title>
   <Sidenav.Item showIcon icon={<Icon name="user"/>} onTouchTap={itemSelected}>Option A</Sidenav.Item>
   <Sidenav.Item showIcon icon={<Icon name="dashboard"/>} onTouchTap={itemSelected} selected>Option B</Sidenav.Item>
-  <Sidenav.Seperator/>
+  <Sidenav.Separator/>
   <Sidenav.Item showIcon icon={<Icon name="cog"/>} onTouchTap={itemSelected}>Settings</Sidenav.Item>
 </Sidenav>
         `}/>
@@ -28,7 +28,7 @@ import { Sidenav } from 'material-components';
 <Sidenav mini>
   <Sidenav.Item showIcon icon={<Icon name="user"/>} onTouchTap={itemSelected}/>
   <Sidenav.Item showIcon icon={<Icon name="dashboard"/>} onTouchTap={itemSelected} selected/>
-  <Sidenav.Seperator/>
+  <Sidenav.Separator/>
   <Sidenav.Item showIcon icon={<Icon name="settings"/>} onTouchTap={itemSelected}/>
 </Sidenav>
 <div style={{ marginLeft: '60px' }}>
@@ -47,7 +47,7 @@ import { Sidenav } from 'material-components';
           }}>
             <Sidenav.Item showIcon icon={<Icon name="user"/>}/>
             <Sidenav.Item showIcon icon={<Icon name="dashboard"/>} selected/>
-            <Sidenav.Seperator/>
+            <Sidenav.Separator/>
             <Sidenav.Item showIcon icon={<Icon name="settings"/>}/>
           </Sidenav>
           <div style={{

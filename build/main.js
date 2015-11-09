@@ -34937,9 +34937,9 @@
 	
 	var _item2 = _interopRequireDefault(_item);
 	
-	var _seperator = __webpack_require__(424);
+	var _separator = __webpack_require__(424);
 	
-	var _seperator2 = _interopRequireDefault(_seperator);
+	var _separator2 = _interopRequireDefault(_separator);
 	
 	var _helpersScreen = __webpack_require__(419);
 	
@@ -35101,7 +35101,7 @@
 	})(_react.Component);
 	
 	Menu.Item = _item2['default'];
-	Menu.Seperator = _seperator2['default'];
+	Menu.Separator = _separator2['default'];
 	
 	exports['default'] = Menu;
 	module.exports = exports['default'];
@@ -35291,7 +35291,7 @@
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
-	exports['default'] = Seperator;
+	exports['default'] = Separator;
 	
 	function _interopRequireDefault(obj) {
 	  return obj && obj.__esModule ? obj : { 'default': obj };
@@ -35305,7 +35305,7 @@
 	
 	var _divider2 = _interopRequireDefault(_divider);
 	
-	function Seperator(_ref) {
+	function Separator(_ref) {
 	  var _ref$style = _ref.style;
 	  var style = _ref$style === undefined ? {} : _ref$style;
 	
@@ -35610,9 +35610,9 @@
 	
 	var _title2 = _interopRequireDefault(_title);
 	
-	var _menuSeperator = __webpack_require__(424);
+	var _menuSeparator = __webpack_require__(424);
 	
-	var _menuSeperator2 = _interopRequireDefault(_menuSeperator);
+	var _menuSeparator2 = _interopRequireDefault(_menuSeparator);
 	
 	var Sidenav = (function (_Component) {
 	  _inherits(Sidenav, _Component);
@@ -35711,7 +35711,7 @@
 	})(_react.Component);
 	
 	Sidenav.Item = _item2['default'];
-	Sidenav.Seperator = _menuSeperator2['default'];
+	Sidenav.Separator = _menuSeparator2['default'];
 	Sidenav.Title = _title2['default'];
 	
 	exports['default'] = Sidenav;
@@ -41410,8 +41410,8 @@
 	            { showCloseButton: true },
 	            'Material Components'
 	          ),
-	          [{ icon: 'directions', page: 'introduction', title: 'Introduction', signal: signals.introductionPageOpened }, { icon: 'tune', page: 'gettingStarted', title: 'Getting Started', signal: signals.gettingStartedPageOpened }, { seperator: true }, { icon: 'layers', page: 'paper', title: 'Paper', signal: signals.paperPageOpened }, { icon: 'format_size', page: 'typography', title: 'Typography', signal: signals.typographyPageOpened }, { icon: 'border_top', page: 'appbar', title: 'Appbar', signal: signals.appbarPageOpened }, { icon: 'menu', page: 'sidenav', title: 'Sidenav', signal: signals.sidenavPageOpened }, { icon: 'content_paste', page: 'form', title: 'Form', signal: signals.formPageOpened }, { icon: 'crop_7_5', page: 'button', title: 'Button', signal: signals.buttonPageOpened }, { icon: 'edit', page: 'input', title: 'Input', signal: signals.inputPageOpened }, { icon: 'arrow_drop_down', page: 'select', title: 'Select', signal: signals.selectPageOpened }, { icon: 'check_box', page: 'checkbox', title: 'Checkbox', signal: signals.checkboxPageOpened }, { icon: 'view_compact', page: 'gridSystem', title: 'Grid System', signal: signals.gridSystemPageOpened }, { icon: 'more_vert', page: 'menu', title: 'Menu', signal: signals.menuPageOpened }, { icon: 'picture_in_picture', page: 'dialog', title: 'Dialog', signal: signals.dialogPageOpened }, { icon: 'event_available', page: 'datePicker', title: 'Date Picker', signal: signals.datePickerPageOpened }, { icon: 'reorder', page: 'table', title: 'Table', signal: signals.tablePageOpened }, { icon: 'sync', page: 'spinner', title: 'Spinner', signal: signals.spinnerPageOpened }, { icon: 'event', page: 'calendar', title: 'Calendar', signal: signals.calendarPageOpened }, { seperator: true }, { icon: 'devices', page: 'responsiveEvents', title: 'Responsive Events', signal: signals.responsiveEventsPageOpened }].map(function (menu, i) {
-	            return menu.seperator ? _react2['default'].createElement(_lib.Sidenav.Seperator, { key: i }) : _react2['default'].createElement(
+	          [{ icon: 'directions', page: 'introduction', title: 'Introduction', signal: signals.introductionPageOpened }, { icon: 'tune', page: 'gettingStarted', title: 'Getting Started', signal: signals.gettingStartedPageOpened }, { separator: true }, { icon: 'layers', page: 'paper', title: 'Paper', signal: signals.paperPageOpened }, { icon: 'format_size', page: 'typography', title: 'Typography', signal: signals.typographyPageOpened }, { icon: 'border_top', page: 'appbar', title: 'Appbar', signal: signals.appbarPageOpened }, { icon: 'menu', page: 'sidenav', title: 'Sidenav', signal: signals.sidenavPageOpened }, { icon: 'content_paste', page: 'form', title: 'Form', signal: signals.formPageOpened }, { icon: 'crop_7_5', page: 'button', title: 'Button', signal: signals.buttonPageOpened }, { icon: 'edit', page: 'input', title: 'Input', signal: signals.inputPageOpened }, { icon: 'arrow_drop_down', page: 'select', title: 'Select', signal: signals.selectPageOpened }, { icon: 'check_box', page: 'checkbox', title: 'Checkbox', signal: signals.checkboxPageOpened }, { icon: 'view_compact', page: 'gridSystem', title: 'Grid System', signal: signals.gridSystemPageOpened }, { icon: 'more_vert', page: 'menu', title: 'Menu', signal: signals.menuPageOpened }, { icon: 'picture_in_picture', page: 'dialog', title: 'Dialog', signal: signals.dialogPageOpened }, { icon: 'event_available', page: 'datePicker', title: 'Date Picker', signal: signals.datePickerPageOpened }, { icon: 'reorder', page: 'table', title: 'Table', signal: signals.tablePageOpened }, { icon: 'sync', page: 'spinner', title: 'Spinner', signal: signals.spinnerPageOpened }, { icon: 'event', page: 'calendar', title: 'Calendar', signal: signals.calendarPageOpened }, { separator: true }, { icon: 'devices', page: 'responsiveEvents', title: 'Responsive Events', signal: signals.responsiveEventsPageOpened }].map(function (menu, i) {
+	            return menu.separator ? _react2['default'].createElement(_lib.Sidenav.Separator, { key: i }) : _react2['default'].createElement(
 	              _lib.Sidenav.Item,
 	              {
 	                key: i,
@@ -43381,7 +43381,7 @@
 	        'div',
 	        null,
 	        _react2['default'].createElement(_example2['default'], { code: '\nimport { Sidenav } from \'material-components\';\n        ' }),
-	        _react2['default'].createElement(_example2['default'], { code: '\n<Sidenav isOpen={sidenavOpen} onDone={closeSidenavFunc}>\n  <Sidenav.Title showCloseButton>Menu</Sidenav.Title>\n  <Sidenav.Item showIcon icon={<Icon name="user"/>} onTouchTap={itemSelected}>Option A</Sidenav.Item>\n  <Sidenav.Item showIcon icon={<Icon name="dashboard"/>} onTouchTap={itemSelected} selected>Option B</Sidenav.Item>\n  <Sidenav.Seperator/>\n  <Sidenav.Item showIcon icon={<Icon name="cog"/>} onTouchTap={itemSelected}>Settings</Sidenav.Item>\n</Sidenav>\n        ' }),
+	        _react2['default'].createElement(_example2['default'], { code: '\n<Sidenav isOpen={sidenavOpen} onDone={closeSidenavFunc}>\n  <Sidenav.Title showCloseButton>Menu</Sidenav.Title>\n  <Sidenav.Item showIcon icon={<Icon name="user"/>} onTouchTap={itemSelected}>Option A</Sidenav.Item>\n  <Sidenav.Item showIcon icon={<Icon name="dashboard"/>} onTouchTap={itemSelected} selected>Option B</Sidenav.Item>\n  <Sidenav.Separator/>\n  <Sidenav.Item showIcon icon={<Icon name="cog"/>} onTouchTap={itemSelected}>Settings</Sidenav.Item>\n</Sidenav>\n        ' }),
 	        _react2['default'].createElement(
 	          'p',
 	          null,
@@ -43392,7 +43392,7 @@
 	          null,
 	          'It\'s also possible to have a mini sidenav that is always on display.'
 	        ),
-	        _react2['default'].createElement(_example2['default'], { code: '\n<Sidenav mini>\n  <Sidenav.Item showIcon icon={<Icon name="user"/>} onTouchTap={itemSelected}/>\n  <Sidenav.Item showIcon icon={<Icon name="dashboard"/>} onTouchTap={itemSelected} selected/>\n  <Sidenav.Seperator/>\n  <Sidenav.Item showIcon icon={<Icon name="settings"/>} onTouchTap={itemSelected}/>\n</Sidenav>\n<div style={{ marginLeft: \'60px\' }}>\n  Page Content\n</div>\n        ' }),
+	        _react2['default'].createElement(_example2['default'], { code: '\n<Sidenav mini>\n  <Sidenav.Item showIcon icon={<Icon name="user"/>} onTouchTap={itemSelected}/>\n  <Sidenav.Item showIcon icon={<Icon name="dashboard"/>} onTouchTap={itemSelected} selected/>\n  <Sidenav.Separator/>\n  <Sidenav.Item showIcon icon={<Icon name="settings"/>} onTouchTap={itemSelected}/>\n</Sidenav>\n<div style={{ marginLeft: \'60px\' }}>\n  Page Content\n</div>\n        ' }),
 	        _react2['default'].createElement(
 	          'div',
 	          { className: 'paper1', style: {
@@ -43409,7 +43409,7 @@
 	              } },
 	            _react2['default'].createElement(_lib.Sidenav.Item, { showIcon: true, icon: _react2['default'].createElement(_icon2['default'], { name: 'user' }) }),
 	            _react2['default'].createElement(_lib.Sidenav.Item, { showIcon: true, icon: _react2['default'].createElement(_icon2['default'], { name: 'dashboard' }), selected: true }),
-	            _react2['default'].createElement(_lib.Sidenav.Seperator, null),
+	            _react2['default'].createElement(_lib.Sidenav.Separator, null),
 	            _react2['default'].createElement(_lib.Sidenav.Item, { showIcon: true, icon: _react2['default'].createElement(_icon2['default'], { name: 'settings' }) })
 	          ),
 	          _react2['default'].createElement(
@@ -44180,7 +44180,7 @@
 	        'div',
 	        null,
 	        _react2['default'].createElement(_example2['default'], { code: '\nimport { Menu } from \'material-components\';\n        ' }),
-	        _react2['default'].createElement(_example2['default'], { code: '\n<Menu isOpen={showSimpleMenuProp} onDone={hideSimpleMenuFunc}>\n  <Menu.Item onTouchTap={itemClicked}>Simple Menu Item</Menu.Item>\n  <Menu.Item onTouchTap={itemClicked}>Other Option</Menu.Item>\n</Menu>\n\n<Menu rightAlign isOpen={showMenuProp} onDone={hideMenuFunc}>\n  <Menu.Item showIcon icon={<Icon name="settings"/>} onTouchTap={itemClicked}>Settings</Menu.Item>\n  <Menu.Item showIcon onTouchTap={itemClicked}>No Icon</Menu.Item>\n  <Menu.Seperator/>\n  <Menu.Item showIcon selected={selectedOption===1} onTouchTap={() => setSelectedOption(1)}>Option 1</Menu.Item>\n  <Menu.Item showIcon selected={selectedOption===2} onTouchTap={() => setSelectedOption(2)}>Option 2</Menu.Item>\n</Menu>\n        ' }),
+	        _react2['default'].createElement(_example2['default'], { code: '\n<Menu isOpen={showSimpleMenuProp} onDone={hideSimpleMenuFunc}>\n  <Menu.Item onTouchTap={itemClicked}>Simple Menu Item</Menu.Item>\n  <Menu.Item onTouchTap={itemClicked}>Other Option</Menu.Item>\n</Menu>\n\n<Menu rightAlign isOpen={showMenuProp} onDone={hideMenuFunc}>\n  <Menu.Item showIcon icon={<Icon name="settings"/>} onTouchTap={itemClicked}>Settings</Menu.Item>\n  <Menu.Item showIcon onTouchTap={itemClicked}>No Icon</Menu.Item>\n  <Menu.Separator/>\n  <Menu.Item showIcon selected={selectedOption===1} onTouchTap={() => setSelectedOption(1)}>Option 1</Menu.Item>\n  <Menu.Item showIcon selected={selectedOption===2} onTouchTap={() => setSelectedOption(2)}>Option 2</Menu.Item>\n</Menu>\n        ' }),
 	        _react2['default'].createElement(
 	          'div',
 	          { style: { margin: '24px 0' } },
@@ -44229,7 +44229,7 @@
 	              { showIcon: true },
 	              'No Icon'
 	            ),
-	            _react2['default'].createElement(_lib.Menu.Seperator, null),
+	            _react2['default'].createElement(_lib.Menu.Separator, null),
 	            _react2['default'].createElement(
 	              _lib.Menu.Item,
 	              { showIcon: true, selected: menu.selectedOption === 1, onTouchTap: function () {

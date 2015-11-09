@@ -3,7 +3,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Mask from '../mask';
 import Item from './item';
 import Title from './title';
-import Seperator from '../menu/seperator';
+import Separator from '../menu/separator';
 
 class Sidenav extends Component {
 
@@ -88,7 +88,7 @@ class Sidenav extends Component {
 }
 
 Sidenav.Item = Item;
-Sidenav.Seperator = Seperator;
+Sidenav.Separator = Separator;
 Sidenav.Title = Title;
 
 export default Sidenav;
