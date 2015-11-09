@@ -6,11 +6,7 @@ export default class Typography extends Component {
 
   static displayName = 'Typography';
 
-  static propTypes = {
-  };
-
   render() {
-
     return (
       <div>
         <Example code={`

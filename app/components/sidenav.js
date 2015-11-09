@@ -7,11 +7,7 @@ export default class SidenavDemo extends Component {
 
   static displayName = 'Sidenav';
 
-  static propTypes = {
-  };
-
   render() {
-
     return (
       <div>
         <Example code={`

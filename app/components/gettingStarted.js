@@ -5,11 +5,7 @@ export default class GettingStarted extends Component {
 
   static displayName = 'GettingStarted';
 
-  static propTypes = {
-  };
-
   render() {
-
     return (
       <div>
         <p>
