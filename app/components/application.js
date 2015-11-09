@@ -1,19 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { Decorator as State } from 'cerebral-react';
-
-// import the material-components
-import {
-  Appbar, Button, Col, Row,
-  Typ, Menu, Sidenav, Calendar
-} from '../../lib';
-
-import Example from './example';
-import FaIcon from './faicon';
 import Icon from './icon';
 import routeComponent from './routeComponent';
 
+import { Appbar, Button, Menu, Sidenav } from '../../lib';
+
 @State({
-  screen: ['screen'],
   sidenavOpen: ['sidenavOpen'],
   showMoreMenu: ['showMoreMenu'],
   currentPage: ['route', 'page'],
@@ -29,44 +21,11 @@ export default class Application extends Component {
 
   static propTypes = {
     signals: PropTypes.object,
-    screen: PropTypes.object,
     sidenavOpen: PropTypes.bool,
     showMoreMenu: PropTypes.bool,
     currentPage: PropTypes.string,
     title: PropTypes.string
   };
-
-  state = {
-    screen: {},
-    sidenavOpen: false,
-    showMoreMenu: false,
-    email: '',
-    password: '',
-    selectOpen: false,
-    selectSuccessOpen: false,
-    selectErrorOpen: false,
-    selected: null,
-    largeSelectOpen: false,
-    largeSelectedValue: 0,
-    checked: false,
-    showDialog: false,
-    showSimpleMenu: false,
-    showMenu: false,
-    selectedOption: 1,
-    isLoading: false,
-    calendar: {
-      year: 2015,
-      month: 10
-    },
-    selectedDate: new Date(2015, 10, 20),
-    showDatePicker: false,
-    pickedDate: null,
-    pickingDate: null,
-    pickedCalendar: {
-      year: 2015,
-      month: 10
-    }
-  }
 
   getChildContext() {
     return {
@@ -140,7 +99,7 @@ export default class Application extends Component {
           <div style={{ float: 'right' }}>
             <Appbar.Button
               onTouchTap={() => location.href='https://github.com/garth/material-components'}>
-              <FaIcon name="github"/>
+              <Icon name="github"/>
             </Appbar.Button>
             <Appbar.Button onTouchTap={() => signals.moreMenuOpened()}>
               <Icon name="more_vert"/>

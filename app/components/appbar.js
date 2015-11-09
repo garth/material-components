@@ -18,7 +18,7 @@ import { Appbar } from 'material-components';
   <div style={{ float: 'right' }}>
     <Appbar.Button
       onTouchTap={() => location.href='https://github.com/garth/material-components'}>
-      <FaIcon name="github"/>
+      <Icon name="github"/>
     </Appbar.Button>
     <Appbar.Button><Icon name="more_vert"/></Appbar.Button>
     <Menu rightAlign isOpen={showMoreMenu} onDone={hideMoreMenuFunc}>

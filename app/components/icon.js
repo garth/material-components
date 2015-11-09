@@ -1,13 +1,11 @@
 import React from 'react';
 
-export default function Icon({name}) {
+export default function Icon({name, style={}}) {
   return (
     <i
-      className="material-icons md-36"
-      style={{
+      style={Object.assign({
         lineHeight: 'inherit'
-      }}>
-      {name}
-    </i>
+      }, style)}
+      className={`icon-${name}`}/>
   );
 }

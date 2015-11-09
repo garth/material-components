@@ -6,11 +6,7 @@ export default class GridSystem extends Component {
 
   static displayName = 'GridSystem';
 
-  static propTypes = {
-  };
-
   render() {
-
     return (
       <div>
         <Example code={`

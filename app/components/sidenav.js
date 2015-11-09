@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
 import Example from './example';
-import FaIcon from './faicon';
+import Icon from './icon';
 import { Sidenav } from '../../lib';
 
 export default class SidenavDemo extends Component {
 
   static displayName = 'Sidenav';
 
-  static propTypes = {
-  };
-
   render() {
-
     return (
       <div>
         <Example code={`
@@ -33,7 +29,7 @@ import { Sidenav } from 'material-components';
   <Sidenav.Item showIcon icon={<Icon name="user"/>} onTouchTap={itemSelected}/>
   <Sidenav.Item showIcon icon={<Icon name="dashboard"/>} onTouchTap={itemSelected} selected/>
   <Sidenav.Seperator/>
-  <Sidenav.Item showIcon icon={<Icon name="cog"/>} onTouchTap={itemSelected}/>
+  <Sidenav.Item showIcon icon={<Icon name="settings"/>} onTouchTap={itemSelected}/>
 </Sidenav>
 <div style={{ marginLeft: '60px' }}>
   Page Content
@@ -49,10 +45,10 @@ import { Sidenav } from 'material-components';
             top: '0',
             height: '200px'
           }}>
-            <Sidenav.Item showIcon icon={<FaIcon name="user"/>}/>
-            <Sidenav.Item showIcon icon={<FaIcon name="dashboard"/>} selected/>
+            <Sidenav.Item showIcon icon={<Icon name="user"/>}/>
+            <Sidenav.Item showIcon icon={<Icon name="dashboard"/>} selected/>
             <Sidenav.Seperator/>
-            <Sidenav.Item showIcon icon={<FaIcon name="cog"/>}/>
+            <Sidenav.Item showIcon icon={<Icon name="settings"/>}/>
           </Sidenav>
           <div style={{
             padding: '16px',

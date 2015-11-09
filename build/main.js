@@ -114,8 +114,8 @@
 	
 	var _componentsApplicationJs2 = _interopRequireDefault(_componentsApplicationJs);
 	
-	__webpack_require__(488);
-	__webpack_require__(490);
+	__webpack_require__(487);
+	__webpack_require__(489);
 	(0, _reactTapEventPlugin2['default'])();
 	_lib.events.responsive.addListener(function (screen) {
 	  return _controller2['default'].signals.screenChanged({ screen: screen });
@@ -8009,19 +8009,27 @@
 	      analyze(signalName, chain);
 	    }
 	
-	    var signalChain = function signalChain() {
+	    var signalChain = function signalChain(payload, options) {
+	
+	      if (utils.isDeveloping() && !signalStore.isRemembering() && signalStore.getCurrentIndex() !== -1 && signalStore.getCurrentIndex() < signalStore.getSignals().length - 1) {
+	        console.warn('Cerebral - Looking in the past, ignored signal ' + signalName);
+	        return;
+	      }
+	
+	      options = options || {};
+	
+	      if (recorder.isPlaying() && !options.isRecorded) {
+	        return;
+	      }
 	
 	      var tree = staticTree(signalChain.chain);
 	      var actions = tree.actions;
 	
-	      var hasSyncArg = arguments[0] === true;
-	      var runSync = hasSyncArg;
-	      var payload = hasSyncArg ? arguments[1] : arguments[0];
-	      var branches = hasSyncArg ? arguments[2] : arguments[1];
+	      var runSync = options.isSync;
 	
 	      // When remembering, the branches with filled out values will be
 	      // passed
-	      branches = branches || tree.branches;
+	      var branches = options.branches || tree.branches;
 	
 	      var runSignal = function runSignal() {
 	
@@ -8271,7 +8279,7 @@
 	
 	    signalChain.chain = chain;
 	    signalChain.sync = function (payload) {
-	      signalChain(true, payload);
+	      signalChain(payload, { isSync: true });
 	    };
 	
 	    return signalChain;
@@ -8728,32 +8736,23 @@
 	
 	    addSignal: function addSignal(signal) {
 	
-	      currentIndex++;
+	      if (utils.isDeveloping()) {
+	        currentIndex++;
 	
-	      // When executing signals in EventStore, do not add them again
-	      if (_isRemembering) {
-	        return;
+	        // When executing signals in EventStore, do not add them again
+	        if (_isRemembering) {
+	          return;
+	        }
+	
+	        // If we have travelled back and start adding new signals the signals not triggered should
+	        // be removed. This effectively "changes history"
+	        if (currentIndex < signals.length) {
+	          signals.splice(currentIndex, signals.length - currentIndex);
+	        }
+	
+	        // Add signal and set the current signal to be the recently added signal
+	        signals.push(signal);
 	      }
-	
-	      // If we are not keeping the state around reset the signals to just
-	      // keep the latest one
-	      /* ALWAYS KEEP STATE
-	      if (!willKeepState) {
-	        signals = [];
-	        currentIndex = 0;
-	      }
-	      */
-	
-	      // If we have travelled back and start adding new signals the signals not triggered should
-	      // be removed. This effectively "changes history"
-	      if (currentIndex < signals.length) {
-	        signals.splice(currentIndex, signals.length - currentIndex);
-	      }
-	
-	      //signal.index = signals.length;
-	
-	      // Add signal and set the current signal to be the recently added signal
-	      signals.push(signal);
 	    },
 	
 	    // This is used when loading up the app and producing the last known state
@@ -8822,7 +8821,7 @@
 	              signalMethodPath = signalMethodPath[signalName.shift()];
 	            }
 	
-	            signalMethodPath.call(null, signal.input, signal.branches);
+	            signalMethodPath(signal.input, { branches: signal.branches });
 	            currentIndex = x;
 	          }
 	        } catch (e) {
@@ -8907,7 +8906,9 @@
 	      signalMethodPath = signalMethodPath[signalName.shift()];
 	    }
 	    currentSignal = signal;
-	    signalMethodPath.call(null, signal.input);
+	    signalMethodPath(signal.input, {
+	      isRecorded: true
+	    });
 	  };
 	
 	  return {
@@ -9075,11 +9076,13 @@
 	module.exports = function (signalStore, controller) {
 	
 	  var isInitialized = false;
+	  var disableDebugger = false;
 	
 	  var getDetail = function getDetail() {
 	    return JSON.stringify({
 	      signals: signalStore.getSignals(),
 	      willKeepState: signalStore.willKeepState(),
+	      disableDebugger: disableDebugger,
 	      currentSignalIndex: signalStore.getCurrentIndex(),
 	      isExecutingAsync: signalStore.isExecutingAsync(),
 	      isRemembering: signalStore.isRemembering(),
@@ -9088,6 +9091,11 @@
 	  };
 	
 	  var update = utils.debounce(function () {
+	
+	    if (disableDebugger) {
+	      return;
+	    }
+	
 	    var event = new CustomEvent('cerebral.dev.update', {
 	      detail: getDetail()
 	    });
@@ -9099,6 +9107,8 @@
 	    if (isInitialized) {
 	      return;
 	    }
+	
+	    disableDebugger = utils.hasLocalStorage() && localStorage.getItem('cerebral_disable_debugger') ? JSON.parse(localStorage.getItem('cerebral_disable_debugger')) : false;
 	
 	    var signals = utils.hasLocalStorage() && localStorage.getItem('cerebral_signals') ? JSON.parse(localStorage.getItem('cerebral_signals')) : [];
 	
@@ -9145,6 +9155,14 @@
 	    update();
 	  });
 	
+	  window.addEventListener('cerebral.dev.toggleDisableDebugger', function () {
+	    disableDebugger = !disableDebugger;
+	    var event = new CustomEvent('cerebral.dev.update', {
+	      detail: getDetail()
+	    });
+	    window.dispatchEvent(event);
+	  });
+	
 	  window.addEventListener('cerebral.dev.resetStore', function () {
 	    signalStore.reset();
 	    controller.emit('change');
@@ -9177,6 +9195,7 @@
 	
 	    utils.hasLocalStorage() && localStorage.setItem('cerebral_signals', isInitialized && signalStore.willKeepState() ? JSON.stringify(signalStore.getSignals()) : JSON.stringify([]));
 	    utils.hasLocalStorage() && localStorage.setItem('cerebral_willKeepState', isInitialized && JSON.stringify(signalStore.willKeepState()));
+	    utils.hasLocalStorage() && localStorage.setItem('cerebral_disable_debugger', isInitialized && JSON.stringify(disableDebugger));
 	  });
 	
 	  return {
@@ -36509,8 +36528,6 @@
 	var addressbar = __webpack_require__(445);
 	var pathToRegexp = __webpack_require__(443);
 	
-	var wrappedRoutes = null;
-	
 	function router(controller, routes, options) {
 	
 	  options = options || {};
@@ -36537,9 +36554,27 @@
 	    return pathToRegexp.compile(route)(input);
 	  }
 	
-	  wrappedRoutes = Object.keys(routes).reduce(function (wrappedRoutes, route) {
+	  var wrappedRoutes = Object.keys(routes).map(function (route) {
+	    return {
+	      path: route,
+	      signal: routes[route]
+	    };
+	  }).reduce(function wrapRoutes(wrappedRoutes, route) {
 	
-	    var signalPath = routes[route].split('.');
+	    if (typeof route.signal === 'object') {
+	      Object.keys(route.signal).reduce(function (wrappedRoutes, nestedRoute) {
+	        nestedRoute = {
+	          path: route.path + nestedRoute,
+	          signal: route.signal[nestedRoute]
+	        };
+	
+	        return wrapRoutes(wrappedRoutes, nestedRoute);
+	      }, wrappedRoutes);
+	
+	      return wrappedRoutes;
+	    }
+	
+	    var signalPath = route.signal.split('.');
 	    var signalParent = controller.signals;
 	    var signal;
 	    while (signalPath.length - 1) {
@@ -36547,27 +36582,28 @@
 	    }
 	    signal = signalParent[signalPath];
 	    if (!signal) {
-	      throw new Error('Cerebral router - The signal "' + routes[route] + '" for the route "' + route + '" does not exist.');
+	      throw new Error('Cerebral router - The signal "' + route.signal + '" for the route "' + route.path + '" does not exist.');
 	    }
 	
 	    if (typeof signal.getUrl === "function") {
-	      throw new Error('Cerebral router - The signal "' + routes[route] + '" has already been bound to route. Create a new signal and reuse actions instead if needed.');
+	      throw new Error('Cerebral router - The signal "' + route.signal + '" has already been bound to route. Create a new signal and reuse actions instead if needed.');
 	    } else {
 	      signal.chain = [setUrl].concat(signal.chain);
 	    }
 	
-	    function wrappedSignal() {
+	    function wrappedSignal(payload, options) {
 	
-	      var hasSync = arguments[0] === true;
-	      var input = hasSync ? arguments[1] || {} : arguments[0] || {};
+	      var input = payload || {};
+	      options = options || {};
+	      options.isSync = true;
 	
 	      if (!input.route) {
 	        input.route = {
-	          url: getUrl(route, input)
+	          url: getUrl(route.path, input)
 	        };
 	      } else {
 	        // If called from a url change, add params to input
-	        var params = pathToRegexp(route).keys;
+	        var params = pathToRegexp(route.path).keys;
 	
 	        input = params.reduce(function (input, param) {
 	          input[param.name] = input.route.params[param.name];
@@ -36576,22 +36612,22 @@
 	      }
 	
 	      // Should always run sync
-	      signal.apply(null, hasSync ? [arguments[0], input, arguments[2]] : [true, input, arguments[1]]);
+	      signal(input, options);
 	    }
 	
 	    // callback for urlMapper
-	    wrappedRoutes[route] = function (payload) {
+	    wrappedRoutes[route.path] = function (payload) {
 	      wrappedSignal({ route: payload });
 	    };
 	
 	    signalParent[signalPath[0]] = wrappedSignal;
 	
 	    wrappedSignal.sync = function (payload) {
-	      wrappedSignal(true, payload);
+	      wrappedSignal(payload, { isSync: true });
 	    };
 	
 	    wrappedSignal.getUrl = function (payload) {
-	      var url = getUrl(route, payload);
+	      var url = getUrl(route.path, payload);
 	      return options.baseUrl + url;
 	    };
 	
@@ -41294,25 +41330,15 @@
 	
 	var _cerebralReact = __webpack_require__(450);
 	
-	// import the material-components
-	
-	var _lib = __webpack_require__(254);
-	
-	var _example = __webpack_require__(459);
-	
-	var _example2 = _interopRequireDefault(_example);
-	
-	var _faicon = __webpack_require__(465);
-	
-	var _faicon2 = _interopRequireDefault(_faicon);
-	
-	var _icon = __webpack_require__(466);
+	var _icon = __webpack_require__(459);
 	
 	var _icon2 = _interopRequireDefault(_icon);
 	
-	var _routeComponent = __webpack_require__(467);
+	var _routeComponent = __webpack_require__(460);
 	
 	var _routeComponent2 = _interopRequireDefault(_routeComponent);
+	
+	var _lib = __webpack_require__(254);
 	
 	var Application = (function (_Component) {
 	  _inherits(Application, _Component);
@@ -41321,38 +41347,6 @@
 	    _classCallCheck(this, _Application);
 	
 	    _get(Object.getPrototypeOf(_Application.prototype), 'constructor', this).apply(this, arguments);
-	
-	    this.state = {
-	      screen: {},
-	      sidenavOpen: false,
-	      showMoreMenu: false,
-	      email: '',
-	      password: '',
-	      selectOpen: false,
-	      selectSuccessOpen: false,
-	      selectErrorOpen: false,
-	      selected: null,
-	      largeSelectOpen: false,
-	      largeSelectedValue: 0,
-	      checked: false,
-	      showDialog: false,
-	      showSimpleMenu: false,
-	      showMenu: false,
-	      selectedOption: 1,
-	      isLoading: false,
-	      calendar: {
-	        year: 2015,
-	        month: 10
-	      },
-	      selectedDate: new Date(2015, 10, 20),
-	      showDatePicker: false,
-	      pickedDate: null,
-	      pickingDate: null,
-	      pickedCalendar: {
-	        year: 2015,
-	        month: 10
-	      }
-	    };
 	  }
 	
 	  _createClass(Application, [{
@@ -41434,7 +41428,7 @@
 	                onTouchTap: function () {
 	                  return location.href = 'https://github.com/garth/material-components';
 	                } },
-	              _react2['default'].createElement(_faicon2['default'], { name: 'github' })
+	              _react2['default'].createElement(_icon2['default'], { name: 'github' })
 	            ),
 	            _react2['default'].createElement(
 	              _lib.Appbar.Button,
@@ -41482,7 +41476,6 @@
 	    key: 'propTypes',
 	    value: {
 	      signals: _react.PropTypes.object,
-	      screen: _react.PropTypes.object,
 	      sidenavOpen: _react.PropTypes.bool,
 	      showMoreMenu: _react.PropTypes.bool,
 	      currentPage: _react.PropTypes.string,
@@ -41493,7 +41486,6 @@
 	
 	  var _Application = Application;
 	  Application = (0, _cerebralReact.Decorator)({
-	    screen: ['screen'],
 	    sidenavOpen: ['sidenavOpen'],
 	    showMoreMenu: ['showMoreMenu'],
 	    currentPage: ['route', 'page'],
@@ -41507,6 +41499,268 @@
 
 /***/ },
 /* 459 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	exports['default'] = Icon;
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _react = __webpack_require__(256);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function Icon(_ref) {
+	  var name = _ref.name;
+	  var _ref$style = _ref.style;
+	  var style = _ref$style === undefined ? {} : _ref$style;
+	
+	  return _react2['default'].createElement('i', {
+	    style: Object.assign({
+	      lineHeight: 'inherit'
+	    }, style),
+	    className: 'icon-' + name });
+	}
+	
+	module.exports = exports['default'];
+
+/***/ },
+/* 460 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _gettingStarted = __webpack_require__(461);
+	
+	var _gettingStarted2 = _interopRequireDefault(_gettingStarted);
+	
+	var _introduction = __webpack_require__(468);
+	
+	var _introduction2 = _interopRequireDefault(_introduction);
+	
+	var _paper = __webpack_require__(469);
+	
+	var _paper2 = _interopRequireDefault(_paper);
+	
+	var _typography = __webpack_require__(470);
+	
+	var _typography2 = _interopRequireDefault(_typography);
+	
+	var _appbar = __webpack_require__(471);
+	
+	var _appbar2 = _interopRequireDefault(_appbar);
+	
+	var _sidenav = __webpack_require__(472);
+	
+	var _sidenav2 = _interopRequireDefault(_sidenav);
+	
+	var _form = __webpack_require__(473);
+	
+	var _form2 = _interopRequireDefault(_form);
+	
+	var _button = __webpack_require__(474);
+	
+	var _button2 = _interopRequireDefault(_button);
+	
+	var _input = __webpack_require__(475);
+	
+	var _input2 = _interopRequireDefault(_input);
+	
+	var _select = __webpack_require__(476);
+	
+	var _select2 = _interopRequireDefault(_select);
+	
+	var _checkbox = __webpack_require__(477);
+	
+	var _checkbox2 = _interopRequireDefault(_checkbox);
+	
+	var _gridSystem = __webpack_require__(478);
+	
+	var _gridSystem2 = _interopRequireDefault(_gridSystem);
+	
+	var _menu = __webpack_require__(479);
+	
+	var _menu2 = _interopRequireDefault(_menu);
+	
+	var _dialog = __webpack_require__(480);
+	
+	var _dialog2 = _interopRequireDefault(_dialog);
+	
+	var _datePicker = __webpack_require__(481);
+	
+	var _datePicker2 = _interopRequireDefault(_datePicker);
+	
+	var _table = __webpack_require__(482);
+	
+	var _table2 = _interopRequireDefault(_table);
+	
+	var _spinner = __webpack_require__(483);
+	
+	var _spinner2 = _interopRequireDefault(_spinner);
+	
+	var _calendar = __webpack_require__(484);
+	
+	var _calendar2 = _interopRequireDefault(_calendar);
+	
+	var _responsiveEvents = __webpack_require__(485);
+	
+	var _responsiveEvents2 = _interopRequireDefault(_responsiveEvents);
+	
+	var _notFound = __webpack_require__(486);
+	
+	var _notFound2 = _interopRequireDefault(_notFound);
+	
+	exports['default'] = function (page) {
+	  switch (page) {
+	    case 'introduction':
+	      return _introduction2['default'];
+	    case 'gettingStarted':
+	      return _gettingStarted2['default'];
+	    case 'paper':
+	      return _paper2['default'];
+	    case 'typography':
+	      return _typography2['default'];
+	    case 'appbar':
+	      return _appbar2['default'];
+	    case 'sidenav':
+	      return _sidenav2['default'];
+	    case 'form':
+	      return _form2['default'];
+	    case 'button':
+	      return _button2['default'];
+	    case 'input':
+	      return _input2['default'];
+	    case 'select':
+	      return _select2['default'];
+	    case 'checkbox':
+	      return _checkbox2['default'];
+	    case 'gridSystem':
+	      return _gridSystem2['default'];
+	    case 'menu':
+	      return _menu2['default'];
+	    case 'dialog':
+	      return _dialog2['default'];
+	    case 'datePicker':
+	      return _datePicker2['default'];
+	    case 'table':
+	      return _table2['default'];
+	    case 'spinner':
+	      return _spinner2['default'];
+	    case 'calendar':
+	      return _calendar2['default'];
+	    case 'responsiveEvents':
+	      return _responsiveEvents2['default'];
+	    default:
+	      return _notFound2['default'];
+	  }
+	};
+	
+	module.exports = exports['default'];
+
+/***/ },
+/* 461 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(256);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _example = __webpack_require__(462);
+	
+	var _example2 = _interopRequireDefault(_example);
+	
+	var GettingStarted = (function (_Component) {
+	  _inherits(GettingStarted, _Component);
+	
+	  function GettingStarted() {
+	    _classCallCheck(this, GettingStarted);
+	
+	    _get(Object.getPrototypeOf(GettingStarted.prototype), 'constructor', this).apply(this, arguments);
+	  }
+	
+	  _createClass(GettingStarted, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(
+	          'p',
+	          null,
+	          'material-components is dependent on the ',
+	          _react2['default'].createElement(
+	            'code',
+	            null,
+	            'react-tap-event-plugin'
+	          ),
+	          ', so be sure to add the following in your main.js:'
+	        ),
+	        _react2['default'].createElement(_example2['default'], { code: '\n// support tap events\nimport injectTapEventPlugin from \'react-tap-event-plugin\';\ninjectTapEventPlugin();\n        ' }),
+	        _react2['default'].createElement(
+	          'p',
+	          null,
+	          'Some styles and transitions are defined in css and must be included in your project. With webpack simply use the ',
+	          _react2['default'].createElement(
+	            'code',
+	            null,
+	            'css-loader'
+	          ),
+	          ' plugin and include the following line in your main.js:'
+	        ),
+	        _react2['default'].createElement(_example2['default'], { code: '\nrequire(\'material-components/lib/index.css\');\n        ' }),
+	        _react2['default'].createElement(
+	          'p',
+	          null,
+	          'In the root component you need to define the styles for material-components. These only need to be defined once and should then work wherever material-components are used in your app. For color choices please see ',
+	          _react2['default'].createElement(
+	            'a',
+	            { href: 'https://www.google.com/design/spec/style/color.html#color-color-palette' },
+	            'https://www.google.com/design/spec/style/color.html#color-color-palette'
+	          )
+	        ),
+	        _react2['default'].createElement(_example2['default'], { code: '\nimport React, { Component, PropTypes } from \'react\';\n\nexport default class Application extends Component {\n\n  static displayName = \'Application\';\n\n  static childContextTypes = {\n    componentStyle: React.PropTypes.object\n  };\n\n  getChildContext() {\n    return {\n      componentStyle: {\n        primaryColor: \'#FFC107\',\n        primaryFontColor: \'rgba(0, 0, 0, 0.7)\',\n        secondaryColor: \'#009688\',\n        secondaryFontColor: \'rgba(255, 255, 255, 0.9)\',\n        errorColor: \'#C00\',\n        successColor: \'#090\',\n        typographyColor: \'#212121\'\n      }\n    };\n  }\n\n  render() {\n    return (\n      <div>\n        The app goes here\n      </div>\n    );\n  }\n}\n        ' })
+	      );
+	    }
+	  }], [{
+	    key: 'displayName',
+	    value: 'GettingStarted',
+	    enumerable: true
+	  }]);
+	
+	  return GettingStarted;
+	})(_react.Component);
+	
+	exports['default'] = GettingStarted;
+	module.exports = exports['default'];
+
+/***/ },
+/* 462 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -41533,9 +41787,9 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	__webpack_require__(460);
+	__webpack_require__(463);
 	
-	__webpack_require__(464);
+	__webpack_require__(467);
 	
 	var Example = (function (_Component) {
 	  _inherits(Example, _Component);
@@ -41585,16 +41839,16 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 460 */
+/* 463 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(461);
+	var content = __webpack_require__(464);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(463)(content, {});
+	var update = __webpack_require__(466)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -41611,10 +41865,10 @@
 	}
 
 /***/ },
-/* 461 */
+/* 464 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(462)();
+	exports = module.exports = __webpack_require__(465)();
 	// imports
 	
 	
@@ -41625,7 +41879,7 @@
 
 
 /***/ },
-/* 462 */
+/* 465 */
 /***/ function(module, exports) {
 
 	/*
@@ -41680,7 +41934,7 @@
 	};
 
 /***/ },
-/* 463 */
+/* 466 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -41934,7 +42188,7 @@
 
 
 /***/ },
-/* 464 */
+/* 467 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/* http://prismjs.com/download.html?themes=prism-okaidia&languages=markup+clike+javascript+jsx */
@@ -42515,301 +42769,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 465 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	exports['default'] = FaIcon;
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
-	var _react = __webpack_require__(256);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function FaIcon(_ref) {
-	  var name = _ref.name;
-	
-	  return _react2['default'].createElement('i', { className: 'fa fa-' + name });
-	}
-	
-	module.exports = exports['default'];
-
-/***/ },
-/* 466 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	exports['default'] = Icon;
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
-	var _react = __webpack_require__(256);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function Icon(_ref) {
-	  var name = _ref.name;
-	
-	  return _react2['default'].createElement(
-	    'i',
-	    {
-	      className: 'material-icons md-36',
-	      style: {
-	        lineHeight: 'inherit'
-	      } },
-	    name
-	  );
-	}
-	
-	module.exports = exports['default'];
-
-/***/ },
-/* 467 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
-	var _gettingStarted = __webpack_require__(468);
-	
-	var _gettingStarted2 = _interopRequireDefault(_gettingStarted);
-	
-	var _introduction = __webpack_require__(469);
-	
-	var _introduction2 = _interopRequireDefault(_introduction);
-	
-	var _paper = __webpack_require__(470);
-	
-	var _paper2 = _interopRequireDefault(_paper);
-	
-	var _typography = __webpack_require__(471);
-	
-	var _typography2 = _interopRequireDefault(_typography);
-	
-	var _appbar = __webpack_require__(472);
-	
-	var _appbar2 = _interopRequireDefault(_appbar);
-	
-	var _sidenav = __webpack_require__(473);
-	
-	var _sidenav2 = _interopRequireDefault(_sidenav);
-	
-	var _form = __webpack_require__(474);
-	
-	var _form2 = _interopRequireDefault(_form);
-	
-	var _button = __webpack_require__(475);
-	
-	var _button2 = _interopRequireDefault(_button);
-	
-	var _input = __webpack_require__(476);
-	
-	var _input2 = _interopRequireDefault(_input);
-	
-	var _select = __webpack_require__(477);
-	
-	var _select2 = _interopRequireDefault(_select);
-	
-	var _checkbox = __webpack_require__(478);
-	
-	var _checkbox2 = _interopRequireDefault(_checkbox);
-	
-	var _gridSystem = __webpack_require__(479);
-	
-	var _gridSystem2 = _interopRequireDefault(_gridSystem);
-	
-	var _menu = __webpack_require__(480);
-	
-	var _menu2 = _interopRequireDefault(_menu);
-	
-	var _dialog = __webpack_require__(481);
-	
-	var _dialog2 = _interopRequireDefault(_dialog);
-	
-	var _datePicker = __webpack_require__(482);
-	
-	var _datePicker2 = _interopRequireDefault(_datePicker);
-	
-	var _table = __webpack_require__(483);
-	
-	var _table2 = _interopRequireDefault(_table);
-	
-	var _spinner = __webpack_require__(484);
-	
-	var _spinner2 = _interopRequireDefault(_spinner);
-	
-	var _calendar = __webpack_require__(485);
-	
-	var _calendar2 = _interopRequireDefault(_calendar);
-	
-	var _responsiveEvents = __webpack_require__(486);
-	
-	var _responsiveEvents2 = _interopRequireDefault(_responsiveEvents);
-	
-	var _notFound = __webpack_require__(487);
-	
-	var _notFound2 = _interopRequireDefault(_notFound);
-	
-	exports['default'] = function (page) {
-	  switch (page) {
-	    case 'introduction':
-	      return _introduction2['default'];
-	    case 'gettingStarted':
-	      return _gettingStarted2['default'];
-	    case 'paper':
-	      return _paper2['default'];
-	    case 'typography':
-	      return _typography2['default'];
-	    case 'appbar':
-	      return _appbar2['default'];
-	    case 'sidenav':
-	      return _sidenav2['default'];
-	    case 'form':
-	      return _form2['default'];
-	    case 'button':
-	      return _button2['default'];
-	    case 'input':
-	      return _input2['default'];
-	    case 'select':
-	      return _select2['default'];
-	    case 'checkbox':
-	      return _checkbox2['default'];
-	    case 'gridSystem':
-	      return _gridSystem2['default'];
-	    case 'menu':
-	      return _menu2['default'];
-	    case 'dialog':
-	      return _dialog2['default'];
-	    case 'datePicker':
-	      return _datePicker2['default'];
-	    case 'table':
-	      return _table2['default'];
-	    case 'spinner':
-	      return _spinner2['default'];
-	    case 'calendar':
-	      return _calendar2['default'];
-	    case 'responsiveEvents':
-	      return _responsiveEvents2['default'];
-	    default:
-	      return _notFound2['default'];
-	  }
-	};
-	
-	module.exports = exports['default'];
-
-/***/ },
 /* 468 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-	
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var _react = __webpack_require__(256);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _example = __webpack_require__(459);
-	
-	var _example2 = _interopRequireDefault(_example);
-	
-	var GettingStarted = (function (_Component) {
-	  _inherits(GettingStarted, _Component);
-	
-	  function GettingStarted() {
-	    _classCallCheck(this, GettingStarted);
-	
-	    _get(Object.getPrototypeOf(GettingStarted.prototype), 'constructor', this).apply(this, arguments);
-	  }
-	
-	  _createClass(GettingStarted, [{
-	    key: 'render',
-	    value: function render() {
-	
-	      return _react2['default'].createElement(
-	        'div',
-	        null,
-	        _react2['default'].createElement(
-	          'p',
-	          null,
-	          'material-components is dependent on the ',
-	          _react2['default'].createElement(
-	            'code',
-	            null,
-	            'react-tap-event-plugin'
-	          ),
-	          ', so be sure to add the following in your main.js:'
-	        ),
-	        _react2['default'].createElement(_example2['default'], { code: '\n// support tap events\nimport injectTapEventPlugin from \'react-tap-event-plugin\';\ninjectTapEventPlugin();\n        ' }),
-	        _react2['default'].createElement(
-	          'p',
-	          null,
-	          'Some styles and transitions are defined in css and must be included in your project. With webpack simply use the ',
-	          _react2['default'].createElement(
-	            'code',
-	            null,
-	            'css-loader'
-	          ),
-	          ' plugin and include the following line in your main.js:'
-	        ),
-	        _react2['default'].createElement(_example2['default'], { code: '\nrequire(\'material-components/lib/index.css\');\n        ' }),
-	        _react2['default'].createElement(
-	          'p',
-	          null,
-	          'In the root component you need to define the styles for material-components. These only need to be defined once and should then work wherever material-components are used in your app. For color choices please see ',
-	          _react2['default'].createElement(
-	            'a',
-	            { href: 'https://www.google.com/design/spec/style/color.html#color-color-palette' },
-	            'https://www.google.com/design/spec/style/color.html#color-color-palette'
-	          )
-	        ),
-	        _react2['default'].createElement(_example2['default'], { code: '\nimport React, { Component, PropTypes } from \'react\';\n\nexport default class Application extends Component {\n\n  static displayName = \'Application\';\n\n  static childContextTypes = {\n    componentStyle: React.PropTypes.object\n  };\n\n  getChildContext() {\n    return {\n      componentStyle: {\n        primaryColor: \'#FFC107\',\n        primaryFontColor: \'rgba(0, 0, 0, 0.7)\',\n        secondaryColor: \'#009688\',\n        secondaryFontColor: \'rgba(255, 255, 255, 0.9)\',\n        errorColor: \'#C00\',\n        successColor: \'#090\',\n        typographyColor: \'#212121\'\n      }\n    };\n  }\n\n  render() {\n    return (\n      <div>\n        The app goes here\n      </div>\n    );\n  }\n}\n        ' })
-	      );
-	    }
-	  }], [{
-	    key: 'displayName',
-	    value: 'GettingStarted',
-	    enumerable: true
-	  }, {
-	    key: 'propTypes',
-	    value: {},
-	    enumerable: true
-	  }]);
-	
-	  return GettingStarted;
-	})(_react.Component);
-	
-	exports['default'] = GettingStarted;
-	module.exports = exports['default'];
-
-/***/ },
-/* 469 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42844,7 +42804,6 @@
 	  _createClass(Introduction, [{
 	    key: 'render',
 	    value: function render() {
-	
 	      return _react2['default'].createElement(
 	        'div',
 	        null,
@@ -42910,10 +42869,6 @@
 	    key: 'displayName',
 	    value: 'Introduction',
 	    enumerable: true
-	  }, {
-	    key: 'propTypes',
-	    value: {},
-	    enumerable: true
 	  }]);
 	
 	  return Introduction;
@@ -42923,7 +42878,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 470 */
+/* 469 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42946,7 +42901,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _example = __webpack_require__(459);
+	var _example = __webpack_require__(462);
 	
 	var _example2 = _interopRequireDefault(_example);
 	
@@ -42964,7 +42919,6 @@
 	  _createClass(Paper, [{
 	    key: 'render',
 	    value: function render() {
-	
 	      return _react2['default'].createElement(
 	        'div',
 	        null,
@@ -43047,10 +43001,6 @@
 	    key: 'displayName',
 	    value: 'Paper',
 	    enumerable: true
-	  }, {
-	    key: 'propTypes',
-	    value: {},
-	    enumerable: true
 	  }]);
 	
 	  return Paper;
@@ -43060,7 +43010,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 471 */
+/* 470 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43083,7 +43033,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _example = __webpack_require__(459);
+	var _example = __webpack_require__(462);
 	
 	var _example2 = _interopRequireDefault(_example);
 	
@@ -43101,7 +43051,6 @@
 	  _createClass(Typography, [{
 	    key: 'render',
 	    value: function render() {
-	
 	      return _react2['default'].createElement(
 	        'div',
 	        null,
@@ -43279,10 +43228,6 @@
 	    key: 'displayName',
 	    value: 'Typography',
 	    enumerable: true
-	  }, {
-	    key: 'propTypes',
-	    value: {},
-	    enumerable: true
 	  }]);
 	
 	  return Typography;
@@ -43292,7 +43237,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 472 */
+/* 471 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43315,7 +43260,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _example = __webpack_require__(459);
+	var _example = __webpack_require__(462);
 	
 	var _example2 = _interopRequireDefault(_example);
 	
@@ -43335,7 +43280,7 @@
 	        'div',
 	        null,
 	        _react2['default'].createElement(_example2['default'], { code: '\nimport { Appbar } from \'material-components\';\n        ' }),
-	        _react2['default'].createElement(_example2['default'], { code: '\n<Appbar fixed>\n  <Appbar.Button style={{ float: \'left\' }}><Icon name="menu"/></Appbar.Button>\n  <Appbar.Title>Material Components</Appbar.Title>\n  <div style={{ float: \'right\' }}>\n    <Appbar.Button\n      onTouchTap={() => location.href=\'https://github.com/garth/material-components\'}>\n      <FaIcon name="github"/>\n    </Appbar.Button>\n    <Appbar.Button><Icon name="more_vert"/></Appbar.Button>\n    <Menu rightAlign isOpen={showMoreMenu} onDone={hideMoreMenuFunc}>\n      <Menu.Item>Option A</Menu.Item>\n      <Menu.Item>Option B</Menu.Item>\n    </Menu>\n  </div>\n</Appbar>\n        ' }),
+	        _react2['default'].createElement(_example2['default'], { code: '\n<Appbar fixed>\n  <Appbar.Button style={{ float: \'left\' }}><Icon name="menu"/></Appbar.Button>\n  <Appbar.Title>Material Components</Appbar.Title>\n  <div style={{ float: \'right\' }}>\n    <Appbar.Button\n      onTouchTap={() => location.href=\'https://github.com/garth/material-components\'}>\n      <Icon name="github"/>\n    </Appbar.Button>\n    <Appbar.Button><Icon name="more_vert"/></Appbar.Button>\n    <Menu rightAlign isOpen={showMoreMenu} onDone={hideMoreMenuFunc}>\n      <Menu.Item>Option A</Menu.Item>\n      <Menu.Item>Option B</Menu.Item>\n    </Menu>\n  </div>\n</Appbar>\n        ' }),
 	        _react2['default'].createElement(
 	          'p',
 	          null,
@@ -43366,6 +43311,110 @@
 	module.exports = exports['default'];
 
 /***/ },
+/* 472 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(256);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _example = __webpack_require__(462);
+	
+	var _example2 = _interopRequireDefault(_example);
+	
+	var _icon = __webpack_require__(459);
+	
+	var _icon2 = _interopRequireDefault(_icon);
+	
+	var _lib = __webpack_require__(254);
+	
+	var SidenavDemo = (function (_Component) {
+	  _inherits(SidenavDemo, _Component);
+	
+	  function SidenavDemo() {
+	    _classCallCheck(this, SidenavDemo);
+	
+	    _get(Object.getPrototypeOf(SidenavDemo.prototype), 'constructor', this).apply(this, arguments);
+	  }
+	
+	  _createClass(SidenavDemo, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(_example2['default'], { code: '\nimport { Sidenav } from \'material-components\';\n        ' }),
+	        _react2['default'].createElement(_example2['default'], { code: '\n<Sidenav isOpen={sidenavOpen} onDone={closeSidenavFunc}>\n  <Sidenav.Title showCloseButton>Menu</Sidenav.Title>\n  <Sidenav.Item showIcon icon={<Icon name="user"/>} onTouchTap={itemSelected}>Option A</Sidenav.Item>\n  <Sidenav.Item showIcon icon={<Icon name="dashboard"/>} onTouchTap={itemSelected} selected>Option B</Sidenav.Item>\n  <Sidenav.Seperator/>\n  <Sidenav.Item showIcon icon={<Icon name="cog"/>} onTouchTap={itemSelected}>Settings</Sidenav.Item>\n</Sidenav>\n        ' }),
+	        _react2['default'].createElement(
+	          'p',
+	          null,
+	          'See the sidenav above.'
+	        ),
+	        _react2['default'].createElement(
+	          'p',
+	          null,
+	          'It\'s also possible to have a mini sidenav that is always on display.'
+	        ),
+	        _react2['default'].createElement(_example2['default'], { code: '\n<Sidenav mini>\n  <Sidenav.Item showIcon icon={<Icon name="user"/>} onTouchTap={itemSelected}/>\n  <Sidenav.Item showIcon icon={<Icon name="dashboard"/>} onTouchTap={itemSelected} selected/>\n  <Sidenav.Seperator/>\n  <Sidenav.Item showIcon icon={<Icon name="settings"/>} onTouchTap={itemSelected}/>\n</Sidenav>\n<div style={{ marginLeft: \'60px\' }}>\n  Page Content\n</div>\n        ' }),
+	        _react2['default'].createElement(
+	          'div',
+	          { className: 'paper1', style: {
+	              height: '200px',
+	              margin: '16px 0'
+	            } },
+	          _react2['default'].createElement(
+	            _lib.Sidenav,
+	            { mini: true, style: {
+	                float: 'left',
+	                position: 'relative',
+	                top: '0',
+	                height: '200px'
+	              } },
+	            _react2['default'].createElement(_lib.Sidenav.Item, { showIcon: true, icon: _react2['default'].createElement(_icon2['default'], { name: 'user' }) }),
+	            _react2['default'].createElement(_lib.Sidenav.Item, { showIcon: true, icon: _react2['default'].createElement(_icon2['default'], { name: 'dashboard' }), selected: true }),
+	            _react2['default'].createElement(_lib.Sidenav.Seperator, null),
+	            _react2['default'].createElement(_lib.Sidenav.Item, { showIcon: true, icon: _react2['default'].createElement(_icon2['default'], { name: 'settings' }) })
+	          ),
+	          _react2['default'].createElement(
+	            'div',
+	            { style: {
+	                padding: '16px',
+	                marginLeft: '60px'
+	              } },
+	            'Page Content'
+	          )
+	        )
+	      );
+	    }
+	  }], [{
+	    key: 'displayName',
+	    value: 'Sidenav',
+	    enumerable: true
+	  }]);
+	
+	  return SidenavDemo;
+	})(_react.Component);
+	
+	exports['default'] = SidenavDemo;
+	module.exports = exports['default'];
+
+/***/ },
 /* 473 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -43389,89 +43438,50 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _example = __webpack_require__(459);
+	var _example = __webpack_require__(462);
 	
 	var _example2 = _interopRequireDefault(_example);
 	
-	var _faicon = __webpack_require__(465);
+	var Form = (function (_Component) {
+	  _inherits(Form, _Component);
 	
-	var _faicon2 = _interopRequireDefault(_faicon);
+	  function Form() {
+	    _classCallCheck(this, Form);
 	
-	var _lib = __webpack_require__(254);
-	
-	var SidenavDemo = (function (_Component) {
-	  _inherits(SidenavDemo, _Component);
-	
-	  function SidenavDemo() {
-	    _classCallCheck(this, SidenavDemo);
-	
-	    _get(Object.getPrototypeOf(SidenavDemo.prototype), 'constructor', this).apply(this, arguments);
+	    _get(Object.getPrototypeOf(Form.prototype), 'constructor', this).apply(this, arguments);
 	  }
 	
-	  _createClass(SidenavDemo, [{
+	  _createClass(Form, [{
 	    key: 'render',
 	    value: function render() {
-	
 	      return _react2['default'].createElement(
 	        'div',
 	        null,
-	        _react2['default'].createElement(_example2['default'], { code: '\nimport { Sidenav } from \'material-components\';\n        ' }),
-	        _react2['default'].createElement(_example2['default'], { code: '\n<Sidenav isOpen={sidenavOpen} onDone={closeSidenavFunc}>\n  <Sidenav.Title showCloseButton>Menu</Sidenav.Title>\n  <Sidenav.Item showIcon icon={<Icon name="user"/>} onTouchTap={itemSelected}>Option A</Sidenav.Item>\n  <Sidenav.Item showIcon icon={<Icon name="dashboard"/>} onTouchTap={itemSelected} selected>Option B</Sidenav.Item>\n  <Sidenav.Seperator/>\n  <Sidenav.Item showIcon icon={<Icon name="cog"/>} onTouchTap={itemSelected}>Settings</Sidenav.Item>\n</Sidenav>\n        ' }),
+	        _react2['default'].createElement(_example2['default'], { code: '\nimport { Form } from \'material-components\';\n        ' }),
 	        _react2['default'].createElement(
 	          'p',
 	          null,
-	          'See the sidenav above.'
-	        ),
-	        _react2['default'].createElement(
-	          'p',
-	          null,
-	          'It\'s also possible to have a mini sidenav that is always on display.'
-	        ),
-	        _react2['default'].createElement(_example2['default'], { code: '\n<Sidenav mini>\n  <Sidenav.Item showIcon icon={<Icon name="user"/>} onTouchTap={itemSelected}/>\n  <Sidenav.Item showIcon icon={<Icon name="dashboard"/>} onTouchTap={itemSelected} selected/>\n  <Sidenav.Seperator/>\n  <Sidenav.Item showIcon icon={<Icon name="cog"/>} onTouchTap={itemSelected}/>\n</Sidenav>\n<div style={{ marginLeft: \'60px\' }}>\n  Page Content\n</div>\n        ' }),
-	        _react2['default'].createElement(
-	          'div',
-	          { className: 'paper1', style: {
-	              height: '200px',
-	              margin: '16px 0'
-	            } },
+	          'The ',
 	          _react2['default'].createElement(
-	            _lib.Sidenav,
-	            { mini: true, style: {
-	                float: 'left',
-	                position: 'relative',
-	                top: '0',
-	                height: '200px'
-	              } },
-	            _react2['default'].createElement(_lib.Sidenav.Item, { showIcon: true, icon: _react2['default'].createElement(_faicon2['default'], { name: 'user' }) }),
-	            _react2['default'].createElement(_lib.Sidenav.Item, { showIcon: true, icon: _react2['default'].createElement(_faicon2['default'], { name: 'dashboard' }), selected: true }),
-	            _react2['default'].createElement(_lib.Sidenav.Seperator, null),
-	            _react2['default'].createElement(_lib.Sidenav.Item, { showIcon: true, icon: _react2['default'].createElement(_faicon2['default'], { name: 'cog' }) })
+	            'code',
+	            null,
+	            'Form'
 	          ),
-	          _react2['default'].createElement(
-	            'div',
-	            { style: {
-	                padding: '16px',
-	                marginLeft: '60px'
-	              } },
-	            'Page Content'
-	          )
-	        )
+	          ' component will prevent the default form submit behaviour and pass the submit event on to the given onSubmit handler.'
+	        ),
+	        _react2['default'].createElement(_example2['default'], { code: '\n<Form onSubmit={onSubmit}/>\n  <Button type="submit">Submit</Button>\n</Form>\n        ' })
 	      );
 	    }
 	  }], [{
 	    key: 'displayName',
-	    value: 'Sidenav',
-	    enumerable: true
-	  }, {
-	    key: 'propTypes',
-	    value: {},
+	    value: 'Form',
 	    enumerable: true
 	  }]);
 	
-	  return SidenavDemo;
+	  return Form;
 	})(_react.Component);
 	
-	exports['default'] = SidenavDemo;
+	exports['default'] = Form;
 	module.exports = exports['default'];
 
 /***/ },
@@ -43498,82 +43508,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _example = __webpack_require__(459);
-	
-	var _example2 = _interopRequireDefault(_example);
-	
-	var Form = (function (_Component) {
-	  _inherits(Form, _Component);
-	
-	  function Form() {
-	    _classCallCheck(this, Form);
-	
-	    _get(Object.getPrototypeOf(Form.prototype), 'constructor', this).apply(this, arguments);
-	  }
-	
-	  _createClass(Form, [{
-	    key: 'render',
-	    value: function render() {
-	
-	      return _react2['default'].createElement(
-	        'div',
-	        null,
-	        _react2['default'].createElement(_example2['default'], { code: '\nimport { Form } from \'material-components\';\n        ' }),
-	        _react2['default'].createElement(
-	          'p',
-	          null,
-	          'The ',
-	          _react2['default'].createElement(
-	            'code',
-	            null,
-	            'Form'
-	          ),
-	          ' component will prevent the default form submit behaviour and pass the submit event on to the given onSubmit handler.'
-	        ),
-	        _react2['default'].createElement(_example2['default'], { code: '\n<Form onSubmit={onSubmit}/>\n  <Button type="submit">Submit</Button>\n</Form>\n        ' })
-	      );
-	    }
-	  }], [{
-	    key: 'displayName',
-	    value: 'Form',
-	    enumerable: true
-	  }, {
-	    key: 'propTypes',
-	    value: {},
-	    enumerable: true
-	  }]);
-	
-	  return Form;
-	})(_react.Component);
-	
-	exports['default'] = Form;
-	module.exports = exports['default'];
-
-/***/ },
-/* 475 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-	
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var _react = __webpack_require__(256);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _example = __webpack_require__(459);
+	var _example = __webpack_require__(462);
 	
 	var _example2 = _interopRequireDefault(_example);
 	
@@ -43660,7 +43595,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 476 */
+/* 475 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43685,7 +43620,7 @@
 	
 	var _cerebralReact = __webpack_require__(450);
 	
-	var _example = __webpack_require__(459);
+	var _example = __webpack_require__(462);
 	
 	var _example2 = _interopRequireDefault(_example);
 	
@@ -43794,7 +43729,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 477 */
+/* 476 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43819,7 +43754,7 @@
 	
 	var _cerebralReact = __webpack_require__(450);
 	
-	var _example = __webpack_require__(459);
+	var _example = __webpack_require__(462);
 	
 	var _example2 = _interopRequireDefault(_example);
 	
@@ -43967,7 +43902,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 478 */
+/* 477 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43992,7 +43927,7 @@
 	
 	var _cerebralReact = __webpack_require__(450);
 	
-	var _example = __webpack_require__(459);
+	var _example = __webpack_require__(462);
 	
 	var _example2 = _interopRequireDefault(_example);
 	
@@ -44059,7 +43994,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 479 */
+/* 478 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44082,7 +44017,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _example = __webpack_require__(459);
+	var _example = __webpack_require__(462);
 	
 	var _example2 = _interopRequireDefault(_example);
 	
@@ -44100,7 +44035,6 @@
 	  _createClass(GridSystem, [{
 	    key: 'render',
 	    value: function render() {
-	
 	      return _react2['default'].createElement(
 	        'div',
 	        null,
@@ -44161,10 +44095,6 @@
 	    key: 'displayName',
 	    value: 'GridSystem',
 	    enumerable: true
-	  }, {
-	    key: 'propTypes',
-	    value: {},
-	    enumerable: true
 	  }]);
 	
 	  return GridSystem;
@@ -44174,7 +44104,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 480 */
+/* 479 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44199,15 +44129,15 @@
 	
 	var _cerebralReact = __webpack_require__(450);
 	
-	var _example = __webpack_require__(459);
+	var _example = __webpack_require__(462);
 	
 	var _example2 = _interopRequireDefault(_example);
 	
 	var _lib = __webpack_require__(254);
 	
-	var _faicon = __webpack_require__(465);
+	var _icon = __webpack_require__(459);
 	
-	var _faicon2 = _interopRequireDefault(_faicon);
+	var _icon2 = _interopRequireDefault(_icon);
 	
 	var MenuDemo = (function (_Component) {
 	  _inherits(MenuDemo, _Component);
@@ -44270,7 +44200,7 @@
 	              } },
 	            _react2['default'].createElement(
 	              _lib.Menu.Item,
-	              { showIcon: true, icon: _react2['default'].createElement(_faicon2['default'], { name: 'cog' }) },
+	              { showIcon: true, icon: _react2['default'].createElement(_icon2['default'], { name: 'settings' }) },
 	              'Settings'
 	            ),
 	            _react2['default'].createElement(
@@ -44321,7 +44251,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 481 */
+/* 480 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44346,7 +44276,7 @@
 	
 	var _cerebralReact = __webpack_require__(450);
 	
-	var _example = __webpack_require__(459);
+	var _example = __webpack_require__(462);
 	
 	var _example2 = _interopRequireDefault(_example);
 	
@@ -44423,7 +44353,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 482 */
+/* 481 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44448,7 +44378,7 @@
 	
 	var _cerebralReact = __webpack_require__(450);
 	
-	var _example = __webpack_require__(459);
+	var _example = __webpack_require__(462);
 	
 	var _example2 = _interopRequireDefault(_example);
 	
@@ -44527,7 +44457,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 483 */
+/* 482 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44550,7 +44480,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _example = __webpack_require__(459);
+	var _example = __webpack_require__(462);
 	
 	var _example2 = _interopRequireDefault(_example);
 	
@@ -44698,7 +44628,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 484 */
+/* 483 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44723,7 +44653,7 @@
 	
 	var _cerebralReact = __webpack_require__(450);
 	
-	var _example = __webpack_require__(459);
+	var _example = __webpack_require__(462);
 	
 	var _example2 = _interopRequireDefault(_example);
 	
@@ -44845,7 +44775,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 485 */
+/* 484 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44870,7 +44800,7 @@
 	
 	var _cerebralReact = __webpack_require__(450);
 	
-	var _example = __webpack_require__(459);
+	var _example = __webpack_require__(462);
 	
 	var _example2 = _interopRequireDefault(_example);
 	
@@ -44967,7 +44897,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 486 */
+/* 485 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44992,7 +44922,7 @@
 	
 	var _cerebralReact = __webpack_require__(450);
 	
-	var _example = __webpack_require__(459);
+	var _example = __webpack_require__(462);
 	
 	var _example2 = _interopRequireDefault(_example);
 	
@@ -45129,7 +45059,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 487 */
+/* 486 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45174,10 +45104,6 @@
 	    key: 'displayName',
 	    value: 'NotFound',
 	    enumerable: true
-	  }, {
-	    key: 'propTypes',
-	    value: {},
-	    enumerable: true
 	  }]);
 	
 	  return NotFound;
@@ -45187,16 +45113,16 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 488 */
+/* 487 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(489);
+	var content = __webpack_require__(488);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(463)(content, {});
+	var update = __webpack_require__(466)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -45213,10 +45139,10 @@
 	}
 
 /***/ },
-/* 489 */
+/* 488 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(462)();
+	exports = module.exports = __webpack_require__(465)();
 	// imports
 	
 	
@@ -45227,16 +45153,16 @@
 
 
 /***/ },
-/* 490 */
+/* 489 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(491);
+	var content = __webpack_require__(490);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(463)(content, {});
+	var update = __webpack_require__(466)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -45253,10 +45179,10 @@
 	}
 
 /***/ },
-/* 491 */
+/* 490 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(462)();
+	exports = module.exports = __webpack_require__(465)();
 	// imports
 	
 	

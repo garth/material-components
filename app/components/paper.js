@@ -6,11 +6,7 @@ export default class Paper extends Component {
 
   static displayName = 'Paper';
 
-  static propTypes = {
-  };
-
   render() {
-
     return (
       <div>
         <Example code={`

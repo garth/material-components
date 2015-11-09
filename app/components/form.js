@@ -5,11 +5,7 @@ export default class Form extends Component {
 
   static displayName = 'Form';
 
-  static propTypes = {
-  };
-
   render() {
-
     return (
       <div>
         <Example code={`

@@ -4,11 +4,7 @@ export default class Introduction extends Component {
 
   static displayName = 'Introduction';
 
-  static propTypes = {
-  };
-
   render() {
-
     return (
       <div>
         <p>
