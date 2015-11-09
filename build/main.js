@@ -33394,9 +33394,23 @@
 	  }
 	
 	  _createClass(DatePicker, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this = this;
+	
+	      window.addEventListener('resize', this._resize = function () {
+	        return _this.forceUpdate();
+	      });
+	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      window.removeEventListener('resize', this._resize);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this = this;
+	      var _this2 = this;
 	
 	      var _context$componentStyle = this.context.componentStyle;
 	      var secondaryColor = _context$componentStyle.secondaryColor;
@@ -33432,7 +33446,7 @@
 	      return _react2['default'].createElement(_dialog2['default'], {
 	        isOpen: isOpen,
 	        onOk: pickingValue ? function (e) {
-	          return onOk({ target: { value: _this.props.pickingValue } });
+	          return onOk({ target: { value: _this2.props.pickingValue } });
 	        } : null,
 	        okLabel: 'OK',
 	        onCancel: onCancel,
@@ -33441,6 +33455,7 @@
 	        height: isPortrait ? 388 : 292,
 	        hideDivider: true,
 	        noPadding: true,
+	        ignoreResizeEvents: true,
 	        style: { overflow: 'hidden' } }, _react2['default'].createElement('div', {
 	        style: {
 	          width: isPortrait ? '100%' : '168px',
@@ -33449,7 +33464,7 @@
 	          backgroundColor: secondaryColor,
 	          color: secondaryFontColor,
 	          padding: isPortrait ? '16px 24px' : '16px',
-	          position: 'fixed'
+	          position: 'absolute'
 	        } }, _react2['default'].createElement('div', { style: { fontSize: '15px', marginBottom: '2px' } }, displayDate.get('year')), _react2['default'].createElement('div', { style: { fontSize: '36px', fontWeight: 600, lineHeight: '40px' } }, dateLines.map(function (line, index) {
 	        return _react2['default'].createElement('div', { key: index }, line);
 	      }))), _react2['default'].createElement(_calendar2['default'], {
@@ -33599,14 +33614,18 @@
 	    value: function componentDidMount() {
 	      var _this = this;
 	
-	      window.addEventListener('resize', this._resize = function () {
-	        return _this.forceUpdate();
-	      });
+	      if (!this.props.ignoreResizeEvents) {
+	        window.addEventListener('resize', this._resize = function () {
+	          return _this.forceUpdate();
+	        });
+	      }
 	    }
 	  }, {
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
-	      window.removeEventListener('resize', this._resize);
+	      if (!this.props.ignoreResizeEvents) {
+	        window.removeEventListener('resize', this._resize);
+	      }
 	    }
 	  }, {
 	    key: 'button',
@@ -33680,7 +33699,7 @@
 	        }, style) }, _react2['default'].createElement('div', { style: { padding: noPadding ? 0 : '24px' } }, titleElement, _react2['default'].createElement('div', {
 	        style: {
 	          maxHeight: maxContentHeight + 'px',
-	          overflow: 'scroll',
+	          overflow: 'auto',
 	          margin: '0 -24px',
 	          padding: '0 24px'
 	        } }, children)), footer)) : null;
@@ -33702,6 +33721,7 @@
 	      children: _react.PropTypes.node,
 	      height: _react.PropTypes.number,
 	      hideDivider: _react.PropTypes.bool,
+	      ignoreResizeEvents: _react.PropTypes.bool,
 	      isOpen: _react.PropTypes.bool,
 	      noPadding: _react.PropTypes.bool,
 	      okLabel: _react.PropTypes.string,
@@ -33717,6 +33737,7 @@
 	    value: {
 	      height: 130,
 	      hideDivider: false,
+	      ignoreResizeEvents: false,
 	      isOpen: false,
 	      noPadding: false,
 	      style: {},

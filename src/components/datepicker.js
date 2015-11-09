@@ -32,6 +32,14 @@ class DatePicker extends Component {
     year: (new Date()).getFullYear()
   };
 
+  componentDidMount() {
+    window.addEventListener('resize', this._resize = () => this.forceUpdate());
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._resize);
+  }
+
   render() {
     const {
       secondaryColor,
@@ -65,7 +73,6 @@ class DatePicker extends Component {
       ];
     }
 
-
     return (
       <Dialog
         isOpen={isOpen}
@@ -77,6 +84,7 @@ class DatePicker extends Component {
         height={isPortrait ? 388 : 292}
         hideDivider
         noPadding
+        ignoreResizeEvents
         style={{ overflow: 'hidden' }}>
         <div
           style={{
@@ -86,7 +94,7 @@ class DatePicker extends Component {
             backgroundColor: secondaryColor,
             color: secondaryFontColor,
             padding: isPortrait ? '16px 24px' : '16px',
-            position: 'fixed'
+            position: 'absolute'
           }}>
           <div style={{ fontSize: '15px', marginBottom: '2px' }}>
             {displayDate.get('year')}
