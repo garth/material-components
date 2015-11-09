@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Decorator as State } from 'cerebral-react';
 import Example from './example';
 import { Button, Menu } from '../../lib';
-import FaIcon from './faicon';
+import Icon from './icon';
 
 @State({
   menu: ['demos', 'menu']
@@ -50,7 +50,7 @@ import { Menu } from 'material-components';
 
           <Button style={{ margin: '0 16px' }} primary onTouchTap={() => signals.menuOpened()}>Menu</Button>
           <Menu rightAlign isOpen={menu.showMenu} onDone={() => signals.menuClosed()}>
-            <Menu.Item showIcon icon={<FaIcon name="cog"/>}>Settings</Menu.Item>
+            <Menu.Item showIcon icon={<Icon name="settings"/>}>Settings</Menu.Item>
             <Menu.Item showIcon>No Icon</Menu.Item>
             <Menu.Seperator/>
             <Menu.Item showIcon selected={menu.selectedOption===1} onTouchTap={() => signals.selectMenuOption({ value: 1 })}>Option 1</Menu.Item>

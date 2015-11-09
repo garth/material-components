@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { Decorator as State } from 'cerebral-react';
-import FaIcon from './faicon';
 import Icon from './icon';
 import routeComponent from './routeComponent';
 
@@ -100,7 +99,7 @@ export default class Application extends Component {
           <div style={{ float: 'right' }}>
             <Appbar.Button
               onTouchTap={() => location.href='https://github.com/garth/material-components'}>
-              <FaIcon name="github"/>
+              <Icon name="github"/>
             </Appbar.Button>
             <Appbar.Button onTouchTap={() => signals.moreMenuOpened()}>
               <Icon name="more_vert"/>

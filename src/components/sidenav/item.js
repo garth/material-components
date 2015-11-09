@@ -44,7 +44,6 @@ class Item extends Component {
         showIcon={showIcon}
         style={Object.assign({
           padding: '8px 40px 8px 24px',
-          position: 'realative',
           color: selected ? primaryColor : typographyColor
         }, style)}>
         {children}
