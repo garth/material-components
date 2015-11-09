@@ -135,7 +135,7 @@ export default class Dialog extends Component {
             <div
               style={{
                 maxHeight: `${maxContentHeight}px`,
-                overflow: 'scroll',
+                overflow: 'auto',
                 margin: '0 -24px',
                 padding: '0 24px'
               }}>
