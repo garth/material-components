@@ -94,7 +94,7 @@ class DatePicker extends Component {
             backgroundColor: secondaryColor,
             color: secondaryFontColor,
             padding: isPortrait ? '16px 24px' : '16px',
-            position: 'fixed'
+            position: 'absolute'
           }}>
           <div style={{ fontSize: '15px', marginBottom: '2px' }}>
             {displayDate.get('year')}
