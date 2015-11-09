@@ -1,7 +1,7 @@
 import React from 'react';
 import Divider from '../divider';
 
-export default function Seperator({
+export default function Separator({
   style={}
 }) {
 

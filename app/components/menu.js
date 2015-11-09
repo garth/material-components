@@ -36,7 +36,7 @@ import { Menu } from 'material-components';
 <Menu rightAlign isOpen={showMenuProp} onDone={hideMenuFunc}>
   <Menu.Item showIcon icon={<Icon name="settings"/>} onTouchTap={itemClicked}>Settings</Menu.Item>
   <Menu.Item showIcon onTouchTap={itemClicked}>No Icon</Menu.Item>
-  <Menu.Seperator/>
+  <Menu.Separator/>
   <Menu.Item showIcon selected={selectedOption===1} onTouchTap={() => setSelectedOption(1)}>Option 1</Menu.Item>
   <Menu.Item showIcon selected={selectedOption===2} onTouchTap={() => setSelectedOption(2)}>Option 2</Menu.Item>
 </Menu>
@@ -52,7 +52,7 @@ import { Menu } from 'material-components';
           <Menu rightAlign isOpen={menu.showMenu} onDone={() => signals.menuClosed()}>
             <Menu.Item showIcon icon={<Icon name="settings"/>}>Settings</Menu.Item>
             <Menu.Item showIcon>No Icon</Menu.Item>
-            <Menu.Seperator/>
+            <Menu.Separator/>
             <Menu.Item showIcon selected={menu.selectedOption===1} onTouchTap={() => signals.selectMenuOption({ value: 1 })}>Option 1</Menu.Item>
             <Menu.Item showIcon selected={menu.selectedOption===2} onTouchTap={() => signals.selectMenuOption({ value: 2 })}>Option 2</Menu.Item>
           </Menu>

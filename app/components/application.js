@@ -59,7 +59,7 @@ export default class Application extends Component {
           {[
             { icon: 'directions', page: 'introduction', title: 'Introduction', signal: signals.introductionPageOpened },
             { icon: 'tune', page: 'gettingStarted', title: 'Getting Started', signal: signals.gettingStartedPageOpened },
-            { seperator: true },
+            { separator: true },
             { icon: 'layers', page: 'paper', title: 'Paper', signal: signals.paperPageOpened },
             { icon: 'format_size', page: 'typography', title: 'Typography', signal: signals.typographyPageOpened },
             { icon: 'border_top', page: 'appbar', title: 'Appbar', signal: signals.appbarPageOpened },
@@ -76,11 +76,11 @@ export default class Application extends Component {
             { icon: 'reorder', page: 'table', title: 'Table', signal: signals.tablePageOpened },
             { icon: 'sync', page: 'spinner', title: 'Spinner', signal: signals.spinnerPageOpened },
             { icon: 'event', page: 'calendar', title: 'Calendar', signal: signals.calendarPageOpened },
-            { seperator: true },
+            { separator: true },
             { icon: 'devices', page: 'responsiveEvents', title: 'Responsive Events', signal: signals.responsiveEventsPageOpened }
           ].map((menu, i) => {
-            return menu.seperator ? (
-              <Sidenav.Seperator key={i}/>
+            return menu.separator ? (
+              <Sidenav.Separator key={i}/>
             ) : (
               <Sidenav.Item
                 key={i}
