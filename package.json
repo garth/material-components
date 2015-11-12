@@ -57,14 +57,20 @@
     "cerebral-react": "^0.5.0",
     "cerebral-router": "^0.7.1",
     "chai": "^3.4.1",
+    "classnames": "^2.2.0",
     "css-loader": "^0.22.0",
     "eslint": "^1.9.0",
     "eslint-plugin-react": "^3.8.0",
     "mocha": "^2.3.3",
+    "moment": "^2.10.6",
     "node-sass": "^3.4.1",
     "normalize.css": "^3.0.3",
     "parallelshell": "^2.0.0",
     "path-to-regexp": "^1.2.1",
+    "react": "^0.14.2",
+    "react-addons-css-transition-group": "^0.14.2",
+    "react-dom": "^0.14.2",
+    "react-tap-event-plugin": "^0.2.1",
     "rimraf": "^2.4.3",
     "style-loader": "^0.13.0",
     "watch": "^0.16.0",
@@ -74,9 +80,9 @@
   "peerDependencies": {
     "classnames": "^2.2.0",
     "moment": "^2.10.6",
-    "react": "^0.14.1",
-    "react-addons-css-transition-group": "^0.14.1",
-    "react-dom": "^0.14.1",
+    "react": "^0.14.2",
+    "react-addons-css-transition-group": "^0.14.2",
+    "react-dom": "^0.14.2",
     "react-tap-event-plugin": "^0.2.1"
   }
 }
