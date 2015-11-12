@@ -45,6 +45,8 @@ export default class Button extends Component {
       type
     } = this.props;
 
+    const disabled = !onTouchTap && type !== 'submit';
+
     let style = {
       zIndex: 'inherit',
       fontSize: '16px',
@@ -54,10 +56,10 @@ export default class Button extends Component {
       textAlign: 'center',
       minWidth: '64px',
       textTransform: 'uppercase',
-      cursor: onTouchTap ? 'pointer' : 'inherit'
+      cursor: !disabled ? 'pointer' : 'inherit'
     };
 
-    if (!onTouchTap) {
+    if (disabled) {
       if (flat) {
         style.color = 'rgba(0, 0, 0, 0.26)';
       } else {
@@ -84,7 +86,7 @@ export default class Button extends Component {
             'waves-light': primary && !flat
           }
         )}
-        disabled={!onTouchTap}>
+        disabled={disabled}>
         {children}
       </button>
     );
