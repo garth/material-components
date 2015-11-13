@@ -13,6 +13,7 @@ export default class Button extends Component {
 
   static propTypes = {
     children: PropTypes.node,
+    className: PropTypes.string,
     flat: PropTypes.bool,
     onTouchTap: PropTypes.func,
     primary: PropTypes.bool,
@@ -21,6 +22,7 @@ export default class Button extends Component {
   };
 
   static defaultProps = {
+    className: '',
     flat: false,
     primary: false,
     style: {},
@@ -38,6 +40,7 @@ export default class Button extends Component {
     } = this.context.componentStyle;
     const {
       children,
+      className,
       flat,
       onTouchTap,
       primary,
@@ -81,7 +84,7 @@ export default class Button extends Component {
         onTouchTap={onTouchTap}
         style={Object.assign(style, styleOverrides)}
         className={classNames(
-          'waves-button', {
+          'waves-button', className, {
             'waves-float': !flat && onTouchTap,
             'waves-light': primary && !flat
           }

@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import classNames from 'classnames';
 import Mask from '../mask';
 import Item from './item';
 import Separator from './separator';
@@ -12,6 +13,7 @@ class Menu extends Component {
 
   static propTypes = {
     children: PropTypes.node,
+    className: PropTypes.string,
     isOpen: PropTypes.bool,
     onDone: PropTypes.func,
     rightAlign: PropTypes.bool,
@@ -19,6 +21,7 @@ class Menu extends Component {
   };
 
   static defaultProps = {
+    className: '',
     isOpen: false,
     rightAlign: false,
     style: {}
@@ -84,6 +87,7 @@ class Menu extends Component {
   render() {
     const {
       children,
+      className,
       isOpen,
       rightAlign,
       style
@@ -110,7 +114,10 @@ class Menu extends Component {
           zIndex: 1000
         }}>
         <Mask dark={false} onTouchTap={() => this.onDone()}/>
-        <div ref="menu" className="transition paper1" style={Object.assign(menuStyle, style)}>
+        <div
+          ref="menu"
+          className={classNames('transition', 'paper1', className)}
+          style={Object.assign(menuStyle, style)}>
           {children}
         </div>
       </div>

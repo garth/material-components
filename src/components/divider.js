@@ -1,16 +1,18 @@
 import React from 'react';
+import classNames from 'classnames';
 
 export default function Divider({
-  style={}
+  className = '',
+  style = {}
 }) {
 
-  style = Object.assign({
-    border: 0,
-    height: '1px',
-    margin: '16px 0'
-  }, style);
-
   return (
-    <hr className="paper-divider" style={style}/>
+    <hr
+      className={classNames('paper-divider', className)}
+      style={Object.assign({
+        border: 0,
+        height: '1px',
+        margin: '16px 0'
+      }, style)}/>
   );
 }

@@ -8,6 +8,7 @@ class Select extends Component {
   static displayName = 'Select';
 
   static propTypes = {
+    className: PropTypes.string,
     isError: PropTypes.bool,
     isOpen: PropTypes.bool,
     isSuccess: PropTypes.bool,
@@ -24,6 +25,7 @@ class Select extends Component {
   };
 
   static defaultProps = {
+    className: '',
     isError: false,
     isOpen: false,
     isSuccess: false,
@@ -38,6 +40,7 @@ class Select extends Component {
 
   render() {
     const {
+      className,
       isError,
       isOpen,
       isSuccess,
@@ -76,6 +79,7 @@ class Select extends Component {
 
     return (
       <div
+        className={className}
         style={Object.assign({
           position: 'relative'
         }, style)}>

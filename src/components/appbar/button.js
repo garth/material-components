@@ -9,12 +9,14 @@ class Button extends Component {
 
   static propTypes = {
     children: PropTypes.node,
+    className: PropTypes.string,
     lightWaves: PropTypes.bool,
     onTouchTap: PropTypes.func,
     style: PropTypes.object
   };
 
   static defaultProps = {
+    className: '',
     lightWaves: false,
     style: {}
   };
@@ -26,19 +28,22 @@ class Button extends Component {
   render() {
     const {
       children,
+      className,
       lightWaves,
       onTouchTap,
       style
     } = this.props;
 
     return (
-      <div style={Object.assign({
-        height: '48px',
-        width: '48px',
-        display: 'inline-block',
-        margin: '-8px 0',
-        backgroundColor: 'transparent'
-      }, style)}>
+      <div
+        className={className}
+        style={Object.assign({
+          height: '48px',
+          width: '48px',
+          display: 'inline-block',
+          margin: '-8px 0',
+          backgroundColor: 'transparent'
+        }, style)}>
         <a
           ref='button'
           onTouchTap={onTouchTap}

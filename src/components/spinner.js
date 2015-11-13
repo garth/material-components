@@ -10,6 +10,7 @@ class Spinner extends Component {
   };
 
   static propTypes = {
+    className: PropTypes.string,
     inline: PropTypes.bool,
     isOpen: PropTypes.bool,
     primary: PropTypes.bool,
@@ -19,6 +20,7 @@ class Spinner extends Component {
   };
 
   static defaultProps = {
+    className: '',
     inline: false,
     isOpen: false,
     primary: false,
@@ -33,6 +35,7 @@ class Spinner extends Component {
       secondaryColor
     } = this.context.componentStyle;
     const {
+      className,
       inline,
       isOpen,
       primary,
@@ -42,19 +45,22 @@ class Spinner extends Component {
     } = this.props;
 
     const spinner = (
-      <div style={Object.assign({
-        position: 'relative',
-        margin: '0 auto',
-        width: `${size}px`,
-        height: `${size}px`
-      }, style)}>
-        <svg style={{
-          animation: 'spinner-rotate 2s linear infinite',
+      <div
+        className={className}
+        style={Object.assign({
           position: 'relative',
-          zoom: size / 100,
-          width: '100px',
-          height: '100px'
-        }}>
+          margin: '0 auto',
+          width: `${size}px`,
+          height: `${size}px`
+        }, style)}>
+        <svg
+          style={{
+            animation: 'spinner-rotate 2s linear infinite',
+            position: 'relative',
+            zoom: size / 100,
+            width: '100px',
+            height: '100px'
+          }}>
           <circle
             style={{
               strokeDasharray: '1,400',

@@ -11,6 +11,7 @@ class Input extends Component {
   };
 
   static propTypes = {
+    className: PropTypes.string,
     inputStyle: PropTypes.object,
     isError: PropTypes.bool,
     isSuccess: PropTypes.bool,
@@ -26,6 +27,7 @@ class Input extends Component {
   };
 
   static defaultProps = {
+    className: '',
     inputStyle: {},
     isError: false,
     isSuccess: false,
@@ -43,6 +45,7 @@ class Input extends Component {
       successColor
     } = this.context.componentStyle;
     const {
+      className,
       inputStyle,
       isError,
       isSuccess,
@@ -58,7 +61,9 @@ class Input extends Component {
     } = this.props;
 
     return (
-      <div className="input-group" style={style}>
+      <div
+        className={classNames('input-group', className)}
+        style={style}>
         <input
           onClick={onClick}
           onFocus={e => {
@@ -75,13 +80,23 @@ class Input extends Component {
           onChange={onChange}
           readOnly={readOnly}
           required/>
-        <span className={classNames('bar', { open: isError || isSuccess })} style={{
-          backgroundColor: isError ? errorColor : isSuccess ? successColor : secondaryColor
-        }}/>
-        <label><span ref="label">{label}</span></label>
-        <div className="info" style={{
-          color: isError ? errorColor : 'inherit'
-        }}>{message}</div>
+        <span
+          className={classNames('bar', { open: isError || isSuccess })}
+          style={{
+            backgroundColor: isError ? errorColor : isSuccess ? successColor : secondaryColor
+          }}/>
+        <label>
+          <span ref="label">
+            {label}
+          </span>
+        </label>
+        <div
+          className="info"
+          style={{
+            color: isError ? errorColor : 'inherit'
+          }}>
+          {message}
+        </div>
       </div>
     );
   }

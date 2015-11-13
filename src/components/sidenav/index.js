@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import classNames from 'classnames';
 import Mask from '../mask';
 import Item from './item';
 import Title from './title';
@@ -11,6 +12,7 @@ class Sidenav extends Component {
 
   static propTypes = {
     children: PropTypes.node,
+    className: PropTypes.string,
     isOpen: PropTypes.bool,
     mini: PropTypes.bool,
     onDone: PropTypes.func,
@@ -18,6 +20,7 @@ class Sidenav extends Component {
   };
 
   static defaultProps = {
+    className: '',
     isOpen: false,
     style: {}
   };
@@ -41,6 +44,7 @@ class Sidenav extends Component {
   render() {
     const {
       children,
+      className,
       isOpen,
       mini,
       style
@@ -48,7 +52,7 @@ class Sidenav extends Component {
 
     return mini ? (
       <div
-        className="paper"
+        className={classNames('paper', className)}
         style={Object.assign({
           position: 'absolute',
           top: '64px',
@@ -69,7 +73,7 @@ class Sidenav extends Component {
           <div key="sidenav">
             <Mask onTouchTap={() => this.onDone()}/>
             <div
-              className="sidenav paper2"
+              className={classNames('sidenav', 'paper2', className)}
               style={Object.assign({
                 position: 'fixed',
                 top: 0,
