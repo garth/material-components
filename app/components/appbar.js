@@ -21,7 +21,7 @@ import { Appbar } from 'material-components';
       <Icon name="github"/>
     </Appbar.Button>
     <Appbar.Button><Icon name="more_vert"/></Appbar.Button>
-    <Menu rightAlign isOpen={showMoreMenu} onDone={hideMoreMenuFunc}>
+    <Menu rightAlign isOpen={showMoreMenu} onClose={hideMoreMenuFunc}>
       <Menu.Item>Option A</Menu.Item>
       <Menu.Item>Option B</Menu.Item>
     </Menu>

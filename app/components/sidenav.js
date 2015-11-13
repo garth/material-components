@@ -14,7 +14,7 @@ export default class SidenavDemo extends Component {
 import { Sidenav } from 'material-components';
         `}/>
         <Example code={`
-<Sidenav isOpen={sidenavOpen} onDone={closeSidenavFunc}>
+<Sidenav isOpen={sidenavOpen} onClose={closeSidenavFunc}>
   <Sidenav.Title showCloseButton>Menu</Sidenav.Title>
   <Sidenav.Item showIcon icon={<Icon name="user"/>} onTouchTap={itemSelected}>Option A</Sidenav.Item>
   <Sidenav.Item showIcon icon={<Icon name="dashboard"/>} onTouchTap={itemSelected} selected>Option B</Sidenav.Item>

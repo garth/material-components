@@ -15,7 +15,7 @@ class Sidenav extends Component {
     className: PropTypes.string,
     isOpen: PropTypes.bool,
     mini: PropTypes.bool,
-    onDone: PropTypes.func,
+    onClose: PropTypes.func,
     style: PropTypes.object
   };
 
@@ -31,13 +31,13 @@ class Sidenav extends Component {
 
   getChildContext() {
     return {
-      closeMenuHandler: () => this.onDone()
+      closeMenuHandler: () => this.onClose()
     };
   }
 
-  onDone() {
-    if (typeof this.props.onDone === 'function') {
-      this.props.onDone();
+  onClose() {
+    if (typeof this.props.onClose === 'function') {
+      this.props.onClose();
     }
   }
 
@@ -71,7 +71,7 @@ class Sidenav extends Component {
         transitionName="sidenav">
         {isOpen ? (
           <div key="sidenav">
-            <Mask onTouchTap={() => this.onDone()}/>
+            <Mask onTouchTap={() => this.onClose()}/>
             <div
               className={classNames('sidenav', 'paper2', className)}
               style={Object.assign({

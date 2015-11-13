@@ -54,7 +54,7 @@ export default class Application extends Component {
 
     return (
       <div>
-        <Sidenav isOpen={sidenavOpen} onDone={() => signals.sidenavClosed()}>
+        <Sidenav isOpen={sidenavOpen} onClose={() => signals.sidenavClosed()}>
           <Sidenav.Title showCloseButton>Material Components</Sidenav.Title>
           {[
             { icon: 'directions', page: 'introduction', title: 'Introduction', signal: signals.introductionPageOpened },
@@ -104,7 +104,7 @@ export default class Application extends Component {
             <Appbar.Button onTouchTap={() => signals.moreMenuOpened()}>
               <Icon name="more_vert"/>
             </Appbar.Button>
-            <Menu rightAlign isOpen={showMoreMenu} onDone={() => signals.moreMenuClosed()}>
+            <Menu rightAlign isOpen={showMoreMenu} onClose={() => signals.moreMenuClosed()}>
               <Menu.Item>Option A</Menu.Item>
               <Menu.Item>Option B</Menu.Item>
             </Menu>

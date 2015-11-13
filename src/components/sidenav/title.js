@@ -23,7 +23,7 @@ class Title extends Component {
     style: {}
   };
 
-  onDone() {
+  onClose() {
     if (typeof this.context.closeMenuHandler === 'function') {
       this.context.closeMenuHandler();
     }
@@ -53,7 +53,7 @@ class Title extends Component {
           <Button
             style={{ float: 'right' }}
             className="waves-dark"
-            onTouchTap={() => this.onDone()}>
+            onTouchTap={() => this.onClose()}>
             <svg
               style={{
                 position: 'relative',

@@ -15,7 +15,7 @@ class Select extends Component {
     label: PropTypes.string,
     message: PropTypes.node,
     onChange: PropTypes.func,
-    onDone: PropTypes.func,
+    onClose: PropTypes.func,
     onOpen: PropTypes.func,
     options: PropTypes.array,
     readOnly: PropTypes.bool,
@@ -47,7 +47,7 @@ class Select extends Component {
       label,
       message,
       onChange,
-      onDone,
+      onClose,
       onOpen,
       options,
       readOnly,
@@ -90,7 +90,7 @@ class Select extends Component {
             width: '100%'
           }}
           isOpen={isOpen && !readOnly && !!menuItems}
-          onDone={onDone}>
+          onClose={onClose}>
           {menuItems}
         </Menu>
         <svg

@@ -15,7 +15,7 @@ class Menu extends Component {
     children: PropTypes.node,
     className: PropTypes.string,
     isOpen: PropTypes.bool,
-    onDone: PropTypes.func,
+    onClose: PropTypes.func,
     rightAlign: PropTypes.bool,
     style: PropTypes.object
   };
@@ -33,13 +33,13 @@ class Menu extends Component {
 
   getChildContext() {
     return {
-      closeMenuHandler: () => this.onDone()
+      closeMenuHandler: () => this.onClose()
     };
   }
 
-  onDone() {
-    if (typeof this.props.onDone === 'function') {
-      this.props.onDone();
+  onClose() {
+    if (typeof this.props.onClose === 'function') {
+      this.props.onClose();
     }
   }
 
@@ -71,7 +71,7 @@ class Menu extends Component {
     // close the options when resizing the window
     window.addEventListener('resize', this._resize = () => {
       if (this.props.isOpen) {
-        this.onDone();
+        this.onClose();
       }
     });
   }
@@ -113,7 +113,7 @@ class Menu extends Component {
         style={{
           zIndex: 1000
         }}>
-        <Mask dark={false} onTouchTap={() => this.onDone()}/>
+        <Mask dark={false} onTouchTap={() => this.onClose()}/>
         <div
           ref="menu"
           className={classNames('transition', 'paper1', className)}

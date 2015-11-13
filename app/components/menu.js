@@ -28,12 +28,12 @@ export default class MenuDemo extends Component {
 import { Menu } from 'material-components';
         `}/>
         <Example code={`
-<Menu isOpen={showSimpleMenuProp} onDone={hideSimpleMenuFunc}>
+<Menu isOpen={showSimpleMenuProp} onClose={hideSimpleMenuFunc}>
   <Menu.Item onTouchTap={itemClicked}>Simple Menu Item</Menu.Item>
   <Menu.Item onTouchTap={itemClicked}>Other Option</Menu.Item>
 </Menu>
 
-<Menu rightAlign isOpen={showMenuProp} onDone={hideMenuFunc}>
+<Menu rightAlign isOpen={showMenuProp} onClose={hideMenuFunc}>
   <Menu.Item showIcon icon={<Icon name="settings"/>} onTouchTap={itemClicked}>Settings</Menu.Item>
   <Menu.Item showIcon onTouchTap={itemClicked}>No Icon</Menu.Item>
   <Menu.Separator/>
@@ -42,14 +42,14 @@ import { Menu } from 'material-components';
 </Menu>
         `}/>
         <div style={{ margin: '24px 0' }}>
-          <Menu isOpen={menu.showSimpleMenu} onDone={() => signals.simpleMenuClosed()}>
+          <Menu isOpen={menu.showSimpleMenu} onClose={() => signals.simpleMenuClosed()}>
             <Menu.Item>Simple Menu Item</Menu.Item>
             <Menu.Item>Other Option</Menu.Item>
           </Menu>
           <Button style={{ margin: '0' }} primary onTouchTap={() => signals.simpleMenuOpened()}>Simple Menu</Button>
 
           <Button style={{ margin: '0 16px' }} primary onTouchTap={() => signals.menuOpened()}>Menu</Button>
-          <Menu rightAlign isOpen={menu.showMenu} onDone={() => signals.menuClosed()}>
+          <Menu rightAlign isOpen={menu.showMenu} onClose={() => signals.menuClosed()}>
             <Menu.Item showIcon icon={<Icon name="settings"/>}>Settings</Menu.Item>
             <Menu.Item showIcon>No Icon</Menu.Item>
             <Menu.Separator/>

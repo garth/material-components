@@ -47,7 +47,7 @@ let options = [
   isOpen={isSelectOpen}
   onOpen={setOpenState}
   onChange={optionSelected}
-  onDone={setClosedState}/>
+  onClose={setClosedState}/>
 
 <Select
   label="Success option"
@@ -57,7 +57,7 @@ let options = [
   isOpen={isSelectOpen}
   onOpen={setOpenState}
   onChange={optionSelected}
-  onDone={setClosedState}/>
+  onClose={setClosedState}/>
 
 // note that this version uses value instead of a selected object
 <Select
@@ -69,7 +69,7 @@ let options = [
   isOpen={isSelectOpen}
   onOpen={setOpenState}
   onChange={optionSelected}
-  onDone={setClosedState}/>
+  onClose={setClosedState}/>
         `}/>
         <div style={{ margin: '16px 0' }}>
           <Row>
@@ -81,7 +81,7 @@ let options = [
                 isOpen={select.selectOpen}
                 onOpen={e => signals.selectOpened()}
                 onChange={e => signals.selectChanged({ value: e.target })}
-                onDone={e => signals.selectClosed()}/>
+                onClose={e => signals.selectClosed()}/>
             </Col>
             <Col type="md-4">
               <Select
@@ -92,7 +92,7 @@ let options = [
                 isOpen={select.selectSuccessOpen}
                 onOpen={e => signals.selectSuccessOpened()}
                 onChange={e => signals.selectChanged({ value: e.target })}
-                onDone={e => signals.selectSuccessClosed()}/>
+                onClose={e => signals.selectSuccessClosed()}/>
             </Col>
             <Col type="md-4">
               <Select
@@ -104,7 +104,7 @@ let options = [
                 isOpen={select.selectErrorOpen}
                 onOpen={e => signals.selectErrorOpened()}
                 onChange={e => signals.selectChanged({ value: e.target })}
-                onDone={e => signals.selectErrorClosed()}/>
+                onClose={e => signals.selectErrorClosed()}/>
             </Col>
           </Row>
           <Row>
@@ -122,7 +122,7 @@ let options = [
                 isOpen={select.largeSelectOpen}
                 onOpen={e => signals.selectLargeOpened()}
                 onChange={e => signals.selectLargeChanged({ value: e.target.value })}
-                onDone={e => signals.selectLargeClosed()}/>
+                onClose={e => signals.selectLargeClosed()}/>
             </Col>
           </Row>
         </div>
