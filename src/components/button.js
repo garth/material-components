@@ -13,6 +13,7 @@ export default class Button extends Component {
 
   static propTypes = {
     children: PropTypes.node,
+    className: PropTypes.string,
     flat: PropTypes.bool,
     onTouchTap: PropTypes.func,
     primary: PropTypes.bool,
@@ -21,6 +22,7 @@ export default class Button extends Component {
   };
 
   static defaultProps = {
+    className: '',
     flat: false,
     primary: false,
     style: {},
@@ -38,12 +40,15 @@ export default class Button extends Component {
     } = this.context.componentStyle;
     const {
       children,
+      className,
       flat,
       onTouchTap,
       primary,
       style: styleOverrides,
       type
     } = this.props;
+
+    const disabled = !onTouchTap && type !== 'submit';
 
     let style = {
       zIndex: 'inherit',
@@ -54,10 +59,10 @@ export default class Button extends Component {
       textAlign: 'center',
       minWidth: '64px',
       textTransform: 'uppercase',
-      cursor: onTouchTap ? 'pointer' : 'inherit'
+      cursor: !disabled ? 'pointer' : 'inherit'
     };
 
-    if (!onTouchTap) {
+    if (disabled) {
       if (flat) {
         style.color = 'rgba(0, 0, 0, 0.26)';
       } else {
@@ -79,12 +84,12 @@ export default class Button extends Component {
         onTouchTap={onTouchTap}
         style={Object.assign(style, styleOverrides)}
         className={classNames(
-          'waves-button', {
+          'waves-button', className, {
             'waves-float': !flat && onTouchTap,
             'waves-light': primary && !flat
           }
         )}
-        disabled={!onTouchTap}>
+        disabled={disabled}>
         {children}
       </button>
     );

@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import classNames from 'classnames';
 import Mask from './mask';
 import Divider from './divider';
 import Button from './button';
@@ -12,6 +13,7 @@ export default class Dialog extends Component {
   static propTypes = {
     cancelLabel: PropTypes.string,
     children: PropTypes.node,
+    className: PropTypes.string,
     height: PropTypes.number,
     hideDivider: PropTypes.bool,
     ignoreResizeEvents: PropTypes.bool,
@@ -26,6 +28,7 @@ export default class Dialog extends Component {
   };
 
   static defaultProps = {
+    className: '',
     height: 130,
     hideDivider: false,
     ignoreResizeEvents: false,
@@ -67,6 +70,7 @@ export default class Dialog extends Component {
     const {
       cancelLabel,
       children,
+      className,
       height,
       hideDivider,
       isOpen,
@@ -121,7 +125,7 @@ export default class Dialog extends Component {
       <div key="dialog" style={{ zIndex: 1000 }}>
         <Mask/>
         <div
-          className="paper2 transition"
+          className={classNames('paper2', 'transition', className)}
           style={Object.assign({
             position: 'fixed',
             zIndex: 1001,

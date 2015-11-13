@@ -13,22 +13,25 @@ class DatePicker extends Component {
   };
 
   static propTypes = {
+    className: PropTypes.string,
     isOpen: PropTypes.bool,
     month: PropTypes.number,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onNavigate: PropTypes.func,
     onOk: PropTypes.func,
-    validDays: PropTypes.array,
     pickingValue: PropTypes.object,
+    style: PropTypes.object,
+    validDays: PropTypes.array,
     year: PropTypes.number
   };
 
   static defaultProps = {
+    className: '',
     isOpen: false,
     month: (new Date()).getMonth(),
+    style: {},
     validDays: null,
-    value: null,
     year: (new Date()).getFullYear()
   };
 
@@ -46,14 +49,16 @@ class DatePicker extends Component {
       secondaryFontColor
     } = this.context.componentStyle;
     const {
+      className,
       isOpen,
       month,
       onCancel,
       onChange,
       onNavigate,
       onOk,
-      validDays,
       pickingValue,
+      style,
+      validDays,
       year
     } = this.props;
 
@@ -85,7 +90,8 @@ class DatePicker extends Component {
         hideDivider
         noPadding
         ignoreResizeEvents
-        style={{ overflow: 'hidden' }}>
+        className={className}
+        style={Object.assign({ overflow: 'hidden' }, style)}>
         <div
           style={{
             width: isPortrait ? '100%' : '168px',

@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Decorator as State } from 'cerebral-react';
 import Icon from './icon';
-import routeComponent from './routeComponent';
 
 import { Appbar, Button, Menu, Sidenav } from '../../lib';
 
@@ -41,6 +40,12 @@ export default class Application extends Component {
     };
   }
 
+  componentDidUpdate({ currentPage }) {
+    if (currentPage !== this.props.currentPage) {
+      window.scrollTo(0, 0);
+    }
+  }
+
   render() {
     const {
       currentPage,
@@ -50,11 +55,11 @@ export default class Application extends Component {
       title
     } = this.props;
 
-    const RouteComponent = routeComponent(currentPage);
+    const RouteComponent = require('./' + currentPage);
 
     return (
       <div>
-        <Sidenav isOpen={sidenavOpen} onDone={() => signals.sidenavClosed()}>
+        <Sidenav isOpen={sidenavOpen} onClose={() => signals.sidenavClosed()}>
           <Sidenav.Title showCloseButton>Material Components</Sidenav.Title>
           {[
             { icon: 'directions', page: 'introduction', title: 'Introduction', signal: signals.introductionPageOpened },
@@ -104,13 +109,19 @@ export default class Application extends Component {
             <Appbar.Button onTouchTap={() => signals.moreMenuOpened()}>
               <Icon name="more_vert"/>
             </Appbar.Button>
-            <Menu rightAlign isOpen={showMoreMenu} onDone={() => signals.moreMenuClosed()}>
+            <Menu rightAlign isOpen={showMoreMenu} onClose={() => signals.moreMenuClosed()}>
               <Menu.Item>Option A</Menu.Item>
               <Menu.Item>Option B</Menu.Item>
             </Menu>
           </div>
         </Appbar>
-        <div style={{ padding: '24px', maxWidth: '950px' }}>
+        <div
+          style={{
+            fontSize: '16px',
+            padding: '24px',
+            maxWidth: '950px',
+            margin: '0 auto'
+          }}>
           <RouteComponent/>
         </div>
       </div>

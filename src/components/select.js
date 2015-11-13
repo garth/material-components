@@ -8,13 +8,14 @@ class Select extends Component {
   static displayName = 'Select';
 
   static propTypes = {
+    className: PropTypes.string,
     isError: PropTypes.bool,
     isOpen: PropTypes.bool,
     isSuccess: PropTypes.bool,
     label: PropTypes.string,
     message: PropTypes.node,
     onChange: PropTypes.func,
-    onDone: PropTypes.func,
+    onClose: PropTypes.func,
     onOpen: PropTypes.func,
     options: PropTypes.array,
     readOnly: PropTypes.bool,
@@ -24,6 +25,7 @@ class Select extends Component {
   };
 
   static defaultProps = {
+    className: '',
     isError: false,
     isOpen: false,
     isSuccess: false,
@@ -38,13 +40,14 @@ class Select extends Component {
 
   render() {
     const {
+      className,
       isError,
       isOpen,
       isSuccess,
       label,
       message,
       onChange,
-      onDone,
+      onClose,
       onOpen,
       options,
       readOnly,
@@ -76,6 +79,7 @@ class Select extends Component {
 
     return (
       <div
+        className={className}
         style={Object.assign({
           position: 'relative'
         }, style)}>
@@ -86,7 +90,7 @@ class Select extends Component {
             width: '100%'
           }}
           isOpen={isOpen && !readOnly && !!menuItems}
-          onDone={onDone}>
+          onClose={onClose}>
           {menuItems}
         </Menu>
         <svg

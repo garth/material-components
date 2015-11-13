@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import classNames from 'classnames';
 import Mask from '../mask';
 import Item from './item';
 import Separator from './separator';
@@ -12,13 +13,15 @@ class Menu extends Component {
 
   static propTypes = {
     children: PropTypes.node,
+    className: PropTypes.string,
     isOpen: PropTypes.bool,
-    onDone: PropTypes.func,
+    onClose: PropTypes.func,
     rightAlign: PropTypes.bool,
     style: PropTypes.object
   };
 
   static defaultProps = {
+    className: '',
     isOpen: false,
     rightAlign: false,
     style: {}
@@ -30,13 +33,13 @@ class Menu extends Component {
 
   getChildContext() {
     return {
-      closeMenuHandler: () => this.onDone()
+      closeMenuHandler: () => this.onClose()
     };
   }
 
-  onDone() {
-    if (typeof this.props.onDone === 'function') {
-      this.props.onDone();
+  onClose() {
+    if (typeof this.props.onClose === 'function') {
+      this.props.onClose();
     }
   }
 
@@ -68,7 +71,7 @@ class Menu extends Component {
     // close the options when resizing the window
     window.addEventListener('resize', this._resize = () => {
       if (this.props.isOpen) {
-        this.onDone();
+        this.onClose();
       }
     });
   }
@@ -84,6 +87,7 @@ class Menu extends Component {
   render() {
     const {
       children,
+      className,
       isOpen,
       rightAlign,
       style
@@ -109,8 +113,11 @@ class Menu extends Component {
         style={{
           zIndex: 1000
         }}>
-        <Mask dark={false} onTouchTap={() => this.onDone()}/>
-        <div ref="menu" className="transition paper1" style={Object.assign(menuStyle, style)}>
+        <Mask dark={false} onTouchTap={() => this.onClose()}/>
+        <div
+          ref="menu"
+          className={classNames('transition', 'paper1', className)}
+          style={Object.assign(menuStyle, style)}>
           {children}
         </div>
       </div>

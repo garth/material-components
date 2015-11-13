@@ -11,6 +11,7 @@ class Checkbox extends Component {
   };
 
   static propTypes = {
+    className: PropTypes.string,
     label: PropTypes.string,
     onChange: PropTypes.func,
     readOnly: PropTypes.bool,
@@ -19,6 +20,7 @@ class Checkbox extends Component {
   };
 
   static defaultProps = {
+    className: '',
     readOnly: false,
     style: {},
     value: false
@@ -33,6 +35,7 @@ class Checkbox extends Component {
       secondaryColor
     } = this.context.componentStyle;
     const {
+      className,
       label,
       onChange,
       readOnly,
@@ -53,12 +56,14 @@ class Checkbox extends Component {
     );
 
     return (
-      <label style={Object.assign({
-        display: 'inline-block',
-        cursor: 'pointer',
-        margin: '14px 0',
-        fontSize: '18px'
-      }, style)}>
+      <label
+        className={className}
+        style={Object.assign({
+          display: 'inline-block',
+          cursor: 'pointer',
+          margin: '14px 0',
+          fontSize: '18px'
+        }, style)}>
         <input
           style={{ display: 'none' }}
           type="checkbox"

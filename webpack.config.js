@@ -14,7 +14,8 @@ module.exports = {
       test: /\.js$/,
       loader: 'babel',
       exclude: [
-        path.resolve(__dirname, '../node_modules')
+        path.resolve(__dirname, 'lib'),
+        path.resolve(__dirname, 'node_modules')
       ]
     }, {
       test: /\.css$/,

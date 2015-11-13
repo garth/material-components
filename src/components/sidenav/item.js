@@ -11,6 +11,7 @@ class Item extends Component {
 
   static propTypes = {
     children: PropTypes.node,
+    className: PropTypes.string,
     icon: PropTypes.node,
     onTouchTap: PropTypes.func,
     selected: PropTypes.bool,
@@ -19,6 +20,7 @@ class Item extends Component {
   };
 
   static defaultPropTypes = {
+    className: '',
     style: {}
   };
 
@@ -29,6 +31,7 @@ class Item extends Component {
     } = this.context.componentStyle;
     const {
       children,
+      className,
       icon,
       onTouchTap,
       selected,
@@ -42,6 +45,7 @@ class Item extends Component {
         onTouchTap={onTouchTap}
         selected={false}
         showIcon={showIcon}
+        className={className}
         style={Object.assign({
           padding: '8px 40px 8px 24px',
           position: 'realative',
