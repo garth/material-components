@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Decorator as State } from 'cerebral-react';
 import Icon from './icon';
-import routeComponent from './routeComponent';
 
 import { Appbar, Button, Menu, Sidenav } from '../../lib';
 
@@ -41,6 +40,12 @@ export default class Application extends Component {
     };
   }
 
+  componentDidUpdate({ currentPage }) {
+    if (currentPage !== this.props.currentPage) {
+      window.scrollTo(0, 0);
+    }
+  }
+
   render() {
     const {
       currentPage,
@@ -50,7 +55,7 @@ export default class Application extends Component {
       title
     } = this.props;
 
-    const RouteComponent = routeComponent(currentPage);
+    const RouteComponent = require('./' + currentPage);
 
     return (
       <div>
