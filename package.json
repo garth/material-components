@@ -1,6 +1,6 @@
 {
   "name": "material-components",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Stateless UI components for react that follow material design",
   "main": "lib/index.js",
   "scripts": {
@@ -52,8 +52,8 @@
     "babel-loader": "^5.3.3",
     "baobab": "^2.1.0",
     "bootstrap-sass": "^3.3.5",
-    "cerebral": "^0.23.0",
-    "cerebral-baobab": "^0.3.1",
+    "cerebral": "^0.23.1",
+    "cerebral-baobab": "^0.3.2",
     "cerebral-react": "^0.5.0",
     "cerebral-router": "^0.7.1",
     "chai": "^3.4.1",
@@ -63,7 +63,7 @@
     "eslint-plugin-react": "^3.8.0",
     "mocha": "^2.3.3",
     "moment": "^2.10.6",
-    "node-sass": "^3.4.1",
+    "node-sass": "^3.4.2",
     "normalize.css": "^3.0.3",
     "parallelshell": "^2.0.0",
     "path-to-regexp": "^1.2.1",

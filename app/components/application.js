@@ -115,7 +115,13 @@ export default class Application extends Component {
             </Menu>
           </div>
         </Appbar>
-        <div style={{ padding: '24px', maxWidth: '950px' }}>
+        <div
+          style={{
+            fontSize: '16px',
+            padding: '24px',
+            maxWidth: '950px',
+            margin: '0 auto'
+          }}>
           <RouteComponent/>
         </div>
       </div>
