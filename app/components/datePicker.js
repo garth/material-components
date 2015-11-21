@@ -4,6 +4,7 @@ import Example from './example';
 import { Button, DatePicker } from '../../lib';
 
 @State({
+  locale: ['locale'],
   datePicker: ['demos', 'datePicker']
 })
 export default class DatePickerDemo extends Component {
@@ -11,12 +12,14 @@ export default class DatePickerDemo extends Component {
   static displayName = 'DatePicker';
 
   static propTypes = {
+    locale: PropTypes.string,
     signals: PropTypes.object,
     datePicker: PropTypes.object
   };
 
   render() {
     const {
+      locale,
       signals,
       datePicker
     } = this.props;
@@ -28,6 +31,7 @@ import { DatePicker } from 'material-components';
         `}/>
         <Example code={`
 <DatePicker
+  locale={locale}
   isOpen={showDatePicker}
   year={year}
   month={month}
@@ -37,9 +41,15 @@ import { DatePicker } from 'material-components';
   onOk={onOk}
   onCancel={onCancel}/>
         `}/>
+        <p>
+          The locale will default to <code>en</code>, to use any other locale you must ensure that you have
+          first <a href="http://momentjs.com/docs/#/i18n/loading-into-browser/">loaded the locale</a> into
+          moment.js.
+        </p>
         <Button primary onTouchTap={e => signals.datePickerOpened({ value: datePicker.pickedDate })}>Pick Date</Button>
         Picked Date: {datePicker.pickedDate ? datePicker.pickedDate.toDateString() : 'none'}
         <DatePicker
+          locale={locale}
           isOpen={datePicker.showDatePicker}
           year={datePicker.pickedCalendar.year}
           month={datePicker.pickedCalendar.month}

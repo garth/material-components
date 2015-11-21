@@ -1,11 +1,13 @@
 import Controller from 'cerebral';
 import Model from 'cerebral-baobab';
+import moment from 'moment';
 
 export default Controller(Model({
 
+  locale: 'en',
   screen: {},
   sidenavOpen: false,
-  showMoreMenu: false,
+  showLocaleMenu: false,
 
   demos: {
     input: {
@@ -58,4 +60,6 @@ export default Controller(Model({
     page: 'home',
     title: ''
   }
-}));
+}), {
+  moment
+});
