@@ -20,6 +20,5 @@ controller.signal('datePickerSelected', [
 ]);
 
 controller.signal('datePickerCanceled', [
-  set(['demos', 'datePicker', 'pickedDate'], null),
   set(['demos', 'datePicker', 'showDatePicker'], false)
 ]);

@@ -15,6 +15,7 @@ class DatePicker extends Component {
   static propTypes = {
     className: PropTypes.string,
     isOpen: PropTypes.bool,
+    locale: PropTypes.string,
     month: PropTypes.number,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
@@ -29,6 +30,7 @@ class DatePicker extends Component {
   static defaultProps = {
     className: '',
     isOpen: false,
+    locale: 'en',
     month: (new Date()).getMonth(),
     style: {},
     validDays: null,
@@ -51,6 +53,7 @@ class DatePicker extends Component {
     const {
       className,
       isOpen,
+      locale,
       month,
       onCancel,
       onChange,
@@ -65,15 +68,16 @@ class DatePicker extends Component {
     const { width, height } = screen.getSize();
     const isPortrait = height > width;
     const displayDate = pickingValue ? moment(pickingValue) : moment({ year, month, day: 1 });
+    displayDate.locale(locale);
 
     let dateLines = null;
     if (!pickingValue) {
       dateLines = [displayDate.format('MMM')];
     } else if (isPortrait) {
-      dateLines = [displayDate.format('ddd, MMM D')];
+      dateLines = [displayDate.format('ddd MMM D')];
     } else {
       dateLines = [
-        displayDate.format('ddd,'),
+        displayDate.format('ddd'),
         displayDate.format('MMM D')
       ];
     }
@@ -112,6 +116,7 @@ class DatePicker extends Component {
           </div>
         </div>
         <Calendar
+          locale={locale}
           month={month}
           onChange={onChange}
           onNavigate={onNavigate}

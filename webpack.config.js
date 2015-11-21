@@ -24,6 +24,6 @@ module.exports = {
   },
   plugins: [
     // don't include all moment locales
-    new ContextReplacementPlugin(/moment[\/\\]locale$/, /^\.\/(en)$/)
+    new ContextReplacementPlugin(/moment[\/\\]locale$/, /^\.\/(en|de)$/)
   ]
 };

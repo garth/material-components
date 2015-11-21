@@ -3,6 +3,12 @@ import ReactDOM from 'react-dom';
 import Waves from './helpers/waves';
 import moment from 'moment';
 
+function getMoment (date, locale) {
+  let value = moment(date);
+  value.locale(locale);
+  return value;
+}
+
 export default class Calendar extends Component {
 
   static displayName = 'Calendar';
@@ -13,6 +19,7 @@ export default class Calendar extends Component {
 
   static propTypes = {
     className: PropTypes.string,
+    locale: PropTypes.string,
     month: PropTypes.number,
     onChange: PropTypes.func,
     onNavigate: PropTypes.func,
@@ -25,6 +32,7 @@ export default class Calendar extends Component {
 
   static defaultProps = {
     className: '',
+    locale: 'en',
     month: (new Date()).getMonth(),
     style: {},
     titleFormat: 'MMMM YYYY',
@@ -59,6 +67,7 @@ export default class Calendar extends Component {
     } = this.context.componentStyle;
     const {
       className,
+      locale,
       month,
       onNavigate,
       onChange,
@@ -69,25 +78,28 @@ export default class Calendar extends Component {
       year
     } = this.props;
 
-    const date = moment({ year, month, day: 1 });
+    const date = getMoment({ year, month, day: 1 }, locale);
+    const localeData = moment.localeData(locale);
     const previousMonth = date.clone().subtract(1, 'months');
     const nextMonth = date.clone().add(1, 'months');
-
-    const localeData = moment.localeData();
     const firstDayOfWeek = localeData.firstDayOfWeek();
-    let weekdays = moment.weekdaysShort().map(day => day[0]);
+
+    let weekdays = [];
+    for (let i = 0; i < 7; i++) {
+      weekdays.push(localeData.weekdaysShort({ day: () => i })[0]);
+    }
     if (firstDayOfWeek > 0) {
-      weekdays = [...weekdays.slice(firstDayOfWeek), ...weekdays.slice(0, firstDayOfWeek - 1)];
+      weekdays = [...weekdays.slice(firstDayOfWeek), ...weekdays.slice(0, firstDayOfWeek)];
     }
 
     const colWidth = 14.28571428;
-    const today = moment(new Date()).startOf('day');
+    const today = getMoment(new Date(), locale).startOf('day');
 
     let days = [];
     for (let day = 1; day <= date.daysInMonth(); day++) {
       let date = new Date(year, month, day);
       let validDay = !Array.isArray(validDays) || validDays.includes(day);
-      let selectedDay = value && moment(value).startOf('day').isSame(date);
+      let selectedDay = value && getMoment(value, locale).startOf('day').isSame(date);
       days.push(
         <div
           key={day}

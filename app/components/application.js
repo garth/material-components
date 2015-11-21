@@ -5,9 +5,10 @@ import Icon from './icon';
 import { Appbar, Button, Menu, Sidenav } from '../../lib';
 
 @State({
-  sidenavOpen: ['sidenavOpen'],
-  showMoreMenu: ['showMoreMenu'],
   currentPage: ['route', 'page'],
+  locale: ['locale'],
+  showLocaleMenu: ['showLocaleMenu'],
+  sidenavOpen: ['sidenavOpen'],
   title: ['route', 'title']
 })
 export default class Application extends Component {
@@ -19,10 +20,11 @@ export default class Application extends Component {
   };
 
   static propTypes = {
-    signals: PropTypes.object,
-    sidenavOpen: PropTypes.bool,
-    showMoreMenu: PropTypes.bool,
     currentPage: PropTypes.string,
+    locale: PropTypes.string,
+    showLocaleMenu: PropTypes.bool,
+    sidenavOpen: PropTypes.bool,
+    signals: PropTypes.object,
     title: PropTypes.string
   };
 
@@ -49,9 +51,10 @@ export default class Application extends Component {
   render() {
     const {
       currentPage,
-      signals,
+      locale,
+      showLocaleMenu,
       sidenavOpen,
-      showMoreMenu,
+      signals,
       title
     } = this.props;
 
@@ -65,22 +68,22 @@ export default class Application extends Component {
             { icon: 'directions', page: 'introduction', title: 'Introduction', signal: signals.introductionPageOpened },
             { icon: 'tune', page: 'gettingStarted', title: 'Getting Started', signal: signals.gettingStartedPageOpened },
             { separator: true },
-            { icon: 'layers', page: 'paper', title: 'Paper', signal: signals.paperPageOpened },
-            { icon: 'format_size', page: 'typography', title: 'Typography', signal: signals.typographyPageOpened },
-            { icon: 'border_top', page: 'appbar', title: 'Appbar', signal: signals.appbarPageOpened },
-            { icon: 'menu', page: 'sidenav', title: 'Sidenav', signal: signals.sidenavPageOpened },
-            { icon: 'content_paste', page: 'form', title: 'Form', signal: signals.formPageOpened },
-            { icon: 'crop_7_5', page: 'button', title: 'Button', signal: signals.buttonPageOpened },
-            { icon: 'edit', page: 'input', title: 'Input', signal: signals.inputPageOpened },
-            { icon: 'arrow_drop_down', page: 'select', title: 'Select', signal: signals.selectPageOpened },
-            { icon: 'check_box', page: 'checkbox', title: 'Checkbox', signal: signals.checkboxPageOpened },
-            { icon: 'view_compact', page: 'gridSystem', title: 'Grid System', signal: signals.gridSystemPageOpened },
-            { icon: 'more_vert', page: 'menu', title: 'Menu', signal: signals.menuPageOpened },
-            { icon: 'picture_in_picture', page: 'dialog', title: 'Dialog', signal: signals.dialogPageOpened },
-            { icon: 'event_available', page: 'datePicker', title: 'Date Picker', signal: signals.datePickerPageOpened },
-            { icon: 'reorder', page: 'table', title: 'Table', signal: signals.tablePageOpened },
-            { icon: 'sync', page: 'spinner', title: 'Spinner', signal: signals.spinnerPageOpened },
-            { icon: 'event', page: 'calendar', title: 'Calendar', signal: signals.calendarPageOpened },
+            { page: 'appbar', icon: 'border_top', title: 'Appbar', signal: signals.appbarPageOpened },
+            { page: 'button', icon: 'crop_7_5', title: 'Button', signal: signals.buttonPageOpened },
+            { page: 'calendar', icon: 'event', title: 'Calendar', signal: signals.calendarPageOpened },
+            { page: 'checkbox', icon: 'check_box', title: 'Checkbox', signal: signals.checkboxPageOpened },
+            { page: 'datePicker', icon: 'event_available', title: 'Date Picker', signal: signals.datePickerPageOpened },
+            { page: 'dialog', icon: 'picture_in_picture', title: 'Dialog', signal: signals.dialogPageOpened },
+            { page: 'form', icon: 'content_paste', title: 'Form', signal: signals.formPageOpened },
+            { page: 'gridSystem', icon: 'view_compact', title: 'Grid System', signal: signals.gridSystemPageOpened },
+            { page: 'input', icon: 'edit', title: 'Input', signal: signals.inputPageOpened },
+            { page: 'menu', icon: 'more_vert', title: 'Menu', signal: signals.menuPageOpened },
+            { page: 'paper', icon: 'layers', title: 'Paper', signal: signals.paperPageOpened },
+            { page: 'select', icon: 'arrow_drop_down', title: 'Select', signal: signals.selectPageOpened },
+            { page: 'sidenav', icon: 'menu', title: 'Sidenav', signal: signals.sidenavPageOpened },
+            { page: 'spinner', icon: 'sync', title: 'Spinner', signal: signals.spinnerPageOpened },
+            { page: 'table', icon: 'reorder', title: 'Table', signal: signals.tablePageOpened },
+            { page: 'typography', icon: 'format_size', title: 'Typography', signal: signals.typographyPageOpened },
             { separator: true },
             { icon: 'devices', page: 'responsiveEvents', title: 'Responsive Events', signal: signals.responsiveEventsPageOpened }
           ].map((menu, i) => {
@@ -106,12 +109,12 @@ export default class Application extends Component {
               onTouchTap={() => location.href='https://github.com/garth/material-components'}>
               <Icon name="github"/>
             </Appbar.Button>
-            <Appbar.Button onTouchTap={() => signals.moreMenuOpened()}>
-              <Icon name="more_vert"/>
+            <Appbar.Button onTouchTap={() => signals.localeMenuOpened()}>
+              <Icon name="globe"/>
             </Appbar.Button>
-            <Menu rightAlign isOpen={showMoreMenu} onClose={() => signals.moreMenuClosed()}>
-              <Menu.Item>Option A</Menu.Item>
-              <Menu.Item>Option B</Menu.Item>
+            <Menu rightAlign isOpen={showLocaleMenu} onClose={() => signals.localeMenuClosed()}>
+              <Menu.Item showIcon onTouchTap={() => signals.localeSelected({ locale: 'de' })} selected={locale === 'de'}>Deutsch</Menu.Item>
+              <Menu.Item showIcon onTouchTap={() => signals.localeSelected({ locale: 'en' })} selected={locale === 'en'}>English</Menu.Item>
             </Menu>
           </div>
         </Appbar>
