@@ -8021,7 +8021,7 @@
 /* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(global) {var types = __webpack_require__(220);
+	/* WEBPACK VAR INJECTION */(function(global, process) {var types = __webpack_require__(220);
 	
 	module.exports = {
 	  getFunctionName: function(fun) {
@@ -8063,7 +8063,7 @@
 	    return typeof action === 'function';
 	  },
 	  isDeveloping: function () {
-	    return !global.process || global.process.env !== 'production';
+	    return typeof process === 'undefined' || process.env.NODE_ENV !== 'production';
 	  },
 	  verifyInput: function (actionName, signalName, input, signalArgs) {
 	    Object.keys(input).forEach(function (key) {
@@ -8114,7 +8114,7 @@
 	  }
 	};
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(192)))
 
 /***/ },
 /* 220 */
@@ -8881,6 +8881,13 @@
 	
 	module.exports = function (signalStore, controller) {
 	
+	  if (!utils.isDeveloping()) {
+	    return {
+	      update: function () {},
+	      start: function () {}
+	    };
+	  }
+	
 	  var isInitialized = false;
 	  var disableDebugger = false;
 	
@@ -9015,10 +9022,8 @@
 	  return {
 	    update: update,
 	    start: function () {
-	      if (utils.isDeveloping()) {
-	        var event = new Event('cerebral.dev.cerebralPing');
-	        window.dispatchEvent(event);
-	      }
+	      var event = new Event('cerebral.dev.cerebralPing');
+	      window.dispatchEvent(event);
 	    }
 	  };
 	
@@ -46399,6 +46404,12 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _example = __webpack_require__(463);
+	
+	var _example2 = _interopRequireDefault(_example);
+	
+	var _lib = __webpack_require__(258);
+	
 	var Introduction = (function (_Component) {
 	  _inherits(Introduction, _Component);
 	
@@ -46414,6 +46425,11 @@
 	      return _react2['default'].createElement(
 	        'div',
 	        null,
+	        _react2['default'].createElement(
+	          _lib.Typ,
+	          { headline: true },
+	          'material-components'
+	        ),
 	        _react2['default'].createElement(
 	          'p',
 	          null,
@@ -46434,7 +46450,7 @@
 	        _react2['default'].createElement(
 	          'p',
 	          null,
-	          'Unlike some other React based component libraries, material-components are completely stateless making them an ideal companion to libraries such as ',
+	          'material-components are completely stateless making them an ideal companion to libraries such as ',
 	          _react2['default'].createElement(
 	            'a',
 	            { href: 'http://christianalfoni.com/cerebral/' },
@@ -46451,7 +46467,7 @@
 	        _react2['default'].createElement(
 	          'p',
 	          null,
-	          'For source code, installation and configuration info please see the ',
+	          'For source code please see the ',
 	          _react2['default'].createElement(
 	            'a',
 	            { href: 'https://github.com/garth/material-components' },
@@ -46469,6 +46485,34 @@
 	            'Elastic Time'
 	          ),
 	          '.'
+	        ),
+	        _react2['default'].createElement(
+	          _lib.Typ,
+	          { headline: true },
+	          'ui-driver'
+	        ),
+	        _react2['default'].createElement(
+	          'p',
+	          null,
+	          'If you\'re using material-components with Cerebral then checkout the ',
+	          _react2['default'].createElement(
+	            'a',
+	            { href: 'https://github.com/garth/ui-driver' },
+	            'ui-driver'
+	          ),
+	          ' to find out how you can turn this:'
+	        ),
+	        _react2['default'].createElement(_example2['default'], { code: '\n<Select\n  label="Options"\n  value={selectedValue}\n  options={options}\n  isError={isError}\n  message="Please select"\n  isOpen={isSelectOpen}\n  onOpen={setOpenState}\n  onChange={optionSelected}\n  onClose={setClosedState}/>\n        ' }),
+	        _react2['default'].createElement(
+	          'p',
+	          null,
+	          'into this:'
+	        ),
+	        _react2['default'].createElement(_example2['default'], { code: '\n<Select ...bindings.selectProps(\'options\', options)/>\n        ' }),
+	        _react2['default'].createElement(
+	          'p',
+	          null,
+	          'The ui-driver will also validate and typecast various different input types including strings, emails, passwords, numbers, times and more.'
 	        )
 	      );
 	    }
