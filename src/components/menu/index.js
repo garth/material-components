@@ -1,6 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
 import Mask from '../mask';
 import Item from './item';
@@ -104,33 +105,31 @@ class Menu extends Component {
     }
 
     let menu = isOpen ? (
-      <div
-        key="menu"
-        style={{
-          zIndex: 1000
-        }}>
-        <Mask dark={false} onTouchTap={() => this.onClose()} />
+      <CSSTransition key="menu" classNames="popup" timeout={{ enter: 400, exit: 400 }}>
         <div
-          ref="menu"
-          className={classNames('transition', 'paper1', className)}
-          style={Object.assign(menuStyle, style)}>
-          {children}
+          style={{
+            zIndex: 1000
+          }}>
+          <Mask dark={false} onTouchTap={() => this.onClose()} />
+          <div
+            ref="menu"
+            className={classNames('transition', 'paper1', className)}
+            style={Object.assign(menuStyle, style)}>
+            {children}
+          </div>
         </div>
-      </div>
+      </CSSTransition>
     ) : null;
 
     return (
-      <ReactCSSTransitionGroup
-        transitionEnterTimeout={400}
-        transitionLeaveTimeout={400}
-        transitionName="popup"
+      <TransitionGroup
         style={{
           zIndex: 1000,
           position: 'absolute',
           width: rightAlign ? null : '100%'
         }}>
         {menu}
-      </ReactCSSTransitionGroup>
+      </TransitionGroup>
     );
   }
 }

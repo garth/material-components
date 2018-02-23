@@ -83,10 +83,11 @@
     "npm-run-all": "^4.1.2",
     "path-to-regexp": "^1.2.1",
     "prettier": "^1.10.2",
-    "react": "^15.0.1",
-    "react-addons-css-transition-group": "^15.0.1",
-    "react-dom": "^15.0.1",
-    "react-tap-event-plugin": "^1.0.0",
+    "prop-types": "^15.6.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-tap-event-plugin": "^3.0.2",
+    "react-transition-group": "^2.2.1",
     "rimraf": "^2.4.4",
     "style-loader": "^0.13.0",
     "watch": "^0.16.0",
@@ -96,9 +97,10 @@
   "peerDependencies": {
     "classnames": "^2.2.0",
     "moment": "^2.10.6",
-    "react": "^15.0.0",
-    "react-addons-css-transition-group": "^15.0.0",
-    "react-dom": "^15.0.0",
-    "react-tap-event-plugin": "^1.0.0"
+    "prop-types": "^15.0.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-tap-event-plugin": "^3.0.0",
+    "react-transition-group": "^2.2.0"
   }
 }

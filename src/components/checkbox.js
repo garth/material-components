@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import Waves from './helpers/waves';
 
@@ -6,7 +7,7 @@ class Checkbox extends Component {
   static displayName = 'Checkbox';
 
   static contextTypes = {
-    componentStyle: React.PropTypes.object
+    componentStyle: PropTypes.object
   };
 
   static propTypes = {

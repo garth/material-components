@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import Waves from '../helpers/waves';
@@ -7,7 +8,7 @@ class Item extends Component {
   static displayName = 'Menu.Item';
 
   static contextTypes = {
-    closeMenuHandler: React.PropTypes.func
+    closeMenuHandler: PropTypes.func
   };
 
   static propTypes = {

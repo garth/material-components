@@ -1,5 +1,6 @@
-import React, { Component, PropTypes } from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
 import Mask from './mask';
 import Divider from './divider';
@@ -125,46 +126,40 @@ export default class Dialog extends Component {
     }
 
     let dialog = isOpen ? (
-      <div key="dialog" style={{ zIndex: 1000 }}>
-        <Mask />
-        <div
-          className={classNames('paper2', 'transition', className)}
-          style={Object.assign(
-            {
-              position: 'fixed',
-              zIndex: 1001,
-              top: `${top}px`,
-              left: `${left}px`,
-              width: `${maxWidth}px`,
-              maxHeight: `${maxHeight}px`
-            },
-            style
-          )}>
-          <div style={{ padding: noPadding ? 0 : '24px' }}>
-            {titleElement}
-            <div
-              style={{
-                maxHeight: `${maxContentHeight}px`,
-                overflow: 'auto',
-                margin: '0 -24px',
-                padding: '0 24px'
-              }}>
-              {children}
+      <CSSTransition key="dialog" classNames="popup" timeout={{ enter: 400, exit: 400 }}>
+        <div style={{ zIndex: 1000 }}>
+          <Mask />
+          <div
+            className={classNames('paper2', 'transition', className)}
+            style={Object.assign(
+              {
+                position: 'fixed',
+                zIndex: 1001,
+                top: `${top}px`,
+                left: `${left}px`,
+                width: `${maxWidth}px`,
+                maxHeight: `${maxHeight}px`
+              },
+              style
+            )}>
+            <div style={{ padding: noPadding ? 0 : '24px' }}>
+              {titleElement}
+              <div
+                style={{
+                  maxHeight: `${maxContentHeight}px`,
+                  overflow: 'auto',
+                  margin: '0 -24px',
+                  padding: '0 24px'
+                }}>
+                {children}
+              </div>
             </div>
+            {footer}
           </div>
-          {footer}
         </div>
-      </div>
+      </CSSTransition>
     ) : null;
 
-    return (
-      <ReactCSSTransitionGroup
-        transitionEnterTimeout={400}
-        transitionLeaveTimeout={400}
-        transitionName="popup"
-        style={{ zIndex: 1000 }}>
-        {dialog}
-      </ReactCSSTransitionGroup>
-    );
+    return <TransitionGroup style={{ zIndex: 1000 }}>{dialog}</TransitionGroup>;
   }
 }

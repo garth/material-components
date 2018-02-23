@@ -9,11 +9,11 @@
   transition: opacity 0.3s ease-out;
 }
 
-.popup-leave .transiation {
+.popup-exit .transiation {
   opacity: 1;
 }
 
-.popup-leave.popup-leave-active .transition {
+.popup-exit.popup-exit-active .transition {
   opacity: 0;
   transition: opacity 0.3s ease-in;
 }

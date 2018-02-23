@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 
@@ -6,7 +7,7 @@ class Input extends Component {
   static displayName = 'Input';
 
   static contextTypes = {
-    componentStyle: React.PropTypes.object
+    componentStyle: PropTypes.object
   };
 
   static propTypes = {

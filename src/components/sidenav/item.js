@@ -1,11 +1,12 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import MenuItem from '../menu/item';
 
 class Item extends Component {
   static displayName = 'Sidenav.Item';
 
   static contextTypes = {
-    componentStyle: React.PropTypes.object
+    componentStyle: PropTypes.object
   };
 
   static propTypes = {

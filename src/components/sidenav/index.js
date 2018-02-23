@@ -1,5 +1,6 @@
-import React, { Component, PropTypes } from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
 import Mask from '../mask';
 import Item from './item';
@@ -61,9 +62,9 @@ class Sidenav extends Component {
         {children}
       </div>
     ) : (
-      <ReactCSSTransitionGroup transitionEnterTimeout={400} transitionLeaveTimeout={400} transitionName="sidenav">
+      <TransitionGroup>
         {isOpen ? (
-          <div key="sidenav">
+          <CSSTransition key="sidenav" classNames="sidenav" timeout={{ enter: 400, exit: 400 }}>
             <Mask onTouchTap={() => this.onClose()} />
             <div
               className={classNames('sidenav', 'paper2', className)}
@@ -80,9 +81,9 @@ class Sidenav extends Component {
               )}>
               {children}
             </div>
-          </div>
+          </CSSTransition>
         ) : null}
-      </ReactCSSTransitionGroup>
+      </TransitionGroup>
     );
   }
 }

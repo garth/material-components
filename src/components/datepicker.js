@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import Dialog from './dialog';
 import Calendar from './calendar';
@@ -8,7 +9,7 @@ class DatePicker extends Component {
   static displayName = 'DatePicker';
 
   static contextTypes = {
-    componentStyle: React.PropTypes.object
+    componentStyle: PropTypes.object
   };
 
   static propTypes = {

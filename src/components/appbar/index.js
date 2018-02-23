@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Button from './button';
 import Title from './title';
@@ -7,7 +8,7 @@ class Appbar extends Component {
   static displayName = 'Appbar';
 
   static contextTypes = {
-    componentStyle: React.PropTypes.object
+    componentStyle: PropTypes.object
   };
 
   static propTypes = {

@@ -1,11 +1,12 @@
-import React, { Component, PropTypes } from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 class Spinner extends Component {
   static displayName = 'Spinner';
 
   static contextTypes = {
-    componentStyle: React.PropTypes.object
+    componentStyle: PropTypes.object
   };
 
   static propTypes = {
@@ -76,13 +77,9 @@ class Spinner extends Component {
     return inline ? (
       spinner
     ) : (
-      <ReactCSSTransitionGroup
-        transitionEnterTimeout={400}
-        transitionLeaveTimeout={400}
-        transitionName="popup"
-        style={{ zIndex: 1100 }}>
+      <TransitionGroup style={{ zIndex: 1100 }}>
         {isOpen ? (
-          <div key="spinner">
+          <CSSTransition key="spinner" classNames="popup" timeout={{ enter: 400, exit: 400 }}>
             <div
               className="paper1 transition"
               style={{
@@ -98,9 +95,9 @@ class Spinner extends Component {
               }}>
               {spinner}
             </div>
-          </div>
+          </CSSTransition>
         ) : null}
-      </ReactCSSTransitionGroup>
+      </TransitionGroup>
     );
   }
 }

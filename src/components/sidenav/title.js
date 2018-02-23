@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Button from '../appbar/button';
 
@@ -6,8 +7,8 @@ class Title extends Component {
   static displayName = 'Sidenav.Title';
 
   static contextTypes = {
-    closeMenuHandler: React.PropTypes.func,
-    componentStyle: React.PropTypes.object
+    closeMenuHandler: PropTypes.func,
+    componentStyle: PropTypes.object
   };
 
   static propTypes = {

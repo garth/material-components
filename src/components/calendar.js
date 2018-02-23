@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import Waves from './helpers/waves';
 import moment from 'moment';
@@ -13,7 +14,7 @@ export default class Calendar extends Component {
   static displayName = 'Calendar';
 
   static contextTypes = {
-    componentStyle: React.PropTypes.object
+    componentStyle: PropTypes.object
   };
 
   static propTypes = {

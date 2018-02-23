@@ -41,14 +41,15 @@ require('material-components/lib/index.css');
 
         <Example
           code={`
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class Application extends Component {
 
   static displayName = 'Application';
 
   static childContextTypes = {
-    componentStyle: React.PropTypes.object
+    componentStyle: PropTypes.object
   };
 
   getChildContext() {

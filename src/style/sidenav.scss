@@ -21,7 +21,7 @@ $duration: 0.3s;
   }
 }
 
-.sidenav-leave {
+.sidenav-exit {
   .sidenav {
     left: 0;
   }
@@ -30,7 +30,7 @@ $duration: 0.3s;
   }
 }
 
-.sidenav-leave.sidenav-leave-active {
+.sidenav-exit.sidenav-exit-active {
   .sidenav {
     left: -1 * $width;
     transition: left $duration ease-in;
