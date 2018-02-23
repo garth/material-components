@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import MenuItem from '../menu/item';
 
 class Item extends Component {
-
   static displayName = 'Sidenav.Item';
 
   static contextTypes = {
@@ -25,19 +24,8 @@ class Item extends Component {
   };
 
   render() {
-    const {
-      primaryColor,
-      typographyColor
-    } = this.context.componentStyle;
-    const {
-      children,
-      className,
-      icon,
-      onTouchTap,
-      selected,
-      showIcon,
-      style
-    } = this.props;
+    const { primaryColor, typographyColor } = this.context.componentStyle;
+    const { children, className, icon, onTouchTap, selected, showIcon, style } = this.props;
 
     return (
       <MenuItem
@@ -46,10 +34,13 @@ class Item extends Component {
         selected={false}
         showIcon={showIcon}
         className={className}
-        style={Object.assign({
-          padding: '8px 40px 8px 24px',
-          color: selected ? primaryColor : typographyColor
-        }, style)}>
+        style={Object.assign(
+          {
+            padding: '8px 40px 8px 24px',
+            color: selected ? primaryColor : typographyColor
+          },
+          style
+        )}>
         {children}
       </MenuItem>
     );

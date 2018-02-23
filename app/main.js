@@ -37,4 +37,4 @@ import ReactDOM from 'react-dom';
 import { Container } from 'cerebral-react';
 import Application from './components/application.js';
 
-ReactDOM.render(<Container controller={controller} app={Application}/>, document.getElementById('root'));
+ReactDOM.render(<Container controller={controller} app={Application} />, document.getElementById('root'));

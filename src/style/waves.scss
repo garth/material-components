@@ -1,11 +1,13 @@
 .waves-effect {
   .waves-ripple {
-    $gradient: rgba(0,0,0,0.1) 0,rgba(0,0,0,.15) 40%,rgba(0,0,0,.25) 50%,rgba(0,0,0,.3) 60%,rgba(255,255,255,0) 70%;
+    $gradient: rgba(0, 0, 0, 0.1) 0, rgba(0, 0, 0, 0.15) 40%, rgba(0, 0, 0, 0.25) 50%, rgba(0, 0, 0, 0.3) 60%,
+      rgba(255, 255, 255, 0) 70%;
     background: radial-gradient($gradient);
   }
 
   &.waves-light .waves-ripple {
-    $gradient: rgba(255,255,255,0.2) 0,rgba(255,255,255,.3) 40%,rgba(255,255,255,.4) 50%,rgba(255,255,255,.5) 60%,rgba(255,255,255,0) 70%;
+    $gradient: rgba(255, 255, 255, 0.2) 0, rgba(255, 255, 255, 0.3) 40%, rgba(255, 255, 255, 0.4) 50%,
+      rgba(255, 255, 255, 0.5) 60%, rgba(255, 255, 255, 0) 70%;
     background: radial-gradient($gradient);
   }
 }

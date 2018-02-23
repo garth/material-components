@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import Waves from './helpers/waves';
 
 export default class Button extends Component {
-
   static displayName = 'Button';
 
   static contextTypes = {
@@ -34,19 +33,8 @@ export default class Button extends Component {
   }
 
   render() {
-    const {
-      secondaryColor,
-      secondaryFontColor
-    } = this.context.componentStyle;
-    const {
-      children,
-      className,
-      flat,
-      onTouchTap,
-      primary,
-      style: styleOverrides,
-      type
-    } = this.props;
+    const { secondaryColor, secondaryFontColor } = this.context.componentStyle;
+    const { children, className, flat, onTouchTap, primary, style: styleOverrides, type } = this.props;
 
     const disabled = !onTouchTap && type !== 'submit';
 
@@ -83,12 +71,10 @@ export default class Button extends Component {
         type={type}
         onTouchTap={onTouchTap}
         style={Object.assign(style, styleOverrides)}
-        className={classNames(
-          'waves-button', className, {
-            'waves-float': !flat && onTouchTap,
-            'waves-light': primary && !flat
-          }
-        )}
+        className={classNames('waves-button', className, {
+          'waves-float': !flat && onTouchTap,
+          'waves-light': primary && !flat
+        })}
         disabled={disabled}>
         {children}
       </button>

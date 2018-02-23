@@ -7,4 +7,4 @@ export default {
       height: (canUseDOM && (window.innerHeight || document.body.clientHeight)) || 768
     };
   }
-}
+};

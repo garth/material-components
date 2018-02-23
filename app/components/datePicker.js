@@ -8,7 +8,6 @@ import { Button, DatePicker } from '../../lib';
   datePicker: ['demos', 'datePicker']
 })
 export default class DatePickerDemo extends Component {
-
   static displayName = 'DatePicker';
 
   static propTypes = {
@@ -18,18 +17,17 @@ export default class DatePickerDemo extends Component {
   };
 
   render() {
-    const {
-      locale,
-      signals,
-      datePicker
-    } = this.props;
+    const { locale, signals, datePicker } = this.props;
 
     return (
       <div>
-        <Example code={`
+        <Example
+          code={`
 import { DatePicker } from 'material-components';
-        `}/>
-        <Example code={`
+        `}
+        />
+        <Example
+          code={`
 <DatePicker
   locale={locale}
   isOpen={showDatePicker}
@@ -40,13 +38,15 @@ import { DatePicker } from 'material-components';
   onNavigate={onNavigate}
   onOk={onOk}
   onCancel={onCancel}/>
-        `}/>
+        `}
+        />
         <p>
-          The locale will default to <code>en</code>, to use any other locale you must ensure that you have
-          first <a href="http://momentjs.com/docs/#/i18n/loading-into-browser/">loaded the locale</a> into
-          moment.js.
+          The locale will default to <code>en</code>, to use any other locale you must ensure that you have first{' '}
+          <a href="http://momentjs.com/docs/#/i18n/loading-into-browser/">loaded the locale</a> into moment.js.
         </p>
-        <Button primary onTouchTap={e => signals.datePickerOpened({ value: datePicker.pickedDate })}>Pick Date</Button>
+        <Button primary onTouchTap={e => signals.datePickerOpened({ value: datePicker.pickedDate })}>
+          Pick Date
+        </Button>
         Picked Date: {datePicker.pickedDate ? datePicker.pickedDate.toDateString() : 'none'}
         <DatePicker
           locale={locale}
@@ -57,7 +57,8 @@ import { DatePicker } from 'material-components';
           onChange={e => signals.datePickerChanged({ value: e.target.value })}
           onNavigate={e => signals.datePickerNavigate({ value: e.target.value })}
           onOk={e => signals.datePickerSelected({ value: e.target.value })}
-          onCancel={e => signals.datePickerCanceled()}/>
+          onCancel={e => signals.datePickerCanceled()}
+        />
       </div>
     );
   }

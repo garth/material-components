@@ -3,21 +3,23 @@ import Example from './example';
 import { Button, Table } from '../../lib';
 
 export default class TableDemo extends Component {
-
   static displayName = 'Table';
 
   render() {
     return (
       <div>
-        <Example code={`
+        <Example
+          code={`
 import { Table } from 'material-components';
-        `}/>
+        `}
+        />
         <p>
           Only <code>Table</code>, <code>Table.Toolbar</code> and <code>Table.Row</code> are necessary, for other
-          element types use the default html
-          elements <code>thead</code>, <code>tbody</code>, <code>th</code> and <code>td</code>.
+          element types use the default html elements <code>thead</code>, <code>tbody</code>, <code>th</code> and{' '}
+          <code>td</code>.
         </p>
-        <Example code={`
+        <Example
+          code={`
 <Table className="paper1">
   <thead>
     <Table.Toolbar colSpan={3}>
@@ -43,11 +45,14 @@ import { Table } from 'material-components';
     ))}
   </tbody>
 </Table>
-        `}/>
+        `}
+        />
         <Table style={{ margin: '24px 0' }} className="paper1">
           <thead>
             <Table.Toolbar colSpan={3}>
-              <Button style={{ margin: '0 8px', padding: '0 8px' }} primary flat onTouchTap={() => {}}>Add</Button>
+              <Button style={{ margin: '0 8px', padding: '0 8px' }} primary flat onTouchTap={() => {}}>
+                Add
+              </Button>
             </Table.Toolbar>
             <Table.Row>
               <th>First Name</th>

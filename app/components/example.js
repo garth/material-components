@@ -4,7 +4,6 @@ import '../vendor/prism.css';
 import '../vendor/prism';
 
 export default class Example extends Component {
-
   static displayName = 'Example';
 
   static propTypes = {
@@ -16,9 +15,7 @@ export default class Example extends Component {
   }
 
   render() {
-    const {
-      code
-    } = this.props;
+    const { code } = this.props;
 
     return (
       <pre>

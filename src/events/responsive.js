@@ -49,4 +49,4 @@ export default {
   removeListener(eventHandler) {
     delete subscribers[eventHandler];
   }
-}
+};

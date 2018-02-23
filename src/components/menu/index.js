@@ -8,7 +8,6 @@ import Separator from './separator';
 import screen from '../helpers/screen';
 
 class Menu extends Component {
-
   static displayName = 'Menu';
 
   static propTypes = {
@@ -49,7 +48,7 @@ class Menu extends Component {
       const screenHeight = screen.getSize().height;
       const { top, bottom } = menuElement.getBoundingClientRect();
       const originalHeight = bottom - top;
-      const minHeight = (32 * 8) + 20;
+      const minHeight = 32 * 8 + 20;
 
       let offsetTop = top < 6 ? Math.ceil((top - 16) / -32) * 32 : 0;
       let offsetBottom = bottom > screenHeight - 6 ? Math.ceil((bottom - screenHeight + 16) / 32) * 32 : 0;
@@ -69,11 +68,14 @@ class Menu extends Component {
   componentDidMount() {
     this.checkBounds();
     // close the options when resizing the window
-    window.addEventListener('resize', this._resize = () => {
-      if (this.props.isOpen) {
-        this.onClose();
-      }
-    });
+    window.addEventListener(
+      'resize',
+      (this._resize = () => {
+        if (this.props.isOpen) {
+          this.onClose();
+        }
+      })
+    );
   }
 
   componentDidUpdate() {
@@ -85,13 +87,7 @@ class Menu extends Component {
   }
 
   render() {
-    const {
-      children,
-      className,
-      isOpen,
-      rightAlign,
-      style
-    } = this.props;
+    const { children, className, isOpen, rightAlign, style } = this.props;
 
     let menuStyle = {
       zIndex: 1001,
@@ -113,7 +109,7 @@ class Menu extends Component {
         style={{
           zIndex: 1000
         }}>
-        <Mask dark={false} onTouchTap={() => this.onClose()}/>
+        <Mask dark={false} onTouchTap={() => this.onClose()} />
         <div
           ref="menu"
           className={classNames('transition', 'paper1', className)}

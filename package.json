@@ -5,11 +5,17 @@
   "main": "lib/index.js",
   "scripts": {
     "lint": "eslint src app test",
-    "start": "parallelshell 'babel src --watch --out-dir lib' 'watch --wait=1 \"eslint src app test && mocha --compilers js:babel/register --recursive --reporter dot\" src app test' 'node-sass --watch src/index.scss lib/index.css' 'webpack-dev-server'",
+    "start:lib": "babel src --watch --out-dir lib",
+    "start:test":
+      "watch --wait=1 \"eslint src app test && mocha --compilers js:babel/register --recursive --reporter dot\" src app test",
+    "start:css": "node-sass --watch src/index.scss lib/index.css",
+    "start:server": "webpack-dev-server",
+    "start": "npm-run-all --parallel start:*",
     "prebuild": "npm run lint && rimraf lib && rimraf build",
     "build": "babel src --out-dir lib && node-sass src/index.scss lib/index.css && webpack --config webpack.config.js",
     "pretest": "npm run lint",
-    "test": "mocha --compilers js:babel/register --recursive"
+    "test": "mocha --compilers js:babel/register --recursive",
+    "fix": "prettier --write \"app/**/*.js\" \"app/**/*.scss\" \"src/**/*.js\" \"src/**/*.scss\""
   },
   "repository": {
     "type": "git",
@@ -43,6 +49,13 @@
     "url": "https://github.com/garth/material-components/issues"
   },
   "homepage": "https://github.com/garth/material-components#readme",
+  "prettier": {
+    "printWidth": 120,
+    "tabWidth": 2,
+    "semi": true,
+    "singleQuote": true,
+    "jsxBracketSameLine": true
+  },
   "dependencies": {
     "exenv": "^1.2.0",
     "node-waves": "^0.7.4"
@@ -67,8 +80,9 @@
     "moment": "^2.10.6",
     "node-sass": "^3.4.2",
     "normalize.css": "^3.0.3",
-    "parallelshell": "^2.0.0",
+    "npm-run-all": "^4.1.2",
     "path-to-regexp": "^1.2.1",
+    "prettier": "^1.10.2",
     "react": "^15.0.1",
     "react-addons-css-transition-group": "^15.0.1",
     "react-dom": "^15.0.1",

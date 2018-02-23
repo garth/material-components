@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import Button from '../appbar/button';
 
 class Title extends Component {
-
   static displayName = 'Sidenav.Title';
 
   static contextTypes = {
@@ -30,30 +29,23 @@ class Title extends Component {
   }
 
   render() {
-    const {
-      typographyColor
-    } = this.context.componentStyle;
-    const {
-      children,
-      className,
-      showCloseButton,
-      style
-    } = this.props;
+    const { typographyColor } = this.context.componentStyle;
+    const { children, className, showCloseButton, style } = this.props;
 
     return (
       <div
         className={classNames('paper-divider', className)}
-        style={Object.assign({
-          height: '64px',
-          lineHeight: '32px',
-          padding: '16px 8px 0 16px',
-          fontSize: '20px'
-        }, style)}>
+        style={Object.assign(
+          {
+            height: '64px',
+            lineHeight: '32px',
+            padding: '16px 8px 0 16px',
+            fontSize: '20px'
+          },
+          style
+        )}>
         {showCloseButton ? (
-          <Button
-            style={{ float: 'right' }}
-            className="waves-dark"
-            onTouchTap={() => this.onClose()}>
+          <Button style={{ float: 'right' }} className="waves-dark" onTouchTap={() => this.onClose()}>
             <svg
               style={{
                 position: 'relative',
@@ -63,8 +55,8 @@ class Title extends Component {
               height="24"
               viewBox="0 0 24 24"
               width="24">
-              <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
-              <path d="M0 0h24v24H0z" fill="none"/>
+              <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+              <path d="M0 0h24v24H0z" fill="none" />
             </svg>
           </Button>
         ) : null}

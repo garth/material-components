@@ -7,7 +7,6 @@ import { Row, Col, Input } from '../../lib';
   input: ['demos', 'input']
 })
 export default class InputDemo extends Component {
-
   static displayName = 'Input';
 
   static propTypes = {
@@ -16,36 +15,39 @@ export default class InputDemo extends Component {
   };
 
   render() {
-    const {
-      signals,
-      input
-    } = this.props;
+    const { signals, input } = this.props;
 
     return (
       <div>
-        <Example code={`
+        <Example
+          code={`
 import { Input } from 'material-components';
-        `}/>
-        <Example code={`
+        `}
+        />
+        <Example
+          code={`
 <Input label="Email" value={email} onChange={onEmailChange}/>
 <Input label="Password" type="password" value={password} onChange={onPasswordChange}/>
 <Input label="Success" value={email} isSuccess onChange={onEmailChange}/>
 <Input label="Error" value={email} isError message="fix me" onChange={onEmailChange}/>
-        `}/>
+        `}
+        />
         <div style={{ margin: '16px 0' }}>
           <Row>
             <Col type="md-6">
               <Input
                 label="Email"
                 value={input.email}
-                onChange={e => signals.emailChanged.sync({ value: e.target.value })}/>
+                onChange={e => signals.emailChanged.sync({ value: e.target.value })}
+              />
             </Col>
             <Col type="md-6">
               <Input
                 label="Password"
                 type="password"
                 value={input.password}
-                onChange={e => signals.passwordChanged.sync({ value: e.target.value })}/>
+                onChange={e => signals.passwordChanged.sync({ value: e.target.value })}
+              />
             </Col>
           </Row>
           <Row>
@@ -54,7 +56,8 @@ import { Input } from 'material-components';
                 label="Success"
                 value={input.email}
                 isSuccess
-                onChange={e => signals.emailChanged.sync({ value: e.target.value })}/>
+                onChange={e => signals.emailChanged.sync({ value: e.target.value })}
+              />
             </Col>
             <Col type="md-6">
               <Input
@@ -62,7 +65,8 @@ import { Input } from 'material-components';
                 value={input.email}
                 isError
                 message="fix me"
-                onChange={e => signals.emailChanged.sync({ value: e.target.value })}/>
+                onChange={e => signals.emailChanged.sync({ value: e.target.value })}
+              />
             </Col>
           </Row>
         </div>

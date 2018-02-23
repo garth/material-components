@@ -5,7 +5,6 @@ import Calendar from './calendar';
 import screen from './helpers/screen';
 
 class DatePicker extends Component {
-
   static displayName = 'DatePicker';
 
   static contextTypes = {
@@ -31,14 +30,14 @@ class DatePicker extends Component {
     className: '',
     isOpen: false,
     locale: 'en',
-    month: (new Date()).getMonth(),
+    month: new Date().getMonth(),
     style: {},
     validDays: null,
-    year: (new Date()).getFullYear()
+    year: new Date().getFullYear()
   };
 
   componentDidMount() {
-    window.addEventListener('resize', this._resize = () => this.forceUpdate());
+    window.addEventListener('resize', (this._resize = () => this.forceUpdate()));
   }
 
   componentWillUnmount() {
@@ -46,10 +45,7 @@ class DatePicker extends Component {
   }
 
   render() {
-    const {
-      secondaryColor,
-      secondaryFontColor
-    } = this.context.componentStyle;
+    const { secondaryColor, secondaryFontColor } = this.context.componentStyle;
     const {
       className,
       isOpen,
@@ -76,10 +72,7 @@ class DatePicker extends Component {
     } else if (isPortrait) {
       dateLines = [displayDate.format('ddd MMM D')];
     } else {
-      dateLines = [
-        displayDate.format('ddd'),
-        displayDate.format('MMM D')
-      ];
+      dateLines = [displayDate.format('ddd'), displayDate.format('MMM D')];
     }
 
     return (
@@ -106,13 +99,9 @@ class DatePicker extends Component {
             padding: isPortrait ? '16px 24px' : '16px',
             position: 'absolute'
           }}>
-          <div style={{ fontSize: '15px', marginBottom: '2px' }}>
-            {displayDate.get('year')}
-          </div>
+          <div style={{ fontSize: '15px', marginBottom: '2px' }}>{displayDate.get('year')}</div>
           <div style={{ fontSize: '36px', fontWeight: 600, lineHeight: '40px' }}>
-            {dateLines.map((line, index) => (
-              <div key={index}>{line}</div>
-            ))}
+            {dateLines.map((line, index) => <div key={index}>{line}</div>)}
           </div>
         </div>
         <Calendar
@@ -125,7 +114,8 @@ class DatePicker extends Component {
           year={year}
           style={{
             margin: isPortrait ? '104px 24px 0' : '8px 24px 0 192px'
-          }}/>
+          }}
+        />
       </Dialog>
     );
   }

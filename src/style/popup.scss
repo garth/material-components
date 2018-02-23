@@ -6,14 +6,14 @@
 
 .popup-enter.popup-enter-active .transition {
   opacity: 1;
-  transition: opacity .3s ease-out;
+  transition: opacity 0.3s ease-out;
 }
 
-.popup-leave .transiation{
+.popup-leave .transiation {
   opacity: 1;
 }
 
 .popup-leave.popup-leave-active .transition {
   opacity: 0;
-  transition: opacity .3s ease-in;
+  transition: opacity 0.3s ease-in;
 }

@@ -7,7 +7,6 @@ import Title from './title';
 import Separator from '../menu/separator';
 
 class Sidenav extends Component {
-
   static displayName = 'Sidenav';
 
   static propTypes = {
@@ -42,46 +41,43 @@ class Sidenav extends Component {
   }
 
   render() {
-    const {
-      children,
-      className,
-      isOpen,
-      mini,
-      style
-    } = this.props;
+    const { children, className, isOpen, mini, style } = this.props;
 
     return mini ? (
       <div
         className={classNames('paper', className)}
-        style={Object.assign({
-          position: 'absolute',
-          top: '64px',
-          left: 0,
-          bottom: 0,
-          width: '62px',
-          marginLeft: '-2px',
-          overflow: 'hidden'
-        }, style)}>
+        style={Object.assign(
+          {
+            position: 'absolute',
+            top: '64px',
+            left: 0,
+            bottom: 0,
+            width: '62px',
+            marginLeft: '-2px',
+            overflow: 'hidden'
+          },
+          style
+        )}>
         {children}
       </div>
     ) : (
-      <ReactCSSTransitionGroup
-        transitionEnterTimeout={400}
-        transitionLeaveTimeout={400}
-        transitionName="sidenav">
+      <ReactCSSTransitionGroup transitionEnterTimeout={400} transitionLeaveTimeout={400} transitionName="sidenav">
         {isOpen ? (
           <div key="sidenav">
-            <Mask onTouchTap={() => this.onClose()}/>
+            <Mask onTouchTap={() => this.onClose()} />
             <div
               className={classNames('sidenav', 'paper2', className)}
-              style={Object.assign({
-                position: 'fixed',
-                top: 0,
-                bottom: 0,
-                overflow: 'auto',
-                width: '280px',
-                zIndex: 1001
-              }, style)}>
+              style={Object.assign(
+                {
+                  position: 'fixed',
+                  top: 0,
+                  bottom: 0,
+                  overflow: 'auto',
+                  width: '280px',
+                  zIndex: 1001
+                },
+                style
+              )}>
               {children}
             </div>
           </div>

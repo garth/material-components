@@ -12,7 +12,6 @@ import { Appbar, Button, Menu, Sidenav } from '../../lib';
   title: ['route', 'title']
 })
 export default class Application extends Component {
-
   static displayName = 'Application';
 
   static childContextTypes = {
@@ -49,14 +48,7 @@ export default class Application extends Component {
   }
 
   render() {
-    const {
-      currentPage,
-      locale,
-      showLocaleMenu,
-      sidenavOpen,
-      signals,
-      title
-    } = this.props;
+    const { currentPage, locale, showLocaleMenu, sidenavOpen, signals, title } = this.props;
 
     const RouteComponent = require('./' + currentPage);
 
@@ -66,7 +58,12 @@ export default class Application extends Component {
           <Sidenav.Title showCloseButton>Material Components</Sidenav.Title>
           {[
             { icon: 'directions', page: 'introduction', title: 'Introduction', signal: signals.introductionPageOpened },
-            { icon: 'tune', page: 'gettingStarted', title: 'Getting Started', signal: signals.gettingStartedPageOpened },
+            {
+              icon: 'tune',
+              page: 'gettingStarted',
+              title: 'Getting Started',
+              signal: signals.gettingStartedPageOpened
+            },
             { separator: true },
             { page: 'appbar', icon: 'border_top', title: 'Appbar', signal: signals.appbarPageOpened },
             { page: 'button', icon: 'crop_7_5', title: 'Button', signal: signals.buttonPageOpened },
@@ -85,36 +82,52 @@ export default class Application extends Component {
             { page: 'table', icon: 'reorder', title: 'Table', signal: signals.tablePageOpened },
             { page: 'typography', icon: 'format_size', title: 'Typography', signal: signals.typographyPageOpened },
             { separator: true },
-            { icon: 'devices', page: 'responsiveEvents', title: 'Responsive Events', signal: signals.responsiveEventsPageOpened }
+            {
+              icon: 'devices',
+              page: 'responsiveEvents',
+              title: 'Responsive Events',
+              signal: signals.responsiveEventsPageOpened
+            }
           ].map((menu, i) => {
             return menu.separator ? (
-              <Sidenav.Separator key={i}/>
+              <Sidenav.Separator key={i} />
             ) : (
               <Sidenav.Item
                 key={i}
                 showIcon
-                icon={<Icon name={menu.icon}/>}
+                icon={<Icon name={menu.icon} />}
                 selected={menu.page === currentPage}
-                onTouchTap={() => menu.signal()}>{menu.title}</Sidenav.Item>
+                onTouchTap={() => menu.signal()}>
+                {menu.title}
+              </Sidenav.Item>
             );
           })}
         </Sidenav>
         <Appbar fixed>
           <Appbar.Button style={{ float: 'left' }} onTouchTap={() => signals.sidenavOpened()}>
-            <Icon name="menu"/>
+            <Icon name="menu" />
           </Appbar.Button>
           <Appbar.Title>{title}</Appbar.Title>
           <div style={{ float: 'right' }}>
-            <Appbar.Button
-              onTouchTap={() => location.href='https://github.com/garth/material-components'}>
-              <Icon name="github"/>
+            <Appbar.Button onTouchTap={() => (location.href = 'https://github.com/garth/material-components')}>
+              <Icon name="github" />
             </Appbar.Button>
             <Appbar.Button onTouchTap={() => signals.localeMenuOpened()}>
-              <Icon name="globe"/>
+              <Icon name="globe" />
             </Appbar.Button>
             <Menu rightAlign isOpen={showLocaleMenu} onClose={() => signals.localeMenuClosed()}>
-              <Menu.Item showIcon onTouchTap={() => signals.localeSelected({ locale: 'de' })} selected={locale === 'de'}>Deutsch</Menu.Item>
-              <Menu.Item showIcon onTouchTap={() => signals.localeSelected({ locale: 'en' })} selected={locale === 'en'}>English</Menu.Item>
+              <Menu.Item
+                showIcon
+                onTouchTap={() => signals.localeSelected({ locale: 'de' })}
+                selected={locale === 'de'}>
+                Deutsch
+              </Menu.Item>
+              <Menu.Item
+                showIcon
+                onTouchTap={() => signals.localeSelected({ locale: 'en' })}
+                selected={locale === 'en'}>
+                English
+              </Menu.Item>
             </Menu>
           </div>
         </Appbar>
@@ -125,7 +138,7 @@ export default class Application extends Component {
             maxWidth: '950px',
             margin: '0 auto'
           }}>
-          <RouteComponent/>
+          <RouteComponent />
         </div>
       </div>
     );

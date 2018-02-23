@@ -1,5 +1,4 @@
 export default {
-
   set(statePath, value) {
     return function set(input, state) {
       state.set(statePath, value);
@@ -11,5 +10,4 @@ export default {
       state.set(statePath, input.value);
     };
   }
-
 };

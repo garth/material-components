@@ -7,7 +7,6 @@ import { Col, Row, Select } from '../../lib';
   select: ['demos', 'select']
 })
 export default class SelectDemo extends Component {
-
   static displayName = 'Select';
 
   static propTypes = {
@@ -16,10 +15,7 @@ export default class SelectDemo extends Component {
   };
 
   render() {
-    const {
-      signals,
-      select
-    } = this.props;
+    const { signals, select } = this.props;
 
     const options = [
       { value: 0, label: 'Option 1' },
@@ -30,10 +26,13 @@ export default class SelectDemo extends Component {
 
     return (
       <div>
-        <Example code={`
+        <Example
+          code={`
 import { Select } from 'material-components';
-        `}/>
-        <Example code={`
+        `}
+        />
+        <Example
+          code={`
 let options = [
   { value: 0, label: 'Option 1' },
   { value: 1, label: 'Option 2' },
@@ -70,7 +69,8 @@ let options = [
   onOpen={setOpenState}
   onChange={optionSelected}
   onClose={setClosedState}/>
-        `}/>
+        `}
+        />
         <div style={{ margin: '16px 0' }}>
           <Row>
             <Col type="md-4">
@@ -81,7 +81,8 @@ let options = [
                 isOpen={select.selectOpen}
                 onOpen={e => signals.selectOpened()}
                 onChange={e => signals.selectChanged({ value: e.target })}
-                onClose={e => signals.selectClosed()}/>
+                onClose={e => signals.selectClosed()}
+              />
             </Col>
             <Col type="md-4">
               <Select
@@ -92,7 +93,8 @@ let options = [
                 isOpen={select.selectSuccessOpen}
                 onOpen={e => signals.selectSuccessOpened()}
                 onChange={e => signals.selectChanged({ value: e.target })}
-                onClose={e => signals.selectSuccessClosed()}/>
+                onClose={e => signals.selectSuccessClosed()}
+              />
             </Col>
             <Col type="md-4">
               <Select
@@ -104,7 +106,8 @@ let options = [
                 isOpen={select.selectErrorOpen}
                 onOpen={e => signals.selectErrorOpened()}
                 onChange={e => signals.selectChanged({ value: e.target })}
-                onClose={e => signals.selectErrorClosed()}/>
+                onClose={e => signals.selectErrorClosed()}
+              />
             </Col>
           </Row>
           <Row>
@@ -122,7 +125,8 @@ let options = [
                 isOpen={select.largeSelectOpen}
                 onOpen={e => signals.selectLargeOpened()}
                 onChange={e => signals.selectLargeChanged({ value: e.target.value })}
-                onClose={e => signals.selectLargeClosed()}/>
+                onClose={e => signals.selectLargeClosed()}
+              />
             </Col>
           </Row>
         </div>

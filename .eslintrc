@@ -59,7 +59,6 @@
     "dot-notation": 1,
     "eol-last": 1,
     "eqeqeq": 1,
-    "indent": [1, 2, { "SwitchCase": 1 }],
     "key-spacing": 1,
     "max-len": 0,
     "new-cap": 0,

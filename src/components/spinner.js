@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 class Spinner extends Component {
-
   static displayName = 'Spinner';
 
   static contextTypes = {
@@ -30,29 +29,21 @@ class Spinner extends Component {
   };
 
   render() {
-    const {
-      primaryColor,
-      secondaryColor
-    } = this.context.componentStyle;
-    const {
-      className,
-      inline,
-      isOpen,
-      primary,
-      secondary,
-      size,
-      style
-    } = this.props;
+    const { primaryColor, secondaryColor } = this.context.componentStyle;
+    const { className, inline, isOpen, primary, secondary, size, style } = this.props;
 
     const spinner = (
       <div
         className={className}
-        style={Object.assign({
-          position: 'relative',
-          margin: '0 auto',
-          width: `${size}px`,
-          height: `${size}px`
-        }, style)}>
+        style={Object.assign(
+          {
+            position: 'relative',
+            margin: '0 auto',
+            width: `${size}px`,
+            height: `${size}px`
+          },
+          style
+        )}>
         <svg
           style={{
             animation: 'spinner-rotate 2s linear infinite',
@@ -65,7 +56,8 @@ class Spinner extends Component {
             style={{
               strokeDasharray: '1,400',
               strokeDashoffset: 0,
-              animation: 'spinner-dash 1.5s ease-in-out infinite' +
+              animation:
+                'spinner-dash 1.5s ease-in-out infinite' +
                 (!primary && !secondary ? ', spinner-color 6s ease-in-out infinite' : ''),
               strokeLinecap: 'round'
             }}
@@ -75,12 +67,15 @@ class Spinner extends Component {
             cy="50"
             r="48"
             strokeWidth="4"
-            strokeMiterlimit="10"/>
+            strokeMiterlimit="10"
+          />
         </svg>
       </div>
     );
 
-    return inline ? spinner : (
+    return inline ? (
+      spinner
+    ) : (
       <ReactCSSTransitionGroup
         transitionEnterTimeout={400}
         transitionLeaveTimeout={400}
@@ -95,7 +90,7 @@ class Spinner extends Component {
                 position: 'fixed',
                 top: '100px',
                 left: '50%',
-                marginLeft: `-${(size / 2) + 6}px`,
+                marginLeft: `-${size / 2 + 6}px`,
                 width: `${size + 12}px`,
                 height: `${size + 12}px`,
                 borderRadius: '50%',
@@ -108,7 +103,6 @@ class Spinner extends Component {
       </ReactCSSTransitionGroup>
     );
   }
-
 }
 
 export default Spinner;

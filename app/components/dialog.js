@@ -7,7 +7,6 @@ import { Button, Dialog } from '../../lib';
   dialog: ['demos', 'dialog']
 })
 export default class DialogDemo extends Component {
-
   static displayName = 'Dialog';
 
   static propTypes = {
@@ -16,17 +15,17 @@ export default class DialogDemo extends Component {
   };
 
   render() {
-    const {
-      signals,
-      dialog
-    } = this.props;
+    const { signals, dialog } = this.props;
 
     return (
       <div>
-        <Example code={`
+        <Example
+          code={`
 import { Dialog } from 'material-components';
-        `}/>
-        <Example code={`
+        `}
+        />
+        <Example
+          code={`
 <Dialog
   isOpen={showDialog}
   width={400}
@@ -37,8 +36,11 @@ import { Dialog } from 'material-components';
   cancelLabel="Cancel"
   onCancel={onCancel}>
 </Dialog>
-        `}/>
-        <Button style={{ margin: '24px 0' }} primary onTouchTap={() => signals.dialogOpened()}>Show Dialog</Button>
+        `}
+        />
+        <Button style={{ margin: '24px 0' }} primary onTouchTap={() => signals.dialogOpened()}>
+          Show Dialog
+        </Button>
         <Dialog
           isOpen={dialog.showDialog}
           width={400}

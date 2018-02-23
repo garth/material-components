@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
 
 class Typ extends Component {
-
   static displayName = 'Typography';
 
   static contextTypes = {
@@ -25,11 +24,7 @@ class Typ extends Component {
   };
 
   render() {
-    const {
-      primaryColor,
-      secondaryColor,
-      typographyColor
-    } = this.context.componentStyle;
+    const { primaryColor, secondaryColor, typographyColor } = this.context.componentStyle;
     const {
       className,
       children,
@@ -47,18 +42,24 @@ class Typ extends Component {
 
     return (
       <div
-        className={classNames({
-          'text-display-3': display3,
-          'text-display-2': display2,
-          'text-display-1': display1,
-          'text-headline': headline,
-          'text-title': title,
-          'text-subheading': subheading,
-          'text-caption': caption
-        }, className)}
-        style={Object.assign({
-          color: primary ? primaryColor : secondary ? secondaryColor : typographyColor
-        }, style)}>
+        className={classNames(
+          {
+            'text-display-3': display3,
+            'text-display-2': display2,
+            'text-display-1': display1,
+            'text-headline': headline,
+            'text-title': title,
+            'text-subheading': subheading,
+            'text-caption': caption
+          },
+          className
+        )}
+        style={Object.assign(
+          {
+            color: primary ? primaryColor : secondary ? secondaryColor : typographyColor
+          },
+          style
+        )}>
         {children}
       </div>
     );

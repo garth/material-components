@@ -4,7 +4,6 @@ import Input from './input';
 import Menu from './menu';
 
 class Select extends Component {
-
   static displayName = 'Select';
 
   static propTypes = {
@@ -59,8 +58,7 @@ class Select extends Component {
     let selectedIndex = 0;
     let displayValue = '';
     let menuItems = options.map((option, index) => {
-      let isSelected = (selected && option.label === selected.label)
-       || (value !== null && option.value === value);
+      let isSelected = (selected && option.label === selected.label) || (value !== null && option.value === value);
       if (!selectedIndex && isSelected) {
         selectedIndex = index;
         displayValue = option.label;
@@ -75,14 +73,17 @@ class Select extends Component {
       );
     });
 
-    const top = 10 - (selectedIndex * 32);
+    const top = 10 - selectedIndex * 32;
 
     return (
       <div
         className={className}
-        style={Object.assign({
-          position: 'relative'
-        }, style)}>
+        style={Object.assign(
+          {
+            position: 'relative'
+          },
+          style
+        )}>
         <Menu
           style={{
             position: 'relative',
@@ -99,9 +100,12 @@ class Select extends Component {
             right: '0px',
             top: '28px'
           }}
-          fill="#aaa" height="24" viewBox="0 0 24 24" width="24">
-          <path d="M7 10l5 5 5-5z"/>
-          <path d="M0 0h24v24H0z" fill="none"/>
+          fill="#aaa"
+          height="24"
+          viewBox="0 0 24 24"
+          width="24">
+          <path d="M7 10l5 5 5-5z" />
+          <path d="M0 0h24v24H0z" fill="none" />
         </svg>
         <Input
           inputStyle={{ cursor: 'pointer' }}
@@ -111,7 +115,8 @@ class Select extends Component {
           message={message}
           onClick={onOpen}
           readOnly
-          value={`${displayValue}`}/>
+          value={`${displayValue}`}
+        />
       </div>
     );
   }

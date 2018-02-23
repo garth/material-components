@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import Waves from '../helpers/waves';
 
 class Button extends Component {
-
   static displayName = 'AppbarButton';
 
   static propTypes = {
@@ -26,26 +25,23 @@ class Button extends Component {
   }
 
   render() {
-    const {
-      children,
-      className,
-      lightWaves,
-      onTouchTap,
-      style
-    } = this.props;
+    const { children, className, lightWaves, onTouchTap, style } = this.props;
 
     return (
       <div
         className={className}
-        style={Object.assign({
-          height: '48px',
-          width: '48px',
-          display: 'inline-block',
-          margin: '-8px 0',
-          backgroundColor: 'transparent'
-        }, style)}>
+        style={Object.assign(
+          {
+            height: '48px',
+            width: '48px',
+            display: 'inline-block',
+            margin: '-8px 0',
+            backgroundColor: 'transparent'
+          },
+          style
+        )}>
         <a
-          ref='button'
+          ref="button"
           onTouchTap={onTouchTap}
           style={{
             fontSize: '24px',
