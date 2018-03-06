@@ -2,6 +2,24 @@
 # yarn lockfile v1
 
 
+"@cerebral/react@^3.1.1":
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/@cerebral/react/-/react-3.1.1.tgz#25ee0366418ea781c22bf5b47bcaf0d38608caf6"
+  dependencies:
+    cerebral "^4.1.1"
+
+"@cerebral/router@^3.1.1":
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/@cerebral/router/-/router-3.1.1.tgz#74cc91c2bb308da5e8f0ea47699462ab5abd25ee"
+  dependencies:
+    addressbar "^1.0.3"
+    cerebral "^4.1.1"
+    url-mapper "^1.1.1"
+
+"@types/eventemitter3@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@types/eventemitter3/-/eventemitter3-1.2.0.tgz#4ebc1b9c6e92417c8e5c49204bb48189f7463dca"
+
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
@@ -25,10 +43,11 @@ acorn@^5.2.1:
   version "5.4.1"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.4.1.tgz#fdc58d9d17f4a4e98d102ded826a9b9759125102"
 
-addressbar@^0.4.3:
-  version "0.4.4"
-  resolved "https://registry.yarnpkg.com/addressbar/-/addressbar-0.4.4.tgz#cdbbc73e4e1317e196a3f64346988208182c5622"
+addressbar@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/addressbar/-/addressbar-1.0.3.tgz#d4b4718bcd657fd802881ec23faad593b086d745"
   dependencies:
+    eventemitter3 "^2.0.2"
     url-parse "^1.0.5"
 
 ajv@^4.9.1:
@@ -409,12 +428,6 @@ balanced-match@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
 
-baobab@^2.1.0, baobab@^2.3.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/baobab/-/baobab-2.5.0.tgz#0c1cd302a0df6fd1200a2a615be6eaedccca6511"
-  dependencies:
-    emmett "^3.1.1"
-
 base64-js@^1.0.2:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-1.2.3.tgz#fb13668233d9614cf5fb4bce95a9ba4096cdf801"
@@ -585,27 +598,12 @@ center-align@^0.1.1:
     align-text "^0.1.3"
     lazy-cache "^1.0.3"
 
-cerebral-baobab@^0.4.2:
-  version "0.4.5"
-  resolved "https://registry.yarnpkg.com/cerebral-baobab/-/cerebral-baobab-0.4.5.tgz#1b223948bda81d931d183d5da6aaf9527381bb6f"
+cerebral@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/cerebral/-/cerebral-4.1.1.tgz#6fe8748b744602ea33460dbac39c432547a05a87"
   dependencies:
-    baobab "^2.3.0"
-
-cerebral-react@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/cerebral-react/-/cerebral-react-0.6.0.tgz#03f12830a280239ef357c8d971b4b96f174bff36"
-
-cerebral-router@^0.7.1:
-  version "0.7.4"
-  resolved "https://registry.yarnpkg.com/cerebral-router/-/cerebral-router-0.7.4.tgz#b6d1d7bfd7e78eaba30bee3da3ad04cae1d77bb5"
-  dependencies:
-    addressbar "^0.4.3"
-    path-to-regexp "^1.2.1"
-    url-mapper "^0.4.0"
-
-cerebral@^0.25.1:
-  version "0.25.1"
-  resolved "https://registry.yarnpkg.com/cerebral/-/cerebral-0.25.1.tgz#e25376284b523c98071242811c221dfe3408073f"
+    es6-error "^4.0.2"
+    function-tree "^3.1.0"
 
 chai@^3.4.1:
   version "3.5.0"
@@ -1139,10 +1137,6 @@ electron-to-chromium@^1.2.7:
   version "1.3.34"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.34.tgz#d93498f40391bb0c16a603d8241b9951404157ed"
 
-emmett@^3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/emmett/-/emmett-3.1.1.tgz#7173858aabdfece0f40232696d4b13fef232cf04"
-
 emojis-list@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/emojis-list/-/emojis-list-2.1.0.tgz#4daa4d9db00f9819880c79fa457ae5b09a1fd389"
@@ -1201,6 +1195,10 @@ es5-ext@^0.10.14, es5-ext@^0.10.35, es5-ext@^0.10.9, es5-ext@~0.10.14:
   dependencies:
     es6-iterator "~2.0.3"
     es6-symbol "~3.1.1"
+
+es6-error@^4.0.2:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/es6-error/-/es6-error-4.1.1.tgz#9e3af407459deed47e9a91f9b885a84eb05c561d"
 
 es6-iterator@^2.0.1, es6-iterator@~2.0.1, es6-iterator@~2.0.3:
   version "2.0.3"
@@ -1375,6 +1373,10 @@ event-stream@~3.3.0:
 eventemitter3@1.x.x:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-1.2.0.tgz#1c86991d816ad1e504750e73874224ecf3bec508"
+
+eventemitter3@^2.0.2:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-2.0.3.tgz#b5e1079b59fb5e1ba2771c0a993be060a58c99ba"
 
 events@^1.0.0:
   version "1.1.1"
@@ -1646,6 +1648,15 @@ fstream@^1.0.0, fstream@^1.0.10, fstream@^1.0.2:
 function-bind@^1.0.2, function-bind@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/function-bind/-/function-bind-1.1.1.tgz#a56899d3ea3c9bab874bb9773b7c5ede92f4895d"
+
+function-tree@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/function-tree/-/function-tree-3.1.0.tgz#b75b4e941f5e4984a08361e14a098513042fef59"
+  dependencies:
+    "@types/eventemitter3" "^1.2.0"
+    chalk "^1.1.3"
+    eventemitter3 "^2.0.2"
+    universal-websocket-client "^1.0.1"
 
 gauge@~2.7.3:
   version "2.7.4"
@@ -2795,9 +2806,9 @@ mocha@^2.3.4:
     supports-color "1.2.0"
     to-iso-string "0.0.2"
 
-moment@^2.10.6:
-  version "2.20.1"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.20.1.tgz#d6eb1a46cbcc14a2b2f9434112c1ff8907f313fd"
+moment@^2.21.0:
+  version "2.21.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.21.0.tgz#2a114b51d2a6ec9e6d83cf803f838a878d8a023a"
 
 ms@0.7.1:
   version "0.7.1"
@@ -3467,9 +3478,9 @@ preserve@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/preserve/-/preserve-0.2.0.tgz#815ed1f6ebc65926f865b310c0713bcb3315ce4b"
 
-prettier@^1.10.2:
-  version "1.10.2"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.10.2.tgz#1af8356d1842276a99a5b5529c82dd9e9ad3cc93"
+prettier@^1.11.1:
+  version "1.11.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.11.1.tgz#61e43fc4cd44e68f2b0dfc2c38cd4bb0fccdcc75"
 
 private@^0.1.6, private@~0.1.5:
   version "0.1.8"
@@ -3492,6 +3503,14 @@ promise@^7.1.1:
 prop-types@^15.5.8, prop-types@^15.6.0:
   version "15.6.0"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
+  dependencies:
+    fbjs "^0.8.16"
+    loose-envify "^1.3.1"
+    object-assign "^4.1.1"
+
+prop-types@^15.6.1:
+  version "15.6.1"
+  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.1.tgz#36644453564255ddda391191fb3a125cbdf654ca"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.3.1"
@@ -3533,10 +3552,6 @@ q@^1.1.2:
 qs@6.5.1, qs@~6.5.1:
   version "6.5.1"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.1.tgz#349cdf6eef89ec45c12d7d5eb3fc0c870343a6d8"
-
-qs@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/qs/-/qs-4.0.0.tgz#c31d9b74ec27df75e543a86c78728ed8d4623607"
 
 qs@~6.4.0:
   version "6.4.0"
@@ -3910,6 +3925,10 @@ rx-lite@^3.1.2:
 safe-buffer@5.1.1, safe-buffer@^5.0.1, safe-buffer@^5.1.1, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.1.tgz#893312af69b2123def71f57889001671eeb2c853"
+
+safe-buffer@~5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.0.1.tgz#d263ca54696cd8a306b5ca6551e92de57918fbe7"
 
 sass-graph@^2.1.1:
   version "2.2.4"
@@ -4444,6 +4463,10 @@ uid-number@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/uid-number/-/uid-number-0.0.6.tgz#0ea10e8035e8eb5b8e4449f06da1c730663baa81"
 
+ultron@~1.1.0:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/ultron/-/ultron-1.1.1.tgz#9fe1536a10a664a65266a1e3ccf85fd36302bc9c"
+
 uniq@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/uniq/-/uniq-1.0.1.tgz#b31c5ae8254844a3a8281541ce2b04b865a734ff"
@@ -4458,15 +4481,22 @@ uniqs@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/uniqs/-/uniqs-2.0.0.tgz#ffede4b36b25290696e6e165d4a59edb998e6b02"
 
+universal-websocket-client@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/universal-websocket-client/-/universal-websocket-client-1.0.1.tgz#ad7c00e22cea16a2a83d6ab5e67ada2928dbe96f"
+  dependencies:
+    ws "^2.2.0"
+
 unpipe@1.0.0, unpipe@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/unpipe/-/unpipe-1.0.0.tgz#b2bf4ee8514aae6165b4817829d21b2ef49904ec"
 
-url-mapper@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/url-mapper/-/url-mapper-0.4.0.tgz#74ae566a4828381d1aab31f87b271ce4dbfb3453"
+url-mapper@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/url-mapper/-/url-mapper-1.1.1.tgz#4db9cdcb30c006cd67fb440708867b307d97a301"
   dependencies:
-    qs "^4.0.0"
+    path-to-regexp "^1.2.1"
+    urlon "^2.0.0"
 
 url-parse@1.0.x:
   version "1.0.5"
@@ -4488,6 +4518,10 @@ url@^0.11.0:
   dependencies:
     punycode "1.3.2"
     querystring "0.2.0"
+
+urlon@^2.0.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/urlon/-/urlon-2.1.0.tgz#261bc7999a370d46b4c2a8415734032af8762427"
 
 user-home@^1.1.1:
   version "1.1.1"
@@ -4689,6 +4723,13 @@ write@^0.2.1:
   resolved "https://registry.yarnpkg.com/write/-/write-0.2.1.tgz#5fc03828e264cea3fe91455476f7a3c566cb0757"
   dependencies:
     mkdirp "^0.5.1"
+
+ws@^2.2.0:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-2.3.1.tgz#6b94b3e447cb6a363f785eaf94af6359e8e81c80"
+  dependencies:
+    safe-buffer "~5.0.1"
+    ultron "~1.1.0"
 
 xml-escape@~1.0.0:
   version "1.0.0"

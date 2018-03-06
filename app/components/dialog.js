@@ -1,32 +1,18 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Decorator as State } from 'cerebral-react';
+import React from 'react';
+import { connect } from '@cerebral/react';
 import Example from './example';
 import { Button, Dialog } from '../../lib';
+import { state, signal } from 'cerebral/tags';
 
-@State({
-  dialog: ['demos', 'dialog']
-})
-export default class DialogDemo extends Component {
-  static displayName = 'Dialog';
-
-  static propTypes = {
-    signals: PropTypes.object,
-    dialog: PropTypes.object
-  };
-
-  render() {
-    const { signals, dialog } = this.props;
-
-    return (
-      <div>
-        <Example
-          code={`
+const DialogDemo = ({ dialog, dialogOpened, dialogClosed }) => (
+  <div>
+    <Example
+      code={`
 import { Dialog } from 'material-components';
         `}
-        />
-        <Example
-          code={`
+    />
+    <Example
+      code={`
 <Dialog
   isOpen={showDialog}
   width={400}
@@ -38,22 +24,29 @@ import { Dialog } from 'material-components';
   onCancel={onCancel}>
 </Dialog>
         `}
-        />
-        <Button style={{ margin: '24px 0' }} primary onTouchTap={() => signals.dialogOpened()}>
-          Show Dialog
-        </Button>
-        <Dialog
-          isOpen={dialog.showDialog}
-          width={400}
-          height={172}
-          title="Do you confirm or deny?"
-          okLabel="Confirm"
-          onOk={() => signals.dialogClosed()}
-          cancelLabel="Deny"
-          onCancel={() => signals.dialogClosed()}>
-          the details of allogation
-        </Dialog>
-      </div>
-    );
-  }
-}
+    />
+    <Button style={{ margin: '24px 0' }} primary onTouchTap={() => dialogOpened()}>
+      Show Dialog
+    </Button>
+    <Dialog
+      isOpen={dialog.showDialog}
+      width={400}
+      height={172}
+      title="Do you confirm or deny?"
+      okLabel="Confirm"
+      onOk={() => dialogClosed()}
+      cancelLabel="Deny"
+      onCancel={() => dialogClosed()}>
+      the details of allogation
+    </Dialog>
+  </div>
+);
+
+export default connect(
+  {
+    dialog: state`demos.dialog`,
+    dialogOpened: signal`dialogOpened`,
+    dialogClosed: signal`dialogClosed`
+  },
+  DialogDemo
+);

@@ -5,8 +5,6 @@ import '../vendor/prism.css';
 import '../vendor/prism';
 
 export default class Example extends Component {
-  static displayName = 'Example';
-
   static propTypes = {
     code: PropTypes.string
   };

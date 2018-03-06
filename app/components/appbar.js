@@ -1,19 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Example from './example';
 
-export default class Appbar extends Component {
-  static displayName = 'Appbar';
-
-  render() {
-    return (
-      <div>
-        <Example
-          code={`
+export default () => (
+  <div>
+    <Example
+      code={`
 import { Appbar } from 'material-components';
         `}
-        />
-        <Example
-          code={`
+    />
+    <Example
+      code={`
 <Appbar fixed>
   <Appbar.Button style={{ float: 'left' }}><Icon name="menu"/></Appbar.Button>
   <Appbar.Title>Material Components</Appbar.Title>
@@ -30,12 +26,10 @@ import { Appbar } from 'material-components';
   </div>
 </Appbar>
         `}
-        />
-        <p>See the appbar above.</p>
-        <p>
-          When using a darker primary color, try using <code>{'<Appbar.Button lightWaves>X</Appbar.Button>'}</code>
-        </p>
-      </div>
-    );
-  }
-}
+    />
+    <p>See the appbar above.</p>
+    <p>
+      When using a darker primary color, try using <code>{'<Appbar.Button lightWaves>X</Appbar.Button>'}</code>
+    </p>
+  </div>
+);
