@@ -65,21 +65,23 @@ class Sidenav extends Component {
       <TransitionGroup>
         {isOpen ? (
           <CSSTransition key="sidenav" classNames="sidenav" timeout={{ enter: 400, exit: 400 }}>
-            <Mask onTouchTap={() => this.onClose()} />
-            <div
-              className={classNames('sidenav', 'paper2', className)}
-              style={Object.assign(
-                {
-                  position: 'fixed',
-                  top: 0,
-                  bottom: 0,
-                  overflow: 'auto',
-                  width: '280px',
-                  zIndex: 1001
-                },
-                style
-              )}>
-              {children}
+            <div>
+              <Mask onTouchTap={() => this.onClose()} />
+              <div
+                className={classNames('sidenav', 'paper2', className)}
+                style={Object.assign(
+                  {
+                    position: 'fixed',
+                    top: 0,
+                    bottom: 0,
+                    overflow: 'auto',
+                    width: '280px',
+                    zIndex: 1001
+                  },
+                  style
+                )}>
+                {children}
+              </div>
             </div>
           </CSSTransition>
         ) : null}
