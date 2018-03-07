@@ -25,7 +25,7 @@ import { Dialog } from 'material-components';
 </Dialog>
         `}
     />
-    <Button style={{ margin: '24px 0' }} primary onTouchTap={() => dialogOpened()}>
+    <Button style={{ margin: '24px 0' }} primary onClick={() => dialogOpened()}>
       Show Dialog
     </Button>
     <Dialog

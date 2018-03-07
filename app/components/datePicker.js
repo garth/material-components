@@ -37,7 +37,7 @@ import { DatePicker } from 'material-components';
       The locale will default to <code>en</code>, to use any other locale you must ensure that you have first{' '}
       <a href="http://momentjs.com/docs/#/i18n/loading-into-browser/">loaded the locale</a> into moment.js.
     </p>
-    <Button primary onTouchTap={e => datePickerOpened({ value: datePicker.pickedDate })}>
+    <Button primary onClick={e => datePickerOpened({ value: datePicker.pickedDate })}>
       Pick Date
     </Button>
     Picked Date: {datePicker.pickedDate ? datePicker.pickedDate.toDateString() : 'none'}

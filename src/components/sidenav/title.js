@@ -46,7 +46,7 @@ class Title extends Component {
           style
         )}>
         {showCloseButton ? (
-          <Button style={{ float: 'right' }} className="waves-dark" onTouchTap={() => this.onClose()}>
+          <Button style={{ float: 'right' }} className="waves-dark" onClick={() => this.onClose()}>
             <svg
               style={{
                 position: 'relative',

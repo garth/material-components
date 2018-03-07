@@ -50,7 +50,7 @@ export default class Dialog extends Component {
     }
   }
 
-  button(label, onTouchTap) {
+  button(label, onClick) {
     if (!label) {
       return null;
     }
@@ -62,7 +62,7 @@ export default class Dialog extends Component {
         }}
         primary={true}
         flat={true}
-        onTouchTap={onTouchTap}>
+        onClick={onClick}>
         {label}
       </Button>
     );

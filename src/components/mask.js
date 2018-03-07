@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-export default function Mask({ className = '', dark = true, onTouchTap = null, style = {} }) {
+export default function Mask({ className = '', dark = true, onClick = null, style = {} }) {
   return (
     <div
       className={classNames('mask', { dark, transition: dark }, className)}
@@ -17,7 +17,7 @@ export default function Mask({ className = '', dark = true, onTouchTap = null, s
         },
         style
       )}
-      onTouchTap={onTouchTap}
+      onClick={onClick}
     />
   );
 }

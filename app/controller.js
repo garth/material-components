@@ -3,14 +3,12 @@ import { set } from 'cerebral/operators';
 import { state, props } from 'cerebral/tags';
 import setRoute from './actions/setRoute';
 import setLocale from './actions/setLocale';
-import setScreen from './actions/setScreen';
 import router from './router';
 
 export default Controller(
   Module({
     state: {
       locale: 'en',
-      screen: {},
       sidenavOpen: false,
       showLocaleMenu: false,
 
@@ -92,7 +90,6 @@ export default Controller(
       menuClosed: [set(state`demos.menu.showMenu`, false)],
       menuOpened: [set(state`demos.menu.showMenu`, true)],
       passwordChanged: [set(state`demos.input.password`, props`value`)],
-      screenChanged: [setScreen],
       selectMenuOption: [set(state`demos.menu.selectedOption`, props`value`)],
       sidenavClosed: [set(state`sidenavOpen`, false)],
       sidenavOpened: [set(state`sidenavOpen`, true)],
@@ -126,7 +123,6 @@ export default Controller(
       tablePageOpened: [setRoute('table', 'Table')],
       spinnerPageOpened: [setRoute('spinner', 'Spinner')],
       calendarPageOpened: [setRoute('calendar', 'Calendar')],
-      responsiveEventsPageOpened: [setRoute('responsiveEvents', 'Responsive Events')],
       notFoundPageOpened: [setRoute('notFound', 'Page Not Found')]
     },
     modules: {

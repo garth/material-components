@@ -15,7 +15,7 @@ export default class Button extends Component {
     children: PropTypes.node,
     className: PropTypes.string,
     flat: PropTypes.bool,
-    onTouchTap: PropTypes.func,
+    onClick: PropTypes.func,
     primary: PropTypes.bool,
     style: PropTypes.object,
     type: PropTypes.string
@@ -35,9 +35,9 @@ export default class Button extends Component {
 
   render() {
     const { secondaryColor, secondaryFontColor } = this.context.componentStyle;
-    const { children, className, flat, onTouchTap, primary, style: styleOverrides, type } = this.props;
+    const { children, className, flat, onClick, primary, style: styleOverrides, type } = this.props;
 
-    const disabled = !onTouchTap && type !== 'submit';
+    const disabled = !onClick && type !== 'submit';
 
     let style = {
       zIndex: 'inherit',
@@ -70,10 +70,10 @@ export default class Button extends Component {
     return (
       <button
         type={type}
-        onTouchTap={onTouchTap}
+        onClick={onClick}
         style={Object.assign(style, styleOverrides)}
         className={classNames('waves-button', className, {
-          'waves-float': !flat && onTouchTap,
+          'waves-float': !flat && onClick,
           'waves-light': primary && !flat
         })}
         disabled={disabled}>

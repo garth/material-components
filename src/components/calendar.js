@@ -97,7 +97,7 @@ export default class Calendar extends Component {
               : !validDay ? '#3e3e3e' : today.isSame(date) ? secondaryColor : 'inherit',
             cursor: onChange && validDay ? 'pointer' : 'inherit'
           }}
-          onTouchTap={() => this.onChange(day, validDay)}>
+          onClick={() => this.onChange(day, validDay)}>
           <div
             style={{
               width: '30px',
@@ -124,7 +124,7 @@ export default class Calendar extends Component {
               width: '48px',
               marginLeft: '-5px'
             }}
-            onTouchTap={() =>
+            onClick={() =>
               onNavigate({
                 target: {
                   value: {
@@ -155,7 +155,7 @@ export default class Calendar extends Component {
               width: '48px',
               marginRight: '-5px'
             }}
-            onTouchTap={() =>
+            onClick={() =>
               onNavigate({
                 target: {
                   value: {

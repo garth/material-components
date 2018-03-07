@@ -57,7 +57,6 @@ class Application extends Component {
       spinnerPageOpened,
       tablePageOpened,
       typographyPageOpened,
-      responsiveEventsPageOpened,
       localeMenuClosed,
       localeMenuOpened,
       localeSelected,
@@ -95,13 +94,7 @@ class Application extends Component {
             { page: 'spinner', icon: 'sync', title: 'Spinner', signal: spinnerPageOpened },
             { page: 'table', icon: 'reorder', title: 'Table', signal: tablePageOpened },
             { page: 'typography', icon: 'format_size', title: 'Typography', signal: typographyPageOpened },
-            { separator: true },
-            {
-              icon: 'devices',
-              page: 'responsiveEvents',
-              title: 'Responsive Events',
-              signal: responsiveEventsPageOpened
-            }
+            { separator: true }
           ].map((menu, i) => {
             return menu.separator ? (
               <Sidenav.Separator key={i} />
@@ -111,29 +104,29 @@ class Application extends Component {
                 showIcon
                 icon={<Icon name={menu.icon} />}
                 selected={menu.page === currentPage}
-                onTouchTap={() => menu.signal()}>
+                onClick={() => menu.signal()}>
                 {menu.title}
               </Sidenav.Item>
             );
           })}
         </Sidenav>
         <Appbar fixed>
-          <Appbar.Button style={{ float: 'left' }} onTouchTap={() => sidenavOpened()}>
+          <Appbar.Button style={{ float: 'left' }} onClick={() => sidenavOpened()}>
             <Icon name="menu" />
           </Appbar.Button>
           <Appbar.Title>{title}</Appbar.Title>
           <div style={{ float: 'right' }}>
-            <Appbar.Button onTouchTap={() => (location.href = 'https://github.com/garth/material-components')}>
+            <Appbar.Button onClick={() => (location.href = 'https://github.com/garth/material-components')}>
               <Icon name="github" />
             </Appbar.Button>
-            <Appbar.Button onTouchTap={() => localeMenuOpened()}>
+            <Appbar.Button onClick={() => localeMenuOpened()}>
               <Icon name="globe" />
             </Appbar.Button>
             <Menu rightAlign isOpen={showLocaleMenu} onClose={() => localeMenuClosed()}>
-              <Menu.Item showIcon onTouchTap={() => localeSelected({ locale: 'de' })} selected={locale === 'de'}>
+              <Menu.Item showIcon onClick={() => localeSelected({ locale: 'de' })} selected={locale === 'de'}>
                 Deutsch
               </Menu.Item>
-              <Menu.Item showIcon onTouchTap={() => localeSelected({ locale: 'en' })} selected={locale === 'en'}>
+              <Menu.Item showIcon onClick={() => localeSelected({ locale: 'en' })} selected={locale === 'en'}>
                 English
               </Menu.Item>
             </Menu>
@@ -179,7 +172,6 @@ export default connect(
     spinnerPageOpened: signal`spinnerPageOpened`,
     tablePageOpened: signal`tablePageOpened`,
     typographyPageOpened: signal`typographyPageOpened`,
-    responsiveEventsPageOpened: signal`responsiveEventsPageOpened`,
     localeMenuClosed: signal`localeMenuClosed`,
     localeMenuOpened: signal`localeMenuOpened`,
     localeSelected: signal`localeSelected`,

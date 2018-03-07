@@ -11,7 +11,7 @@ class Button extends Component {
     children: PropTypes.node,
     className: PropTypes.string,
     lightWaves: PropTypes.bool,
-    onTouchTap: PropTypes.func,
+    onClick: PropTypes.func,
     style: PropTypes.object
   };
 
@@ -26,7 +26,7 @@ class Button extends Component {
   }
 
   render() {
-    const { children, className, lightWaves, onTouchTap, style } = this.props;
+    const { children, className, lightWaves, onClick, style } = this.props;
 
     return (
       <div
@@ -43,7 +43,7 @@ class Button extends Component {
         )}>
         <a
           ref="button"
-          onTouchTap={onTouchTap}
+          onClick={onClick}
           style={{
             fontSize: '24px',
             height: '48px',

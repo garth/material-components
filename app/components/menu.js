@@ -15,16 +15,16 @@ import { Menu } from 'material-components';
     <Example
       code={`
 <Menu isOpen={showSimpleMenuProp} onClose={hideSimpleMenuFunc}>
-  <Menu.Item onTouchTap={itemClicked}>Simple Menu Item</Menu.Item>
-  <Menu.Item onTouchTap={itemClicked}>Other Option</Menu.Item>
+  <Menu.Item onClick={itemClicked}>Simple Menu Item</Menu.Item>
+  <Menu.Item onClick={itemClicked}>Other Option</Menu.Item>
 </Menu>
 
 <Menu rightAlign isOpen={showMenuProp} onClose={hideMenuFunc}>
-  <Menu.Item showIcon icon={<Icon name="settings"/>} onTouchTap={itemClicked}>Settings</Menu.Item>
-  <Menu.Item showIcon onTouchTap={itemClicked}>No Icon</Menu.Item>
+  <Menu.Item showIcon icon={<Icon name="settings"/>} onClick={itemClicked}>Settings</Menu.Item>
+  <Menu.Item showIcon onClick={itemClicked}>No Icon</Menu.Item>
   <Menu.Separator/>
-  <Menu.Item showIcon selected={selectedOption===1} onTouchTap={() => setSelectedOption(1)}>Option 1</Menu.Item>
-  <Menu.Item showIcon selected={selectedOption===2} onTouchTap={() => setSelectedOption(2)}>Option 2</Menu.Item>
+  <Menu.Item showIcon selected={selectedOption===1} onClick={() => setSelectedOption(1)}>Option 1</Menu.Item>
+  <Menu.Item showIcon selected={selectedOption===2} onClick={() => setSelectedOption(2)}>Option 2</Menu.Item>
 </Menu>
         `}
     />
@@ -33,11 +33,11 @@ import { Menu } from 'material-components';
         <Menu.Item>Simple Menu Item</Menu.Item>
         <Menu.Item>Other Option</Menu.Item>
       </Menu>
-      <Button style={{ margin: '0' }} primary onTouchTap={() => simpleMenuOpened()}>
+      <Button style={{ margin: '0' }} primary onClick={() => simpleMenuOpened()}>
         Simple Menu
       </Button>
 
-      <Button style={{ margin: '0 16px' }} primary onTouchTap={() => menuOpened()}>
+      <Button style={{ margin: '0 16px' }} primary onClick={() => menuOpened()}>
         Menu
       </Button>
       <Menu rightAlign isOpen={menu.showMenu} onClose={() => menuClosed()}>
@@ -46,10 +46,10 @@ import { Menu } from 'material-components';
         </Menu.Item>
         <Menu.Item showIcon>No Icon</Menu.Item>
         <Menu.Separator />
-        <Menu.Item showIcon selected={menu.selectedOption === 1} onTouchTap={() => selectMenuOption({ value: 1 })}>
+        <Menu.Item showIcon selected={menu.selectedOption === 1} onClick={() => selectMenuOption({ value: 1 })}>
           Option 1
         </Menu.Item>
-        <Menu.Item showIcon selected={menu.selectedOption === 2} onTouchTap={() => selectMenuOption({ value: 2 })}>
+        <Menu.Item showIcon selected={menu.selectedOption === 2} onClick={() => selectMenuOption({ value: 2 })}>
           Option 2
         </Menu.Item>
       </Menu>

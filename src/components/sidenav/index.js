@@ -66,7 +66,7 @@ class Sidenav extends Component {
         {isOpen ? (
           <CSSTransition key="sidenav" classNames="sidenav" timeout={{ enter: 400, exit: 400 }}>
             <div>
-              <Mask onTouchTap={() => this.onClose()} />
+              <Mask onClick={() => this.onClose()} />
               <div
                 className={classNames('sidenav', 'paper2', className)}
                 style={Object.assign(

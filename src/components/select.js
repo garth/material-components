@@ -68,7 +68,7 @@ class Select extends Component {
         <Menu.Item
           className={classNames({ selected: isSelected })}
           key={option.key || option.label}
-          onTouchTap={() => onChange({ target: option })}>
+          onClick={() => onChange({ target: option })}>
           {option.label}
         </Menu.Item>
       );

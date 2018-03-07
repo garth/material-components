@@ -13,7 +13,7 @@ class Item extends Component {
     children: PropTypes.node,
     className: PropTypes.string,
     icon: PropTypes.node,
-    onTouchTap: PropTypes.func,
+    onClick: PropTypes.func,
     selected: PropTypes.bool,
     showIcon: PropTypes.bool,
     style: PropTypes.object
@@ -26,12 +26,12 @@ class Item extends Component {
 
   render() {
     const { primaryColor, typographyColor } = this.context.componentStyle;
-    const { children, className, icon, onTouchTap, selected, showIcon, style } = this.props;
+    const { children, className, icon, onClick, selected, showIcon, style } = this.props;
 
     return (
       <MenuItem
         icon={icon}
-        onTouchTap={onTouchTap}
+        onClick={onClick}
         selected={false}
         showIcon={showIcon}
         className={className}

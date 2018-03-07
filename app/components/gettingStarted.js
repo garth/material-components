@@ -4,19 +4,6 @@ import Example from './example';
 export default () => (
   <div>
     <p>
-      material-components is dependent on the <code>react-tap-event-plugin</code>, so be sure to add the following in
-      your main.js:
-    </p>
-
-    <Example
-      code={`
-// support tap events
-import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin();
-        `}
-    />
-
-    <p>
       Some styles and transitions are defined in css and must be included in your project. With webpack simply use the{' '}
       <code>css-loader</code> plugin and include the following line in your main.js:
     </p>

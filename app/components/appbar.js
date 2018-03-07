@@ -15,7 +15,7 @@ import { Appbar } from 'material-components';
   <Appbar.Title>Material Components</Appbar.Title>
   <div style={{ float: 'right' }}>
     <Appbar.Button
-      onTouchTap={() => location.href='https://github.com/garth/material-components'}>
+      onClick={() => location.href='https://github.com/garth/material-components'}>
       <Icon name="github"/>
     </Appbar.Button>
     <Appbar.Button><Icon name="more_vert"/></Appbar.Button>

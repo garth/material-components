@@ -32,7 +32,7 @@ import { Table } from 'material-components';
       { firstName: 'Geoff', lastName: 'Hayes', role: 'user' },
       { firstName: 'John', lastName: 'Doe', role: 'admin' }
     ].map((user, index) => (
-      <Table.Row key={index} onTouchTap={select(user)}>
+      <Table.Row key={index} onClick={select(user)}>
         <td>{user.firstName}</td>
         <td>{user.lastName}</td>
         <td>{user.role}</td>
@@ -45,7 +45,7 @@ import { Table } from 'material-components';
     <Table style={{ margin: '24px 0' }} className="paper1">
       <thead>
         <Table.Toolbar colSpan={3}>
-          <Button style={{ margin: '0 8px', padding: '0 8px' }} primary flat onTouchTap={() => {}}>
+          <Button style={{ margin: '0 8px', padding: '0 8px' }} primary flat onClick={() => {}}>
             Add
           </Button>
         </Table.Toolbar>
@@ -61,7 +61,7 @@ import { Table } from 'material-components';
           { firstName: 'Geoff', lastName: 'Hayes', role: 'user' },
           { firstName: 'John', lastName: 'Doe', role: 'admin' }
         ].map((user, index) => (
-          <Table.Row key={index} onTouchTap={() => console.log('clicked', user)}>
+          <Table.Row key={index} onClick={() => console.log('clicked', user)}>
             <td>{user.firstName}</td>
             <td>{user.lastName}</td>
             <td>{user.role}</td>

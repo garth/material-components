@@ -20,7 +20,6 @@ export default Router({
     { path: '/table', signal: 'tablePageOpened' },
     { path: '/spinner', signal: 'spinnerPageOpened' },
     { path: '/calendar', signal: 'calendarPageOpened' },
-    { path: '/responsiveEvents', signal: 'responsiveEventsPageOpened' },
     { path: '*', signal: 'notFoundPageOpened' }
   ],
   onlyHash: true,

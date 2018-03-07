@@ -15,7 +15,7 @@ class Item extends Component {
     children: PropTypes.node,
     className: PropTypes.string,
     icon: PropTypes.node,
-    onTouchTap: PropTypes.func,
+    onClick: PropTypes.func,
     selected: PropTypes.bool,
     showIcon: PropTypes.bool,
     style: PropTypes.object
@@ -30,12 +30,12 @@ class Item extends Component {
     Waves.attach(ReactDOM.findDOMNode(this));
   }
 
-  onTouchTap() {
+  onClick() {
     if (typeof this.context.closeMenuHandler === 'function') {
       this.context.closeMenuHandler();
     }
-    if (typeof this.props.onTouchTap === 'function') {
-      this.props.onTouchTap();
+    if (typeof this.props.onClick === 'function') {
+      this.props.onClick();
     }
   }
 
@@ -86,7 +86,7 @@ class Item extends Component {
           },
           style
         )}
-        onTouchTap={() => this.onTouchTap()}>
+        onClick={() => this.onClick()}>
         {iconContainer}
         <div
           style={{

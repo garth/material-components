@@ -110,7 +110,7 @@ class Menu extends Component {
           style={{
             zIndex: 1000
           }}>
-          <Mask dark={false} onTouchTap={() => this.onClose()} />
+          <Mask dark={false} onClick={() => this.onClose()} />
           <div
             ref="menu"
             className={classNames('transition', 'paper1', className)}
