@@ -1,17 +1,17 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import Waves from '../helpers/waves';
 
 class Button extends Component {
-
   static displayName = 'AppbarButton';
 
   static propTypes = {
     children: PropTypes.node,
     className: PropTypes.string,
     lightWaves: PropTypes.bool,
-    onTouchTap: PropTypes.func,
+    onClick: PropTypes.func,
     style: PropTypes.object
   };
 
@@ -26,27 +26,24 @@ class Button extends Component {
   }
 
   render() {
-    const {
-      children,
-      className,
-      lightWaves,
-      onTouchTap,
-      style
-    } = this.props;
+    const { children, className, lightWaves, onClick, style } = this.props;
 
     return (
       <div
         className={className}
-        style={Object.assign({
-          height: '48px',
-          width: '48px',
-          display: 'inline-block',
-          margin: '-8px 0',
-          backgroundColor: 'transparent'
-        }, style)}>
+        style={Object.assign(
+          {
+            height: '48px',
+            width: '48px',
+            display: 'inline-block',
+            margin: '-8px 0',
+            backgroundColor: 'transparent'
+          },
+          style
+        )}>
         <a
-          ref='button'
-          onTouchTap={onTouchTap}
+          ref="button"
+          onClick={onClick}
           style={{
             fontSize: '24px',
             height: '48px',

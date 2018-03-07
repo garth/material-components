@@ -1,15 +1,20 @@
 {
   "name": "material-components",
-  "version": "0.3.0",
+  "version": "0.5.0",
   "description": "Stateless UI components for react that follow material design",
   "main": "lib/index.js",
   "scripts": {
     "lint": "eslint src app test",
-    "start": "parallelshell 'babel src --watch --out-dir lib' 'watch --wait=1 \"eslint src app test && mocha --compilers js:babel/register --recursive --reporter dot\" src app test' 'node-sass --watch src/index.scss lib/index.css' 'webpack-dev-server'",
+    "start:lib": "babel src --watch --out-dir lib",
+    "start:test": "watch --wait=1 \"eslint src app test && mocha --compilers js:babel/register --recursive --reporter dot\" src app test",
+    "start:css": "node-sass --watch src/index.scss lib/index.css",
+    "start:server": "webpack-dev-server",
+    "start": "npm-run-all --parallel start:*",
     "prebuild": "npm run lint && rimraf lib && rimraf build",
     "build": "babel src --out-dir lib && node-sass src/index.scss lib/index.css && webpack --config webpack.config.js",
     "pretest": "npm run lint",
-    "test": "mocha --compilers js:babel/register --recursive"
+    "test": "mocha --compilers js:babel/register --recursive",
+    "fix": "prettier --write \"app/**/*.js\" \"app/**/*.scss\" \"src/**/*.js\" \"src/**/*.scss\""
   },
   "repository": {
     "type": "git",
@@ -43,36 +48,41 @@
     "url": "https://github.com/garth/material-components/issues"
   },
   "homepage": "https://github.com/garth/material-components#readme",
+  "prettier": {
+    "printWidth": 120,
+    "tabWidth": 2,
+    "semi": true,
+    "singleQuote": true,
+    "jsxBracketSameLine": true
+  },
   "dependencies": {
+    "classnames": "^2.2.0",
     "exenv": "^1.2.0",
-    "node-waves": "^0.7.4"
+    "node-waves": "^0.7.4",
+    "prop-types": "^15.6.1",
+    "react-transition-group": "^2.2.1"
   },
   "devDependencies": {
+    "@cerebral/react": "^3.1.1",
+    "@cerebral/router": "^3.1.1",
     "babel": "^5.8.29",
     "babel-core": "^5.8.29",
     "babel-eslint": "^4.1.4",
     "babel-loader": "^5.4.0",
-    "baobab": "^2.1.0",
     "bootstrap-sass": "^3.3.5",
-    "cerebral": "^0.25.1",
-    "cerebral-baobab": "^0.4.2",
-    "cerebral-react": "^0.6.0",
-    "cerebral-router": "^0.7.1",
-    "chai": "^3.4.1",
-    "classnames": "^2.2.0",
+    "cerebral": "^4.1.1",
+    "chai": "^4.1.2",
     "css-loader": "^0.23.0",
     "eslint": "^1.10.1",
     "eslint-plugin-react": "^3.10.0",
-    "mocha": "^2.3.4",
-    "moment": "^2.10.6",
-    "node-sass": "^3.4.2",
-    "normalize.css": "^3.0.3",
-    "parallelshell": "^2.0.0",
-    "path-to-regexp": "^1.2.1",
-    "react": "^15.0.1",
-    "react-addons-css-transition-group": "^15.0.1",
-    "react-dom": "^15.0.1",
-    "react-tap-event-plugin": "^1.0.0",
+    "mocha": "^5.0.3",
+    "moment": "^2.21.0",
+    "node-sass": "^4.7.2",
+    "normalize.css": "^8.0.0",
+    "npm-run-all": "^4.1.2",
+    "prettier": "^1.11.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
     "rimraf": "^2.4.4",
     "style-loader": "^0.13.0",
     "watch": "^0.16.0",
@@ -80,11 +90,8 @@
     "webpack-dev-server": "^1.12.1"
   },
   "peerDependencies": {
-    "classnames": "^2.2.0",
     "moment": "^2.10.6",
-    "react": "^15.0.0",
-    "react-addons-css-transition-group": "^15.0.0",
-    "react-dom": "^15.0.0",
-    "react-tap-event-plugin": "^1.0.0"
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
   }
 }

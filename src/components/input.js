@@ -1,13 +1,13 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 
 class Input extends Component {
-
   static displayName = 'Input';
 
   static contextTypes = {
-    componentStyle: React.PropTypes.object
+    componentStyle: PropTypes.object
   };
 
   static propTypes = {
@@ -39,11 +39,7 @@ class Input extends Component {
   };
 
   render() {
-    const {
-      secondaryColor,
-      errorColor,
-      successColor
-    } = this.context.componentStyle;
+    const { secondaryColor, errorColor, successColor } = this.context.componentStyle;
     const {
       className,
       inputStyle,
@@ -61,9 +57,7 @@ class Input extends Component {
     } = this.props;
 
     return (
-      <div
-        className={classNames('input-group', className)}
-        style={style}>
+      <div className={classNames('input-group', className)} style={style}>
         <input
           onClick={onClick}
           onFocus={e => {
@@ -72,23 +66,23 @@ class Input extends Component {
               onFocus(e);
             }
           }}
-          onBlur={() => ReactDOM.findDOMNode(this.refs.label).style.color = 'inherit'}
+          onBlur={() => (ReactDOM.findDOMNode(this.refs.label).style.color = 'inherit')}
           type={type}
           className={classNames('paper-divider', { used: value && value.length })}
           style={inputStyle}
           value={value}
           onChange={onChange}
           readOnly={readOnly}
-          required/>
+          required
+        />
         <span
           className={classNames('bar', { open: isError || isSuccess })}
           style={{
             backgroundColor: isError ? errorColor : isSuccess ? successColor : secondaryColor
-          }}/>
+          }}
+        />
         <label>
-          <span ref="label">
-            {label}
-          </span>
+          <span ref="label">{label}</span>
         </label>
         <div
           className="info"

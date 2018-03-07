@@ -4,29 +4,30 @@ $red: #d62d20;
 $yellow: #ffa700;
 $white: #eee;
 
-@keyframes spinner-rotate{
+@keyframes spinner-rotate {
   100% {
     transform: rotate(360deg);
   }
 }
 
-@keyframes spinner-dash{
-  0%{
-    stroke-dasharray: 1,400;
+@keyframes spinner-dash {
+  0% {
+    stroke-dasharray: 1, 400;
     stroke-dashoffset: 0;
   }
-  50%{
-    stroke-dasharray: 211,400;
+  50% {
+    stroke-dasharray: 211, 400;
     stroke-dashoffset: -82;
   }
-  100%{
-    stroke-dasharray: 211,400;
+  100% {
+    stroke-dasharray: 211, 400;
     stroke-dashoffset: -294;
   }
 }
 
-@keyframes spinner-color{
-  100%, 0% {
+@keyframes spinner-color {
+  100%,
+  0% {
     stroke: $red;
   }
   40% {
@@ -35,7 +36,8 @@ $white: #eee;
   66% {
     stroke: $green;
   }
-  80%, 90% {
+  80%,
+  90% {
     stroke: $yellow;
   }
 }

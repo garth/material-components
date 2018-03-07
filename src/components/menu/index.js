@@ -1,6 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
 import Mask from '../mask';
 import Item from './item';
@@ -8,7 +9,6 @@ import Separator from './separator';
 import screen from '../helpers/screen';
 
 class Menu extends Component {
-
   static displayName = 'Menu';
 
   static propTypes = {
@@ -49,7 +49,7 @@ class Menu extends Component {
       const screenHeight = screen.getSize().height;
       const { top, bottom } = menuElement.getBoundingClientRect();
       const originalHeight = bottom - top;
-      const minHeight = (32 * 8) + 20;
+      const minHeight = 32 * 8 + 20;
 
       let offsetTop = top < 6 ? Math.ceil((top - 16) / -32) * 32 : 0;
       let offsetBottom = bottom > screenHeight - 6 ? Math.ceil((bottom - screenHeight + 16) / 32) * 32 : 0;
@@ -69,11 +69,14 @@ class Menu extends Component {
   componentDidMount() {
     this.checkBounds();
     // close the options when resizing the window
-    window.addEventListener('resize', this._resize = () => {
-      if (this.props.isOpen) {
-        this.onClose();
-      }
-    });
+    window.addEventListener(
+      'resize',
+      (this._resize = () => {
+        if (this.props.isOpen) {
+          this.onClose();
+        }
+      })
+    );
   }
 
   componentDidUpdate() {
@@ -85,13 +88,7 @@ class Menu extends Component {
   }
 
   render() {
-    const {
-      children,
-      className,
-      isOpen,
-      rightAlign,
-      style
-    } = this.props;
+    const { children, className, isOpen, rightAlign, style } = this.props;
 
     let menuStyle = {
       zIndex: 1001,
@@ -108,33 +105,31 @@ class Menu extends Component {
     }
 
     let menu = isOpen ? (
-      <div
-        key="menu"
-        style={{
-          zIndex: 1000
-        }}>
-        <Mask dark={false} onTouchTap={() => this.onClose()}/>
+      <CSSTransition key="menu" classNames="popup" timeout={{ enter: 400, exit: 400 }}>
         <div
-          ref="menu"
-          className={classNames('transition', 'paper1', className)}
-          style={Object.assign(menuStyle, style)}>
-          {children}
+          style={{
+            zIndex: 1000
+          }}>
+          <Mask dark={false} onClick={() => this.onClose()} />
+          <div
+            ref="menu"
+            className={classNames('transition', 'paper1', className)}
+            style={Object.assign(menuStyle, style)}>
+            {children}
+          </div>
         </div>
-      </div>
+      </CSSTransition>
     ) : null;
 
     return (
-      <ReactCSSTransitionGroup
-        transitionEnterTimeout={400}
-        transitionLeaveTimeout={400}
-        transitionName="popup"
+      <TransitionGroup
         style={{
           zIndex: 1000,
           position: 'absolute',
           width: rightAlign ? null : '100%'
         }}>
         {menu}
-      </ReactCSSTransitionGroup>
+      </TransitionGroup>
     );
   }
 }

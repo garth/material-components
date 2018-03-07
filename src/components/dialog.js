@@ -1,5 +1,6 @@
-import React, { Component, PropTypes } from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
 import Mask from './mask';
 import Divider from './divider';
@@ -7,7 +8,6 @@ import Button from './button';
 import screen from './helpers/screen';
 
 export default class Dialog extends Component {
-
   static displayName = 'Dialog';
 
   static propTypes = {
@@ -40,7 +40,7 @@ export default class Dialog extends Component {
 
   componentDidMount() {
     if (!this.props.ignoreResizeEvents) {
-      window.addEventListener('resize', this._resize = () => this.forceUpdate());
+      window.addEventListener('resize', (this._resize = () => this.forceUpdate()));
     }
   }
 
@@ -50,8 +50,10 @@ export default class Dialog extends Component {
     }
   }
 
-  button(label, onTouchTap) {
-    if (!label) { return null; }
+  button(label, onClick) {
+    if (!label) {
+      return null;
+    }
     return (
       <Button
         style={{
@@ -60,7 +62,7 @@ export default class Dialog extends Component {
         }}
         primary={true}
         flat={true}
-        onTouchTap={onTouchTap}>
+        onClick={onClick}>
         {label}
       </Button>
     );
@@ -85,7 +87,7 @@ export default class Dialog extends Component {
 
     const screenSize = screen.getSize();
 
-    let top = (screenSize.height / 2) - (height / 2);
+    let top = screenSize.height / 2 - height / 2;
     top = top < 24 ? 24 : top;
     let maxWidth = width > screenSize.width - 80 ? screenSize.width - 80 : width;
     let left = (screenSize.width - maxWidth) / 2;
@@ -95,13 +97,12 @@ export default class Dialog extends Component {
     let footer = null;
     if (okLabel || cancelLabel) {
       footer = (
-        <div style={{
-          height: '56px',
-          textAlign: 'right'
-        }}>
-          {hideDivider ? null : (
-            <Divider style={{ margin: 0 }}/>
-          )}
+        <div
+          style={{
+            height: '56px',
+            textAlign: 'right'
+          }}>
+          {hideDivider ? null : <Divider style={{ margin: 0 }} />}
           {this.button(cancelLabel, onCancel)}
           {this.button(okLabel, onOk)}
         </div>
@@ -112,54 +113,53 @@ export default class Dialog extends Component {
     let titleElement = null;
     if (title) {
       titleElement = (
-        <div style={{
-          fontSize: '20px',
-          fontWeight: 400,
-          marginBottom: children ? '24px' : 0
-        }}>{title}</div>
+        <div
+          style={{
+            fontSize: '20px',
+            fontWeight: 400,
+            marginBottom: children ? '24px' : 0
+          }}>
+          {title}
+        </div>
       );
       maxContentHeight -= 49;
     }
 
     let dialog = isOpen ? (
-      <div key="dialog" style={{ zIndex: 1000 }}>
-        <Mask/>
-        <div
-          className={classNames('paper2', 'transition', className)}
-          style={Object.assign({
-            position: 'fixed',
-            zIndex: 1001,
-            top: `${top}px`,
-            left: `${left}px`,
-            width: `${maxWidth}px`,
-            maxHeight: `${maxHeight}px`
-          }, style)}>
-          <div style={{ padding: noPadding ? 0 : '24px' }}>
-            {titleElement}
-            <div
-              style={{
-                maxHeight: `${maxContentHeight}px`,
-                overflow: 'auto',
-                margin: '0 -24px',
-                padding: '0 24px'
-              }}>
-              {children}
+      <CSSTransition key="dialog" classNames="popup" timeout={{ enter: 400, exit: 400 }}>
+        <div style={{ zIndex: 1000 }}>
+          <Mask />
+          <div
+            className={classNames('paper2', 'transition', className)}
+            style={Object.assign(
+              {
+                position: 'fixed',
+                zIndex: 1001,
+                top: `${top}px`,
+                left: `${left}px`,
+                width: `${maxWidth}px`,
+                maxHeight: `${maxHeight}px`
+              },
+              style
+            )}>
+            <div style={{ padding: noPadding ? 0 : '24px' }}>
+              {titleElement}
+              <div
+                style={{
+                  maxHeight: `${maxContentHeight}px`,
+                  overflow: 'auto',
+                  margin: '0 -24px',
+                  padding: '0 24px'
+                }}>
+                {children}
+              </div>
             </div>
+            {footer}
           </div>
-          {footer}
         </div>
-      </div>
+      </CSSTransition>
     ) : null;
 
-    return (
-      <ReactCSSTransitionGroup
-        transitionEnterTimeout={400}
-        transitionLeaveTimeout={400}
-        transitionName="popup"
-        style={{ zIndex: 1000 }}>
-        {dialog}
-      </ReactCSSTransitionGroup>
-    );
-
+    return <TransitionGroup style={{ zIndex: 1000 }}>{dialog}</TransitionGroup>;
   }
 }

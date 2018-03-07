@@ -1,23 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Example from './example';
 
-export default class Appbar extends Component {
-
-  static displayName = 'Appbar';
-
-  render() {
-    return (
-      <div>
-        <Example code={`
+export default () => (
+  <div>
+    <Example
+      code={`
 import { Appbar } from 'material-components';
-        `}/>
-        <Example code={`
+        `}
+    />
+    <Example
+      code={`
 <Appbar fixed>
   <Appbar.Button style={{ float: 'left' }}><Icon name="menu"/></Appbar.Button>
   <Appbar.Title>Material Components</Appbar.Title>
   <div style={{ float: 'right' }}>
     <Appbar.Button
-      onTouchTap={() => location.href='https://github.com/garth/material-components'}>
+      onClick={() => location.href='https://github.com/garth/material-components'}>
       <Icon name="github"/>
     </Appbar.Button>
     <Appbar.Button><Icon name="more_vert"/></Appbar.Button>
@@ -27,13 +25,11 @@ import { Appbar } from 'material-components';
     </Menu>
   </div>
 </Appbar>
-        `}/>
-        <p>See the appbar above.</p>
-        <p>
-          When using a darker primary color, try
-          using <code>{'<Appbar.Button lightWaves>X</Appbar.Button>'}</code>
-        </p>
-      </div>
-    );
-  }
-}
+        `}
+    />
+    <p>See the appbar above.</p>
+    <p>
+      When using a darker primary color, try using <code>{'<Appbar.Button lightWaves>X</Appbar.Button>'}</code>
+    </p>
+  </div>
+);

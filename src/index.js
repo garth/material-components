@@ -16,9 +16,5 @@ module.exports = {
   Sidenav: require('./components/sidenav'),
   Spinner: require('./components/spinner'),
   Table: require('./components/table'),
-  Typ: require('./components/typography'),
-
-  events: {
-    responsive: require('./events/responsive')
-  }
+  Typ: require('./components/typography')
 };

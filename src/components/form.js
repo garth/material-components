@@ -1,12 +1,6 @@
 import React from 'react';
 
-export default function Form({
-  children,
-  className = '',
-  onSubmit = null,
-  style = {}
-}) {
-
+export default function Form({ children, className = '', onSubmit = null, style = {} }) {
   return (
     <form
       style={style}
@@ -21,5 +15,4 @@ export default function Form({
       {children}
     </form>
   );
-
 }

@@ -1,21 +1,21 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import Waves from './helpers/waves';
 
 export default class Button extends Component {
-
   static displayName = 'Button';
 
   static contextTypes = {
-    componentStyle: React.PropTypes.object
+    componentStyle: PropTypes.object
   };
 
   static propTypes = {
     children: PropTypes.node,
     className: PropTypes.string,
     flat: PropTypes.bool,
-    onTouchTap: PropTypes.func,
+    onClick: PropTypes.func,
     primary: PropTypes.bool,
     style: PropTypes.object,
     type: PropTypes.string
@@ -34,21 +34,10 @@ export default class Button extends Component {
   }
 
   render() {
-    const {
-      secondaryColor,
-      secondaryFontColor
-    } = this.context.componentStyle;
-    const {
-      children,
-      className,
-      flat,
-      onTouchTap,
-      primary,
-      style: styleOverrides,
-      type
-    } = this.props;
+    const { secondaryColor, secondaryFontColor } = this.context.componentStyle;
+    const { children, className, flat, onClick, primary, style: styleOverrides, type } = this.props;
 
-    const disabled = !onTouchTap && type !== 'submit';
+    const disabled = !onClick && type !== 'submit';
 
     let style = {
       zIndex: 'inherit',
@@ -81,14 +70,12 @@ export default class Button extends Component {
     return (
       <button
         type={type}
-        onTouchTap={onTouchTap}
+        onClick={onClick}
         style={Object.assign(style, styleOverrides)}
-        className={classNames(
-          'waves-button', className, {
-            'waves-float': !flat && onTouchTap,
-            'waves-light': primary && !flat
-          }
-        )}
+        className={classNames('waves-button', className, {
+          'waves-float': !flat && onClick,
+          'waves-light': primary && !flat
+        })}
         disabled={disabled}>
         {children}
       </button>

@@ -1,6 +1,6 @@
 table.m-c {
-
-  th, td {
+  th,
+  td {
     box-shadow: 0 0.5px 0 0 rgba(0, 0, 0, 0.156), 0 1.5px 0 0 rgba(0, 0, 0, 0.055);
     text-align: left;
     padding: 4px 12px;
@@ -26,10 +26,12 @@ table.m-c {
     height: 48px;
   }
 
-  th:first-child, td:first-child {
+  th:first-child,
+  td:first-child {
     padding-left: 24px;
   }
-  th:last-child, td:last-child {
+  th:last-child,
+  td:last-child {
     padding-right: 24px;
   }
 
@@ -38,7 +40,7 @@ table.m-c {
       cursor: pointer;
 
       &:hover {
-        background-color: #EEE;
+        background-color: #eee;
       }
     }
 
@@ -51,5 +53,4 @@ table.m-c {
       box-shadow: none;
     }
   }
-
 }
