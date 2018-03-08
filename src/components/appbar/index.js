@@ -3,6 +3,25 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Button from './button';
 import Title from './title';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  height: 64px;
+`;
+
+const Bar = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: ${props => (props.fixed ? 'fixed' : 'inherit')};
+  width: 100%;
+  z-index: 1;
+  height: 64px;
+  line-height: 32px;
+  padding: 16px 8px;
+  background-color: ${props => props.primaryColor} !important;
+  color: ${props => props.primaryFontColor};
+`;
 
 class Appbar extends Component {
   static displayName = 'Appbar';
@@ -28,30 +47,20 @@ class Appbar extends Component {
     const { children, className, fixed, style } = this.props;
 
     return (
-      <div style={{ height: '64px' }}>
-        <div
-          className={classNames('paper1', className)}
-          style={Object.assign(
-            {
-              position: fixed ? 'fixed' : 'inherit',
-              width: '100%',
-              zIndex: '1',
-              height: '64px',
-              lineHeight: '32px',
-              padding: '16px 8px',
-              backgroundColor: primaryColor,
-              color: primaryFontColor
-            },
-            style
-          )}>
+      <Container>
+        <Bar className={classNames('paper1', className)} {...{ style, primaryColor, primaryFontColor, fixed }}>
           {children}
-        </div>
-      </div>
+        </Bar>
+      </Container>
     );
   }
 }
 
 Appbar.Button = Button;
 Appbar.Title = Title;
+Appbar.Container = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
 
 export default Appbar;

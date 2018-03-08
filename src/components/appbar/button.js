@@ -3,6 +3,23 @@ import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import Waves from '../helpers/waves';
+import styled from 'styled-components';
+
+const StyledButton = styled.div`
+  height: 48px;
+  width: 48px;
+  margin: -8px 0;
+  background-color: transparent;
+`;
+
+const A = styled.a`
+  font-size: 24px;
+  height: 48px !important;
+  width: 48px !important;
+  line-height: 48px !important;
+  display: block;
+  cursor: pointer;
+`;
 
 class Button extends Component {
   static displayName = 'AppbarButton';
@@ -29,34 +46,11 @@ class Button extends Component {
     const { children, className, lightWaves, onClick, style } = this.props;
 
     return (
-      <div
-        className={className}
-        style={Object.assign(
-          {
-            height: '48px',
-            width: '48px',
-            display: 'inline-block',
-            margin: '-8px 0',
-            backgroundColor: 'transparent'
-          },
-          style
-        )}>
-        <a
-          ref="button"
-          onClick={onClick}
-          style={{
-            fontSize: '24px',
-            height: '48px',
-            width: '48px',
-            lineHeight: '48px',
-            display: 'inline-block',
-            margin: '0',
-            cursor: 'pointer'
-          }}
-          className={classNames('waves-circle', { 'waves-light': lightWaves })}>
+      <StyledButton className={className} style={style}>
+        <A ref="button" onClick={onClick} className={classNames('waves-circle', { 'waves-light': lightWaves })}>
           {children}
-        </a>
-      </div>
+        </A>
+      </StyledButton>
     );
   }
 }

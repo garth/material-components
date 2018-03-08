@@ -11,9 +11,11 @@ import { Appbar } from 'material-components';
     <Example
       code={`
 <Appbar fixed>
-  <Appbar.Button style={{ float: 'left' }}><Icon name="menu"/></Appbar.Button>
-  <Appbar.Title>Material Components</Appbar.Title>
-  <div style={{ float: 'right' }}>
+  <Appbar.Container>
+    <Appbar.Button><Icon name="menu"/></Appbar.Button>
+    <Appbar.Title>Material Components</Appbar.Title>
+  </Appbar.Container>
+  <Appbar.Container>
     <Appbar.Button
       onClick={() => location.href='https://github.com/garth/material-components'}>
       <Icon name="github"/>
@@ -23,7 +25,7 @@ import { Appbar } from 'material-components';
       <Menu.Item>Option A</Menu.Item>
       <Menu.Item>Option B</Menu.Item>
     </Menu>
-  </div>
+  </Appbar.Container>
 </Appbar>
         `}
     />

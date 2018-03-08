@@ -10,7 +10,7 @@ export default () => (
 
     <Example
       code={`
-require('material-components/lib/index.css');
+import 'material-components/lib/index.css';
         `}
     />
 
@@ -28,8 +28,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 export default class Application extends Component {
-
-  static displayName = 'Application';
 
   static childContextTypes = {
     componentStyle: PropTypes.object

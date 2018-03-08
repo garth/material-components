@@ -93,8 +93,7 @@ class Application extends Component {
             { page: 'sidenav', icon: 'menu', title: 'Sidenav', signal: sidenavPageOpened },
             { page: 'spinner', icon: 'sync', title: 'Spinner', signal: spinnerPageOpened },
             { page: 'table', icon: 'reorder', title: 'Table', signal: tablePageOpened },
-            { page: 'typography', icon: 'format_size', title: 'Typography', signal: typographyPageOpened },
-            { separator: true }
+            { page: 'typography', icon: 'format_size', title: 'Typography', signal: typographyPageOpened }
           ].map((menu, i) => {
             return menu.separator ? (
               <Sidenav.Separator key={i} />
@@ -111,11 +110,13 @@ class Application extends Component {
           })}
         </Sidenav>
         <Appbar fixed>
-          <Appbar.Button style={{ float: 'left' }} onClick={() => sidenavOpened()}>
-            <Icon name="menu" />
-          </Appbar.Button>
-          <Appbar.Title>{title}</Appbar.Title>
-          <div style={{ float: 'right' }}>
+          <Appbar.Container>
+            <Appbar.Button onClick={() => sidenavOpened()}>
+              <Icon name="menu" />
+            </Appbar.Button>
+            <Appbar.Title>{title}</Appbar.Title>
+          </Appbar.Container>
+          <Appbar.Container>
             <Appbar.Button onClick={() => (location.href = 'https://github.com/garth/material-components')}>
               <Icon name="github" />
             </Appbar.Button>
@@ -130,7 +131,7 @@ class Application extends Component {
                 English
               </Menu.Item>
             </Menu>
-          </div>
+          </Appbar.Container>
         </Appbar>
         <div
           style={{

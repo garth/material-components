@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint src app test",
     "start:lib": "babel src --watch --out-dir lib",
-    "start:test": "watch --wait=1 \"eslint src app test && mocha --compilers js:babel/register --recursive --reporter dot\" src app test",
+    "start:test": "watch --wait=1 \"npm run lint && npm run test -- --reporter dot\" src app test",
     "start:css": "node-sass --watch src/index.scss lib/index.css",
     "start:server": "webpack-dev-server",
     "start": "npm-run-all --parallel start:*",
@@ -60,7 +60,8 @@
     "exenv": "^1.2.0",
     "node-waves": "^0.7.4",
     "prop-types": "^15.6.1",
-    "react-transition-group": "^2.2.1"
+    "react-transition-group": "^2.2.1",
+    "styled-components": "^3.2.1"
   },
   "devDependencies": {
     "@cerebral/react": "^3.1.1",

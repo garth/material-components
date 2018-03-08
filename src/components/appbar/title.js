@@ -1,23 +1,19 @@
 import React from 'react';
+import styled from 'styled-components';
 
-export default function AppbarTitle({ children = null, className = '', style = {} }) {
-  return (
-    <div
-      className={className}
-      style={Object.assign(
-        {
-          fontSize: '31.5px',
-          fontWeight: 'normal',
-          height: '32px',
-          lineHeight: '32px',
-          whiteSpace: 'nowrap',
-          paddingLeft: '8px',
-          display: 'inline-block',
-          float: 'left'
-        },
-        style
-      )}>
-      {children}
-    </div>
-  );
-}
+const Title = styled.div`
+  font-size: 31.5px;
+  font-weight: normal;
+  height: 32px;
+  line-height: 32px;
+  white-space: nowrap;
+  padding-left: 8px;
+`;
+
+const AppbarTitle = ({ children = null, className = '', style = {} }) => (
+  <Title className={className} style={style}>
+    {children}
+  </Title>
+);
+
+export default AppbarTitle;
